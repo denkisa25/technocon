@@ -1396,12 +1396,22 @@ const PROJECTS_STATIC = {
 let currentLang = 'en';
 let CMS_PROJECTS = Object.assign({}, PROJECTS_STATIC); // start with static, override from API
 
+// Derive base path so API calls work at / or /temp/ or any subpath
+const API_BASE = (function() {
+  var segs = window.location.pathname.split('/').filter(Boolean);
+  // Find the segment that contains our known filenames or is the app root
+  // Strategy: strip the last segment if it ends in .html, then use what remains
+  if (segs.length && segs[segs.length-1].indexOf('.') !== -1) segs.pop();
+  // If the remaining path has segments, those are the base (e.g. ["temp"])
+  return segs.length ? '/' + segs.join('/') : '';
+})();
+
 // ── Fetch & apply CMS content for a given language
 async function fetchCMS(lang) {
   try {
     const [cRes, pRes] = await Promise.all([
-      fetch(`/api/content?lang=${lang}`),
-      fetch(`/api/projects?lang=${lang}`)
+      fetch(API_BASE + `/api/content?lang=${lang}`),
+      fetch(API_BASE + `/api/projects?lang=${lang}`)
     ]);
     if (!cRes.ok || !pRes.ok) throw new Error('API unavailable');
     const content  = await cRes.json();

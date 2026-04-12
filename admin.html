@@ -219,7 +219,7 @@ const CONTENT_GROUPS = [
 
 // ── Init ─────────────────────────────────────────────────────────────
 (async () => {
-  const r = await fetch('/api/auth/me').catch(() => ({ ok: false }));
+  const r = await fetch(BASE + '/api/auth/me').catch(() => ({ ok: false }));
   if (!r.ok) { showLogin(); return; }
   const d = await r.json();
   if (d.ok) showDashboard(d.username);
@@ -459,7 +459,7 @@ async function uploadImages() {
   if (!input.files.length) return;
   const fd = new FormData();
   [...input.files].forEach(f => fd.append('images', f));
-  const r = await fetch(`/api/projects/${editProjectId}/images`, { method:'POST', body: fd });
+  const r = await fetch(BASE + `/api/projects/${editProjectId}/images`, { method:'POST', body: fd });
   const d = await r.json();
   if (d.ok) {
     toast(`${d.count} image${d.count>1?'s':''} uploaded`);
@@ -514,13 +514,20 @@ async function changePassword() {
 }
 
 // ── Utilities ─────────────────────────────────────────────────────────
+// Derive base path so API calls work whether the app is at / or /temp/ or any subpath
+const BASE = (function() {
+  var p = window.location.pathname; // e.g. "/temp/admin" or "/admin"
+  var i = p.indexOf('/admin');
+  return i > 0 ? p.slice(0, i) : ''; // "/temp" or ""
+})();
+
 async function api(method, url, body) {
   try {
     const opts = { method, headers:{ 'Content-Type':'application/json' } };
     if (body) opts.body = JSON.stringify(body);
-    const r = await fetch(url, opts);
+    const r = await fetch(BASE + url, opts);
     return r.json();
-  } catch { return { error: 'Network error' }; }
+  } catch(e) { return { error: 'Network error' }; }
 }
 
 function toast(msg, type = 'success') {
