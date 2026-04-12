@@ -469,24 +469,52 @@ a.hdr-icon-btn{text-decoration:none}
 }
 .strength-p{font-size:.88rem;color:var(--grey2);font-weight:400;line-height:1.6}
 
-.partners-strip{
+/* ─── PARTNERS MARQUEE ─────────────────────────────── */
+.partners-wrap{
   margin-top:3rem;padding-top:2.5rem;
   border-top:1px solid var(--border);
-  display:flex;align-items:center;gap:2rem;flex-wrap:wrap;
 }
 .partners-lbl{
   font-family:'Barlow Condensed',sans-serif;
   font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
   color:var(--grey1);white-space:nowrap;
+  display:block;text-align:center;margin-bottom:2rem;
 }
-.partners-div{width:1px;height:32px;background:var(--border)}
-.partners-names{display:flex;gap:2rem;flex-wrap:wrap;align-items:center}
-.partner{
+.partners-marquee-outer{
+  position:relative;overflow:hidden;
+}
+.partners-marquee-outer::before,
+.partners-marquee-outer::after{
+  content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;
+}
+.partners-marquee-outer::before{left:0;background:linear-gradient(to right,#ffffff,transparent)}
+.partners-marquee-outer::after{right:0;background:linear-gradient(to left,#ffffff,transparent)}
+.partners-marquee-track{
+  display:flex;align-items:center;
+  width:max-content;
+  animation:marquee 22s linear infinite;
+}
+.partners-marquee-track:hover{animation-play-state:paused}
+@keyframes marquee{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+.partner-item{
+  display:flex;align-items:center;gap:.75rem;
+  padding:0 3rem;
+  white-space:nowrap;
+}
+.partner-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--amber);flex-shrink:0;opacity:.6;
+}
+.partner-name{
   font-family:'Barlow Condensed',sans-serif;
-  font-size:1rem;font-weight:700;letter-spacing:.08em;
+  font-size:1.1rem;font-weight:700;letter-spacing:.1em;
   text-transform:uppercase;color:var(--grey1);
-  cursor:default;transition:color .2s;
+  transition:color .2s;
 }
+.partner-item:hover .partner-name{color:var(--amber)}
 .partner:hover{color:var(--black)}
 
 /* ─── PROJECTS ─────────────────────────────── */
@@ -1062,14 +1090,29 @@ footer{
 
     <!-- Partners -->
     <div style="grid-column:1/-1">
-      <div class="partners-strip reveal">
+      <div class="partners-wrap reveal">
         <span class="partners-lbl">Strategic Partners</span>
-        <div class="partners-div"></div>
-        <div class="partners-names">
-          <span class="partner">Vemak</span>
-          <span class="partner">Arkad S.p.A.</span>
-          <span class="partner">Sicilsaldo Group</span>
-          <span class="partner">Camel Oil Tanzania</span>
+        <div class="partners-marquee-outer">
+          <div class="partners-marquee-track" id="partnersTrack">
+            <!-- Set 1 -->
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Vemak</span></div>
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Arkad S.p.A.</span></div>
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Sicilsaldo Group</span></div>
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Camel Oil Tanzania</span></div>
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Bulgartransgaz</span></div>
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Eesti Energia</span></div>
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Glavbolgarstroy</span></div>
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">ADNOC</span></div>
+            <!-- Set 2 — duplicate for seamless loop -->
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Vemak</span></div>
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Arkad S.p.A.</span></div>
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Sicilsaldo Group</span></div>
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Camel Oil Tanzania</span></div>
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Bulgartransgaz</span></div>
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Eesti Energia</span></div>
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Glavbolgarstroy</span></div>
+            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">ADNOC</span></div>
+          </div>
         </div>
       </div>
     </div>
