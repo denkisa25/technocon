@@ -171,6 +171,22 @@ const requireAdmin = function(req, res, next) {
   res.status(401).json({ error: 'Unauthorized' });
 };
 
+// ── Subdirectory prefix stripping ──────────────────────────────────────
+// When hosted at e.g. /temp/, Passenger may forward the full path
+// (/temp/admin, /temp/api/...) instead of stripping the prefix.
+// This middleware strips any leading segment that isn't a known app route.
+var KNOWN_PREFIXES = ['api', 'uploads', 'brand_assets', 'admin'];
+app.use(function(req, res, next) {
+  var parts = req.path.split('/').filter(Boolean);
+  if (parts.length > 0 && KNOWN_PREFIXES.indexOf(parts[0]) === -1) {
+    // Unknown first segment — treat it as a subpath prefix and strip it
+    var stripped = '/' + parts.slice(1).join('/');
+    req.url = (stripped === '/' ? '/' : stripped) +
+              (req.url.indexOf('?') !== -1 ? req.url.slice(req.url.indexOf('?')) : '');
+  }
+  next();
+});
+
 // ── Static ─────────────────────────────────────────────────────────────
 app.use('/uploads',      express.static(path.join(ROOT, 'uploads')));
 app.use('/brand_assets', express.static(path.join(ROOT, 'brand_assets')));
