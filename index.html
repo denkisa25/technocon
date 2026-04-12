@@ -1340,9 +1340,61 @@ langBtn.addEventListener('click', (e) => {
 document.addEventListener('click', () => langDrop.classList.remove('open'));
 langDrop.addEventListener('click', (e) => e.stopPropagation());
 
+// ── Static project data — used as fallback when API is unavailable
+const PROJECTS_STATIC = {
+  checkpoint: {
+    badge:'ongoing', status:'Ongoing',
+    title:'Border Checkpoint Reconstruction',
+    imgs:['brand_assets/CHIREN PRES-1.jpeg','brand_assets/CHIREN PRES-3.jpeg','brand_assets/DJI_0005.JPG'],
+    meta:[['Client','Glavbolgarstroy AD'],['Period','Oct 2025 – Present'],['Volume','760 t steel structures'],['Location','Bulgaria']],
+    desc:'Strategic infrastructure modernisation of a border checkpoint, with high coordination and execution requirements. Full multi-discipline scope from engineering through construction.',
+    scope:['Detail design','Raw material procurement','Engineering','Steel structures manufacturing','Galvanization','Quality control','Tracking & expediting','Construction works']
+  },
+  balkan: {
+    badge:'completed', status:'Completed',
+    title:'Bulgarian Gas Pipeline Extension — Balkan Stream',
+    imgs:['brand_assets/DJI_0012.JPG','brand_assets/DJI_0005.JPG','brand_assets/CHIREN PRES-2.jpeg'],
+    meta:[['Client','Bulgartransgaz EAD'],['Period','2019–2021 + O&M ongoing'],['Route','Turkish–Serbian border'],['Location','Bulgaria']],
+    desc:'Gas transmission pipeline across Bulgaria (Balkan Stream) — Turkish to Serbian border — including related facilities and commissioning. Currently under ongoing maintenance and operational support.',
+    scope:['Materials & equipment supply','Line pipes incl. GRP insulation','Engineering support','Technical coordination','As-built documentation','Testing & commissioning','Start-up assistance','Ongoing O&M support']
+  },
+  enefit: {
+    badge:'completed', status:'Completed',
+    title:'Enefit-280 Construction — Narva Oil Plant',
+    imgs:['brand_assets/CHIREN PRES-2.jpeg','brand_assets/CHIREN PRES-1.jpeg','brand_assets/CHIREN PRES-3.jpeg'],
+    meta:[['Client','Eesti Energia'],['Period','2023–2025'],['Contract Value','~EUR 11M'],['Location','Narva, Estonia']],
+    desc:'Construction of an oil shale processing plant including the condensation block. Scope: 400 t equipment & steel structures, 360 t piping, 50 t stainless steel, 4,300 pipe supports.',
+    scope:['Mechanical installation','Prefabrication','Painting & coating','Welding works','Equipment installation','Electrical works','Automation works','Commissioning assistance']
+  },
+  lozen: {
+    badge:'completed', status:'Completed',
+    title:'Lozen Pig Launcher/Receiver Station Reconstruction',
+    imgs:['brand_assets/CHIREN PRES-3.jpeg','brand_assets/CHIREN PRES-1.jpeg','brand_assets/CHIREN PRES-2.jpeg'],
+    meta:[['Client','Bulgartransgaz EAD'],['Period','Oct 2024 – Nov 2025'],['Contract Value','~EUR 1M'],['Location','Lozen, Bulgaria']],
+    desc:'Full reconstruction of the Lozen Pig Launcher/Receiver Station including access road, fire protection strip, perimeter drainage, and internal site works on the active 48" gas pipeline.',
+    scope:['Access road reconstruction','Embankment & drainage','Slope stabilisation (geogrid)','Fire protection strip','Reno mattress installation','Trench breakers']
+  },
+  chiren: {
+    badge:'completed', status:'Completed',
+    title:'Chiren UGS Expansion — Aboveground Part',
+    imgs:['brand_assets/DJI_0005.JPG','brand_assets/CHIREN PRES-2.jpeg','brand_assets/CHIREN PRES-3.jpeg'],
+    meta:[['Client','Glavbolgarstroy AD'],['Period','Jun – Dec 2024'],['Contract Value','~EUR 1.5M'],['Location','Chiren, Bulgaria']],
+    desc:'Construction of a new aboveground area for Chiren Underground Gas Storage (UGS), including gas injection and withdrawal systems.',
+    scope:['Welding & installation works','Process equipment','Auxiliary network piping','TEG regeneration','Gas drying installation','Compression systems']
+  },
+  adnoc: {
+    badge:'ongoing', status:'Ongoing',
+    title:'ADNOC Procurement Services',
+    imgs:['brand_assets/CHIREN PRES-2.jpeg','brand_assets/CHIREN PRES-1.jpeg','brand_assets/DJI_0012.JPG'],
+    meta:[['Client','ADNOC'],['Status','Ongoing'],['Region','UAE'],['Type','Procurement']],
+    desc:'International procurement services for ADNOC including supply of fire-rated pre-fabricated Store Accommodation Buildings (LGS system) and refurbished ISO-modified container units.',
+    scope:['Fire-rated LGS buildings (12×6m)','20ft storage containers','40ft kitchen/bakery containers','Full fit-out & delivery']
+  }
+};
+
 // ── CMS state
 let currentLang = 'en';
-let CMS_PROJECTS = {}; // keyed by project.key, populated from API
+let CMS_PROJECTS = Object.assign({}, PROJECTS_STATIC); // start with static, override from API
 
 // ── Fetch & apply CMS content for a given language
 async function fetchCMS(lang) {
@@ -1351,6 +1403,7 @@ async function fetchCMS(lang) {
       fetch(`/api/content?lang=${lang}`),
       fetch(`/api/projects?lang=${lang}`)
     ]);
+    if (!cRes.ok || !pRes.ok) throw new Error('API unavailable');
     const content  = await cRes.json();
     const projList = await pRes.json();
 
@@ -1400,7 +1453,7 @@ async function fetchCMS(lang) {
       }
     }
   } catch (err) {
-    // Server unavailable — silently keep the static HTML content
+    // API unavailable (static hosting) — CMS_PROJECTS already has static fallback data
   }
 }
 
