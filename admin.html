@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technocon Admin</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .nav-link { display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:6px;color:#9ca3af;font-size:.875rem;font-weight:500;cursor:pointer;transition:all .15s;margin-bottom:2px;text-decoration:none; }
+  .nav-link:hover { background:rgba(255,255,255,.06);color:#fff; }
+  .nav-link.active { background:rgba(0,137,207,.18);color:#38bdf8; }
+  .nav-link svg { width:16px;height:16px;flex-shrink:0; }
+  .field-row { display:flex;gap:8px;align-items:flex-start; }
+  .field-row input,.field-row textarea { flex:1;padding:8px 12px;border:1px solid #e5e7eb;border-radius:6px;font-size:.875rem;outline:none;transition:border-color .15s; }
+  .field-row input:focus,.field-row textarea:focus { border-color:#0089cf; }
+  .field-row textarea { min-height:80px;resize:vertical; }
+  .save-btn { flex-shrink:0;padding:8px 16px;background:#0089cf;color:#fff;border:none;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:background .15s;white-space:nowrap; }
+  .save-btn:hover { background:#0077b5; }
+  .save-btn.saved { background:#16a34a; }
+  .group-card { background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:24px;margin-bottom:20px; }
+  .group-title { font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6b7280;margin-bottom:16px; }
+  .field-label { font-size:.78rem;color:#374151;font-weight:500;margin-bottom:4px; }
+  .field-wrap { margin-bottom:14px; }
+  .badge { display:inline-block;padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase; }
+  .badge-ongoing { background:#dbeafe;color:#1d4ed8; }
+  .badge-completed { background:#dcfce7;color:#15803d; }
+  .toast { position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:8px;font-size:.875rem;font-weight:500;color:#fff;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9999; }
+  .toast.show { opacity:1; }
+  .toast.success { background:#16a34a; }
+  .toast.error { background:#dc2626; }
+  .img-thumb { position:relative;display:inline-block;margin:4px; }
+  .img-thumb img { width:88px;height:64px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb; }
+  .img-thumb .del { position:absolute;top:-6px;right:-6px;width:20px;height:20px;background:#ef4444;color:#fff;border:none;border-radius:50%;font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700; }
+  .lang-tab { padding:6px 16px;border:1px solid #e5e7eb;border-radius:6px 6px 0 0;border-bottom:none;font-size:.8rem;font-weight:600;cursor:pointer;background:#f9fafb;color:#6b7280; }
+  .lang-tab.active { background:#fff;color:#0089cf;border-color:#0089cf; }
+  .scope-item { display:flex;gap:6px;margin-bottom:6px; }
+  .scope-item input { flex:1;padding:6px 10px;border:1px solid #e5e7eb;border-radius:6px;font-size:.82rem;outline:none; }
+  .scope-item input:focus { border-color:#0089cf; }
+  .scope-item button { padding:6px 10px;background:#fee2e2;color:#dc2626;border:none;border-radius:6px;cursor:pointer;font-size:.82rem;font-weight:700; }
+</style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<!-- ── Login ──────────────────────────────────────────────────────── -->
+<div id="loginPage" class="min-h-screen flex items-center justify-center bg-gray-900">
+  <div class="bg-white rounded-2xl shadow-2xl p-10 w-full max-w-sm">
+    <img src="brand_assets/technocon_logo_white_back.png" alt="Technocon" class="w-36 mx-auto mb-8 rounded">
+    <h1 class="text-xl font-bold text-center text-gray-800 mb-6">Admin Panel</h1>
+    <form id="loginForm">
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-600 mb-1">Username</label>
+        <input id="loginUser" type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:border-blue-500" autocomplete="username">
+      </div>
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-600 mb-1">Password</label>
+        <input id="loginPass" type="password" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:border-blue-500" autocomplete="current-password">
+      </div>
+      <button type="submit" class="w-full bg-[#0089cf] text-white font-semibold py-2.5 rounded-lg hover:bg-[#0077b5] transition-colors">Sign In</button>
+      <p id="loginErr" class="text-red-500 text-sm mt-3 text-center hidden"></p>
+    </form>
+  </div>
+</div>
+
+<!-- ── Dashboard ──────────────────────────────────────────────────── -->
+<div id="dashboard" class="hidden h-screen flex overflow-hidden">
+  <!-- Sidebar -->
+  <aside class="w-56 bg-gray-900 flex flex-col flex-shrink-0 overflow-y-auto">
+    <div class="p-4 border-b border-gray-700/50">
+      <img src="brand_assets/technocon_logo_white_back.png" alt="Technocon" class="w-28 rounded">
+    </div>
+    <nav class="flex-1 p-3 pt-4">
+      <a class="nav-link active" onclick="showSection('content')" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Content
+      </a>
+      <a class="nav-link" onclick="showSection('projects')" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Projects
+      </a>
+      <a class="nav-link" onclick="showSection('settings')" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="p-4 border-t border-gray-700/50">
+      <p class="text-gray-400 text-xs mb-2">Logged in as</p>
+      <p id="adminUsername" class="text-white text-sm font-semibold mb-3"></p>
+      <button onclick="logout()" class="text-gray-400 hover:text-white text-xs transition-colors flex items-center gap-1">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Log out
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="flex-1 overflow-auto bg-gray-50">
+
+    <!-- Content Section -->
+    <div id="sec-content" class="section-panel p-8 max-w-3xl">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">Edit Content</h1>
+          <p class="text-gray-500 text-sm mt-1">Changes save immediately per field.</p>
+        </div>
+        <div class="flex gap-2 bg-white border border-gray-200 rounded-lg p-1">
+          <button onclick="setContentLang('en',this)" class="lang-tab active" id="ctab-en">🇬🇧 EN</button>
+          <button onclick="setContentLang('bg',this)" class="lang-tab" id="ctab-bg">🇧🇬 BG</button>
+        </div>
+      </div>
+      <div id="contentGroups"></div>
+    </div>
+
+    <!-- Projects Section -->
+    <div id="sec-projects" class="section-panel hidden p-8">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">Projects</h1>
+          <p class="text-gray-500 text-sm mt-1">Manage projects and their images.</p>
+        </div>
+        <button onclick="openProjectModal()" class="flex items-center gap-2 bg-[#0089cf] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#0077b5] transition-colors">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Project
+        </button>
+      </div>
+      <div id="projectsList" class="space-y-3"></div>
+    </div>
+
+    <!-- Settings Section -->
+    <div id="sec-settings" class="section-panel hidden p-8 max-w-lg">
+      <h1 class="text-2xl font-bold text-gray-900 mb-8">Settings</h1>
+      <div class="group-card">
+        <p class="group-title">Change Password</p>
+        <div class="field-wrap">
+          <p class="field-label">Current Password</p>
+          <input id="pwCurrent" type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm">
+        </div>
+        <div class="field-wrap">
+          <p class="field-label">New Password</p>
+          <input id="pwNew" type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm">
+        </div>
+        <div class="field-wrap">
+          <p class="field-label">Confirm New Password</p>
+          <input id="pwConfirm" type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm">
+        </div>
+        <button onclick="changePassword()" class="bg-[#0089cf] text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-[#0077b5] transition-colors">Update Password</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ── Project Modal ────────────────────────────────────────────────── -->
+<div id="projectModal" class="hidden fixed inset-0 bg-black/50 flex items-start justify-center z-50 p-4 overflow-y-auto">
+  <div class="bg-white rounded-2xl w-full max-w-2xl my-8 shadow-2xl">
+    <div class="flex items-center justify-between p-6 border-b">
+      <h2 id="modalTitle" class="text-xl font-bold text-gray-900">Add Project</h2>
+      <button onclick="closeProjectModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="p-6">
+      <!-- Status -->
+      <div class="flex gap-4 mb-5">
+        <div class="flex-1">
+          <p class="field-label">Status</p>
+          <select id="mStatus" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm">
+            <option value="completed">Completed</option>
+            <option value="ongoing">Ongoing</option>
+          </select>
+        </div>
+        <div class="flex-1">
+          <p class="field-label">URL Key (auto-generated if empty)</p>
+          <input id="mKey" type="text" placeholder="e.g. my-project" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm">
+        </div>
+      </div>
+      <!-- Language tabs -->
+      <div class="flex gap-1 mb-0 border-b border-gray-200">
+        <button onclick="setModalLang('en',this)" class="lang-tab active" id="mtab-en">🇬🇧 English</button>
+        <button onclick="setModalLang('bg',this)" class="lang-tab" id="mtab-bg">🇧🇬 Български</button>
+      </div>
+      <div id="modalLangFields" class="pt-4"></div>
+      <!-- Images (edit only) -->
+      <div id="modalImages" class="hidden mt-5 pt-5 border-t">
+        <p class="field-label mb-3">Project Images</p>
+        <div id="imgThumbs" class="flex flex-wrap gap-1 mb-3"></div>
+        <label class="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Upload Images
+          <input id="imgUpload" type="file" accept="image/*" multiple class="hidden" onchange="uploadImages()">
+        </label>
+      </div>
+      <div class="flex justify-end gap-3 mt-6 pt-5 border-t">
+        <button onclick="closeProjectModal()" class="px-5 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">Cancel</button>
+        <button onclick="saveProject()" class="px-6 py-2 bg-[#0089cf] text-white rounded-lg text-sm font-semibold hover:bg-[#0077b5] transition-colors">Save Project</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<script>
+// ── State ────────────────────────────────────────────────────────────
+let contentLang   = 'en';
+let modalLang     = 'en';
+let editProjectId = null;
+let allContent    = [];
+let modalData     = { en:{}, bg:{} };
+
+const CONTENT_GROUPS = [
+  { title:'Hero', keys:['hero.tag','hero.subtitle'] },
+  { title:'Statistics', keys:['stat.1.n','stat.1.l','stat.2.n','stat.2.l','stat.3.n','stat.3.l','stat.4.n','stat.4.l'] },
+  { title:'Services', keys:['services.intro'] },
+  { title:'About', keys:['about.text'] },
+  { title:'Contact — Sofia', keys:['contact.address','contact.email1','contact.email2','contact.phone1','contact.phone2','contact.web'] },
+  { title:'Contact — International', keys:['contact.intl.email','contact.intl.phone','contact.intl.person'] },
+];
+
+// ── Init ─────────────────────────────────────────────────────────────
+(async () => {
+  const r = await fetch('/api/auth/me').catch(() => ({ ok: false }));
+  if (!r.ok) { showLogin(); return; }
+  const d = await r.json();
+  if (d.ok) showDashboard(d.username);
+  else showLogin();
+})();
+
+function showLogin()  { document.getElementById('loginPage').classList.remove('hidden'); document.getElementById('dashboard').classList.add('hidden'); }
+function showDashboard(username) {
+  document.getElementById('loginPage').classList.add('hidden');
+  document.getElementById('dashboard').classList.remove('hidden');
+  document.getElementById('adminUsername').textContent = username;
+  loadContent();
+}
+
+// ── Auth ─────────────────────────────────────────────────────────────
+document.getElementById('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const r = await api('POST', '/api/auth/login', { username: document.getElementById('loginUser').value, password: document.getElementById('loginPass').value });
+  if (r.ok) showDashboard(r.username);
+  else { const el = document.getElementById('loginErr'); el.textContent = 'Invalid username or password'; el.classList.remove('hidden'); }
+});
+
+async function logout() {
+  await api('POST', '/api/auth/logout');
+  showLogin();
+}
+
+// ── Navigation ────────────────────────────────────────────────────────
+function showSection(name) {
+  document.querySelectorAll('.section-panel').forEach(p => p.classList.add('hidden'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('sec-' + name).classList.remove('hidden');
+  event.currentTarget.classList.add('active');
+  if (name === 'projects') loadProjects();
+}
+
+// ── Content ───────────────────────────────────────────────────────────
+async function loadContent() {
+  allContent = await api('GET', '/api/content/all');
+  renderContentGroups();
+}
+
+function setContentLang(lang, btn) {
+  contentLang = lang;
+  document.querySelectorAll('.lang-tab').forEach(t => { if (t.id?.startsWith('ctab')) t.classList.remove('active'); });
+  btn.classList.add('active');
+  renderContentGroups();
+}
+
+function getContentValue(key, lang) {
+  const row = allContent.find(r => r.key === key && r.lang === lang);
+  return row ? row.value : '';
+}
+
+function renderContentGroups() {
+  const container = document.getElementById('contentGroups');
+  container.innerHTML = CONTENT_GROUPS.map(group => `
+    <div class="group-card">
+      <p class="group-title">${group.title}</p>
+      ${group.keys.map(key => {
+        const row = allContent.find(r => r.key === key && r.lang === contentLang);
+        if (!row) return '';
+        const isArea = row.type === 'textarea';
+        return `
+          <div class="field-wrap">
+            <p class="field-label">${row.label}</p>
+            <div class="field-row">
+              ${isArea
+                ? `<textarea id="cf-${key}" onkeydown="if(event.ctrlKey&&event.key==='Enter')saveField('${key}')">${escHtml(row.value)}</textarea>`
+                : `<input id="cf-${key}" type="text" value="${escAttr(row.value)}" onkeydown="if(event.key==='Enter')saveField('${key}')">`}
+              <button class="save-btn" id="sb-${key}" onclick="saveField('${key}')">Save</button>
+            </div>
+          </div>`;
+      }).join('')}
+    </div>`).join('');
+}
+
+async function saveField(key) {
+  const el  = document.getElementById('cf-' + key);
+  const btn = document.getElementById('sb-' + key);
+  const r   = await api('PUT', `/api/content/${encodeURIComponent(key)}`, { value: el.value, lang: contentLang });
+  if (r.ok) {
+    const row = allContent.find(r => r.key === key && r.lang === contentLang);
+    if (row) row.value = el.value;
+    btn.textContent = '✓ Saved'; btn.classList.add('saved');
+    setTimeout(() => { btn.textContent = 'Save'; btn.classList.remove('saved'); }, 1800);
+  } else { toast('Save failed', 'error'); }
+}
+
+// ── Projects ──────────────────────────────────────────────────────────
+async function loadProjects() {
+  const projects = await api('GET', '/api/projects');
+  const el = document.getElementById('projectsList');
+  el.innerHTML = projects.length === 0
+    ? '<p class="text-gray-400 text-center py-12">No projects yet.</p>'
+    : projects.map(p => `
+      <div class="bg-white border border-gray-200 rounded-xl p-5 flex items-center gap-4">
+        <img src="${p.images[0]?.filename || 'brand_assets/CHIREN PRES-1.jpeg'}" class="w-20 h-14 object-cover rounded-lg flex-shrink-0">
+        <div class="flex-1 min-w-0">
+          <p class="font-semibold text-gray-900 truncate">${escHtml(p.title)}</p>
+          <p class="text-sm text-gray-500 mt-0.5">${escHtml(p.client)} · <span class="badge badge-${p.badge}">${p.status}</span></p>
+          <p class="text-xs text-gray-400 mt-1">${p.images.length} image${p.images.length !== 1 ? 's' : ''}</p>
+        </div>
+        <div class="flex gap-2 flex-shrink-0">
+          <button onclick="editProject(${p.id})" class="px-3 py-1.5 border border-gray-300 rounded-lg text-sm text-gray-600 hover:bg-gray-50 font-medium transition-colors">Edit</button>
+          <button onclick="deleteProject(${p.id},'${escAttr(p.title)}')" class="px-3 py-1.5 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600 hover:bg-red-100 font-medium transition-colors">Delete</button>
+        </div>
+      </div>`).join('');
+}
+
+// ── Project Modal ─────────────────────────────────────────────────────
+function buildModalLangFields(lang) {
+  const d = modalData[lang] || {};
+  return `
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div><p class="field-label">Title *</p><input id="m-${lang}-title" type="text" value="${escAttr(d.title||'')}" placeholder="Project title" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500"></div>
+      <div><p class="field-label">Client</p><input id="m-${lang}-client" type="text" value="${escAttr(d.client||'')}" placeholder="Client name" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500"></div>
+    </div>
+    <div class="grid grid-cols-3 gap-4 mb-4">
+      <div><p class="field-label">Period</p><input id="m-${lang}-period" type="text" value="${escAttr(d.period||'')}" placeholder="2024–2025" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500"></div>
+      <div><p class="field-label">Location</p><input id="m-${lang}-location" type="text" value="${escAttr(d.location||'')}" placeholder="Country / City" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500"></div>
+      <div><p class="field-label">Contract Value</p><input id="m-${lang}-cv" type="text" value="${escAttr(d.contract_value||'')}" placeholder="~EUR 1M" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500"></div>
+    </div>
+    <div class="mb-4">
+      <p class="field-label">Description</p>
+      <textarea id="m-${lang}-desc" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 min-h-[80px] resize-y">${escHtml(d.description||'')}</textarea>
+    </div>
+    <div>
+      <div class="flex items-center justify-between mb-2">
+        <p class="field-label">Scope of Works</p>
+        <button onclick="addScopeItem('${lang}')" class="text-xs text-blue-600 hover:underline font-medium">+ Add item</button>
+      </div>
+      <div id="m-${lang}-scope">${(d.scope||[]).map((s,i) => scopeRow(lang,i,s)).join('')}</div>
+    </div>`;
+}
+
+function scopeRow(lang, i, val) {
+  return `<div class="scope-item" id="scope-${lang}-${i}">
+    <input type="text" value="${escAttr(val)}" placeholder="Scope item...">
+    <button onclick="removeScopeItem('${lang}',${i})">×</button>
+  </div>`;
+}
+function addScopeItem(lang) {
+  const c = document.getElementById(`m-${lang}-scope`);
+  const i = c.children.length;
+  c.insertAdjacentHTML('beforeend', scopeRow(lang, i, ''));
+}
+function removeScopeItem(lang, i) {
+  document.getElementById(`scope-${lang}-${i}`)?.remove();
+  renumberScope(lang);
+}
+function renumberScope(lang) {
+  const c = document.getElementById(`m-${lang}-scope`);
+  [...c.children].forEach((row, i) => row.id = `scope-${lang}-${i}`);
+}
+function getScopeItems(lang) {
+  return [...document.getElementById(`m-${lang}-scope`).querySelectorAll('input')]
+    .map(i => i.value.trim()).filter(Boolean);
+}
+
+function getModalTranslation(lang) {
+  return {
+    title:          (document.getElementById(`m-${lang}-title`)?.value || '').trim(),
+    client:         (document.getElementById(`m-${lang}-client`)?.value || '').trim(),
+    period:         (document.getElementById(`m-${lang}-period`)?.value || '').trim(),
+    location:       (document.getElementById(`m-${lang}-location`)?.value || '').trim(),
+    contract_value: (document.getElementById(`m-${lang}-cv`)?.value || '').trim(),
+    description:    (document.getElementById(`m-${lang}-desc`)?.value || '').trim(),
+    scope:          getScopeItems(lang),
+  };
+}
+
+function setModalLang(lang, btn) {
+  // Save current tab's data before switching
+  if (document.getElementById(`m-${modalLang}-title`)) {
+    modalData[modalLang] = getModalTranslation(modalLang);
+  }
+  modalLang = lang;
+  document.querySelectorAll('.lang-tab').forEach(t => { if (t.id?.startsWith('mtab')) t.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('modalLangFields').innerHTML = buildModalLangFields(lang);
+}
+
+function openProjectModal() {
+  editProjectId = null; modalData = { en:{}, bg:{} }; modalLang = 'en';
+  document.getElementById('modalTitle').textContent = 'Add Project';
+  document.getElementById('mStatus').value = 'completed';
+  document.getElementById('mKey').value = '';
+  document.getElementById('modalImages').classList.add('hidden');
+  document.getElementById('mtab-en').classList.add('active');
+  document.getElementById('mtab-bg').classList.remove('active');
+  document.getElementById('modalLangFields').innerHTML = buildModalLangFields('en');
+  document.getElementById('projectModal').classList.remove('hidden');
+}
+
+async function editProject(id) {
+  const p = await api('GET', `/api/projects/${id}`);
+  editProjectId = id;
+  modalData = { en:{}, bg:{} };
+  modalLang = 'en';
+  p.translations.forEach(t => {
+    modalData[t.lang] = {
+      title: t.title, client: t.client, period: t.period,
+      location: t.location, contract_value: t.contract_value,
+      description: t.description, scope: JSON.parse(t.scope || '[]')
+    };
+  });
+  document.getElementById('modalTitle').textContent = 'Edit Project';
+  document.getElementById('mStatus').value = p.status;
+  document.getElementById('mKey').value = p.key;
+  document.getElementById('mtab-en').classList.add('active');
+  document.getElementById('mtab-bg').classList.remove('active');
+  document.getElementById('modalLangFields').innerHTML = buildModalLangFields('en');
+  // Images
+  document.getElementById('modalImages').classList.remove('hidden');
+  renderImageThumbs(p.images, id);
+  document.getElementById('projectModal').classList.remove('hidden');
+}
+
+function renderImageThumbs(images, projId) {
+  document.getElementById('imgThumbs').innerHTML = images.map(img => `
+    <div class="img-thumb">
+      <img src="${img.filename}" alt="">
+      <button class="del" onclick="deleteImage(${projId},${img.id})" title="Remove">×</button>
+    </div>`).join('');
+}
+
+async function deleteImage(projId, imgId) {
+  await api('DELETE', `/api/projects/${projId}/images/${imgId}`);
+  const p = await api('GET', `/api/projects/${projId}`);
+  renderImageThumbs(p.images, projId);
+  toast('Image removed');
+}
+
+async function uploadImages() {
+  const input = document.getElementById('imgUpload');
+  if (!input.files.length) return;
+  const fd = new FormData();
+  [...input.files].forEach(f => fd.append('images', f));
+  const r = await fetch(`/api/projects/${editProjectId}/images`, { method:'POST', body: fd });
+  const d = await r.json();
+  if (d.ok) {
+    toast(`${d.count} image${d.count>1?'s':''} uploaded`);
+    const p = await api('GET', `/api/projects/${editProjectId}`);
+    renderImageThumbs(p.images, editProjectId);
+  } else { toast('Upload failed', 'error'); }
+  input.value = '';
+}
+
+async function saveProject() {
+  // Save current visible lang tab
+  if (document.getElementById(`m-${modalLang}-title`)) {
+    modalData[modalLang] = getModalTranslation(modalLang);
+  }
+  if (!modalData.en?.title) { toast('English title is required', 'error'); return; }
+  const payload = {
+    key: document.getElementById('mKey').value.trim(),
+    status: document.getElementById('mStatus').value,
+    badge: document.getElementById('mStatus').value,
+    translations: modalData,
+  };
+  let r;
+  if (editProjectId) r = await api('PUT', `/api/projects/${editProjectId}`, payload);
+  else              r = await api('POST', '/api/projects', payload);
+  if (r.ok) { toast('Project saved'); closeProjectModal(); loadProjects(); }
+  else { toast('Save failed', 'error'); }
+}
+
+async function deleteProject(id, title) {
+  if (!confirm(`Delete project "${title}"? This cannot be undone.`)) return;
+  await api('DELETE', `/api/projects/${id}`);
+  toast('Project deleted');
+  loadProjects();
+}
+
+function closeProjectModal() {
+  document.getElementById('projectModal').classList.add('hidden');
+  editProjectId = null;
+}
+
+// ── Settings ─────────────────────────────────────────────────────────
+async function changePassword() {
+  const cur  = document.getElementById('pwCurrent').value;
+  const nw   = document.getElementById('pwNew').value;
+  const conf = document.getElementById('pwConfirm').value;
+  if (!cur || !nw)         { toast('Please fill all fields', 'error'); return; }
+  if (nw !== conf)         { toast('New passwords do not match', 'error'); return; }
+  if (nw.length < 6)       { toast('Password must be at least 6 characters', 'error'); return; }
+  const r = await api('PUT', '/api/auth/password', { current: cur, newPass: nw });
+  if (r.ok) { toast('Password updated'); document.getElementById('pwCurrent').value = document.getElementById('pwNew').value = document.getElementById('pwConfirm').value = ''; }
+  else { toast(r.error || 'Failed to update password', 'error'); }
+}
+
+// ── Utilities ─────────────────────────────────────────────────────────
+async function api(method, url, body) {
+  try {
+    const opts = { method, headers:{ 'Content-Type':'application/json' } };
+    if (body) opts.body = JSON.stringify(body);
+    const r = await fetch(url, opts);
+    return r.json();
+  } catch { return { error: 'Network error' }; }
+}
+
+function toast(msg, type = 'success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `toast ${type}`;
+  void el.offsetWidth;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+function escHtml(s)  { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escAttr(s)  { return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+</script>
+</body>
+</html>

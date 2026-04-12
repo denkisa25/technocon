@@ -566,15 +566,15 @@ a.hdr-icon-btn{text-decoration:none}
 .proj-expand-icon svg{width:12px;height:12px}
 
 /* Project detail panel */
-#proj-detail-area{
-  margin-top:1.5rem;
+.proj-detail-area{
+  grid-column:1/-1;
   background:var(--white);border:1px solid rgba(0,137,207,.25);
   border-radius:2px;overflow:hidden;
   max-height:0;opacity:0;
-  transition:max-height .55s ease,opacity .4s ease;
+  transition:max-height .6s ease,opacity .45s ease;
 }
-#proj-detail-area.open{max-height:800px;opacity:1}
-.proj-detail-inner{padding:2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+.proj-detail-area.open{max-height:1400px;opacity:1}
+.proj-detail-inner{padding:2.5rem;display:grid;grid-template-columns:3fr 2fr;gap:3rem;align-items:start}
 @media(max-width:760px){.proj-detail-inner{grid-template-columns:1fr}}
 
 /* photo carousel inside detail */
@@ -583,7 +583,8 @@ a.hdr-icon-btn{text-decoration:none}
   display:flex;transition:transform .45s cubic-bezier(.25,.8,.25,1);
 }
 .proj-carousel-track img{
-  flex-shrink:0;width:100%;height:300px;object-fit:cover;
+  flex-shrink:0;width:100%;height:auto;
+  display:block;
   filter:saturate(.85);
 }
 .carousel-btn{
@@ -886,9 +887,9 @@ footer{
   <div class="hero-grad2"></div>
   <div class="hero-grid-overlay"></div>
   <div class="hero-content">
-    <p class="hero-tag">Energy &amp; Industrial Infrastructure — Bulgaria 2026</p>
+    <p class="hero-tag" data-ck="hero.tag">Energy &amp; Industrial Infrastructure — Bulgaria 2026</p>
     <h1 class="hero-h1">Building<br>Critical<br><em>Infrastructure</em></h1>
-    <p class="hero-p">Engineering, procurement, construction and project management for the energy and industrial sector across Europe and beyond.</p>
+    <p class="hero-p" data-ck="hero.subtitle">Engineering, procurement, construction and project management for the energy and industrial sector across Europe and beyond.</p>
     <div class="hero-btns">
       <a href="#projects" class="btn-a">View Projects</a>
       <a href="#contact" class="btn-b">Contact Us</a>
@@ -902,10 +903,10 @@ footer{
 
 <!-- ══════════════════════════════════════════ STATS -->
 <div class="stats">
-  <div class="stat reveal"><div class="stat-n">€11M+</div><div class="stat-l">Contract Value</div></div>
-  <div class="stat reveal"><div class="stat-n">4,000+</div><div class="stat-l">Tracked Items</div></div>
-  <div class="stat reveal"><div class="stat-n">7+</div><div class="stat-l">Major Projects</div></div>
-  <div class="stat reveal"><div class="stat-n">3</div><div class="stat-l">ISO Certifications</div></div>
+  <div class="stat reveal"><div class="stat-n" data-ck="stat.1.n">€11M+</div><div class="stat-l" data-ck="stat.1.l">Contract Value</div></div>
+  <div class="stat reveal"><div class="stat-n" data-ck="stat.2.n">4,000+</div><div class="stat-l" data-ck="stat.2.l">Tracked Items</div></div>
+  <div class="stat reveal"><div class="stat-n" data-ck="stat.3.n">7+</div><div class="stat-l" data-ck="stat.3.l">Major Projects</div></div>
+  <div class="stat reveal"><div class="stat-n" data-ck="stat.4.n">3</div><div class="stat-l" data-ck="stat.4.l">ISO Certifications</div></div>
 </div>
 
 <!-- ══════════════════════════════════════════ SERVICES -->
@@ -914,7 +915,7 @@ footer{
     <div>
       <p class="sec-tag reveal">Fields of Activity</p>
       <h2 class="sec-h2 reveal">Our Services</h2>
-      <p class="sec-p reveal">From mechanical installation to full turnkey project execution — Technocon delivers integrated solutions across the complete project lifecycle in energy and industrial infrastructure.</p>
+      <p class="sec-p reveal" data-ck="services.intro">From mechanical installation to full turnkey project execution — Technocon delivers integrated solutions across the complete project lifecycle in energy and industrial infrastructure.</p>
     </div>
     <div></div>
   </div>
@@ -1089,46 +1090,51 @@ footer{
 
   <div class="projects-grid" id="projectsGrid">
 
-    <div class="proj-card reveal" data-status="ongoing" data-proj="checkpoint" onclick="toggleProject('checkpoint',this)">
+    <!-- Row 1 -->
+    <div class="proj-card reveal" data-status="ongoing" data-proj="checkpoint" data-row="1" onclick="toggleProject('checkpoint',this)">
       <div class="proj-card-img"><img src="brand_assets/CHIREN PRES-1.jpeg" alt="Border Checkpoint"><div class="proj-card-img-overlay"></div></div>
       <div class="proj-card-body"><span class="proj-badge badge-ongoing">Ongoing</span><div class="proj-title">Border Checkpoint Reconstruction</div><div class="proj-client">Client: Glavbolgarstroy AD</div></div>
       <div class="proj-expand-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
     </div>
 
-    <div class="proj-card reveal" data-status="completed" data-proj="balkan" onclick="toggleProject('balkan',this)">
+    <div class="proj-card reveal" data-status="completed" data-proj="balkan" data-row="1" onclick="toggleProject('balkan',this)">
       <div class="proj-card-img"><img src="brand_assets/DJI_0012.JPG" alt="Balkan Stream Pipeline"><div class="proj-card-img-overlay"></div></div>
       <div class="proj-card-body"><span class="proj-badge badge-completed">Completed</span><div class="proj-title">Bulgarian Gas Pipeline Extension</div><div class="proj-client">Client: Bulgartransgaz EAD</div></div>
       <div class="proj-expand-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
     </div>
 
-    <div class="proj-card reveal" data-status="completed" data-proj="enefit" onclick="toggleProject('enefit',this)">
+    <div class="proj-card reveal" data-status="completed" data-proj="enefit" data-row="1" onclick="toggleProject('enefit',this)">
       <div class="proj-card-img"><img src="brand_assets/CHIREN PRES-2.jpeg" alt="Enefit-280"><div class="proj-card-img-overlay"></div></div>
       <div class="proj-card-body"><span class="proj-badge badge-completed">Completed</span><div class="proj-title">Enefit-280 Construction</div><div class="proj-client">Client: Eesti Energia</div></div>
       <div class="proj-expand-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
     </div>
 
-    <div class="proj-card reveal" data-status="completed" data-proj="lozen" onclick="toggleProject('lozen',this)">
+    <!-- Row 1 detail panel — spans full width between row 1 and row 2 -->
+    <div id="proj-detail-row1" class="proj-detail-area"></div>
+
+    <!-- Row 2 -->
+    <div class="proj-card reveal" data-status="completed" data-proj="lozen" data-row="2" onclick="toggleProject('lozen',this)">
       <div class="proj-card-img"><img src="brand_assets/CHIREN PRES-3.jpeg" alt="Lozen Station"><div class="proj-card-img-overlay"></div></div>
       <div class="proj-card-body"><span class="proj-badge badge-completed">Completed</span><div class="proj-title">Lozen Pig Launcher Station</div><div class="proj-client">Client: Bulgartransgaz EAD</div></div>
       <div class="proj-expand-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
     </div>
 
-    <div class="proj-card reveal" data-status="completed" data-proj="chiren" onclick="toggleProject('chiren',this)">
+    <div class="proj-card reveal" data-status="completed" data-proj="chiren" data-row="2" onclick="toggleProject('chiren',this)">
       <div class="proj-card-img"><img src="brand_assets/DJI_0005.JPG" alt="Chiren UGS"><div class="proj-card-img-overlay"></div></div>
       <div class="proj-card-body"><span class="proj-badge badge-completed">Completed</span><div class="proj-title">Chiren UGS Expansion</div><div class="proj-client">Client: Glavbolgarstroy AD</div></div>
       <div class="proj-expand-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
     </div>
 
-    <div class="proj-card reveal" data-status="ongoing" data-proj="adnoc" onclick="toggleProject('adnoc',this)">
+    <div class="proj-card reveal" data-status="ongoing" data-proj="adnoc" data-row="2" onclick="toggleProject('adnoc',this)">
       <div class="proj-card-img"><img src="brand_assets/CHIREN PRES-2.jpeg" alt="ADNOC"><div class="proj-card-img-overlay"></div></div>
       <div class="proj-card-body"><span class="proj-badge badge-ongoing">Ongoing</span><div class="proj-title">ADNOC Procurement Services</div><div class="proj-client">Client: ADNOC</div></div>
       <div class="proj-expand-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
     </div>
 
-  </div><!-- /projects-grid -->
+    <!-- Row 2 detail panel — spans full width below row 2 -->
+    <div id="proj-detail-row2" class="proj-detail-area"></div>
 
-  <!-- Single detail panel, outside the grid, populated by JS -->
-  <div id="proj-detail-area"></div>
+  </div><!-- /projects-grid -->
 </section>
 
 <!-- ══════════════════════════════════════════ ABOUT -->
@@ -1137,7 +1143,7 @@ footer{
     <div class="about-text">
       <p class="sec-tag reveal">Who We Are</p>
       <h2 class="sec-h2 reveal">About Technocon</h2>
-      <p class="sec-p reveal">A Bulgarian-based company specialising in energy and industrial infrastructure projects across Europe. We combine proven engineering expertise, flexible delivery capacity, and lean team structure to deliver results at every project stage — from mobilisation through commissioning and beyond.</p>
+      <p class="sec-p reveal" data-ck="about.text">A Bulgarian-based company specialising in energy and industrial infrastructure projects across Europe. We combine proven engineering expertise, flexible delivery capacity, and lean team structure to deliver results at every project stage — from mobilisation through commissioning and beyond.</p>
 
       <div class="about-capabilities">
         <div class="cap reveal">
@@ -1216,25 +1222,25 @@ footer{
           <div class="office-city">Sofia, Bulgaria — Head Office</div>
           <div class="contact-row">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 1.5C5.515 1.5 3.5 3.515 3.5 6c0 3.5 4.5 8.5 4.5 8.5S12.5 9.5 12.5 6c0-2.485-2.015-4.5-4.5-4.5zm0 6a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/></svg>
-            <span>Osogovo st. 51, 1303 Sofia, Bulgaria</span>
+            <span data-ck="contact.address">Osogovo st. 51, 1303 Sofia, Bulgaria</span>
           </div>
           <div class="contact-row">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 5l6 4 6-4" stroke-linecap="round"/></svg>
             <div>
-              <a href="mailto:dcc@techno-con.eu">dcc@techno-con.eu</a><br>
-              <a href="mailto:office@techno-con.eu">office@techno-con.eu</a>
+              <a href="mailto:dcc@techno-con.eu" data-ck="contact.email1">dcc@techno-con.eu</a><br>
+              <a href="mailto:office@techno-con.eu" data-ck="contact.email2">office@techno-con.eu</a>
             </div>
           </div>
           <div class="contact-row">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2.5 3.5a1 1 0 011-1h1.172a1 1 0 01.894.553l.707 1.414a1 1 0 01-.196 1.124l-.49.49a7.09 7.09 0 003.333 3.333l.49-.49a1 1 0 011.124-.196l1.414.707A1 1 0 0112.5 10.328V11.5a1 1 0 01-1 1H11C6.029 12.5 2.5 8.971 2.5 4V3.5z"/></svg>
             <div>
-              <a href="tel:+359889627304">+359 88 9627304</a><br>
-              <a href="tel:+359888304414">+359 88 8304414</a>
+              <a href="tel:+359889627304" data-ck="contact.phone1">+359 88 9627304</a><br>
+              <a href="tel:+359888304414" data-ck="contact.phone2">+359 88 8304414</a>
             </div>
           </div>
           <div class="contact-row">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2" stroke-linecap="round"/></svg>
-            <a href="http://www.techno-con.eu" target="_blank" rel="noopener">www.techno-con.eu</a>
+            <a href="http://www.techno-con.eu" target="_blank" rel="noopener" data-ck="contact.web">www.techno-con.eu</a>
           </div>
         </div>
         <div class="office reveal">
@@ -1242,14 +1248,14 @@ footer{
           <div class="contact-row">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 5l6 4 6-4" stroke-linecap="round"/></svg>
             <div>
-              <a href="mailto:nea@techno-con.eu">nea@techno-con.eu</a>
+              <a href="mailto:nea@techno-con.eu" data-ck="contact.intl.email">nea@techno-con.eu</a>
             </div>
           </div>
           <div class="contact-row">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2.5 3.5a1 1 0 011-1h1.172a1 1 0 01.894.553l.707 1.414a1 1 0 01-.196 1.124l-.49.49a7.09 7.09 0 003.333 3.333l.49-.49a1 1 0 011.124-.196l1.414.707A1 1 0 0112.5 10.328V11.5a1 1 0 01-1 1H11C6.029 12.5 2.5 8.971 2.5 4V3.5z"/></svg>
             <div>
-              <a href="tel:+359888304414">+359 888 304 414</a>
-              <div style="font-size:.85rem;color:var(--grey2);margin-top:.2rem">Evgeny Nosovskiy — Member of the Board</div>
+              <a href="tel:+359888304414" data-ck="contact.intl.phone">+359 888 304 414</a>
+              <div style="font-size:.85rem;color:var(--grey2);margin-top:.2rem" data-ck="contact.intl.person">Evgeny Nosovskiy — Member of the Board</div>
             </div>
           </div>
         </div>
@@ -1334,11 +1340,76 @@ langBtn.addEventListener('click', (e) => {
 document.addEventListener('click', () => langDrop.classList.remove('open'));
 langDrop.addEventListener('click', (e) => e.stopPropagation());
 
+// ── CMS state
+let currentLang = 'en';
+let CMS_PROJECTS = {}; // keyed by project.key, populated from API
+
+// ── Fetch & apply CMS content for a given language
+async function fetchCMS(lang) {
+  try {
+    const [cRes, pRes] = await Promise.all([
+      fetch(`/api/content?lang=${lang}`),
+      fetch(`/api/projects?lang=${lang}`)
+    ]);
+    const content  = await cRes.json();
+    const projList = await pRes.json();
+
+    // Apply text content to all [data-ck] elements
+    document.querySelectorAll('[data-ck]').forEach(el => {
+      const val = content[el.dataset.ck];
+      if (val !== undefined) el.textContent = val;
+    });
+
+    // Build CMS_PROJECTS lookup keyed by project.key
+    CMS_PROJECTS = {};
+    const statusLabel = { ongoing: { en:'Ongoing', bg:'Текущо' }, completed: { en:'Completed', bg:'Завършено' } };
+    projList.forEach(p => {
+      const scope = Array.isArray(p.scope) ? p.scope : (JSON.parse(p.scope || '[]'));
+      const meta = [];
+      if (p.client)          meta.push(['Client',         p.client]);
+      if (p.period)          meta.push(['Period',          p.period]);
+      if (p.contract_value)  meta.push(['Contract Value',  p.contract_value]);
+      if (p.location)        meta.push(['Location',        p.location]);
+      CMS_PROJECTS[p.key] = {
+        badge:  p.badge,
+        status: (statusLabel[p.badge] || {})[lang] || p.badge,
+        title:  p.title,
+        imgs:   (p.images || []).map(img => img.filename),
+        meta,
+        desc:   p.description,
+        scope
+      };
+    });
+
+    // Update project card text
+    projList.forEach(p => {
+      const card = document.querySelector(`.proj-card[data-proj="${p.key}"]`);
+      if (!card) return;
+      const titleEl  = card.querySelector('.proj-title');
+      const clientEl = card.querySelector('.proj-client');
+      if (titleEl)  titleEl.textContent  = p.title;
+      if (clientEl) clientEl.textContent = `Client: ${p.client}`;
+    });
+
+    // If a detail panel is open, refresh its content in the new language
+    if (activeProj) {
+      const card = document.querySelector(`.proj-card[data-proj="${activeProj}"]`);
+      if (card) {
+        const areaId = card.dataset.row === '1' ? 'proj-detail-row1' : 'proj-detail-row2';
+        document.getElementById(areaId).innerHTML = buildDetailHTML(activeProj);
+      }
+    }
+  } catch (err) {
+    // Server unavailable — silently keep the static HTML content
+  }
+}
+
 function setLang(code, btn) {
   document.querySelectorAll('#langMenu button').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   langDrop.classList.remove('open');
-  // Translation logic to be wired up later
+  currentLang = code;
+  fetchCMS(code);
 }
 
 // ── Scroll reveal
@@ -1354,58 +1425,6 @@ const observer = new IntersectionObserver(entries => {
 }, {threshold: 0.1, rootMargin: '0px 0px -30px 0px'});
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ── Project data
-const PROJECTS = {
-  checkpoint: {
-    badge: 'ongoing', status: 'Ongoing',
-    title: 'Border Checkpoint Reconstruction',
-    imgs: ['brand_assets/CHIREN PRES-1.jpeg','brand_assets/CHIREN PRES-3.jpeg','brand_assets/DJI_0005.JPG'],
-    meta: [['Client','Glavbolgarstroy AD'],['Period','Oct 2025 – Present'],['Volume','760 t steel structures'],['Location','Bulgaria']],
-    desc: 'Strategic infrastructure modernisation of a border checkpoint, with high coordination and execution requirements. Full multi-discipline scope from engineering through construction.',
-    scope: ['Detail design','Raw material procurement','Engineering','Steel structures manufacturing','Galvanization','Quality control','Tracking &amp; expediting','Construction works']
-  },
-  balkan: {
-    badge: 'completed', status: 'Completed',
-    title: 'Bulgarian Gas Pipeline Extension — Balkan Stream',
-    imgs: ['brand_assets/DJI_0012.JPG','brand_assets/DJI_0005.JPG','brand_assets/CHIREN PRES-2.jpeg'],
-    meta: [['Client','Bulgartransgaz EAD'],['Period','2019–2021 + O&M ongoing'],['Route','Turkish–Serbian border'],['Location','Bulgaria']],
-    desc: 'Gas transmission pipeline across Bulgaria (Balkan Stream) — Turkish to Serbian border — including related facilities and commissioning. Currently under ongoing maintenance and operational support.',
-    scope: ['Materials &amp; equipment supply','Line pipes incl. GRP insulation','Engineering support','Technical coordination','As-built documentation','Testing &amp; commissioning','Start-up assistance','Ongoing O&amp;M support']
-  },
-  enefit: {
-    badge: 'completed', status: 'Completed',
-    title: 'Enefit-280 Construction — Narva Oil Plant',
-    imgs: ['brand_assets/CHIREN PRES-2.jpeg','brand_assets/CHIREN PRES-1.jpeg','brand_assets/CHIREN PRES-3.jpeg'],
-    meta: [['Client','Eesti Energia'],['Period','2023–2025'],['Contract Value','~EUR 11M'],['Location','Narva, Estonia']],
-    desc: 'Construction of an oil shale processing plant including the condensation block. Scope: 400 t equipment &amp; steel structures, 360 t piping (Ø1000–25mm), 50 t stainless steel, 4,300 pipe supports.',
-    scope: ['Mechanical installation','Prefabrication','Painting &amp; coating','Welding works','Equipment installation','Electrical works','Automation works','Commissioning assistance']
-  },
-  lozen: {
-    badge: 'completed', status: 'Completed',
-    title: 'Lozen Pig Launcher/Receiver Station Reconstruction',
-    imgs: ['brand_assets/CHIREN PRES-3.jpeg','brand_assets/CHIREN PRES-1.jpeg','brand_assets/CHIREN PRES-2.jpeg'],
-    meta: [['Client','Bulgartransgaz EAD'],['Period','Oct 2024 – Nov 2025'],['Contract Value','~EUR 1M'],['Location','Lozen, Bulgaria']],
-    desc: 'Full reconstruction of the Lozen Pig Launcher/Receiver Station including access road, fire protection strip, perimeter drainage, and internal site works on the active 48" gas pipeline.',
-    scope: ['Access road reconstruction','Embankment &amp; drainage','Slope stabilisation (geogrid)','Fire protection strip','Reno mattress installation','Trench breakers']
-  },
-  chiren: {
-    badge: 'completed', status: 'Completed',
-    title: 'Chiren UGS Expansion — Aboveground Part',
-    imgs: ['brand_assets/DJI_0005.JPG','brand_assets/CHIREN PRES-2.jpeg','brand_assets/CHIREN PRES-3.jpeg'],
-    meta: [['Client','Glavbolgarstroy AD'],['Period','Jun – Dec 2024'],['Contract Value','~EUR 1.5M'],['Location','Chiren, Bulgaria']],
-    desc: 'Construction of a new aboveground area for Chiren Underground Gas Storage (UGS), including gas injection and withdrawal systems: compressor station, gas treatment, commercial metering, and separation systems.',
-    scope: ['Welding &amp; installation works','Process equipment','Auxiliary network piping','TEG regeneration','Gas drying installation','Compression systems']
-  },
-  adnoc: {
-    badge: 'ongoing', status: 'Ongoing',
-    title: 'ADNOC Procurement Services',
-    imgs: ['brand_assets/CHIREN PRES-2.jpeg','brand_assets/CHIREN PRES-1.jpeg','brand_assets/DJI_0012.JPG'],
-    meta: [['Client','ADNOC'],['Status','Ongoing'],['Region','UAE'],['Type','Procurement']],
-    desc: 'International procurement services for ADNOC including supply of fire-rated pre-fabricated Store Accommodation Buildings (LGS system) and refurbished ISO-modified container units, fully fitted and ready for deployment.',
-    scope: ['Fire-rated LGS buildings (12×6m)','20ft storage containers','40ft kitchen/bakery containers','Full fit-out &amp; delivery']
-  }
-};
-
 // ── Project filter
 function filterProjects(filter, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1416,28 +1435,19 @@ function filterProjects(filter, btn) {
   });
 }
 
-// ── Project detail — single panel below grid
+// ── Project detail — two row panels
 let activeProj = null;
 let carouselIdx = 0;
 
 function closeDetail() {
-  const area = document.getElementById('proj-detail-area');
-  area.classList.remove('open');
+  document.querySelectorAll('.proj-detail-area').forEach(a => a.classList.remove('open'));
   document.querySelectorAll('.proj-card.active').forEach(c => c.classList.remove('active'));
   activeProj = null;
 }
 
-function toggleProject(id, card) {
-  const area = document.getElementById('proj-detail-area');
-  if (activeProj === id) { closeDetail(); return; }
-
-  // Mark card active
-  document.querySelectorAll('.proj-card.active').forEach(c => c.classList.remove('active'));
-  card.classList.add('active');
-  activeProj = id;
-  carouselIdx = 0;
-
-  const p = PROJECTS[id];
+function buildDetailHTML(id) {
+  const p = CMS_PROJECTS[id];
+  if (!p) return '';
   const dotsHtml = p.imgs.map((_,i) =>
     `<div class="carousel-dot${i===0?' active':''}" onclick="carouselGo(${i})"></div>`
   ).join('');
@@ -1446,8 +1456,7 @@ function toggleProject(id, card) {
     `<div class="proj-meta-item"><label>${l}</label><span>${v}</span></div>`
   ).join('');
   const scopeHtml = p.scope.map(s => `<li>${s}</li>`).join('');
-
-  area.innerHTML = `
+  return `
     <div class="proj-detail-inner">
       <div class="proj-carousel" id="active-carousel">
         <div class="proj-carousel-track" id="active-track">${imgsHtml}</div>
@@ -1464,14 +1473,31 @@ function toggleProject(id, card) {
         <ul class="proj-scope">${scopeHtml}</ul>
       </div>
     </div>`;
+}
 
+function toggleProject(id, card) {
+  const row = card.dataset.row;
+  const areaId = row === '1' ? 'proj-detail-row1' : 'proj-detail-row2';
+  const otherId = row === '1' ? 'proj-detail-row2' : 'proj-detail-row1';
+  const area  = document.getElementById(areaId);
+  const other = document.getElementById(otherId);
+
+  if (activeProj === id) { closeDetail(); return; }
+
+  other.classList.remove('open');
+  document.querySelectorAll('.proj-card.active').forEach(c => c.classList.remove('active'));
+  card.classList.add('active');
+  activeProj = id;
+  carouselIdx = 0;
+
+  area.innerHTML = buildDetailHTML(id);
   area.classList.add('open');
-  setTimeout(() => area.scrollIntoView({behavior:'smooth', block:'nearest'}), 50);
+  setTimeout(() => area.scrollIntoView({behavior:'smooth', block:'start'}), 50);
 }
 
 // ── Carousel (operates on active panel)
 function updateCarousel(idx) {
-  const total = PROJECTS[activeProj]?.imgs.length ?? 1;
+  const total = CMS_PROJECTS[activeProj]?.imgs.length ?? 1;
   carouselIdx = ((idx % total) + total) % total;
   const track = document.getElementById('active-track');
   if (track) track.style.transform = `translateX(-${carouselIdx * 100}%)`;
@@ -1509,6 +1535,9 @@ window.addEventListener('scroll', () => {
     a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
   });
 }, {passive:true});
+
+// ── Bootstrap CMS on page load
+fetchCMS('en');
 </script>
 </body>
 </html>
