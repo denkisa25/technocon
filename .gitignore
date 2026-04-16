@@ -3,3 +3,6 @@ temporary screenshots/
 package-lock.json
 data/
 .htaccess
+video/node_modules/
+video/out/
+video/.cache/

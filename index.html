@@ -148,13 +148,27 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 
 /* language dropdown */
 .lang-drop{position:relative}
+.lang-text-btn{
+  background:none;border:none;cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--white);
+  display:flex;align-items:center;gap:3px;
+  padding:.4rem .5rem;
+  transition:color .2s ease;
+}
+#header.scrolled .lang-text-btn{color:var(--grey1)}
+#header.scrolled .lang-text-btn:hover{color:var(--black)}
+.lang-text-btn:hover{color:var(--white)}
+.lang-text-btn .chevron{width:10px;height:10px;transition:transform .25s ease;margin-left:1px}
+.lang-drop.open .lang-text-btn .chevron{transform:rotate(180deg)}
 .lang-menu{
-  position:absolute;top:calc(100% + 8px);right:0;
-  min-width:160px;
+  position:absolute;top:calc(100% + 4px);right:0;
+  min-width:60px;
   background:rgba(255,255,255,.99);
   border:1px solid var(--border);
   border-top:2px solid var(--amber);
-  padding:.4rem 0;
+  padding:.3rem 0;
   border-radius:0 0 3px 3px;
   box-shadow:0 8px 24px rgba(0,0,0,.12);
   opacity:0;pointer-events:none;
@@ -164,20 +178,30 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 }
 .lang-drop.open .lang-menu{opacity:1;pointer-events:all;transform:translateY(0)}
 .lang-menu button{
-  display:flex;align-items:center;gap:.7rem;
-  width:100%;padding:.55rem 1.1rem;
+  display:block;width:100%;padding:.45rem .8rem;
   background:none;border:none;cursor:pointer;
   font-family:'Barlow Condensed',sans-serif;
   font-size:.82rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--grey1);
+  color:var(--grey1);text-align:center;
   transition:color .15s,background .15s;
 }
 .lang-menu button:hover{color:var(--black);background:rgba(0,137,207,.05)}
 .lang-menu button.active{color:var(--amber)}
-.lang-menu .flag{font-size:1rem;line-height:1}
 
-/* contact icon link */
-a.hdr-icon-btn{text-decoration:none}
+/* google map embed */
+.office-map{padding:0;overflow:hidden;border:1px solid var(--border);border-radius:2px}
+.gmap-frame{width:100%;height:260px;border:none;display:block}
+.gmap-link{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.75rem 1rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--grey1);text-decoration:none;
+  border-top:1px solid var(--border);
+  transition:color .2s,background .2s;
+}
+.gmap-link:hover{color:var(--amber);background:rgba(0,137,207,.04)}
+.gmap-link svg{flex-shrink:0}
 
 .hamburger{
   display:none;flex-direction:column;gap:5px;
@@ -254,13 +278,47 @@ a.hdr-icon-btn{text-decoration:none}
 .hero-tag::before{content:'';width:24px;height:1px;background:var(--amber)}
 .hero-h1{
   font-family:'Barlow Condensed',sans-serif;
-  font-size:clamp(3.2rem,7.5vw,6.5rem);
-  font-weight:800;line-height:.93;letter-spacing:-.015em;
+  font-size:clamp(2.2rem,4.4vw,4.4rem);
+  font-weight:800;line-height:1.18;letter-spacing:-.015em;
   text-transform:uppercase;color:var(--white);
-  margin-bottom:1.4rem;
+  margin-bottom:1.8rem;
   opacity:0;animation:fadeUp .7s .6s ease forwards;
 }
 .hero-h1 em{font-style:normal;color:var(--amber)}
+.hero-cycle-wrap{display:inline-block;vertical-align:bottom}
+.hero-cycle{
+  display:inline-flex;gap:0;
+  font-size:clamp(2.8rem,5.8vw,5.8rem);
+  font-weight:800;letter-spacing:.04em;
+  color:var(--green);
+  transition:opacity .4s ease, transform .4s ease;
+}
+.hero-cycle.exit{opacity:0;transform:translateY(-20px)}
+/* shutter char */
+.sc{position:relative;display:inline-block;overflow:hidden}
+.sc-main{display:inline-block;opacity:0;animation:scBlurIn .75s ease forwards}
+.sc-t,.sc-m,.sc-b{
+  position:absolute;inset:0;display:inline-block;
+  font-size:inherit;font-weight:inherit;letter-spacing:inherit;
+  white-space:nowrap;opacity:0;pointer-events:none;
+}
+.sc-t{color:var(--amber);clip-path:polygon(0 0,100% 0,100% 35%,0 35%);
+  animation:scSlideL .65s ease forwards}
+.sc-m{color:rgba(255,255,255,.55);clip-path:polygon(0 35%,100% 35%,100% 65%,0 65%);
+  animation:scSlideR .65s ease forwards}
+.sc-b{color:var(--amber);clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%);
+  animation:scSlideL .65s ease forwards}
+@keyframes scBlurIn{from{opacity:0;filter:blur(9px)}to{opacity:1;filter:blur(0)}}
+@keyframes scSlideL{
+  0%{transform:translateX(-110%);opacity:0}
+  25%{opacity:1}75%{opacity:1}
+  100%{transform:translateX(110%);opacity:0}
+}
+@keyframes scSlideR{
+  0%{transform:translateX(110%);opacity:0}
+  25%{opacity:1}75%{opacity:1}
+  100%{transform:translateX(-110%);opacity:0}
+}
 .hero-p{
   font-size:1.05rem;font-weight:300;line-height:1.8;
   color:var(--grey2);max-width:500px;margin-bottom:2.2rem;
@@ -535,73 +593,141 @@ a.hdr-icon-btn{text-decoration:none}
 .filter-btn:last-child{border-right:none}
 .filter-btn.active,.filter-btn:hover{background:var(--amber);color:var(--white)}
 
-.projects-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:1.5rem;
-}
-@media(max-width:900px){.projects-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.projects-grid{grid-template-columns:1fr}}
-
-.proj-card{
-  cursor:pointer;position:relative;
-  border-radius:2px;overflow:hidden;
-  background:var(--white);
-  border:1px solid var(--border);
-  transition:border-color .3s,transform .25s;
-  box-shadow:0 2px 12px rgba(0,0,0,.06);
-}
-.proj-card:hover{border-color:rgba(0,137,207,.4);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
-.proj-card.active{border-color:var(--amber)}
-.proj-card-img{
-  aspect-ratio:16/10;overflow:hidden;position:relative;
-}
-.proj-card-img img{
-  width:100%;height:100%;object-fit:cover;
-  filter:saturate(.75);
-  transition:transform .5s ease,filter .4s ease;
-}
-.proj-card:hover .proj-card-img img{transform:scale(1.04);filter:saturate(1)}
-.proj-card-img-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 60%);
-}
-.proj-card-body{padding:1.2rem}
+/* ── GALLERY4-STYLE PROJECT CARD CAROUSEL ─────────────────── */
 .proj-badge{
   font-family:'Barlow Condensed',sans-serif;
   font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
   padding:.25rem .6rem;border-radius:2px;
-  display:inline-block;margin-bottom:.6rem;
+  display:inline-block;
 }
-.badge-ongoing{background:rgba(0,137,207,.12);color:var(--amber);border:1px solid rgba(0,137,207,.3)}
-.badge-completed{background:rgba(48,182,131,.1);color:#1e9b6f;border:1px solid rgba(48,182,131,.25)}
-.proj-title{
+.badge-ongoing{background:rgba(0,137,207,.18);color:#fff;border:1px solid rgba(0,137,207,.4)}
+.badge-completed{background:rgba(48,182,131,.2);color:#fff;border:1px solid rgba(48,182,131,.35)}
+
+.proj-gallery-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:2rem;gap:2rem;flex-wrap:wrap;
+}
+.proj-gallery-meta{display:flex;flex-direction:column;gap:.75rem}
+.proj-gallery-desc{
+  max-width:520px;font-size:.95rem;line-height:1.7;color:var(--grey1);
+}
+.proj-gallery-nav{display:flex;gap:.5rem;flex-shrink:0}
+.pgn-btn{
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--border);background:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--black);
+  transition:background .2s,border-color .2s,color .2s,opacity .2s;
+}
+.pgn-btn:hover{background:var(--black);border-color:var(--black);color:var(--white)}
+.pgn-btn:disabled{opacity:.3;cursor:default;pointer-events:none}
+.pgn-btn svg{width:18px;height:18px}
+
+/* viewport + track */
+.proj-gallery-outer{
+  overflow:hidden;
+  margin-left:calc(-2.5rem);
+  margin-right:calc(-2.5rem);
+  padding-left:2.5rem;
+}
+@media(max-width:680px){
+  .proj-gallery-outer{margin-left:-1.5rem;margin-right:-1.5rem;padding-left:1.5rem}
+}
+.proj-gallery-track{
+  display:flex;
+  gap:20px;
+  transition:transform .5s cubic-bezier(.25,.8,.25,1);
+  will-change:transform;
+  cursor:grab;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.proj-gallery-track.dragging{
+  transition:none;
+  cursor:grabbing;
+}
+
+/* card */
+.proj-card-g{
+  flex-shrink:0;
+  width:340px;
+  border-radius:12px;
+  overflow:hidden;
+  position:relative;
+  min-height:432px;
+  cursor:pointer;
+}
+@media(max-width:680px){.proj-card-g{width:280px;min-height:380px}}
+
+.proj-card-g img{
+  position:absolute;inset:0;
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  transition:transform .4s cubic-bezier(.25,.8,.25,1);
+}
+.proj-card-g:hover img{transform:scale(1.05)}
+
+.proj-card-g-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,.25) 40%,
+    rgba(0,0,0,.72) 100%
+  );
+  mix-blend-mode:multiply;
+}
+
+.proj-card-g-body{
+  position:absolute;inset-x:0;bottom:0;
+  padding:1.5rem 1.75rem 1.75rem;
+  color:#fff;
+  display:flex;flex-direction:column;align-items:flex-start;
+}
+.proj-card-g-body .proj-badge{margin-bottom:.85rem}
+.proj-card-g-title{
   font-family:'Barlow Condensed',sans-serif;
-  font-size:1rem;font-weight:700;text-transform:uppercase;
-  color:var(--black);letter-spacing:.03em;
-  margin-bottom:.3rem;line-height:1.2;
+  font-size:1.35rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.02em;line-height:1.15;
+  margin-bottom:.6rem;
 }
-.proj-client{font-size:.84rem;color:var(--grey1);font-weight:400}
-.proj-expand-icon{
-  position:absolute;bottom:1rem;right:1rem;
-  width:28px;height:28px;
-  background:rgba(0,137,207,.1);border:1px solid rgba(0,137,207,.3);
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  color:var(--amber);
-  transition:background .2s,transform .3s;
+.proj-card-g-desc{
+  font-size:.84rem;line-height:1.6;
+  color:rgba(255,255,255,.8);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  margin-bottom:1.1rem;
 }
-.proj-card:hover .proj-expand-icon{background:rgba(0,137,207,.2)}
-.proj-card.active .proj-expand-icon{transform:rotate(45deg)}
-.proj-expand-icon svg{width:12px;height:12px}
+.proj-card-g-cta{
+  display:flex;align-items:center;gap:.5rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.9);
+}
+.proj-card-g-cta svg{
+  width:18px;height:18px;
+  transition:transform .3s cubic-bezier(.16,1,.3,1);
+}
+.proj-card-g:hover .proj-card-g-cta svg{transform:translateX(4px)}
+
+/* dot nav */
+.proj-gallery-dots{
+  display:flex;justify-content:center;gap:8px;
+  margin-top:2rem;
+}
+.pgdot{
+  width:8px;height:8px;border-radius:50%;border:none;cursor:pointer;padding:0;
+  background:rgba(0,0,0,.15);
+  transition:background .25s,transform .25s;
+}
+.pgdot.active{background:var(--amber);transform:scale(1.25)}
 
 /* Project detail panel */
-.proj-detail-area{
-  grid-column:1/-1;
+.proj-spot-detail{
   background:var(--white);border:1px solid rgba(0,137,207,.25);
   border-radius:2px;overflow:hidden;
   max-height:0;opacity:0;
   transition:max-height .6s ease,opacity .45s ease;
 }
-.proj-detail-area.open{max-height:1400px;opacity:1}
+.proj-spot-detail.open{max-height:1400px;opacity:1}
 .proj-detail-inner{padding:2.5rem;display:grid;grid-template-columns:3fr 2fr;gap:3rem;align-items:start}
 @media(max-width:760px){.proj-detail-inner{grid-template-columns:1fr}}
 
@@ -711,38 +837,106 @@ a.hdr-icon-btn{text-decoration:none}
 }
 .cap-p{font-size:.88rem;color:var(--grey2);font-weight:400;line-height:1.6}
 
-/* org chart */
-.org-wrap{margin-top:3rem}
-.org-h{
+/* ─── ABOUT — ISO CERTS ────────────────────── */
+.about-certs{
+  margin-top:2.5rem;
+  padding-top:2rem;
+  border-top:1px solid var(--border);
+}
+.about-certs-label{
   font-family:'Barlow Condensed',sans-serif;
-  font-size:.76rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--amber);margin-bottom:1.5rem;
-  display:flex;align-items:center;gap:.7rem;
+  font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:.5rem;
+  display:flex;align-items:center;gap:.6rem;
 }
-.org-h::before{content:'';width:24px;height:1px;background:var(--amber)}
-.org-chart{font-family:'Barlow Condensed',sans-serif;font-size:.88rem}
-.org-top{
-  display:flex;flex-direction:column;align-items:center;gap:.75rem;
-  margin-bottom:1.5rem;
+.about-certs-label::before{content:'';width:20px;height:1px;background:var(--amber)}
+.about-certs-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.2rem;font-weight:700;letter-spacing:.02em;
+  color:var(--black);margin-bottom:.5rem;text-transform:uppercase;
 }
-.org-box{
-  padding:.5rem 1.2rem;
-  background:var(--surface2);border:1px solid rgba(0,137,207,.2);
-  border-radius:2px;color:var(--black);font-size:.78rem;
-  text-align:center;white-space:nowrap;font-weight:600;letter-spacing:.04em;
+.about-certs-desc{
+  font-size:.88rem;color:var(--grey2);line-height:1.65;margin-bottom:1.4rem;
 }
-.org-box.amber{background:rgba(0,137,207,.1);border-color:rgba(0,137,207,.4);color:var(--amber)}
-.org-mid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;
-  border-top:1px dashed rgba(0,137,207,.15);padding-top:1rem;
+.iso-boxes{display:flex;gap:.85rem;flex-wrap:wrap}
+.iso-box{
+  flex:1;min-width:130px;
+  padding:1rem 1.1rem;
+  background:var(--white);
+  border:1px solid rgba(0,137,207,.22);
+  border-radius:3px;
+  cursor:pointer;
+  display:flex;flex-direction:column;gap:.3rem;
+  transition:border-color .2s, box-shadow .2s, transform .2s;
+  position:relative;
+  overflow:hidden;
 }
-.org-col{display:flex;flex-direction:column;gap:.5rem;align-items:center}
-.org-box-sm{
-  padding:.35rem .8rem;
-  background:var(--white);border:1px solid var(--border);
-  border-radius:2px;font-size:.78rem;color:var(--grey2);
-  text-align:center;width:100%;
+.iso-box::after{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,137,207,.07) 0%,rgba(0,137,207,0) 60%);
+  opacity:0;transition:opacity .2s;
 }
+.iso-box:hover{
+  border-color:rgba(0,137,207,.55);
+  box-shadow:0 4px 18px rgba(0,137,207,.12);
+  transform:translateY(-2px);
+}
+.iso-box:hover::after{opacity:1}
+.iso-code{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1rem;font-weight:700;letter-spacing:.06em;
+  color:var(--blue);text-transform:uppercase;
+}
+.iso-name{font-size:.78rem;color:var(--grey2);line-height:1.45;font-weight:400}
+.iso-view{
+  margin-top:.5rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(0,137,207,.6);display:flex;align-items:center;gap:.3rem;
+}
+.iso-view svg{width:12px;height:12px;transition:transform .2s}
+.iso-box:hover .iso-view svg{transform:translateX(3px)}
+
+/* ─── LIGHTBOX ─────────────────────────────── */
+.lb-overlay{
+  position:fixed;inset:0;z-index:9000;
+  background:rgba(10,14,20,.88);
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s ease;
+}
+.lb-overlay.lb-open{opacity:1;pointer-events:all}
+.lb-box{
+  position:relative;
+  max-width:min(860px,92vw);
+  max-height:90vh;
+  background:var(--white);
+  border-radius:4px;
+  overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.45);
+  transform:scale(.94);
+  transition:transform .25s cubic-bezier(.16,1,.3,1);
+}
+.lb-overlay.lb-open .lb-box{transform:scale(1)}
+.lb-box img{
+  display:block;
+  max-width:100%;
+  max-height:85vh;
+  object-fit:contain;
+}
+.lb-close{
+  position:absolute;top:.75rem;right:.75rem;
+  width:32px;height:32px;
+  background:rgba(0,0,0,.55);
+  border:none;border-radius:50%;
+  color:#fff;font-size:1.1rem;line-height:1;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .15s, transform .15s;
+  z-index:1;
+}
+.lb-close:hover{background:rgba(0,0,0,.8);transform:scale(1.1)}
 
 /* ─── CONTACT ─────────────────────────────── */
 #contact{background:var(--surface);position:relative;overflow:hidden}
@@ -758,7 +952,7 @@ a.hdr-icon-btn{text-decoration:none}
 }
 @media(max-width:860px){.contact-layout{grid-template-columns:1fr;gap:2.5rem}}
 
-.offices{display:flex;flex-direction:column;gap:1.5rem;margin-top:2.5rem}
+.offices{display:flex;flex-direction:column;gap:1.5rem;margin-top:0}
 .office{
   padding:1.8rem;
   background:var(--white);border:1px solid var(--border);
@@ -780,7 +974,7 @@ a.hdr-icon-btn{text-decoration:none}
 .contact-row a{color:inherit;text-decoration:none;transition:color .2s}
 .contact-row a:hover{color:var(--black)}
 
-.contact-form{margin-top:2.5rem}
+.contact-form{margin-top:0}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
 @media(max-width:460px){.form-row{grid-template-columns:1fr}}
 .field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
@@ -870,36 +1064,32 @@ footer{
           <a href="#svc-pm">Project Management</a>
         </div>
       </div>
-      <a href="#certificates">Certificates</a>
       <a href="#projects">Projects</a>
-      <a href="#about">About</a>
-    </nav>
-    <div class="header-right">
-      <!-- Language icon -->
-      <div class="lang-drop" id="langDrop">
-        <button class="hdr-icon-btn" id="langBtn" aria-label="Language" title="Language">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M12 3c-2.5 3-4 5.5-4 9s1.5 6 4 9"/>
-            <path d="M12 3c2.5 3 4 5.5 4 9s-1.5 6-4 9"/>
-            <path d="M3 12h18"/>
-          </svg>
+      <div class="nav-dropdown">
+        <button>
+          About
+          <svg class="chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5L5 6.5L8 3.5"/></svg>
         </button>
-        <div class="lang-menu" id="langMenu">
-          <button class="active" id="langEN" onclick="setLang('en',this)">
-            <span class="flag">🇬🇧</span> English
-          </button>
-          <button id="langBG" onclick="setLang('bg',this)">
-            <span class="flag">🇧🇬</span> Български
-          </button>
+        <div class="dropdown-menu">
+          <a href="#about">Who We Are</a>
+          <a href="#about-quality">Quality Assurance</a>
+          <a href="#about-team">Our Team</a>
         </div>
       </div>
-      <!-- Contact icon -->
-      <a href="#contact" class="hdr-icon-btn" aria-label="Contact Us" title="Contact Us">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-        </svg>
-      </a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-right">
+      <!-- Language selector -->
+      <div class="lang-drop" id="langDrop">
+        <button class="lang-text-btn" id="langBtn" aria-label="Language">
+          <span id="langLabel">EN</span>
+          <svg class="chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5L5 6.5L8 3.5"/></svg>
+        </button>
+        <div class="lang-menu" id="langMenu">
+          <button class="active" id="langEN" onclick="setLang('en',this,'EN')">EN</button>
+          <button id="langBG" onclick="setLang('bg',this,'BG')">BG</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -915,12 +1105,10 @@ footer{
   <div class="hero-grad2"></div>
   <div class="hero-grid-overlay"></div>
   <div class="hero-content">
-    <p class="hero-tag" data-ck="hero.tag">Energy &amp; Industrial Infrastructure — Bulgaria 2026</p>
-    <h1 class="hero-h1">Building<br>Critical<br><em>Infrastructure</em></h1>
+    <h1 class="hero-h1">Building Large Scale<br><span class="hero-cycle-wrap"><span class="hero-cycle" id="heroCycle"></span></span><br><em>Infrastructure</em></h1>
     <p class="hero-p" data-ck="hero.subtitle">Engineering, procurement, construction and project management for the energy and industrial sector across Europe and beyond.</p>
     <div class="hero-btns">
       <a href="#projects" class="btn-a">View Projects</a>
-      <a href="#contact" class="btn-b">Contact Us</a>
     </div>
   </div>
   <div class="hero-scroll-hint">
@@ -999,94 +1187,34 @@ footer{
       </ul>
     </div>
   </div>
+
+  <!-- Tracking system -->
+  <div class="tracking-card reveal">
+    <div>
+      <div class="tracking-h">QR / Barcode Tracking System</div>
+      <div class="tracking-sub">In-house materials control — competitive advantage</div>
+      <p class="tracking-p">Technocon operates a proprietary tracking system for steel structures, piping materials, and concrete precast units. Each item receives a unique QR/barcode ID and is tracked through defined statuses and locations across production, warehouse, and site — in real time.</p>
+      <div class="tracking-big">
+        <span class="n">4,000+</span>
+        <span class="l">produced items tracked<br>across multi-project operations</span>
+      </div>
+    </div>
+    <div>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem;">Status Workflow</p>
+      <div class="flow">
+        <div class="flow-s"><div class="flow-dot">PRD</div><div class="flow-label">Produced — manufactured &amp; labelled</div></div>
+        <div class="flow-s"><div class="flow-dot">QC</div><div class="flow-label">Quality Control — inspected &amp; approved</div></div>
+        <div class="flow-s"><div class="flow-dot">RDY</div><div class="flow-label">Ready — cleared for dispatch</div></div>
+        <div class="flow-s"><div class="flow-dot">DSP</div><div class="flow-label">Dispatched — in transport</div></div>
+        <div class="flow-s"><div class="flow-dot">DLV</div><div class="flow-label">Delivered — confirmed on-site</div></div>
+        <div class="flow-s"><div class="flow-dot">INS</div><div class="flow-label">Installed — final status logged</div></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ══════════════════════════════════════════ CERTIFICATES -->
-<section id="certificates" class="section">
-  <p class="sec-tag reveal">Quality &amp; Standards</p>
-  <h2 class="sec-h2 reveal">Certifications, Tracking &amp; Strengths</h2>
-  <p class="sec-p reveal">Technocon operates under certified management systems ensuring quality, environmental responsibility, and safety — supported by a proprietary materials tracking system as a key competitive advantage.</p>
-
-  <div class="cert-layout">
-    <div class="cert-iso reveal">
-      <div class="cert-ring">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-      </div>
-      <div>
-        <div class="cert-code">ISO 9001:2015</div>
-        <div class="cert-desc">Quality Management System</div>
-      </div>
-    </div>
-    <div class="cert-iso reveal">
-      <div class="cert-ring">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      </div>
-      <div>
-        <div class="cert-code">ISO 14001:2015</div>
-        <div class="cert-desc">Environmental Management System</div>
-      </div>
-    </div>
-    <div class="cert-iso reveal">
-      <div class="cert-ring">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-      </div>
-      <div>
-        <div class="cert-code">ISO 45001:2018</div>
-        <div class="cert-desc">Occupational Health &amp; Safety Management</div>
-      </div>
-    </div>
-
-    <!-- Tracking system -->
-    <div class="tracking-card reveal">
-      <div>
-        <div class="tracking-h">QR / Barcode Tracking System</div>
-        <div class="tracking-sub">In-house materials control — competitive advantage</div>
-        <p class="tracking-p">Technocon operates a proprietary tracking system for steel structures, piping materials, and concrete precast units. Each item receives a unique QR/barcode ID and is tracked through defined statuses and locations across production, warehouse, and site — in real time.</p>
-        <div class="tracking-big">
-          <span class="n">4,000+</span>
-          <span class="l">produced items tracked<br>across multi-project operations</span>
-        </div>
-      </div>
-      <div>
-        <p style="font-family:'Barlow Condensed',sans-serif;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem;">Status Workflow</p>
-        <div class="flow">
-          <div class="flow-s"><div class="flow-dot">PRD</div><div class="flow-label">Produced — manufactured &amp; labelled</div></div>
-          <div class="flow-s"><div class="flow-dot">QC</div><div class="flow-label">Quality Control — inspected &amp; approved</div></div>
-          <div class="flow-s"><div class="flow-dot">RDY</div><div class="flow-label">Ready — cleared for dispatch</div></div>
-          <div class="flow-s"><div class="flow-dot">DSP</div><div class="flow-label">Dispatched — in transport</div></div>
-          <div class="flow-s"><div class="flow-dot">DLV</div><div class="flow-label">Delivered — confirmed on-site</div></div>
-          <div class="flow-s"><div class="flow-dot">INS</div><div class="flow-label">Installed — final status logged</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Strategic strengths -->
-    <div class="cert-strengths">
-      <div class="strength reveal">
-        <div class="strength-h">Proven Execution</div>
-        <div class="strength-p">Track record in industrial and infrastructure projects across multiple countries and disciplines.</div>
-      </div>
-      <div class="strength reveal">
-        <div class="strength-h">Flexible Delivery</div>
-        <div class="strength-p">Engineering coordination + site execution + subcontractor management under one roof.</div>
-      </div>
-      <div class="strength reveal">
-        <div class="strength-h">Fast Response</div>
-        <div class="strength-p">Rapid mobilisation and adaptability to client requirements and project-specific procedures.</div>
-      </div>
-      <div class="strength reveal">
-        <div class="strength-h">Multi-Stage Entry</div>
-        <div class="strength-p">Can enter projects at mobilisation, installation, support, or recovery scope phases.</div>
-      </div>
-      <div class="strength reveal">
-        <div class="strength-h">Strong Coordination</div>
-        <div class="strength-p">Tight integration between technical, commercial, and execution functions.</div>
-      </div>
-      <div class="strength reveal">
-        <div class="strength-h">Scalable Capacity</div>
-        <div class="strength-p">Lean core team that expands through a vetted partner network as project scope requires.</div>
-      </div>
-    </div>
+<!-- ══════════════════════════════════════════ PARTNERS -->
+<section id="partners" class="section">
 
     <!-- Partners -->
     <div style="grid-column:1/-1">
@@ -1125,59 +1253,109 @@ footer{
   <h2 class="sec-h2 reveal">Projects</h2>
   <p class="sec-p reveal">Click any project to view details and photos.</p>
 
-  <div class="projects-filters reveal">
-    <button class="filter-btn active" onclick="filterProjects('all',this)">All</button>
-    <button class="filter-btn" onclick="filterProjects('ongoing',this)">Ongoing</button>
-    <button class="filter-btn" onclick="filterProjects('completed',this)">Completed</button>
+  <!-- Gallery4 header: description + nav arrows -->
+  <div class="proj-gallery-header reveal">
+    <div class="proj-gallery-meta">
+      <p class="proj-gallery-desc">Click any project card to view full details, photos, and scope of works.</p>
+      <div class="projects-filters">
+        <button class="filter-btn active" onclick="filterProjects('all',this)">All</button>
+        <button class="filter-btn" onclick="filterProjects('ongoing',this)">Ongoing</button>
+        <button class="filter-btn" onclick="filterProjects('completed',this)">Completed</button>
+      </div>
+    </div>
+    <div class="proj-gallery-nav">
+      <button class="pgn-btn" id="pgPrev" onclick="galleryScroll(-1)" disabled aria-label="Previous">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="4" x2="6" y2="10"/><line x1="6" y1="10" x2="13" y2="16"/></svg>
+      </button>
+      <button class="pgn-btn" id="pgNext" onclick="galleryScroll(1)" aria-label="Next">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="4" x2="14" y2="10"/><line x1="14" y1="10" x2="7" y2="16"/></svg>
+      </button>
+    </div>
   </div>
 
-  <div class="projects-grid" id="projectsGrid">
+  <!-- Carousel viewport -->
+  <div class="proj-gallery-outer">
+    <div class="proj-gallery-track" id="galleryTrack">
 
-    <!-- Row 1 -->
-    <div class="proj-card reveal" data-status="ongoing" data-proj="checkpoint" data-row="1" onclick="toggleProject('checkpoint',this)">
-      <div class="proj-card-img"><img src="brand_assets/CHIREN PRES-1.jpeg" alt="Border Checkpoint"><div class="proj-card-img-overlay"></div></div>
-      <div class="proj-card-body"><span class="proj-badge badge-ongoing">Ongoing</span><div class="proj-title">Border Checkpoint Reconstruction</div><div class="proj-client">Client: Glavbolgarstroy AD</div></div>
-      <div class="proj-expand-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
-    </div>
+      <div class="proj-card-g" data-status="ongoing" data-proj="checkpoint" onclick="toggleProject('checkpoint',this)">
+        <img src="brand_assets/CHIREN PRES-1.jpeg" alt="Border Checkpoint">
+        <div class="proj-card-g-overlay"></div>
+        <div class="proj-card-g-body">
+          <span class="proj-badge badge-ongoing">Ongoing</span>
+          <div class="proj-card-g-title">Border Checkpoint Reconstruction</div>
+          <div class="proj-card-g-desc">Strategic modernisation of a border checkpoint — full multi-discipline scope from engineering through construction.</div>
+          <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
+        </div>
+      </div>
 
-    <div class="proj-card reveal" data-status="completed" data-proj="balkan" data-row="1" onclick="toggleProject('balkan',this)">
-      <div class="proj-card-img"><img src="brand_assets/DJI_0012.JPG" alt="Balkan Stream Pipeline"><div class="proj-card-img-overlay"></div></div>
-      <div class="proj-card-body"><span class="proj-badge badge-completed">Completed</span><div class="proj-title">Bulgarian Gas Pipeline Extension</div><div class="proj-client">Client: Bulgartransgaz EAD</div></div>
-      <div class="proj-expand-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
-    </div>
+      <div class="proj-card-g" data-status="completed" data-proj="balkan" onclick="toggleProject('balkan',this)">
+        <img src="brand_assets/DJI_0012.JPG" alt="Balkan Stream">
+        <div class="proj-card-g-overlay"></div>
+        <div class="proj-card-g-body">
+          <span class="proj-badge badge-completed">Completed</span>
+          <div class="proj-card-g-title">Balkan Stream Pipeline</div>
+          <div class="proj-card-g-desc">Gas transmission pipeline across Bulgaria — Turkish to Serbian border — including commissioning and O&M support.</div>
+          <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
+        </div>
+      </div>
 
-    <div class="proj-card reveal" data-status="completed" data-proj="enefit" data-row="1" onclick="toggleProject('enefit',this)">
-      <div class="proj-card-img"><img src="brand_assets/CHIREN PRES-2.jpeg" alt="Enefit-280"><div class="proj-card-img-overlay"></div></div>
-      <div class="proj-card-body"><span class="proj-badge badge-completed">Completed</span><div class="proj-title">Enefit-280 Construction</div><div class="proj-client">Client: Eesti Energia</div></div>
-      <div class="proj-expand-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
-    </div>
+      <div class="proj-card-g" data-status="completed" data-proj="enefit" onclick="toggleProject('enefit',this)">
+        <img src="brand_assets/CHIREN PRES-2.jpeg" alt="Enefit-280">
+        <div class="proj-card-g-overlay"></div>
+        <div class="proj-card-g-body">
+          <span class="proj-badge badge-completed">Completed</span>
+          <div class="proj-card-g-title">Enefit-280 Narva Oil Plant</div>
+          <div class="proj-card-g-desc">400 t steel structures, 360 t piping, 50 t stainless steel, 4,300 pipe supports — oil shale processing plant, Estonia.</div>
+          <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
+        </div>
+      </div>
 
-    <!-- Row 1 detail panel — spans full width between row 1 and row 2 -->
-    <div id="proj-detail-row1" class="proj-detail-area"></div>
+      <div class="proj-card-g" data-status="completed" data-proj="lozen" onclick="toggleProject('lozen',this)">
+        <img src="brand_assets/CHIREN PRES-3.jpeg" alt="Lozen Station">
+        <div class="proj-card-g-overlay"></div>
+        <div class="proj-card-g-body">
+          <span class="proj-badge badge-completed">Completed</span>
+          <div class="proj-card-g-title">Lozen Pig Launcher Station</div>
+          <div class="proj-card-g-desc">Full reconstruction on the active 48" gas pipeline — access road, perimeter drainage, and fire protection strip.</div>
+          <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
+        </div>
+      </div>
 
-    <!-- Row 2 -->
-    <div class="proj-card reveal" data-status="completed" data-proj="lozen" data-row="2" onclick="toggleProject('lozen',this)">
-      <div class="proj-card-img"><img src="brand_assets/CHIREN PRES-3.jpeg" alt="Lozen Station"><div class="proj-card-img-overlay"></div></div>
-      <div class="proj-card-body"><span class="proj-badge badge-completed">Completed</span><div class="proj-title">Lozen Pig Launcher Station</div><div class="proj-client">Client: Bulgartransgaz EAD</div></div>
-      <div class="proj-expand-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
-    </div>
+      <div class="proj-card-g" data-status="completed" data-proj="chiren" onclick="toggleProject('chiren',this)">
+        <img src="brand_assets/DJI_0005.JPG" alt="Chiren UGS">
+        <div class="proj-card-g-overlay"></div>
+        <div class="proj-card-g-body">
+          <span class="proj-badge badge-completed">Completed</span>
+          <div class="proj-card-g-title">Chiren UGS Expansion</div>
+          <div class="proj-card-g-desc">New aboveground area for Chiren Underground Gas Storage — compressor station, gas treatment, TEG regeneration.</div>
+          <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
+        </div>
+      </div>
 
-    <div class="proj-card reveal" data-status="completed" data-proj="chiren" data-row="2" onclick="toggleProject('chiren',this)">
-      <div class="proj-card-img"><img src="brand_assets/DJI_0005.JPG" alt="Chiren UGS"><div class="proj-card-img-overlay"></div></div>
-      <div class="proj-card-body"><span class="proj-badge badge-completed">Completed</span><div class="proj-title">Chiren UGS Expansion</div><div class="proj-client">Client: Glavbolgarstroy AD</div></div>
-      <div class="proj-expand-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
-    </div>
+      <div class="proj-card-g" data-status="ongoing" data-proj="adnoc" onclick="toggleProject('adnoc',this)">
+        <img src="brand_assets/CHIREN PRES-2.jpeg" alt="ADNOC">
+        <div class="proj-card-g-overlay"></div>
+        <div class="proj-card-g-body">
+          <span class="proj-badge badge-ongoing">Ongoing</span>
+          <div class="proj-card-g-title">ADNOC Procurement — UAE</div>
+          <div class="proj-card-g-desc">Fire-rated LGS buildings and refurbished ISO container units — fully fitted and ready for deployment in the UAE.</div>
+          <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
+        </div>
+      </div>
 
-    <div class="proj-card reveal" data-status="ongoing" data-proj="adnoc" data-row="2" onclick="toggleProject('adnoc',this)">
-      <div class="proj-card-img"><img src="brand_assets/CHIREN PRES-2.jpeg" alt="ADNOC"><div class="proj-card-img-overlay"></div></div>
-      <div class="proj-card-body"><span class="proj-badge badge-ongoing">Ongoing</span><div class="proj-title">ADNOC Procurement Services</div><div class="proj-client">Client: ADNOC</div></div>
-      <div class="proj-expand-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
-    </div>
+    </div><!-- /track -->
+  </div><!-- /outer -->
 
-    <!-- Row 2 detail panel — spans full width below row 2 -->
-    <div id="proj-detail-row2" class="proj-detail-area"></div>
+  <!-- Dot nav -->
+  <div class="proj-gallery-dots" id="galleryDots"></div>
 
-  </div><!-- /projects-grid -->
+  <!-- Detail panels — one per project, below carousel -->
+  <div id="detail-checkpoint" class="proj-spot-detail" style="margin-top:1.5rem"></div>
+  <div id="detail-balkan"     class="proj-spot-detail" style="margin-top:1.5rem"></div>
+  <div id="detail-enefit"     class="proj-spot-detail" style="margin-top:1.5rem"></div>
+  <div id="detail-lozen"      class="proj-spot-detail" style="margin-top:1.5rem"></div>
+  <div id="detail-chiren"     class="proj-spot-detail" style="margin-top:1.5rem"></div>
+  <div id="detail-adnoc"      class="proj-spot-detail" style="margin-top:1.5rem"></div>
 </section>
 
 <!-- ══════════════════════════════════════════ ABOUT -->
@@ -1207,39 +1385,59 @@ footer{
         </div>
       </div>
 
-      <div class="org-wrap reveal">
-        <p class="org-h">Organisational Structure</p>
-        <div class="org-chart">
-          <div class="org-top">
-            <div class="org-box amber">Board of Directors</div>
-            <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center">
-              <div class="org-box">CEO</div>
-              <div class="org-box">COO</div>
-              <div class="org-box">DCC</div>
-            </div>
+      <!-- ISO Certificates -->
+      <div id="about-quality" class="about-certs reveal">
+        <div class="about-certs-label">Quality Assurance</div>
+        <div class="about-certs-title">ISO Certified</div>
+        <p class="about-certs-desc">Technocon holds three internationally recognised ISO certifications — reflecting our commitment to quality management, environmental responsibility, and occupational health &amp; safety across all operations.</p>
+        <div class="iso-boxes">
+          <div class="iso-box" onclick="openLightbox('brand_assets/ISO_9001_2015.png','ISO 9001:2015')">
+            <div class="iso-code">ISO 9001:2015</div>
+            <div class="iso-name">Quality Management System</div>
+            <div class="iso-view">View certificate <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></div>
           </div>
-          <div class="org-mid">
-            <div class="org-col">
-              <div class="org-box-sm" style="border-top:2px solid rgba(0,137,207,.4);color:var(--amber)">Construction</div>
-              <div class="org-box-sm">Head of Construction</div>
-              <div class="org-box-sm">Site Manager</div>
-              <div class="org-box-sm">QA/QC Manager</div>
-              <div class="org-box-sm">HSE Manager</div>
-            </div>
-            <div class="org-col">
-              <div class="org-box-sm" style="border-top:2px solid rgba(0,137,207,.4);color:var(--amber)">Engineering</div>
-              <div class="org-box-sm">Engineering Dept</div>
-              <div class="org-box-sm">Project Engineers</div>
-              <div class="org-box-sm">Planning/Scheduling</div>
-              <div class="org-box-sm">Contract Manager</div>
-            </div>
-            <div class="org-col">
-              <div class="org-box-sm" style="border-top:2px solid rgba(0,137,207,.4);color:var(--amber)">Operations</div>
-              <div class="org-box-sm">Procurement</div>
-              <div class="org-box-sm">Senior Admin</div>
-              <div class="org-box-sm">Accounting</div>
-              <div class="org-box-sm">IT Specialist</div>
-            </div>
+          <div class="iso-box" onclick="openLightbox('brand_assets/ISO_14001_2015.png','ISO 14001:2015')">
+            <div class="iso-code">ISO 14001:2015</div>
+            <div class="iso-name">Environmental Management System</div>
+            <div class="iso-view">View certificate <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></div>
+          </div>
+          <div class="iso-box" onclick="openLightbox('brand_assets/ISO_45001_2018.png','ISO 45001:2018')">
+            <div class="iso-code">ISO 45001:2018</div>
+            <div class="iso-name">Occupational Health &amp; Safety Management</div>
+            <div class="iso-view">View certificate <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Our Team -->
+      <div id="about-team" class="about-certs reveal">
+        <div class="about-certs-label">Our Team</div>
+        <div class="about-certs-title">How We Work</div>
+        <p class="about-certs-desc">A lean, senior-led team built for complex industrial environments — combining hands-on execution with tight coordination across all project phases.</p>
+        <div class="cert-strengths" style="grid-column:unset;margin-top:1.4rem;">
+          <div class="strength reveal">
+            <div class="strength-h">Proven Execution</div>
+            <div class="strength-p">Track record in industrial and infrastructure projects across multiple countries and disciplines.</div>
+          </div>
+          <div class="strength reveal">
+            <div class="strength-h">Flexible Delivery</div>
+            <div class="strength-p">Engineering coordination + site execution + subcontractor management under one roof.</div>
+          </div>
+          <div class="strength reveal">
+            <div class="strength-h">Fast Response</div>
+            <div class="strength-p">Rapid mobilisation and adaptability to client requirements and project-specific procedures.</div>
+          </div>
+          <div class="strength reveal">
+            <div class="strength-h">Multi-Stage Entry</div>
+            <div class="strength-p">Can enter projects at mobilisation, installation, support, or recovery scope phases.</div>
+          </div>
+          <div class="strength reveal">
+            <div class="strength-h">Strong Coordination</div>
+            <div class="strength-p">Tight integration between technical, commercial, and execution functions.</div>
+          </div>
+          <div class="strength reveal">
+            <div class="strength-h">Scalable Capacity</div>
+            <div class="strength-p">Lean core team that expands through a vetted partner network as project scope requires.</div>
           </div>
         </div>
       </div>
@@ -1255,11 +1453,11 @@ footer{
 
 <!-- ══════════════════════════════════════════ CONTACT -->
 <section id="contact" class="section">
+  <p class="sec-tag reveal">Get In Touch</p>
+  <h2 class="sec-h2 reveal">Contact Us</h2>
+  <p class="sec-p reveal">Ready to review your quotation, submit technical and commercial proposals, and mobilise our task force team to satisfy your project needs.</p>
   <div class="contact-layout">
     <div>
-      <p class="sec-tag reveal">Get In Touch</p>
-      <h2 class="sec-h2 reveal">Contact Us</h2>
-      <p class="sec-p reveal">Ready to review your quotation, submit technical and commercial proposals, and mobilise our task force team to satisfy your project needs.</p>
       <div class="offices">
         <div class="office reveal">
           <div class="office-city">Sofia, Bulgaria — Head Office</div>
@@ -1286,21 +1484,15 @@ footer{
             <a href="http://www.techno-con.eu" target="_blank" rel="noopener" data-ck="contact.web">www.techno-con.eu</a>
           </div>
         </div>
-        <div class="office reveal">
-          <div class="office-city">International Office</div>
-          <div class="contact-row">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 5l6 4 6-4" stroke-linecap="round"/></svg>
-            <div>
-              <a href="mailto:nea@techno-con.eu" data-ck="contact.intl.email">nea@techno-con.eu</a>
-            </div>
-          </div>
-          <div class="contact-row">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2.5 3.5a1 1 0 011-1h1.172a1 1 0 01.894.553l.707 1.414a1 1 0 01-.196 1.124l-.49.49a7.09 7.09 0 003.333 3.333l.49-.49a1 1 0 011.124-.196l1.414.707A1 1 0 0112.5 10.328V11.5a1 1 0 01-1 1H11C6.029 12.5 2.5 8.971 2.5 4V3.5z"/></svg>
-            <div>
-              <a href="tel:+359888304414" data-ck="contact.intl.phone">+359 888 304 414</a>
-              <div style="font-size:.85rem;color:var(--grey2);margin-top:.2rem" data-ck="contact.intl.person">Evgeny Nosovskiy — Member of the Board</div>
-            </div>
-          </div>
+        <div class="office office-map reveal">
+          <iframe
+            class="gmap-frame"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Osogovo+st.+51,+1303+Sofia,+Bulgaria&output=embed"
+            title="Technocon Head Office location">
+          </iframe>
         </div>
       </div>
     </div>
@@ -1310,34 +1502,24 @@ footer{
         <div class="form-row">
           <div class="field">
             <label>First Name</label>
-            <input type="text" placeholder="John" required>
+            <input type="text" name="firstName" placeholder="John" required>
           </div>
           <div class="field">
             <label>Last Name</label>
-            <input type="text" placeholder="Smith" required>
+            <input type="text" name="lastName" placeholder="Smith" required>
           </div>
         </div>
         <div class="field">
           <label>Company</label>
-          <input type="text" placeholder="Company Name">
+          <input type="text" name="company" placeholder="Company Name">
         </div>
         <div class="field">
           <label>Email</label>
-          <input type="email" placeholder="john@company.com" required>
-        </div>
-        <div class="field">
-          <label>Subject</label>
-          <select>
-            <option value="" disabled selected>Select a topic</option>
-            <option>Project Enquiry</option>
-            <option>Procurement Services</option>
-            <option>Partnership</option>
-            <option>General Enquiry</option>
-          </select>
+          <input type="email" name="email" placeholder="john@company.com" required>
         </div>
         <div class="field">
           <label>Message</label>
-          <textarea placeholder="Describe your project requirements…" required></textarea>
+          <textarea name="message" placeholder="Describe your project requirements…" required></textarea>
         </div>
         <button type="submit" class="btn-a" style="width:100%;text-align:center;display:block;padding:.9rem 2rem;font-size:.88rem">Send Message</button>
       </form>
@@ -1351,7 +1533,6 @@ footer{
   <div class="footer-copy">© 2026 Technocon EOOD — Energy &amp; Industrial Infrastructure, Sofia, Bulgaria</div>
   <div class="footer-links">
     <a href="#services">Services</a>
-    <a href="#certificates">Certificates</a>
     <a href="#projects">Projects</a>
     <a href="#about">About</a>
     <a href="#contact">Contact</a>
@@ -1487,32 +1668,28 @@ async function fetchCMS(lang) {
       };
     });
 
-    // Update project card text
+    // Update project card client line only — keep short display title in HTML
     projList.forEach(p => {
-      const card = document.querySelector(`.proj-card[data-proj="${p.key}"]`);
+      const card = document.querySelector(`.proj-card-g[data-proj="${p.key}"]`);
       if (!card) return;
-      const titleEl  = card.querySelector('.proj-title');
-      const clientEl = card.querySelector('.proj-client');
-      if (titleEl)  titleEl.textContent  = p.title;
-      if (clientEl) clientEl.textContent = `Client: ${p.client}`;
+      const t2 = card.querySelector('.proj-card-g-title');
+      if (t2) t2.textContent = `Client: ${p.client}`;
     });
 
     // If a detail panel is open, refresh its content in the new language
     if (activeProj) {
-      const card = document.querySelector(`.proj-card[data-proj="${activeProj}"]`);
-      if (card) {
-        const areaId = card.dataset.row === '1' ? 'proj-detail-row1' : 'proj-detail-row2';
-        document.getElementById(areaId).innerHTML = buildDetailHTML(activeProj);
-      }
+      const detail = document.getElementById('detail-' + activeProj);
+      if (detail) detail.innerHTML = buildDetailHTML(activeProj);
     }
   } catch (err) {
     // API unavailable (static hosting) — CMS_PROJECTS already has static fallback data
   }
 }
 
-function setLang(code, btn) {
+function setLang(code, btn, label) {
   document.querySelectorAll('#langMenu button').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+  document.getElementById('langLabel').textContent = label;
   langDrop.classList.remove('open');
   currentLang = code;
   fetchCMS(code);
@@ -1531,23 +1708,132 @@ const observer = new IntersectionObserver(entries => {
 }, {threshold: 0.1, rootMargin: '0px 0px -30px 0px'});
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+// ── Gallery carousel state
+var galCurIdx = 0;
+var galDragStartX = 0;
+var galDragDelta = 0;
+var galIsDragging = false;
+
+function galGetVisible() {
+  const track = document.getElementById('galleryTrack');
+  if (!track) return [];
+  return Array.from(track.querySelectorAll('.proj-card-g')).filter(c => c.style.display !== 'none');
+}
+
+function galCardWidth() {
+  const track = document.getElementById('galleryTrack');
+  if (!track) return 360;
+  const card = track.querySelector('.proj-card-g:not([style*="display: none"])');
+  if (!card) return 360;
+  return card.offsetWidth + 20; // card width + gap
+}
+
+function galUpdateDots(visible) {
+  const dots = document.getElementById('galleryDots');
+  if (!dots) return;
+  dots.innerHTML = '';
+  visible.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'pgdot' + (i === galCurIdx ? ' active' : '');
+    d.setAttribute('aria-label', 'Go to project ' + (i + 1));
+    d.onclick = (function(idx){ return function(){ galGoTo(idx); }; })(i);
+    dots.appendChild(d);
+  });
+}
+
+function galGoTo(idx) {
+  const track = document.getElementById('galleryTrack');
+  if (!track) return;
+  const visible = galGetVisible();
+  const total = visible.length;
+  if (total === 0) return;
+  galCurIdx = Math.max(0, Math.min(idx, total - 1));
+  const cw = galCardWidth();
+  track.style.transform = 'translateX(-' + (galCurIdx * cw) + 'px)';
+  document.getElementById('pgPrev').disabled = galCurIdx === 0;
+  document.getElementById('pgNext').disabled = galCurIdx >= total - 1;
+  galUpdateDots(visible);
+}
+
+function galleryScroll(dir) {
+  galGoTo(galCurIdx + dir);
+}
+
+function galInitDrag() {
+  const track = document.getElementById('galleryTrack');
+  if (!track || track._dragInit) return;
+  track._dragInit = true;
+
+  function onDragStart(e) {
+    galIsDragging = true;
+    galDragStartX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+    galDragDelta = 0;
+    track.style.transition = 'none';
+    track.style.cursor = 'grabbing';
+  }
+  function onDragMove(e) {
+    if (!galIsDragging) return;
+    var x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+    galDragDelta = x - galDragStartX;
+    var visible = galGetVisible();
+    var cw = galCardWidth();
+    var base = galCurIdx * cw;
+    track.style.transform = 'translateX(-' + (base - galDragDelta) + 'px)';
+  }
+  function onDragEnd() {
+    if (!galIsDragging) return;
+    galIsDragging = false;
+    track.style.transition = 'transform .5s cubic-bezier(.25,.8,.25,1)';
+    track.style.cursor = 'grab';
+    if (galDragDelta < -60) galleryScroll(1);
+    else if (galDragDelta > 60) galleryScroll(-1);
+    else galGoTo(galCurIdx);
+  }
+
+  track.addEventListener('mousedown', onDragStart);
+  track.addEventListener('touchstart', onDragStart, {passive:true});
+  window.addEventListener('mousemove', onDragMove);
+  window.addEventListener('touchmove', onDragMove, {passive:true});
+  window.addEventListener('mouseup', onDragEnd);
+  window.addEventListener('touchend', onDragEnd);
+  track.addEventListener('click', function(e) {
+    if (Math.abs(galDragDelta) > 5) e.stopPropagation();
+  }, true);
+}
+
+// Initialise gallery once DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+  galUpdateDots(galGetVisible());
+  galInitDrag();
+});
+
 // ── Project filter
 function filterProjects(filter, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   closeDetail();
-  document.querySelectorAll('.proj-card').forEach(card => {
-    card.style.display = (filter === 'all' || card.dataset.status === filter) ? '' : 'none';
+  document.querySelectorAll('.proj-card-g').forEach(card => {
+    const show = filter === 'all' || card.dataset.status === filter;
+    card.style.display = show ? '' : 'none';
+    const detail = document.getElementById('detail-' + card.dataset.proj);
+    if (detail) detail.style.display = show ? '' : 'none';
   });
+  galCurIdx = 0;
+  const track = document.getElementById('galleryTrack');
+  if (track) { track.style.transition = 'none'; track.style.transform = 'translateX(0)'; }
+  document.getElementById('pgPrev').disabled = true;
+  const vis = galGetVisible();
+  document.getElementById('pgNext').disabled = vis.length <= 1;
+  galUpdateDots(vis);
 }
 
-// ── Project detail — two row panels
+// ── Project detail — per-item panels
 let activeProj = null;
 let carouselIdx = 0;
 
 function closeDetail() {
-  document.querySelectorAll('.proj-detail-area').forEach(a => a.classList.remove('open'));
-  document.querySelectorAll('.proj-card.active').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.proj-spot-detail.open').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.proj-card-g.active').forEach(c => c.classList.remove('active'));
   activeProj = null;
 }
 
@@ -1582,23 +1868,18 @@ function buildDetailHTML(id) {
 }
 
 function toggleProject(id, card) {
-  const row = card.dataset.row;
-  const areaId = row === '1' ? 'proj-detail-row1' : 'proj-detail-row2';
-  const otherId = row === '1' ? 'proj-detail-row2' : 'proj-detail-row1';
-  const area  = document.getElementById(areaId);
-  const other = document.getElementById(otherId);
+  const detail = document.getElementById('detail-' + id);
 
   if (activeProj === id) { closeDetail(); return; }
 
-  other.classList.remove('open');
-  document.querySelectorAll('.proj-card.active').forEach(c => c.classList.remove('active'));
+  closeDetail();
   card.classList.add('active');
   activeProj = id;
   carouselIdx = 0;
 
-  area.innerHTML = buildDetailHTML(id);
-  area.classList.add('open');
-  setTimeout(() => area.scrollIntoView({behavior:'smooth', block:'start'}), 50);
+  detail.innerHTML = buildDetailHTML(id);
+  detail.classList.add('open');
+  setTimeout(() => detail.scrollIntoView({behavior:'smooth', block:'start'}), 50);
 }
 
 // ── Carousel (operates on active panel)
@@ -1618,18 +1899,48 @@ function carouselGo(idx) { updateCarousel(idx); }
 // ── Form
 function submitForm(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('button[type=submit]');
-  btn.textContent = 'Message Sent ✓';
-  btn.style.background = '#4a7c59';
-  setTimeout(() => {
-    btn.textContent = 'Send Message';
-    btn.style.background = '';
-    e.target.reset();
-  }, 3000);
+  const form = e.target;
+  const btn  = form.querySelector('button[type=submit]');
+  const data = {
+    firstName: form.firstName.value.trim(),
+    lastName:  form.lastName.value.trim(),
+    company:   form.company.value.trim(),
+    email:     form.email.value.trim(),
+    message:   form.message.value.trim(),
+  };
+  btn.disabled    = true;
+  btn.textContent = 'Sending…';
+  fetch('/api/contact', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify(data),
+  })
+  .then(r => r.json())
+  .then(res => {
+    if (res.ok) {
+      btn.textContent    = 'Message Sent ✓';
+      btn.style.background = '#4a7c59';
+      form.reset();
+      setTimeout(() => {
+        btn.textContent    = 'Send Message';
+        btn.style.background = '';
+        btn.disabled         = false;
+      }, 4000);
+    } else {
+      btn.textContent  = 'Error — try again';
+      btn.style.background = '#b44';
+      btn.disabled     = false;
+    }
+  })
+  .catch(() => {
+    btn.textContent  = 'Error — try again';
+    btn.style.background = '#b44';
+    btn.disabled     = false;
+  });
 }
 
 // ── Active nav highlight on scroll
-const sections = ['services','certificates','projects','about','contact'];
+const sections = ['services','projects','about','contact'];
 const navLinks = document.querySelectorAll('nav > a');
 window.addEventListener('scroll', () => {
   let cur = '';
@@ -1642,8 +1953,76 @@ window.addEventListener('scroll', () => {
   });
 }, {passive:true});
 
+// ── Hero cycling word animation
+(function() {
+  var words  = ['Energy', 'Industrial'];
+  var el     = document.getElementById('heroCycle');
+  var idx    = 0;
+
+  function buildChar(char, i) {
+    var d = (i * 0.05).toFixed(2);
+    var d1 = (i * 0.05 + 0.08).toFixed(2);
+    var d2 = (i * 0.05 + 0.16).toFixed(2);
+    var d3 = (i * 0.05 + 0.12).toFixed(2);
+    var c  = char === ' ' ? '\u00A0' : char;
+    return '<span class="sc">' +
+      '<span class="sc-main" style="animation-delay:' + d3 + 's">' + c + '</span>' +
+      '<span class="sc-t" style="animation-delay:' + d + 's">' + c + '</span>' +
+      '<span class="sc-m" style="animation-delay:' + d1 + 's">' + c + '</span>' +
+      '<span class="sc-b" style="animation-delay:' + d2 + 's">' + c + '</span>' +
+    '</span>';
+  }
+
+  function show(word) {
+    el.innerHTML = word.split('').map(buildChar).join('');
+    el.style.cssText = 'opacity:1;transform:none';
+  }
+
+  function next() {
+    // Exit current word
+    el.className = 'hero-cycle exit';
+    setTimeout(function() {
+      idx = (idx + 1) % words.length;
+      el.className = 'hero-cycle';
+      show(words[idx]);
+    }, 420);
+  }
+
+  // Start: show first word after h1 fades in (0.6s delay + 0.7s duration)
+  setTimeout(function() {
+    show(words[0]);
+    setInterval(next, 4500);
+  }, 1400);
+})();
+
 // ── Bootstrap CMS on page load
 fetchCMS('en');
+
+// ── Lightbox ──────────────────────────────────────────────────────────
+function openLightbox(src, alt) {
+  const overlay = document.getElementById('lb-overlay');
+  const img = document.getElementById('lb-img');
+  img.src = src;
+  img.alt = alt || '';
+  overlay.classList.add('lb-open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  const overlay = document.getElementById('lb-overlay');
+  overlay.classList.remove('lb-open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
 </script>
+
+<!-- Lightbox overlay -->
+<div id="lb-overlay" class="lb-overlay" onclick="closeLightbox()">
+  <div class="lb-box" onclick="event.stopPropagation()">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&#x2715;</button>
+    <img id="lb-img" src="" alt="">
+  </div>
+</div>
 </body>
 </html>

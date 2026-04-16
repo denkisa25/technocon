@@ -1,10 +1,11 @@
 // Technocon CMS Backend — JSON file storage (no native modules, works on Node 10+)
-const express = require('express');
-const session = require('express-session');
-const multer  = require('multer');
-const bcrypt  = require('bcryptjs');
-const path    = require('path');
-const fs      = require('fs');
+const express    = require('express');
+const session    = require('express-session');
+const multer     = require('multer');
+const bcrypt     = require('bcryptjs');
+const path       = require('path');
+const fs         = require('fs');
+const nodemailer = require('nodemailer');
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -358,6 +359,56 @@ app.delete('/api/projects/:id/images/:imgId', requireAdmin, function(req, res) {
   projects[pIdx].images = projects[pIdx].images.filter(function(i) { return i.id != req.params.imgId; });
   writeJSON(FILES.projects, projects);
   res.json({ ok: true });
+});
+
+// ── Contact form ───────────────────────────────────────────────────────
+// Uses sendmail transport (available on cPanel hosting).
+// Falls back to SMTP if SMTP_HOST env var is set.
+var mailer = nodemailer.createTransport(
+  process.env.SMTP_HOST
+    ? {
+        host: process.env.SMTP_HOST,
+        port: parseInt(process.env.SMTP_PORT || '587'),
+        secure: process.env.SMTP_SECURE === 'true',
+        auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
+      }
+    : { sendmail: true, newline: 'unix', path: '/usr/sbin/sendmail' }
+);
+
+app.post('/api/contact', function(req, res) {
+  var b = req.body;
+  if (!b.firstName || !b.email || !b.message) {
+    return res.status(400).json({ ok: false, error: 'Missing required fields' });
+  }
+  var name    = (b.firstName + ' ' + (b.lastName || '')).trim();
+  var company = b.company ? ' (' + b.company + ')' : '';
+  var mailOpts = {
+    from:    '"Technocon Website" <office@techno-con.eu>',
+    to:      process.env.CONTACT_TO || 'denkisa@gmail.com',
+    replyTo: b.email,
+    subject: 'Website enquiry from ' + name + company,
+    text: [
+      'Name:    ' + name,
+      'Company: ' + (b.company || '—'),
+      'Email:   ' + b.email,
+      '',
+      b.message,
+    ].join('\n'),
+    html: [
+      '<p><strong>Name:</strong> '    + name + '</p>',
+      '<p><strong>Company:</strong> ' + (b.company || '—') + '</p>',
+      '<p><strong>Email:</strong> <a href="mailto:' + b.email + '">' + b.email + '</a></p>',
+      '<hr>',
+      '<p>' + b.message.replace(/\n/g, '<br>') + '</p>',
+    ].join(''),
+  };
+  mailer.sendMail(mailOpts, function(err) {
+    if (err) {
+      console.error('Contact mail error:', err);
+      return res.status(500).json({ ok: false, error: 'Mail delivery failed' });
+    }
+    res.json({ ok: true });
+  });
 });
 
 // ── Start ──────────────────────────────────────────────────────────────
