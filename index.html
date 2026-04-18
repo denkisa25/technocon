@@ -245,10 +245,11 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   overflow:hidden;margin-top:0;
 }
 .hero-bg{
-  position:absolute;inset:0;
-  background-image:url('brand_assets/DJI_0005.JPG');
-  background-size:cover;background-position:center 40%;
-  animation:heroKen 14s ease-out forwards;
+  position:absolute;inset:0;overflow:hidden;
+}
+.hero-bg video{
+  width:100%;height:100%;object-fit:cover;object-position:center 40%;
+  display:block;
 }
 @keyframes heroKen{from{transform:scale(1.06) translateX(0px)}to{transform:scale(1.0) translateX(-10px)}}
 .hero-grad{
@@ -1107,7 +1108,11 @@ footer{
 
 <!-- ══════════════════════════════════════════ HERO -->
 <section id="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline preload="auto" poster="brand_assets/DJI_0005.JPG">
+      <source src="brand_assets/technocon_home_video.mp4" type="video/mp4">
+    </video>
+  </div>
   <div class="hero-grad"></div>
   <div class="hero-grad2"></div>
   <div class="hero-grid-overlay"></div>
