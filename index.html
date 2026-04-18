@@ -650,63 +650,70 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 /* card */
 .proj-card-g{
   flex-shrink:0;
-  width:340px;
+  width:420px;
   border-radius:12px;
   overflow:hidden;
   position:relative;
-  min-height:432px;
+  min-height:520px;
   cursor:pointer;
 }
-@media(max-width:680px){.proj-card-g{width:280px;min-height:380px}}
+@media(max-width:680px){.proj-card-g{width:300px;min-height:420px}}
 
 .proj-card-g img{
   position:absolute;inset:0;
   width:100%;height:100%;object-fit:cover;object-position:center;
-  transition:transform .4s cubic-bezier(.25,.8,.25,1);
+  transition:transform .5s cubic-bezier(.25,.8,.25,1);
 }
-.proj-card-g:hover img{transform:scale(1.05)}
+.proj-card-g:hover img{transform:scale(1.06)}
 
 .proj-card-g-overlay{
   position:absolute;inset:0;
   background:linear-gradient(
     to bottom,
     rgba(0,0,0,0) 0%,
-    rgba(0,0,0,.25) 40%,
-    rgba(0,0,0,.72) 100%
+    rgba(0,0,0,.15) 35%,
+    rgba(0,0,0,.82) 100%
   );
-  mix-blend-mode:multiply;
 }
 
 .proj-card-g-body{
   position:absolute;inset-x:0;bottom:0;
-  padding:1.5rem 1.75rem 1.75rem;
+  padding:1.8rem 2rem 2rem;
   color:#fff;
   display:flex;flex-direction:column;align-items:flex-start;
 }
-.proj-card-g-body .proj-badge{margin-bottom:.85rem}
+.proj-card-g-body .proj-badge{margin-bottom:1rem}
 .proj-card-g-title{
   font-family:'Barlow Condensed',sans-serif;
-  font-size:1.35rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.02em;line-height:1.15;
-  margin-bottom:.6rem;
+  font-size:1.6rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.02em;line-height:1.1;
+  color:#fff;
+  margin-bottom:.4rem;
+}
+.proj-card-g-client{
+  font-family:'Barlow',sans-serif;
+  font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--amber);
+  margin-bottom:.9rem;
 }
 .proj-card-g-desc{
-  font-size:.84rem;line-height:1.6;
-  color:rgba(255,255,255,.8);
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-  margin-bottom:1.1rem;
+  font-size:.87rem;line-height:1.65;
+  color:rgba(255,255,255,.82);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  margin-bottom:1.4rem;
 }
 .proj-card-g-cta{
   display:flex;align-items:center;gap:.5rem;
   font-family:'Barlow Condensed',sans-serif;
   font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
   color:rgba(255,255,255,.9);
+  margin-top:auto;
 }
 .proj-card-g-cta svg{
   width:18px;height:18px;
   transition:transform .3s cubic-bezier(.16,1,.3,1);
 }
-.proj-card-g:hover .proj-card-g-cta svg{transform:translateX(4px)}
+.proj-card-g:hover .proj-card-g-cta svg{transform:translateX(5px)}
 
 /* dot nav */
 .proj-gallery-dots{
@@ -1283,6 +1290,7 @@ footer{
         <div class="proj-card-g-body">
           <span class="proj-badge badge-ongoing">Ongoing</span>
           <div class="proj-card-g-title">Border Checkpoint Reconstruction</div>
+          <div class="proj-card-g-client">Glavbolgarstroy AD · Bulgaria</div>
           <div class="proj-card-g-desc">Strategic modernisation of a border checkpoint — full multi-discipline scope from engineering through construction.</div>
           <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
         </div>
@@ -1294,6 +1302,7 @@ footer{
         <div class="proj-card-g-body">
           <span class="proj-badge badge-completed">Completed</span>
           <div class="proj-card-g-title">Balkan Stream Pipeline</div>
+          <div class="proj-card-g-client">Bulgartransgaz EAD · Bulgaria</div>
           <div class="proj-card-g-desc">Gas transmission pipeline across Bulgaria — Turkish to Serbian border — including commissioning and O&M support.</div>
           <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
         </div>
@@ -1305,7 +1314,8 @@ footer{
         <div class="proj-card-g-body">
           <span class="proj-badge badge-completed">Completed</span>
           <div class="proj-card-g-title">Enefit-280 Narva Oil Plant</div>
-          <div class="proj-card-g-desc">400 t steel structures, 360 t piping, 50 t stainless steel, 4,300 pipe supports — oil shale processing plant, Estonia.</div>
+          <div class="proj-card-g-client">Eesti Energia · Estonia</div>
+          <div class="proj-card-g-desc">400 t steel structures, 360 t piping, 50 t stainless steel — oil shale processing plant construction and commissioning.</div>
           <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
         </div>
       </div>
@@ -1316,6 +1326,7 @@ footer{
         <div class="proj-card-g-body">
           <span class="proj-badge badge-completed">Completed</span>
           <div class="proj-card-g-title">Lozen Pig Launcher Station</div>
+          <div class="proj-card-g-client">Bulgartransgaz EAD · Bulgaria</div>
           <div class="proj-card-g-desc">Full reconstruction on the active 48" gas pipeline — access road, perimeter drainage, and fire protection strip.</div>
           <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
         </div>
@@ -1327,6 +1338,7 @@ footer{
         <div class="proj-card-g-body">
           <span class="proj-badge badge-completed">Completed</span>
           <div class="proj-card-g-title">Chiren UGS Expansion</div>
+          <div class="proj-card-g-client">Glavbolgarstroy AD · Bulgaria</div>
           <div class="proj-card-g-desc">New aboveground area for Chiren Underground Gas Storage — compressor station, gas treatment, TEG regeneration.</div>
           <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
         </div>
@@ -1338,6 +1350,7 @@ footer{
         <div class="proj-card-g-body">
           <span class="proj-badge badge-ongoing">Ongoing</span>
           <div class="proj-card-g-title">ADNOC Procurement — UAE</div>
+          <div class="proj-card-g-client">ADNOC · United Arab Emirates</div>
           <div class="proj-card-g-desc">Fire-rated LGS buildings and refurbished ISO container units — fully fitted and ready for deployment in the UAE.</div>
           <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
         </div>
@@ -1668,12 +1681,14 @@ async function fetchCMS(lang) {
       };
     });
 
-    // Update project card client line only — keep short display title in HTML
+    // Update project card title and client line from CMS data
     projList.forEach(p => {
       const card = document.querySelector(`.proj-card-g[data-proj="${p.key}"]`);
       if (!card) return;
-      const t2 = card.querySelector('.proj-card-g-title');
-      if (t2) t2.textContent = `Client: ${p.client}`;
+      const titleEl  = card.querySelector('.proj-card-g-title');
+      const clientEl = card.querySelector('.proj-card-g-client');
+      if (titleEl && p.title)  titleEl.textContent  = p.title;
+      if (clientEl && p.client) clientEl.textContent = p.client;
     });
 
     // If a detail panel is open, refresh its content in the new language
