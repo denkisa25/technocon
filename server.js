@@ -190,7 +190,7 @@ app.use(function(req, res, next) {
 
 // ── Static ─────────────────────────────────────────────────────────────
 app.use('/uploads',      express.static(path.join(ROOT, 'uploads')));
-app.use('/brand_assets', express.static(path.join(ROOT, 'brand_assets')));
+app.use('/brand_assets', express.static(path.join(ROOT, 'brand_assets'), { maxAge: '7d' }));
 app.get('/admin', function(req, res) { res.sendFile(path.join(ROOT, 'admin.html')); });
 app.get('/',      function(req, res) { res.sendFile(path.join(ROOT, 'index.html')); });
 
