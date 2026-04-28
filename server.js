@@ -632,6 +632,21 @@ app.delete('/api/partners/:id', requireAdmin, function(req, res) {
   res.json({ ok: true });
 });
 
+// ── Backup ─────────────────────────────────────────────────────────────
+app.get('/api/backup', requireAdmin, function(req, res) {
+  var date = new Date().toISOString().slice(0, 10);
+  var payload = {
+    exported_at: new Date().toISOString(),
+    version:  '1.0',
+    content:  readJSON(FILES.content,  { en: {}, bg: {} }),
+    projects: readJSON(FILES.projects, []),
+    partners: readJSON(FILES.partners, []),
+  };
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Content-Disposition', 'attachment; filename="technocon-backup-' + date + '.json"');
+  res.json(payload);
+});
+
 // ── Start ──────────────────────────────────────────────────────────────
 app.listen(PORT, function() {
   console.log('\n  Technocon CMS running at http://localhost:' + PORT);
