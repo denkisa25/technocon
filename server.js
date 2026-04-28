@@ -22,6 +22,7 @@ const FILES = {
   users:    path.join(DATA, 'users.json'),
   content:  path.join(DATA, 'content.json'),
   projects: path.join(DATA, 'projects.json'),
+  partners: path.join(DATA, 'partners.json'),
 };
 
 function readJSON(file, fallback) {
@@ -39,57 +40,165 @@ if (!fs.existsSync(FILES.users)) {
   ]);
 }
 
-// ── Seed content ───────────────────────────────────────────────────────
-if (!fs.existsSync(FILES.content)) {
-  writeJSON(FILES.content, {
-    en: {
-      'hero.tag':           'Energy & Industrial Infrastructure — Bulgaria 2026',
-      'hero.subtitle':      'Engineering, procurement, construction and project management for the energy and industrial sector across Europe and beyond.',
-      'stat.1.n':           '€11M+',
-      'stat.1.l':           'Contract Value',
-      'stat.2.n':           '4,000+',
-      'stat.2.l':           'Tracked Items',
-      'stat.3.n':           '7+',
-      'stat.3.l':           'Major Projects',
-      'stat.4.n':           '3',
-      'stat.4.l':           'ISO Certifications',
-      'services.intro':     'From mechanical installation to full turnkey project execution — Technocon delivers integrated solutions across the complete project lifecycle in energy and industrial infrastructure.',
-      'about.text':         'A Bulgarian-based company specialising in energy and industrial infrastructure projects across Europe. We combine proven engineering expertise, flexible delivery capacity, and lean team structure to deliver results at every project stage — from mobilisation through commissioning and beyond.',
-      'contact.address':    'Osogovo st. 51, 1303 Sofia, Bulgaria',
-      'contact.email1':     'dcc@techno-con.eu',
-      'contact.email2':     'office@techno-con.eu',
-      'contact.phone1':     '+359 88 9627304',
-      'contact.phone2':     '+359 88 8304414',
-      'contact.web':        'www.techno-con.eu',
-      'contact.intl.email': 'nea@techno-con.eu',
-      'contact.intl.phone': '+359 888 304 414',
-      'contact.intl.person':'Evgeny Nosovskiy — Member of the Board',
-    },
-    bg: {
-      'hero.tag':           'Енергийна и промишлена инфраструктура — България 2026',
-      'hero.subtitle':      'Инженеринг, доставки, строителство и управление на проекти за енергийния и индустриален сектор в Европа и извън нея.',
-      'stat.1.n':           '€11M+',
-      'stat.1.l':           'Стойност договори',
-      'stat.2.n':           '4,000+',
-      'stat.2.l':           'Проследени позиции',
-      'stat.3.n':           '7+',
-      'stat.3.l':           'Основни проекти',
-      'stat.4.n':           '3',
-      'stat.4.l':           'ISO Сертификации',
-      'services.intro':     'От механичен монтаж до изпълнение на ключови проекти — Техноcon предоставя интегрирани решения в целия жизнен цикъл на проекти в енергийната и промишлената инфраструктура.',
-      'about.text':         'Българска компания, специализирана в проекти за енергийна и промишлена инфраструктура в Европа. Комбинираме доказан инженерен опит, гъвкав капацитет за изпълнение и компактна структура за постигане на резултати.',
-      'contact.address':    'ул. Осогово 51, 1303 София, България',
-      'contact.email1':     'dcc@techno-con.eu',
-      'contact.email2':     'office@techno-con.eu',
-      'contact.phone1':     '+359 88 9627304',
-      'contact.phone2':     '+359 88 8304414',
-      'contact.web':        'www.techno-con.eu',
-      'contact.intl.email': 'nea@techno-con.eu',
-      'contact.intl.phone': '+359 888 304 414',
-      'contact.intl.person':'Евгений Носовски — Член на Съвета на директорите',
-    }
+// ── Content defaults (used for seed and migration) ─────────────────────
+var CONTENT_DEFAULTS = {
+  en: {
+    'hero.tag':           'Energy & Industrial Infrastructure — Bulgaria 2026',
+    'hero.subtitle':      'Engineering, procurement, construction and project management for the energy and industrial sector across Europe and beyond.',
+    'stat.1.n':           '€11M+',
+    'stat.1.l':           'Contract Value',
+    'stat.2.n':           '4,000+',
+    'stat.2.l':           'Tracked Items',
+    'stat.3.n':           '7+',
+    'stat.3.l':           'Major Projects',
+    'stat.4.n':           '3',
+    'stat.4.l':           'ISO Certifications',
+    'services.tag':       'Fields of Activity',
+    'services.h2':        'Our Services',
+    'services.intro':     'From mechanical installation to full turnkey project execution — Technocon delivers integrated solutions across the complete project lifecycle in energy and industrial infrastructure.',
+    'services.1.title':   'Construction & Installation',
+    'services.1.items':   ['Mechanical equipment installation','Welding and piping works','Testing and commissioning assistance','Steel structure erection','Civil works','Supervision & QA/QC'],
+    'services.2.title':   'Engineering & Turnkey Execution',
+    'services.2.items':   ['Design and design coordination','Technical supervision','Engineering support','Scope integration','End-to-end project delivery','As-built documentation'],
+    'services.3.title':   'Procurement',
+    'services.3.items':   ['Procurement coordination & expediting','Process equipment & raw materials','Surplus materials','Vendor list & vendor follow-up','TBE preparation','Transport & warehouse logistics'],
+    'services.4.title':   'Project Management & Controls',
+    'services.4.items':   ['Progress reporting & planning','Final installation management','Weekly/daily reports','Interface management','Multi-discipline coordination','Subcontractor management'],
+    'tracking.h':              'QR / Barcode Tracking System',
+    'tracking.sub':            'In-house materials control — competitive advantage',
+    'tracking.p':              'Technocon operates a proprietary tracking system for steel structures, piping materials, and concrete precast units. Each item receives a unique QR/barcode ID and is tracked through defined statuses and locations across production, warehouse, and site — in real time.',
+    'tracking.stat.n':         '4,000+',
+    'tracking.stat.l':         'produced items tracked across multi-project operations',
+    'tracking.workflow.label': 'Status Workflow',
+    'tracking.flow.prd':       'Produced — manufactured & labelled',
+    'tracking.flow.qc':        'Quality Control — inspected & approved',
+    'tracking.flow.rdy':       'Ready — cleared for dispatch',
+    'tracking.flow.dsp':       'Dispatched — in transport',
+    'tracking.flow.dlv':       'Delivered — confirmed on-site',
+    'tracking.flow.ins':       'Installed — final status logged',
+    'about.tag':          'Who We Are',
+    'about.h2':           'About Technocon',
+    'about.text':         'A Bulgarian-based company specialising in energy and industrial infrastructure projects across Europe. We combine proven engineering expertise, flexible delivery capacity, and lean team structure to deliver results at every project stage — from mobilisation through commissioning and beyond.',
+    'about.caps':         [
+      'Fast Internal Coordination||Rapid decision-making and high adaptability in changing project environments.',
+      'Strong Ownership||Experience in technical documentation, site interfaces, and execution follow-up.',
+      'Lean Structure||Hands-on project involvement with efficient communication across all disciplines.',
+      'Quick Mobilisation||Ability to mobilise core resources and expand through partner network when required.'
+    ],
+    'quality.label':      'Quality Assurance',
+    'quality.title':      'ISO Certified',
+    'quality.desc':       'Technocon holds three internationally recognised ISO certifications — reflecting our commitment to quality management, environmental responsibility, and occupational health & safety across all operations.',
+    'quality.isos':       [
+      'ISO 9001:2015||Quality Management System||brand_assets/ISO_9001_2015.png',
+      'ISO 14001:2015||Environmental Management System||brand_assets/ISO_14001_2015.png',
+      'ISO 45001:2018||Occupational Health & Safety Management||brand_assets/ISO_45001_2018.png'
+    ],
+    'team.label':         'Our Team',
+    'team.title':         'How We Work',
+    'team.desc':          'A lean, senior-led team built for complex industrial environments — combining hands-on execution with tight coordination across all project phases.',
+    'team.strengths':     [
+      'Proven Execution||Track record in industrial and infrastructure projects across multiple countries and disciplines.',
+      'Flexible Delivery||Engineering coordination + site execution + subcontractor management under one roof.',
+      'Fast Response||Rapid mobilisation and adaptability to client requirements and project-specific procedures.',
+      'Multi-Stage Entry||Can enter projects at mobilisation, installation, support, or recovery scope phases.',
+      'Strong Coordination||Tight integration between technical, commercial, and execution functions.',
+      'Scalable Capacity||Lean core team that expands through a vetted partner network as project scope requires.'
+    ],
+    'contact.address':    'Osogovo st. 51, 1303 Sofia, Bulgaria',
+    'contact.email1':     'dcc@techno-con.eu',
+    'contact.email2':     'office@techno-con.eu',
+    'contact.phone1':     '+359 88 9627304',
+    'contact.phone2':     '+359 88 8304414',
+    'contact.web':        'www.techno-con.eu',
+  },
+  bg: {
+    'hero.tag':           'Енергийна и промишлена инфраструктура — България 2026',
+    'hero.subtitle':      'Инженеринг, доставки, строителство и управление на проекти за енергийния и индустриален сектор в Европа и извън нея.',
+    'stat.1.n':           '€11M+',
+    'stat.1.l':           'Стойност договори',
+    'stat.2.n':           '4,000+',
+    'stat.2.l':           'Проследени позиции',
+    'stat.3.n':           '7+',
+    'stat.3.l':           'Основни проекти',
+    'stat.4.n':           '3',
+    'stat.4.l':           'ISO Сертификации',
+    'services.tag':       'Области на дейност',
+    'services.h2':        'Нашите услуги',
+    'services.intro':     'От механичен монтаж до изпълнение на ключови проекти — Техноcon предоставя интегрирани решения в целия жизнен цикъл на проекти в енергийната и промишлената инфраструктура.',
+    'services.1.title':   'Строителство и монтаж',
+    'services.1.items':   ['Монтаж на механично оборудване','Заваръчни и тръбопроводни работи','Помощ при изпитвания и въвеждане в експлоатация','Монтаж на стоманени конструкции','Строителни работи','Надзор и контрол на качеството'],
+    'services.2.title':   'Инженеринг и ключови проекти',
+    'services.2.items':   ['Проектиране и координация на проекти','Технически надзор','Инженерна поддръжка','Интеграция на обхвата','Цялостно изпълнение на проекти','Документация "as-built"'],
+    'services.3.title':   'Доставки',
+    'services.3.items':   ['Координация и expediting на доставки','Технологично оборудване и суровини','Излишни материали','Списък и следене на доставчици','Подготовка на TBE','Транспорт и складова логистика'],
+    'services.4.title':   'Управление на проекти и контрол',
+    'services.4.items':   ['Отчитане на напредък и планиране','Управление на финалния монтаж','Седмични/дневни отчети','Управление на интерфейси','Многодисциплинарна координация','Управление на подизпълнители'],
+    'tracking.h':              'QR / Баркод Система за проследяване',
+    'tracking.sub':            'Вътрешен контрол на материалите — конкурентно предимство',
+    'tracking.p':              'Техноcon използва собствена система за проследяване на стоманени конструкции, тръбопроводни материали и сглобяеми бетонни елементи. Всяка позиция получава уникален QR/баркод идентификатор и се проследява по дефинирани статуси и местоположения в производство, склад и обект — в реално време.',
+    'tracking.stat.n':         '4,000+',
+    'tracking.stat.l':         'проследени позиции в мулти-проектни операции',
+    'tracking.workflow.label': 'Работен процес',
+    'tracking.flow.prd':       'Произведено — изработено и маркирано',
+    'tracking.flow.qc':        'Контрол на качеството — проверено и одобрено',
+    'tracking.flow.rdy':       'Готово — разрешено за изпращане',
+    'tracking.flow.dsp':       'Изпратено — в транспорт',
+    'tracking.flow.dlv':       'Доставено — потвърдено на обект',
+    'tracking.flow.ins':       'Монтирано — финален статус записан',
+    'about.tag':          'Кои сме ние',
+    'about.h2':           'За Техноcon',
+    'about.text':         'Българска компания, специализирана в проекти за енергийна и промишлена инфраструктура в Европа. Комбинираме доказан инженерен опит, гъвкав капацитет за изпълнение и компактна структура за постигане на резултати.',
+    'about.caps':         [
+      'Бърза вътрешна координация||Бързо вземане на решения и висока адаптивност в динамична проектна среда.',
+      'Силна отговорност||Опит в техническата документация, интерфейси на обекти и проследяване на изпълнението.',
+      'Компактна структура||Пряко участие в проектите с ефективна комуникация между всички дисциплини.',
+      'Бърза мобилизация||Способност за мобилизиране на основни ресурси и разширяване чрез партньорска мрежа.'
+    ],
+    'quality.label':      'Осигуряване на качеството',
+    'quality.title':      'ISO Сертифициран',
+    'quality.desc':       'Техноcon притежава три международно признати ISO сертификации — отразяващи нашия ангажимент към управление на качеството, опазване на околната среда и охрана на труда и безопасност.',
+    'quality.isos':       [
+      'ISO 9001:2015||Система за управление на качеството||brand_assets/ISO_9001_2015.png',
+      'ISO 14001:2015||Система за управление на околната среда||brand_assets/ISO_14001_2015.png',
+      'ISO 45001:2018||Управление на здравето и безопасността при работа||brand_assets/ISO_45001_2018.png'
+    ],
+    'team.label':         'Нашият екип',
+    'team.title':         'Как работим',
+    'team.desc':          'Компактен, ръководен от опитни специалисти екип, създаден за сложна индустриална среда — съчетаващ практическо изпълнение с прецизна координация на всички проектни фази.',
+    'team.strengths':     [
+      'Доказано изпълнение||Опит в промишлени и инфраструктурни проекти в множество страни и дисциплини.',
+      'Гъвкаво изпълнение||Инженерна координация + изпълнение на обекти + управление на подизпълнители под един покрив.',
+      'Бърза реакция||Бърза мобилизация и адаптивност към изискванията на клиента и процедурите на проекта.',
+      'Многофазно включване||Може да се включи в проекти на фазата на мобилизация, монтаж, поддръжка или възстановяване.',
+      'Силна координация||Тясна интеграция между техническите, търговските и изпълнителните функции.',
+      'Мащабируем капацитет||Компактен основен екип, който се разширява чрез проверена партньорска мрежа при нужда.'
+    ],
+    'contact.address':    'ул. Осогово 51, 1303 София, България',
+    'contact.email1':     'dcc@techno-con.eu',
+    'contact.email2':     'office@techno-con.eu',
+    'contact.phone1':     '+359 88 9627304',
+    'contact.phone2':     '+359 88 8304414',
+    'contact.web':        'www.techno-con.eu',
+  }
+};
+
+// ── Seed content (first run) + migrate missing keys ────────────────────
+(function() {
+  var content = fs.existsSync(FILES.content)
+    ? readJSON(FILES.content, { en: {}, bg: {} })
+    : { en: {}, bg: {} };
+  var changed = false;
+  ['en', 'bg'].forEach(function(lang) {
+    if (!content[lang]) { content[lang] = {}; changed = true; }
+    Object.keys(CONTENT_DEFAULTS[lang]).forEach(function(key) {
+      if (content[lang][key] === undefined) {
+        content[lang][key] = CONTENT_DEFAULTS[lang][key];
+        changed = true;
+      }
+    });
   });
-}
+  if (changed) writeJSON(FILES.content, content);
+})();
 
 // ── Seed projects ──────────────────────────────────────────────────────
 if (!fs.existsSync(FILES.projects)) {
@@ -133,6 +242,20 @@ if (!fs.existsSync(FILES.projects)) {
   ]);
 }
 
+// ── Seed partners ──────────────────────────────────────────────────────
+if (!fs.existsSync(FILES.partners)) {
+  writeJSON(FILES.partners, [
+    { id:1, name_en:'Vemak',             name_bg:'Вемак',              logo:'' },
+    { id:2, name_en:'Arkad S.p.A.',      name_bg:'Аркад С.п.А.',       logo:'' },
+    { id:3, name_en:'Sicilsaldo Group',  name_bg:'Сицилсалдо Груп',    logo:'' },
+    { id:4, name_en:'Camel Oil Tanzania',name_bg:'Камел Оил Танзания',  logo:'' },
+    { id:5, name_en:'Bulgartransgaz',    name_bg:'Булгартрансгаз',     logo:'' },
+    { id:6, name_en:'Eesti Energia',     name_bg:'Ееsти Енергия',      logo:'' },
+    { id:7, name_en:'Glavbolgarstroy',   name_bg:'Главболгарстрой',    logo:'' },
+    { id:8, name_en:'ADNOC',             name_bg:'АДНОK',              logo:'' },
+  ]);
+}
+
 // ── Next ID helper ─────────────────────────────────────────────────────
 function nextId(items) {
   return items.reduce((max, x) => Math.max(max, x.id || 0), 0) + 1;
@@ -153,7 +276,14 @@ app.use(session({
 }));
 
 const storage = multer.diskStorage({
-  destination: path.join(ROOT, 'uploads'),
+  destination: function(req, file, cb) {
+    var projects = readJSON(FILES.projects, []);
+    var p = projects.find(function(x) { return x.id == req.params.id; });
+    var key = p ? p.key : 'unknown';
+    var dir = path.join(ROOT, 'uploads', 'projects', key);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
   filename: function(req, file, cb) {
     var ext = path.extname(file.originalname).toLowerCase();
     cb(null, Date.now() + '-' + Math.round(Math.random() * 1e6) + ext);
@@ -165,6 +295,25 @@ const upload = multer({
     cb(null, /\.(jpe?g|png|webp|gif)$/i.test(file.originalname));
   },
   limits: { fileSize: 15 * 1024 * 1024 }
+});
+
+const partnerStorage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    var dir = path.join(ROOT, 'uploads', 'partners');
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
+  filename: function(req, file, cb) {
+    var ext = path.extname(file.originalname).toLowerCase();
+    cb(null, Date.now() + '-' + Math.round(Math.random() * 1e6) + ext);
+  }
+});
+const partnerUpload = multer({
+  storage: partnerStorage,
+  fileFilter: function(req, file, cb) {
+    cb(null, /\.(jpe?g|png|webp|gif|svg)$/i.test(file.originalname));
+  },
+  limits: { fileSize: 5 * 1024 * 1024 }
 });
 
 const requireAdmin = function(req, res, next) {
@@ -270,7 +419,7 @@ app.get('/api/projects', function(req, res) {
         contract_value: t.contract_value || '',
         description:    t.description || '',
         scope:          t.scope || [],
-        images:         (p.images || []).map(function(i) { return { id: i.id, filename: i.filename }; })
+        images:         (p.images || []).map(function(i) { return { id: i.id, filename: i.filename, is_main: i.is_main || false }; })
       };
     });
   res.json(result);
@@ -299,6 +448,18 @@ app.post('/api/projects', requireAdmin, function(req, res) {
   projects.push(newProj);
   writeJSON(FILES.projects, projects);
   res.json({ ok: true, id: newProj.id });
+});
+
+app.put('/api/projects/reorder', requireAdmin, function(req, res) {
+  var order = req.body.order; // [{id, sort_order}]
+  if (!Array.isArray(order)) return res.status(400).json({ error: 'order array required' });
+  var projects = readJSON(FILES.projects, []);
+  order.forEach(function(item) {
+    var p = projects.find(function(x) { return x.id == item.id; });
+    if (p) p.sort_order = item.sort_order;
+  });
+  writeJSON(FILES.projects, projects);
+  res.json({ ok: true });
 });
 
 app.put('/api/projects/:id', requireAdmin, function(req, res) {
@@ -337,10 +498,11 @@ app.post('/api/projects/:id/images', requireAdmin, upload.array('images', 20), f
   var idx = projects.findIndex(function(p) { return p.id == req.params.id; });
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
   if (!projects[idx].images) projects[idx].images = [];
+  var key      = projects[idx].key;
   var baseId   = nextImgId(projects);
   var maxOrder = projects[idx].images.reduce(function(m,i) { return Math.max(m, i.sort_order||0); }, 0);
   req.files.forEach(function(f, i) {
-    projects[idx].images.push({ id: baseId + i, filename: 'uploads/' + f.filename, sort_order: maxOrder + i + 1 });
+    projects[idx].images.push({ id: baseId + i, filename: 'uploads/projects/' + key + '/' + f.filename, sort_order: maxOrder + i + 1 });
   });
   writeJSON(FILES.projects, projects);
   res.json({ ok: true, count: req.files.length });
@@ -357,6 +519,17 @@ app.delete('/api/projects/:id/images/:imgId', requireAdmin, function(req, res) {
     if (fs.existsSync(fp)) fs.unlinkSync(fp);
   }
   projects[pIdx].images = projects[pIdx].images.filter(function(i) { return i.id != req.params.imgId; });
+  writeJSON(FILES.projects, projects);
+  res.json({ ok: true });
+});
+
+app.put('/api/projects/:id/images/:imgId/main', requireAdmin, function(req, res) {
+  var projects = readJSON(FILES.projects, []);
+  var pIdx = projects.findIndex(function(p) { return p.id == req.params.id; });
+  if (pIdx === -1) return res.status(404).json({ error: 'Not found' });
+  (projects[pIdx].images || []).forEach(function(i) {
+    i.is_main = (i.id == req.params.imgId);
+  });
   writeJSON(FILES.projects, projects);
   res.json({ ok: true });
 });
@@ -409,6 +582,54 @@ app.post('/api/contact', function(req, res) {
     }
     res.json({ ok: true });
   });
+});
+
+// ── Partners ───────────────────────────────────────────────────────────
+app.get('/api/partners', function(req, res) {
+  res.json(readJSON(FILES.partners, []));
+});
+
+app.post('/api/partners', requireAdmin, partnerUpload.single('logo'), function(req, res) {
+  var partners = readJSON(FILES.partners, []);
+  var logo = req.file ? 'uploads/partners/' + req.file.filename : '';
+  var p = { id: nextId(partners), name_en: req.body.name_en || '', name_bg: req.body.name_bg || '', logo: logo };
+  partners.push(p);
+  writeJSON(FILES.partners, partners);
+  res.json(p);
+});
+
+app.put('/api/partners/:id', requireAdmin, partnerUpload.single('logo'), function(req, res) {
+  var partners = readJSON(FILES.partners, []);
+  var idx = partners.findIndex(function(x) { return x.id == req.params.id; });
+  if (idx === -1) return res.status(404).json({ error: 'not found' });
+  partners[idx].name_en = req.body.name_en !== undefined ? req.body.name_en : partners[idx].name_en;
+  partners[idx].name_bg = req.body.name_bg !== undefined ? req.body.name_bg : partners[idx].name_bg;
+  if (req.file) {
+    if (partners[idx].logo && partners[idx].logo.startsWith('uploads/')) {
+      var oldPath = path.join(ROOT, partners[idx].logo);
+      if (fs.existsSync(oldPath)) try { fs.unlinkSync(oldPath); } catch(e) {}
+    }
+    partners[idx].logo = 'uploads/partners/' + req.file.filename;
+  } else if (req.body.clear_logo) {
+    if (partners[idx].logo && partners[idx].logo.startsWith('uploads/')) {
+      var clrPath = path.join(ROOT, partners[idx].logo);
+      if (fs.existsSync(clrPath)) try { fs.unlinkSync(clrPath); } catch(e) {}
+    }
+    partners[idx].logo = '';
+  }
+  writeJSON(FILES.partners, partners);
+  res.json(partners[idx]);
+});
+
+app.delete('/api/partners/:id', requireAdmin, function(req, res) {
+  var partners = readJSON(FILES.partners, []);
+  var p = partners.find(function(x) { return x.id == req.params.id; });
+  if (p && p.logo && p.logo.startsWith('uploads/')) {
+    var oldPath = path.join(ROOT, p.logo);
+    if (fs.existsSync(oldPath)) try { fs.unlinkSync(oldPath); } catch(e) {}
+  }
+  writeJSON(FILES.partners, partners.filter(function(x) { return x.id != req.params.id; }));
+  res.json({ ok: true });
 });
 
 // ── Start ──────────────────────────────────────────────────────────────

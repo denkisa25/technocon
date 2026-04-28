@@ -29,11 +29,19 @@
   .toast.success { background:#16a34a; }
   .toast.error { background:#dc2626; }
   .img-thumb { position:relative;display:inline-block;margin:4px; }
-  .img-thumb img { width:88px;height:64px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb; }
+  .img-thumb img { width:88px;height:64px;object-fit:cover;border-radius:6px;border:2px solid #e5e7eb;transition:border-color .15s; }
+  .img-thumb.is-main img { border-color:#0089cf;box-shadow:0 0 0 2px rgba(0,137,207,.25); }
   .img-thumb .del { position:absolute;top:-6px;right:-6px;width:20px;height:20px;background:#ef4444;color:#fff;border:none;border-radius:50%;font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700; }
+  .img-thumb .main-btn { position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);background:#e5e7eb;color:#6b7280;border:none;border-radius:8px;font-size:.6rem;font-weight:700;padding:2px 6px;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s; }
+  .img-thumb.is-main .main-btn { background:#0089cf;color:#fff; }
   .lang-tab { padding:6px 16px;border:1px solid #e5e7eb;border-radius:6px 6px 0 0;border-bottom:none;font-size:.8rem;font-weight:600;cursor:pointer;background:#f9fafb;color:#6b7280; }
   .lang-tab.active { background:#fff;color:#0089cf;border-color:#0089cf; }
   .scope-item { display:flex;gap:6px;margin-bottom:6px; }
+  .drag-handle { cursor:grab;color:#d1d5db;padding:0 6px;display:flex;align-items:center;flex-shrink:0;user-select:none;font-size:1.1rem;line-height:1; }
+  .drag-handle:active { cursor:grabbing; }
+  .proj-row { transition:opacity .15s; }
+  .proj-row.dragging { opacity:.4; }
+  .proj-row.drag-over { border-color:#0089cf;box-shadow:0 -2px 0 #0089cf; }
   .scope-item input { flex:1;padding:6px 10px;border:1px solid #e5e7eb;border-radius:6px;font-size:.82rem;outline:none; }
   .scope-item input:focus { border-color:#0089cf; }
   .scope-item button { padding:6px 10px;background:#fee2e2;color:#dc2626;border:none;border-radius:6px;cursor:pointer;font-size:.82rem;font-weight:700; }
@@ -76,6 +84,10 @@
       <a class="nav-link" onclick="showSection('projects')" href="#">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         Projects
+      </a>
+      <a class="nav-link" onclick="showSection('partners')" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        Partners
       </a>
       <a class="nav-link" onclick="showSection('settings')" href="#">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
@@ -123,6 +135,43 @@
         </button>
       </div>
       <div id="projectsList" class="space-y-3"></div>
+    </div>
+
+    <!-- Partners Section -->
+    <div id="sec-partners" class="section-panel hidden p-8 max-w-3xl">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">Strategic Partners</h1>
+          <p class="text-gray-500 text-sm mt-1">Manage the scrolling marquee — names, translations and logos.</p>
+        </div>
+        <button onclick="openAddPartner()" class="flex items-center gap-2 bg-[#0089cf] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#0077b5] transition-colors">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Partner
+        </button>
+      </div>
+      <!-- Add form (hidden until opened) -->
+      <div id="addPartnerForm" class="hidden group-card mb-6">
+        <p class="group-title">New Partner</p>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <p class="field-label">English Name</p>
+            <input id="np_en" type="text" placeholder="Partner name in English" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm">
+          </div>
+          <div>
+            <p class="field-label">Bulgarian Name</p>
+            <input id="np_bg" type="text" placeholder="Партньор на български" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm">
+          </div>
+        </div>
+        <div class="mb-4">
+          <p class="field-label">Logo (optional)</p>
+          <input id="np_logo" type="file" accept="image/*" class="text-sm text-gray-600">
+        </div>
+        <div class="flex gap-2">
+          <button onclick="createPartner()" class="save-btn">Add Partner</button>
+          <button onclick="document.getElementById('addPartnerForm').classList.add('hidden')" class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50">Cancel</button>
+        </div>
+      </div>
+      <div id="partnersList" class="space-y-3"></div>
     </div>
 
     <!-- Settings Section -->
@@ -211,10 +260,18 @@ let modalData     = { en:{}, bg:{} };
 const CONTENT_GROUPS = [
   { title:'Hero', keys:['hero.tag','hero.subtitle'] },
   { title:'Statistics', keys:['stat.1.n','stat.1.l','stat.2.n','stat.2.l','stat.3.n','stat.3.l','stat.4.n','stat.4.l'] },
-  { title:'Services', keys:['services.intro'] },
-  { title:'About', keys:['about.text'] },
+  { title:'Services — Header', keys:['services.tag','services.h2','services.intro'] },
+  { title:'Services — Construction & Installation', keys:['services.1.title','services.1.items'] },
+  { title:'Services — Engineering & Turnkey', keys:['services.2.title','services.2.items'] },
+  { title:'Services — Procurement', keys:['services.3.title','services.3.items'] },
+  { title:'Services — Project Management', keys:['services.4.title','services.4.items'] },
+  { title:'Tracking — Header', keys:['tracking.h','tracking.sub','tracking.p'] },
+  { title:'Tracking — Stat & Workflow Label', keys:['tracking.stat.n','tracking.stat.l','tracking.workflow.label'] },
+  { title:'Tracking — Status Flow', keys:['tracking.flow.prd','tracking.flow.qc','tracking.flow.rdy','tracking.flow.dsp','tracking.flow.dlv','tracking.flow.ins'] },
+  { title:'About — Who We Are', keys:['about.tag','about.h2','about.text','about.caps'] },
+  { title:'About — Quality Assurance', keys:['quality.label','quality.title','quality.desc','quality.isos'] },
+  { title:'About — Our Team', keys:['team.label','team.title','team.desc','team.strengths'] },
   { title:'Contact — Sofia', keys:['contact.address','contact.email1','contact.email2','contact.phone1','contact.phone2','contact.web'] },
-  { title:'Contact — International', keys:['contact.intl.email','contact.intl.phone','contact.intl.person'] },
 ];
 
 // ── Init ─────────────────────────────────────────────────────────────
@@ -254,6 +311,7 @@ function showSection(name) {
   document.getElementById('sec-' + name).classList.remove('hidden');
   event.currentTarget.classList.add('active');
   if (name === 'projects') loadProjects();
+  if (name === 'partners') loadPartners();
 }
 
 // ── Content ───────────────────────────────────────────────────────────
@@ -274,6 +332,115 @@ function getContentValue(key, lang) {
   return row ? row.value : '';
 }
 
+function isListKey(key)  { return key.endsWith('.items'); }
+function isPairsKey(key) { return key.endsWith('.caps') || key.endsWith('.strengths'); }
+function isIsosKey(key)  { return key.endsWith('.isos'); }
+
+function renderListEditor(key, items) {
+  const rows = (Array.isArray(items) ? items : []).map((v, i) => listRow(key, i, v)).join('');
+  return `
+    <div id="cl-${key}" class="mb-2">${rows}</div>
+    <button onclick="addListItem('${key}')" class="text-xs text-blue-600 hover:underline font-medium">+ Add item</button>`;
+}
+
+function listRow(key, i, val) {
+  return `<div class="scope-item" id="clr-${key}-${i}">
+    <input type="text" value="${escAttr(val)}" placeholder="Bullet point...">
+    <button onclick="removeListItem('${key}',${i})">×</button>
+  </div>`;
+}
+
+function addListItem(key) {
+  const c = document.getElementById(`cl-${key}`);
+  const i = c.children.length;
+  c.insertAdjacentHTML('beforeend', listRow(key, i, ''));
+}
+
+function removeListItem(key, i) {
+  document.getElementById(`clr-${key}-${i}`)?.remove();
+  renumberList(key);
+}
+
+function renumberList(key) {
+  const c = document.getElementById(`cl-${key}`);
+  [...c.children].forEach((row, i) => row.id = `clr-${key}-${i}`);
+}
+
+function getListValues(key) {
+  return [...document.getElementById(`cl-${key}`).querySelectorAll('input')]
+    .map(i => i.value.trim()).filter(Boolean);
+}
+
+// ── Pairs editor (heading || description cards) ───────────────────────
+function renderPairsEditor(key, items) {
+  const rows = (Array.isArray(items) ? items : []).map((v, i) => pairsRow(key, i, v)).join('');
+  return `<div id="cl-${key}" class="mb-2">${rows}</div>
+    <button onclick="addPairsItem('${key}')" class="text-xs text-blue-600 hover:underline font-medium">+ Add card</button>`;
+}
+function pairsRow(key, i, val) {
+  const sep = (val || '').indexOf('||');
+  const h = sep >= 0 ? val.slice(0, sep) : (val || '');
+  const p = sep >= 0 ? val.slice(sep + 2) : '';
+  return `<div class="scope-item" id="clr-${key}-${i}" style="flex-direction:column;gap:4px;align-items:stretch">
+    <div style="display:flex;gap:6px;align-items:center">
+      <input type="text" placeholder="Heading..." value="${escAttr(h)}" style="flex:1;font-weight:600">
+      <button onclick="removePairsItem('${key}',${i})" style="flex-shrink:0">×</button>
+    </div>
+    <textarea placeholder="Description..." style="width:100%;resize:vertical;min-height:50px;padding:6px 8px;border:1px solid #d1d5db;border-radius:6px;font-size:.85rem">${escHtml(p)}</textarea>
+  </div>`;
+}
+function addPairsItem(key) {
+  const c = document.getElementById(`cl-${key}`);
+  c.insertAdjacentHTML('beforeend', pairsRow(key, c.children.length, '||'));
+}
+function removePairsItem(key, i) {
+  document.getElementById(`clr-${key}-${i}`)?.remove();
+  renumberList(key);
+}
+function getPairsValues(key) {
+  return [...document.getElementById(`cl-${key}`).children].map(row => {
+    const h  = row.querySelector('input')?.value.trim() || '';
+    const p  = row.querySelector('textarea')?.value.trim() || '';
+    return `${h}||${p}`;
+  }).filter(v => v !== '||');
+}
+
+// ── ISO editor (code || name || imgpath) ──────────────────────────────
+function renderIsosEditor(key, items) {
+  const rows = (Array.isArray(items) ? items : []).map((v, i) => isosRow(key, i, v)).join('');
+  return `<div id="cl-${key}" class="mb-2">${rows}</div>
+    <button onclick="addIsosItem('${key}')" class="text-xs text-blue-600 hover:underline font-medium">+ Add certificate</button>`;
+}
+function isosRow(key, i, val) {
+  const parts = (val || '').split('||');
+  const [code, name, img] = [parts[0]||'', parts[1]||'', parts[2]||''];
+  return `<div class="scope-item" id="clr-${key}-${i}" style="flex-direction:column;gap:4px;align-items:stretch">
+    <div style="display:flex;gap:6px;align-items:center">
+      <input type="text" placeholder="ISO Code..." value="${escAttr(code)}" style="width:140px;flex-shrink:0;font-weight:600">
+      <input type="text" placeholder="Certificate name..." value="${escAttr(name)}" style="flex:1">
+      <button onclick="removeIsosItem('${key}',${i})" style="flex-shrink:0">×</button>
+    </div>
+    <input type="text" placeholder="Image path (e.g. brand_assets/ISO_9001_2015.png)" value="${escAttr(img)}" style="width:100%;padding:5px 8px;border:1px solid #d1d5db;border-radius:6px;font-size:.82rem;color:#6b7280">
+  </div>`;
+}
+function addIsosItem(key) {
+  const c = document.getElementById(`cl-${key}`);
+  c.insertAdjacentHTML('beforeend', isosRow(key, c.children.length, '||'));
+}
+function removeIsosItem(key, i) {
+  document.getElementById(`clr-${key}-${i}`)?.remove();
+  renumberList(key);
+}
+function getIsosValues(key) {
+  return [...document.getElementById(`cl-${key}`).children].map(row => {
+    const inputs = row.querySelectorAll('input');
+    const code = inputs[0]?.value.trim() || '';
+    const name = inputs[1]?.value.trim() || '';
+    const img  = inputs[2]?.value.trim() || '';
+    return `${code}||${name}||${img}`;
+  }).filter(v => v !== '||||');
+}
+
 function renderContentGroups() {
   const container = document.getElementById('contentGroups');
   container.innerHTML = CONTENT_GROUPS.map(group => `
@@ -282,6 +449,33 @@ function renderContentGroups() {
       ${group.keys.map(key => {
         const row = allContent.find(r => r.key === key && r.lang === contentLang);
         if (!row) return '';
+        if (isListKey(key)) {
+          const items = Array.isArray(row.value) ? row.value : [];
+          return `
+            <div class="field-wrap">
+              <p class="field-label">${row.label}</p>
+              ${renderListEditor(key, items)}
+              <button class="save-btn mt-2" id="sb-${key}" onclick="saveField('${key}')">Save</button>
+            </div>`;
+        }
+        if (isPairsKey(key)) {
+          const items = Array.isArray(row.value) ? row.value : [];
+          return `
+            <div class="field-wrap">
+              <p class="field-label">${row.label}</p>
+              ${renderPairsEditor(key, items)}
+              <button class="save-btn mt-2" id="sb-${key}" onclick="saveField('${key}')">Save</button>
+            </div>`;
+        }
+        if (isIsosKey(key)) {
+          const items = Array.isArray(row.value) ? row.value : [];
+          return `
+            <div class="field-wrap">
+              <p class="field-label">${row.label}</p>
+              ${renderIsosEditor(key, items)}
+              <button class="save-btn mt-2" id="sb-${key}" onclick="saveField('${key}')">Save</button>
+            </div>`;
+        }
         const isArea = row.type === 'textarea';
         return `
           <div class="field-wrap">
@@ -298,15 +492,141 @@ function renderContentGroups() {
 }
 
 async function saveField(key) {
-  const el  = document.getElementById('cf-' + key);
-  const btn = document.getElementById('sb-' + key);
-  const r   = await api('PUT', `/api/content/${encodeURIComponent(key)}`, { value: el.value, lang: contentLang });
+  const btn   = document.getElementById('sb-' + key);
+  const value = isListKey(key)  ? getListValues(key)
+              : isPairsKey(key) ? getPairsValues(key)
+              : isIsosKey(key)  ? getIsosValues(key)
+              : document.getElementById('cf-' + key).value;
+  const r = await api('PUT', `/api/content/${encodeURIComponent(key)}`, { value, lang: contentLang });
   if (r.ok) {
     const row = allContent.find(r => r.key === key && r.lang === contentLang);
-    if (row) row.value = el.value;
+    if (row) row.value = value;
     btn.textContent = '✓ Saved'; btn.classList.add('saved');
     setTimeout(() => { btn.textContent = 'Save'; btn.classList.remove('saved'); }, 1800);
   } else { toast('Save failed', 'error'); }
+}
+
+// ── Partners ──────────────────────────────────────────────────────────
+async function loadPartners() {
+  const partners = await api('GET', '/api/partners');
+  renderPartners(partners);
+}
+
+function renderPartners(partners) {
+  const el = document.getElementById('partnersList');
+  if (!partners.length) {
+    el.innerHTML = '<p class="text-gray-400 text-center py-8">No partners yet.</p>';
+    return;
+  }
+  el.innerHTML = partners.map(p => `
+    <div class="group-card" id="partner-row-${p.id}">
+      <div class="flex gap-4 items-start">
+        <div class="flex-shrink-0 text-center" style="width:88px">
+          <div class="w-22 h-16 border border-gray-200 rounded-lg flex items-center justify-center bg-gray-50 overflow-hidden mb-1" style="width:88px;height:64px">
+            ${p.logo
+              ? `<img src="${p.logo}" alt="${escHtml(p.name_en)}" style="max-width:80px;max-height:56px;object-fit:contain">`
+              : `<span class="text-gray-300 text-xs">No logo</span>`}
+          </div>
+          <label class="text-xs text-blue-600 cursor-pointer hover:underline">
+            ${p.logo ? 'Change' : 'Upload'}
+            <input type="file" accept="image/*" class="hidden" onchange="uploadPartnerLogo(${p.id}, this)">
+          </label>
+          ${p.logo ? `<br><button onclick="removePartnerLogo(${p.id})" class="text-xs text-red-400 hover:underline">Remove</button>` : ''}
+        </div>
+        <div class="flex-1 grid grid-cols-2 gap-3">
+          <div>
+            <p class="field-label">English Name</p>
+            <input type="text" id="pen_${p.id}" value="${escAttr(p.name_en)}" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm">
+          </div>
+          <div>
+            <p class="field-label">Bulgarian Name</p>
+            <input type="text" id="pbg_${p.id}" value="${escAttr(p.name_bg)}" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm">
+          </div>
+        </div>
+        <div class="flex flex-col gap-2 flex-shrink-0">
+          <button id="psave_${p.id}" onclick="savePartner(${p.id})" class="save-btn">Save</button>
+          <button onclick="deletePartner(${p.id})" class="px-3 py-2 bg-red-50 text-red-600 border border-red-200 rounded-lg text-sm font-semibold hover:bg-red-100">Delete</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+async function savePartner(id) {
+  const btn    = document.getElementById('psave_' + id);
+  const name_en = document.getElementById('pen_' + id).value.trim();
+  const name_bg = document.getElementById('pbg_' + id).value.trim();
+  const fd = new FormData();
+  fd.append('name_en', name_en);
+  fd.append('name_bg', name_bg);
+  const r = await fetch(BASE + '/api/partners/' + id, { method:'PUT', body: fd });
+  if (r.ok) {
+    btn.textContent = '✓ Saved'; btn.classList.add('saved');
+    setTimeout(() => { btn.textContent = 'Save'; btn.classList.remove('saved'); }, 1800);
+  } else { toast('Save failed', 'error'); }
+}
+
+async function uploadPartnerLogo(id, input) {
+  if (!input.files[0]) return;
+  const name_en = document.getElementById('pen_' + id)?.value.trim() || '';
+  const name_bg = document.getElementById('pbg_' + id)?.value.trim() || '';
+  const fd = new FormData();
+  fd.append('logo', input.files[0]);
+  fd.append('name_en', name_en);
+  fd.append('name_bg', name_bg);
+  const r = await fetch(BASE + '/api/partners/' + id, { method:'PUT', body: fd });
+  if (r.ok) { toast('Logo uploaded'); loadPartners(); }
+  else toast('Upload failed', 'error');
+}
+
+async function removePartnerLogo(id) {
+  const name_en = document.getElementById('pen_' + id)?.value.trim() || '';
+  const name_bg = document.getElementById('pbg_' + id)?.value.trim() || '';
+  const fd = new FormData();
+  fd.append('name_en', name_en);
+  fd.append('name_bg', name_bg);
+  fd.append('remove_logo', '1');
+  // Send PUT without a file — server keeps names, logo field stays as-is unless we handle remove_logo
+  // Simpler: PATCH via PUT, rely on server not wiping logo when no file uploaded
+  // For removal, call a dedicated approach: PUT with empty logo signal via JSON
+  const r = await fetch(BASE + '/api/partners/' + id, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name_en, name_bg, clear_logo: true })
+  });
+  if (r.ok) { toast('Logo removed'); loadPartners(); }
+  else toast('Failed', 'error');
+}
+
+async function deletePartner(id) {
+  if (!confirm('Delete this partner?')) return;
+  const r = await api('DELETE', '/api/partners/' + id);
+  if (r.ok) { toast('Partner deleted'); loadPartners(); }
+  else toast('Delete failed', 'error');
+}
+
+function openAddPartner() {
+  const f = document.getElementById('addPartnerForm');
+  f.classList.remove('hidden');
+  document.getElementById('np_en').value = '';
+  document.getElementById('np_bg').value = '';
+  document.getElementById('np_logo').value = '';
+  document.getElementById('np_en').focus();
+}
+
+async function createPartner() {
+  const name_en = document.getElementById('np_en').value.trim();
+  if (!name_en) { toast('English name is required', 'error'); return; }
+  const fd = new FormData();
+  fd.append('name_en', name_en);
+  fd.append('name_bg', document.getElementById('np_bg').value.trim());
+  const logoFile = document.getElementById('np_logo').files[0];
+  if (logoFile) fd.append('logo', logoFile);
+  const r = await fetch(BASE + '/api/partners', { method:'POST', body: fd });
+  if (r.ok) {
+    document.getElementById('addPartnerForm').classList.add('hidden');
+    toast('Partner added');
+    loadPartners();
+  } else { toast('Failed to add partner', 'error'); }
 }
 
 // ── Projects ──────────────────────────────────────────────────────────
@@ -316,8 +636,12 @@ async function loadProjects() {
   el.innerHTML = projects.length === 0
     ? '<p class="text-gray-400 text-center py-12">No projects yet.</p>'
     : projects.map(p => `
-      <div class="bg-white border border-gray-200 rounded-xl p-5 flex items-center gap-4">
-        <img src="${p.images[0]?.filename || 'brand_assets/CHIREN PRES-1.jpeg'}" class="w-20 h-14 object-cover rounded-lg flex-shrink-0">
+      <div class="proj-row bg-white border border-gray-200 rounded-xl p-5 flex items-center gap-4"
+           draggable="true" data-id="${p.id}"
+           ondragstart="projDragStart(event)" ondragover="projDragOver(event)"
+           ondragleave="projDragLeave(event)" ondrop="projDrop(event)" ondragend="projDragEnd(event)">
+        <div class="drag-handle" title="Drag to reorder">⠿</div>
+        <img src="${(p.images.find(i=>i.is_main)||p.images[0])?.filename || 'brand_assets/CHIREN PRES-1.jpeg'}" class="w-20 h-14 object-cover rounded-lg flex-shrink-0">
         <div class="flex-1 min-w-0">
           <p class="font-semibold text-gray-900 truncate">${escHtml(p.title)}</p>
           <p class="text-sm text-gray-500 mt-0.5">${escHtml(p.client)} · <span class="badge badge-${p.badge}">${p.status}</span></p>
@@ -328,6 +652,58 @@ async function loadProjects() {
           <button onclick="deleteProject(${p.id},'${escAttr(p.title)}')" class="px-3 py-1.5 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600 hover:bg-red-100 font-medium transition-colors">Delete</button>
         </div>
       </div>`).join('');
+  initProjDrag();
+}
+
+// ── Project drag-and-drop reorder ────────────────────────────────────
+let dragSrc = null;
+
+function initProjDrag() { /* event handlers set inline via ondragstart etc */ }
+
+function projDragStart(e) {
+  dragSrc = e.currentTarget;
+  dragSrc.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', dragSrc.dataset.id);
+}
+
+function projDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  const target = e.currentTarget;
+  if (target !== dragSrc) target.classList.add('drag-over');
+}
+
+function projDragLeave(e) {
+  e.currentTarget.classList.remove('drag-over');
+}
+
+function projDrop(e) {
+  e.preventDefault();
+  const target = e.currentTarget;
+  target.classList.remove('drag-over');
+  if (!dragSrc || target === dragSrc) return;
+  const list = document.getElementById('projectsList');
+  const rows = [...list.querySelectorAll('.proj-row')];
+  const srcIdx = rows.indexOf(dragSrc);
+  const tgtIdx = rows.indexOf(target);
+  if (srcIdx < tgtIdx) target.after(dragSrc);
+  else target.before(dragSrc);
+  saveProjectOrder();
+}
+
+function projDragEnd(e) {
+  e.currentTarget.classList.remove('dragging');
+  document.querySelectorAll('.proj-row.drag-over').forEach(r => r.classList.remove('drag-over'));
+  dragSrc = null;
+}
+
+async function saveProjectOrder() {
+  const rows = [...document.querySelectorAll('#projectsList .proj-row')];
+  const order = rows.map((r, i) => ({ id: parseInt(r.dataset.id), sort_order: i + 1 }));
+  const r = await api('PUT', '/api/projects/reorder', { order });
+  if (r.ok) toast('Order saved');
+  else toast('Failed to save order', 'error');
 }
 
 // ── Project Modal ─────────────────────────────────────────────────────
@@ -420,11 +796,16 @@ async function editProject(id) {
   editProjectId = id;
   modalData = { en:{}, bg:{} };
   modalLang = 'en';
-  p.translations.forEach(t => {
-    modalData[t.lang] = {
-      title: t.title, client: t.client, period: t.period,
-      location: t.location, contract_value: t.contract_value,
-      description: t.description, scope: JSON.parse(t.scope || '[]')
+  ['en','bg'].forEach(lang => {
+    const t = p.translations?.[lang] || {};
+    modalData[lang] = {
+      title:          t.title          || '',
+      client:         t.client         || '',
+      period:         t.period         || '',
+      location:       t.location       || '',
+      contract_value: t.contract_value || '',
+      description:    t.description    || '',
+      scope:          Array.isArray(t.scope) ? t.scope : [],
     };
   });
   document.getElementById('modalTitle').textContent = 'Edit Project';
@@ -433,7 +814,6 @@ async function editProject(id) {
   document.getElementById('mtab-en').classList.add('active');
   document.getElementById('mtab-bg').classList.remove('active');
   document.getElementById('modalLangFields').innerHTML = buildModalLangFields('en');
-  // Images
   document.getElementById('modalImages').classList.remove('hidden');
   renderImageThumbs(p.images, id);
   document.getElementById('projectModal').classList.remove('hidden');
@@ -441,10 +821,20 @@ async function editProject(id) {
 
 function renderImageThumbs(images, projId) {
   document.getElementById('imgThumbs').innerHTML = images.map(img => `
-    <div class="img-thumb">
+    <div class="img-thumb${img.is_main ? ' is-main' : ''}" id="thumb-${img.id}">
       <img src="${img.filename}" alt="">
       <button class="del" onclick="deleteImage(${projId},${img.id})" title="Remove">×</button>
+      <button class="main-btn" onclick="setMainImage(${projId},${img.id})">${img.is_main ? '★ Thumbnail' : '☆ Set thumbnail'}</button>
     </div>`).join('');
+}
+
+async function setMainImage(projId, imgId) {
+  const r = await api('PUT', `/api/projects/${projId}/images/${imgId}/main`);
+  if (r.ok) {
+    const p = await api('GET', `/api/projects/${projId}`);
+    renderImageThumbs(p.images, projId);
+    toast('Thumbnail set');
+  } else { toast('Failed', 'error'); }
 }
 
 async function deleteImage(projId, imgId) {
@@ -470,7 +860,6 @@ async function uploadImages() {
 }
 
 async function saveProject() {
-  // Save current visible lang tab
   if (document.getElementById(`m-${modalLang}-title`)) {
     modalData[modalLang] = getModalTranslation(modalLang);
   }
@@ -481,11 +870,24 @@ async function saveProject() {
     badge: document.getElementById('mStatus').value,
     translations: modalData,
   };
-  let r;
-  if (editProjectId) r = await api('PUT', `/api/projects/${editProjectId}`, payload);
-  else              r = await api('POST', '/api/projects', payload);
-  if (r.ok) { toast('Project saved'); closeProjectModal(); loadProjects(); }
-  else { toast('Save failed', 'error'); }
+  if (editProjectId) {
+    const r = await api('PUT', `/api/projects/${editProjectId}`, payload);
+    if (r.ok) { toast('Project saved'); closeProjectModal(); loadProjects(); }
+    else { toast('Save failed', 'error'); }
+  } else {
+    const r = await api('POST', '/api/projects', payload);
+    if (r.ok) {
+      // Stay in modal — switch to edit mode so images can be uploaded immediately
+      editProjectId = r.id;
+      document.getElementById('modalTitle').textContent = 'Edit Project';
+      document.getElementById('mKey').value = document.getElementById('mKey').value ||
+        modalData.en.title.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+      document.getElementById('modalImages').classList.remove('hidden');
+      renderImageThumbs([], r.id);
+      toast('Project created — add images below');
+      loadProjects();
+    } else { toast('Save failed', 'error'); }
+  }
 }
 
 async function deleteProject(id, title) {

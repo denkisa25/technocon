@@ -6,7 +6,7 @@
 <title>Technocon — Energy & Industrial Infrastructure</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300&display=swap" rel="stylesheet">
 <style>
 :root {
   --black:      #232020;
@@ -25,7 +25,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:17px}
-body{font-family:'Barlow',sans-serif;background:#FFFFFF;color:var(--black);overflow-x:hidden}
+body{font-family:'Roboto',sans-serif;background:#FFFFFF;color:var(--black);overflow-x:hidden}
 
 /* ─── HEADER ─────────────────────────────── */
 #header{
@@ -69,9 +69,9 @@ body{font-family:'Barlow',sans-serif;background:#FFFFFF;color:var(--black);overf
 nav{display:flex;align-items:center;gap:0}
 
 nav a, .nav-dropdown > button {
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:500;font-size:1rem;
-  letter-spacing:.1em;text-transform:uppercase;
+  font-family:'Roboto',sans-serif;
+  font-weight:700;font-size:1.05rem;
+  letter-spacing:.06em;text-transform:uppercase;
   color:rgba(255,255,255,.88);text-decoration:none;
   padding:.5rem 1rem;
   background:none;border:none;cursor:pointer;
@@ -118,8 +118,8 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .nav-dropdown:hover .dropdown-menu{opacity:1;pointer-events:all;transform:translateY(0)}
 .dropdown-menu a{
   display:block;padding:.6rem 1.2rem;
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;
+  font-family:'Roboto',sans-serif;
+  font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;
   color:var(--grey1);text-decoration:none;
   border-bottom:1px solid rgba(0,0,0,.05);
   transition:color .15s ease,padding-left .15s ease,background .15s ease;
@@ -150,8 +150,8 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .lang-drop{position:relative}
 .lang-text-btn{
   background:none;border:none;cursor:pointer;
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:1rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  font-family:'Roboto',sans-serif;
+  font-size:1.05rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
   color:var(--white);
   display:flex;align-items:center;gap:3px;
   padding:.4rem .5rem;
@@ -180,8 +180,8 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .lang-menu button{
   display:block;width:100%;padding:.45rem .8rem;
   background:none;border:none;cursor:pointer;
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:.82rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  font-family:'Roboto',sans-serif;
+  font-size:.82rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
   color:var(--grey1);text-align:center;
   transition:color .15s,background .15s;
 }
@@ -194,8 +194,8 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .gmap-link{
   display:flex;align-items:center;gap:.5rem;
   padding:.75rem 1rem;
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  font-family:'Roboto',sans-serif;
+  font-size:.8rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
   color:var(--grey1);text-decoration:none;
   border-top:1px solid var(--border);
   transition:color .2s,background .2s;
@@ -271,16 +271,16 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .hero-content{position:relative;z-index:1;max-width:780px}
 .hero-tag{
   display:inline-flex;align-items:center;gap:.6rem;
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:.95rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  font-family:'Roboto',sans-serif;
+  font-size:.85rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
   color:var(--amber);margin-bottom:1.2rem;
   opacity:0;animation:fadeUp .6s .4s ease forwards;
 }
 .hero-tag::before{content:'';width:24px;height:1px;background:var(--amber)}
 .hero-h1{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:clamp(2.2rem,4.4vw,4.4rem);
-  font-weight:800;line-height:1.18;letter-spacing:-.015em;
+  font-family:'Roboto',sans-serif;
+  font-size:clamp(1.8rem,3.6vw,3.8rem);
+  font-weight:900;line-height:1.18;letter-spacing:-.02em;
   text-transform:uppercase;color:var(--white);
   margin-bottom:1.8rem;
   opacity:0;animation:fadeUp .7s .6s ease forwards;
@@ -289,8 +289,8 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .hero-cycle-wrap{display:inline-block;vertical-align:bottom}
 .hero-cycle{
   display:inline-flex;gap:0;
-  font-size:clamp(2.8rem,5.8vw,5.8rem);
-  font-weight:800;letter-spacing:.04em;
+  font-size:clamp(2.2rem,4.4vw,4.6rem);
+  font-weight:900;letter-spacing:.02em;
   color:var(--green);
   transition:opacity .4s ease, transform .4s ease;
 }
@@ -322,7 +322,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 }
 .hero-p{
   font-size:1.05rem;font-weight:300;line-height:1.8;
-  color:var(--grey2);max-width:500px;margin-bottom:2.2rem;
+  color:var(--white);max-width:500px;margin-bottom:2.2rem;
   opacity:0;animation:fadeUp .6s .8s ease forwards;
 }
 .hero-btns{
@@ -330,17 +330,23 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   opacity:0;animation:fadeUp .6s 1s ease forwards;
 }
 .btn-a{
-  font-family:'Barlow Condensed',sans-serif;font-weight:600;
-  font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;
+  font-family:'Roboto',sans-serif;font-weight:700;
+  font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;
   text-decoration:none;padding:.85rem 2rem;
   background:var(--amber);color:var(--white);border-radius:2px;
-  transition:background .2s,transform .15s;
+  box-shadow:0 0 10px rgba(0,137,207,.45),0 0 22px rgba(0,137,207,.22);
+  animation:glowPulse 2.8s ease-in-out infinite;
+  transition:background .2s,transform .15s,box-shadow .2s;
 }
-.btn-a:hover{background:var(--amber2);transform:translateY(-1px)}
+@keyframes glowPulse{
+  0%,100%{box-shadow:0 0 10px rgba(0,137,207,.45),0 0 22px rgba(0,137,207,.22)}
+  50%{box-shadow:0 0 20px rgba(0,137,207,.75),0 0 44px rgba(0,137,207,.38)}
+}
+.btn-a:hover{background:var(--amber2);transform:translateY(-1px);box-shadow:0 0 26px rgba(0,137,207,.9),0 0 52px rgba(0,137,207,.45);animation:none}
 .btn-a:active{transform:translateY(0)}
 .btn-b{
-  font-family:'Barlow Condensed',sans-serif;font-weight:500;
-  font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;
+  font-family:'Roboto',sans-serif;font-weight:500;
+  font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;
   text-decoration:none;padding:.85rem 2rem;
   background:transparent;color:var(--white);
   border:1px solid rgba(255,255,255,.4);border-radius:2px;
@@ -354,8 +360,8 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   opacity:0;animation:fadeIn 1s 1.6s ease forwards;
 }
 .hero-scroll-hint span{
-  font-family:'Barlow Condensed',sans-serif;font-size:.7rem;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--grey1);
+  font-family:'Roboto',sans-serif;font-size:.7rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--grey1);
   writing-mode:vertical-lr;transform:rotate(180deg);
 }
 .scroll-bar{width:1px;height:44px;background:linear-gradient(var(--amber),transparent);animation:scrollPulse 2s 2s infinite}
@@ -374,23 +380,23 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 }
 .stat:last-child{border-right:none}
 .stat-n{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:2.4rem;font-weight:700;color:var(--amber);line-height:1;
   margin-bottom:.3rem;
 }
-.stat-l{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey1);font-weight:400}
+.stat-l{font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--grey1);font-weight:400}
 
 /* ─── SECTION COMMONS ─────────────────────────────── */
 .section{padding:5.5rem 2.5rem}
 .sec-tag{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:.95rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  font-family:'Roboto',sans-serif;
+  font-size:.85rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
   color:var(--amber);margin-bottom:.9rem;
   display:flex;align-items:center;gap:.7rem;
 }
 .sec-tag::before{content:'';width:24px;height:1px;background:var(--amber);flex-shrink:0}
 .sec-h2{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:clamp(2rem,3.5vw,3rem);font-weight:700;
   text-transform:uppercase;letter-spacing:-.01em;line-height:1.05;
   color:var(--black);margin-bottom:1.2rem;
@@ -421,14 +427,14 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .svc:hover{background:#F0F8FD}
 .svc:hover::before{width:100%}
 .svc-num{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:3.5rem;font-weight:800;
   color:rgba(0,0,0,.05);
   position:absolute;top:.5rem;right:1rem;
   line-height:1;pointer-events:none;
 }
 .svc-title{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:1.1rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.04em;
   color:var(--black);margin-bottom:.9rem;
@@ -464,7 +470,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 }
 .cert-ring svg{width:22px;height:22px}
 .cert-code{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:1.05rem;font-weight:700;color:var(--black);
   margin-bottom:.25rem;letter-spacing:.04em;
 }
@@ -478,12 +484,12 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 }
 @media(max-width:860px){.tracking-card{grid-template-columns:1fr;gap:2rem}}
 .tracking-h{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:1.4rem;font-weight:700;text-transform:uppercase;
   letter-spacing:.04em;color:var(--black);margin-bottom:.3rem;
 }
 .tracking-sub{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
   color:var(--amber);margin-bottom:1rem;
 }
@@ -495,7 +501,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   width:38px;height:38px;flex-shrink:0;
   border-radius:50%;background:var(--white);border:1px solid rgba(0,137,207,.3);
   display:flex;align-items:center;justify-content:center;
-  font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;
+  font-family:'Roboto',sans-serif;font-size:.7rem;font-weight:700;
   color:var(--amber);letter-spacing:.04em;position:relative;z-index:1;
 }
 .flow-label{font-size:.9rem;font-weight:400;color:var(--grey2)}
@@ -504,7 +510,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   padding-top:1.5rem;border-top:1px solid var(--border);
 }
 .tracking-big .n{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:3rem;font-weight:700;color:var(--amber);
 }
 .tracking-big .l{font-size:.88rem;color:var(--grey2);font-weight:400;line-height:1.5}
@@ -522,7 +528,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 }
 .strength:hover{border-top-color:var(--amber)}
 .strength-h{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.88rem;font-weight:700;text-transform:uppercase;
   letter-spacing:.06em;color:var(--black);margin-bottom:.4rem;
 }
@@ -534,7 +540,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   border-top:1px solid var(--border);
 }
 .partners-lbl{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
   color:var(--grey1);white-space:nowrap;
   display:block;text-align:center;margin-bottom:2rem;
@@ -568,12 +574,14 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   background:var(--amber);flex-shrink:0;opacity:.6;
 }
 .partner-name{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:1.1rem;font-weight:700;letter-spacing:.1em;
+  font-family:'Roboto',sans-serif;
+  font-size:1.1rem;font-weight:700;letter-spacing:.05em;
   text-transform:uppercase;color:var(--grey1);
   transition:color .2s;
 }
 .partner-item:hover .partner-name{color:var(--amber)}
+.partner-logo{height:28px;width:auto;max-width:96px;object-fit:contain;opacity:.55;filter:grayscale(1);transition:opacity .25s,filter .25s}
+.partner-item:hover .partner-logo{opacity:1;filter:grayscale(0)}
 .partner:hover{color:var(--black)}
 
 /* ─── PROJECTS ─────────────────────────────── */
@@ -584,7 +592,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   width:fit-content;overflow:hidden;
 }
 .filter-btn{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
   padding:.55rem 1.2rem;
   background:none;border:none;border-right:1px solid var(--border);
@@ -596,7 +604,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 
 /* ── GALLERY4-STYLE PROJECT CARD CAROUSEL ─────────────────── */
 .proj-badge{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
   padding:.25rem .6rem;border-radius:2px;
   display:inline-block;
@@ -685,14 +693,14 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 }
 .proj-card-g-body .proj-badge{margin-bottom:1rem}
 .proj-card-g-title{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:1.6rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.02em;line-height:1.1;
   color:#fff;
   margin-bottom:.4rem;
 }
 .proj-card-g-client{
-  font-family:'Barlow',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
   color:var(--amber);
   margin-bottom:.9rem;
@@ -705,7 +713,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 }
 .proj-card-g-cta{
   display:flex;align-items:center;gap:.5rem;
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
   color:rgba(255,255,255,.9);
   margin-top:auto;
@@ -774,7 +782,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 
 .proj-detail-text .proj-badge{margin-bottom:.8rem}
 .proj-detail-title{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:1.7rem;font-weight:800;text-transform:uppercase;
   color:var(--black);letter-spacing:.02em;line-height:1.1;
   margin-bottom:1.2rem;
@@ -785,14 +793,14 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   padding:1.2rem;background:rgba(0,0,0,.03);border:1px solid var(--border);border-radius:2px;
 }
 .proj-meta-item label{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--grey1);
   display:block;margin-bottom:.2rem;
 }
 .proj-meta-item span{font-size:.9rem;color:var(--black)}
 .proj-desc{font-size:.94rem;font-weight:400;line-height:1.8;color:var(--grey2);margin-bottom:1.2rem}
 .proj-scope-h{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;
   color:var(--amber);margin-bottom:.6rem;
 }
@@ -839,7 +847,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 }
 .cap:hover{border-left-color:var(--amber)}
 .cap-h{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.85rem;font-weight:700;text-transform:uppercase;
   color:var(--black);margin-bottom:.3rem;letter-spacing:.05em;
 }
@@ -852,14 +860,14 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   border-top:1px solid var(--border);
 }
 .about-certs-label{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;
   color:var(--amber);margin-bottom:.5rem;
   display:flex;align-items:center;gap:.6rem;
 }
 .about-certs-label::before{content:'';width:20px;height:1px;background:var(--amber)}
 .about-certs-title{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:1.2rem;font-weight:700;letter-spacing:.02em;
   color:var(--black);margin-bottom:.5rem;text-transform:uppercase;
 }
@@ -892,14 +900,14 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 }
 .iso-box:hover::after{opacity:1}
 .iso-code{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:1rem;font-weight:700;letter-spacing:.06em;
   color:var(--blue);text-transform:uppercase;
 }
 .iso-name{font-size:.78rem;color:var(--grey2);line-height:1.45;font-weight:400}
 .iso-view{
   margin-top:.5rem;
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
   color:rgba(0,137,207,.6);display:flex;align-items:center;gap:.3rem;
 }
@@ -968,7 +976,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   box-shadow:0 2px 12px rgba(0,0,0,.06);
 }
 .office-city{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;
   color:var(--amber);margin-bottom:1rem;
   display:flex;align-items:center;gap:.5rem;
@@ -987,14 +995,14 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 @media(max-width:460px){.form-row{grid-template-columns:1fr}}
 .field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
 .field label{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--grey1);
 }
 .field input,.field textarea,.field select{
   background:rgba(0,0,0,.03);
   border:1px solid rgba(0,0,0,.12);
   border-radius:2px;padding:.7rem 1rem;
-  color:var(--black);font-family:'Barlow',sans-serif;
+  color:var(--black);font-family:'Roboto',sans-serif;
   font-size:.94rem;font-weight:400;outline:none;
   transition:border-color .2s,background .2s;
   -webkit-appearance:none;appearance:none;
@@ -1014,7 +1022,7 @@ footer{
   flex-wrap:wrap;gap:1rem;
 }
 .footer-brand{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-weight:700;font-size:1.1rem;
   letter-spacing:.12em;text-transform:uppercase;
   color:rgba(255,255,255,.55);
@@ -1023,7 +1031,7 @@ footer{
 .footer-copy{font-size:.8rem;color:rgba(255,255,255,.35);font-weight:300}
 .footer-links{display:flex;gap:1.2rem;flex-wrap:wrap}
 .footer-links a{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:'Roboto',sans-serif;
   font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;
   color:rgba(255,255,255,.4);text-decoration:none;
   transition:color .2s;
@@ -1141,8 +1149,8 @@ footer{
 <section id="services" class="section">
   <div class="services-intro">
     <div>
-      <p class="sec-tag reveal">Fields of Activity</p>
-      <h2 class="sec-h2 reveal">Our Services</h2>
+      <p class="sec-tag reveal" data-ck="services.tag">Fields of Activity</p>
+      <h2 class="sec-h2 reveal" data-ck="services.h2">Our Services</h2>
       <p class="sec-p reveal" data-ck="services.intro">From mechanical installation to full turnkey project execution — Technocon delivers integrated solutions across the complete project lifecycle in energy and industrial infrastructure.</p>
     </div>
     <div></div>
@@ -1152,8 +1160,8 @@ footer{
     <div class="svc reveal" id="svc-construction">
       <a class="svc-anchor" id="svc-construction-anchor"></a>
       <span class="svc-num">01</span>
-      <h3 class="svc-title">Construction &amp; Installation</h3>
-      <ul class="svc-list">
+      <h3 class="svc-title" data-ck="services.1.title">Construction &amp; Installation</h3>
+      <ul class="svc-list" data-ck-list="services.1.items">
         <li>Mechanical equipment installation</li>
         <li>Welding and piping works</li>
         <li>Testing and commissioning assistance</li>
@@ -1164,8 +1172,8 @@ footer{
     </div>
     <div class="svc reveal" id="svc-engineering">
       <span class="svc-num">02</span>
-      <h3 class="svc-title">Engineering &amp; Turnkey Execution</h3>
-      <ul class="svc-list">
+      <h3 class="svc-title" data-ck="services.2.title">Engineering &amp; Turnkey Execution</h3>
+      <ul class="svc-list" data-ck-list="services.2.items">
         <li>Design and design coordination</li>
         <li>Technical supervision</li>
         <li>Engineering support</li>
@@ -1176,8 +1184,8 @@ footer{
     </div>
     <div class="svc reveal" id="svc-procurement">
       <span class="svc-num">03</span>
-      <h3 class="svc-title">Procurement</h3>
-      <ul class="svc-list">
+      <h3 class="svc-title" data-ck="services.3.title">Procurement</h3>
+      <ul class="svc-list" data-ck-list="services.3.items">
         <li>Procurement coordination &amp; expediting</li>
         <li>Process equipment &amp; raw materials</li>
         <li>Surplus materials</li>
@@ -1188,8 +1196,8 @@ footer{
     </div>
     <div class="svc reveal" id="svc-pm">
       <span class="svc-num">04</span>
-      <h3 class="svc-title">Project Management &amp; Controls</h3>
-      <ul class="svc-list">
+      <h3 class="svc-title" data-ck="services.4.title">Project Management &amp; Controls</h3>
+      <ul class="svc-list" data-ck-list="services.4.items">
         <li>Progress reporting &amp; planning</li>
         <li>Final installation management</li>
         <li>Weekly/daily reports</li>
@@ -1203,23 +1211,23 @@ footer{
   <!-- Tracking system -->
   <div class="tracking-card reveal">
     <div>
-      <div class="tracking-h">QR / Barcode Tracking System</div>
-      <div class="tracking-sub">In-house materials control — competitive advantage</div>
-      <p class="tracking-p">Technocon operates a proprietary tracking system for steel structures, piping materials, and concrete precast units. Each item receives a unique QR/barcode ID and is tracked through defined statuses and locations across production, warehouse, and site — in real time.</p>
+      <div class="tracking-h" data-ck="tracking.h">QR / Barcode Tracking System</div>
+      <div class="tracking-sub" data-ck="tracking.sub">In-house materials control — competitive advantage</div>
+      <p class="tracking-p" data-ck="tracking.p">Technocon operates a proprietary tracking system for steel structures, piping materials, and concrete precast units. Each item receives a unique QR/barcode ID and is tracked through defined statuses and locations across production, warehouse, and site — in real time.</p>
       <div class="tracking-big">
-        <span class="n">4,000+</span>
-        <span class="l">produced items tracked<br>across multi-project operations</span>
+        <span class="n" data-ck="tracking.stat.n">4,000+</span>
+        <span class="l" data-ck="tracking.stat.l">produced items tracked across multi-project operations</span>
       </div>
     </div>
     <div>
-      <p style="font-family:'Barlow Condensed',sans-serif;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem;">Status Workflow</p>
+      <p style="font-family:'Roboto',sans-serif;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem;" data-ck="tracking.workflow.label">Status Workflow</p>
       <div class="flow">
-        <div class="flow-s"><div class="flow-dot">PRD</div><div class="flow-label">Produced — manufactured &amp; labelled</div></div>
-        <div class="flow-s"><div class="flow-dot">QC</div><div class="flow-label">Quality Control — inspected &amp; approved</div></div>
-        <div class="flow-s"><div class="flow-dot">RDY</div><div class="flow-label">Ready — cleared for dispatch</div></div>
-        <div class="flow-s"><div class="flow-dot">DSP</div><div class="flow-label">Dispatched — in transport</div></div>
-        <div class="flow-s"><div class="flow-dot">DLV</div><div class="flow-label">Delivered — confirmed on-site</div></div>
-        <div class="flow-s"><div class="flow-dot">INS</div><div class="flow-label">Installed — final status logged</div></div>
+        <div class="flow-s"><div class="flow-dot">PRD</div><div class="flow-label" data-ck="tracking.flow.prd">Produced — manufactured &amp; labelled</div></div>
+        <div class="flow-s"><div class="flow-dot">QC</div><div class="flow-label" data-ck="tracking.flow.qc">Quality Control — inspected &amp; approved</div></div>
+        <div class="flow-s"><div class="flow-dot">RDY</div><div class="flow-label" data-ck="tracking.flow.rdy">Ready — cleared for dispatch</div></div>
+        <div class="flow-s"><div class="flow-dot">DSP</div><div class="flow-label" data-ck="tracking.flow.dsp">Dispatched — in transport</div></div>
+        <div class="flow-s"><div class="flow-dot">DLV</div><div class="flow-label" data-ck="tracking.flow.dlv">Delivered — confirmed on-site</div></div>
+        <div class="flow-s"><div class="flow-dot">INS</div><div class="flow-label" data-ck="tracking.flow.ins">Installed — final status logged</div></div>
       </div>
     </div>
   </div>
@@ -1234,16 +1242,6 @@ footer{
         <span class="partners-lbl">Strategic Partners</span>
         <div class="partners-marquee-outer">
           <div class="partners-marquee-track" id="partnersTrack">
-            <!-- Set 1 -->
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Vemak</span></div>
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Arkad S.p.A.</span></div>
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Sicilsaldo Group</span></div>
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Camel Oil Tanzania</span></div>
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Bulgartransgaz</span></div>
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Eesti Energia</span></div>
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Glavbolgarstroy</span></div>
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">ADNOC</span></div>
-            <!-- Set 2 — duplicate for seamless loop -->
             <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Vemak</span></div>
             <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Arkad S.p.A.</span></div>
             <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Sicilsaldo Group</span></div>
@@ -1380,83 +1378,41 @@ footer{
 <section id="about" class="section">
   <div class="about-layout">
     <div class="about-text">
-      <p class="sec-tag reveal">Who We Are</p>
-      <h2 class="sec-h2 reveal">About Technocon</h2>
+      <p class="sec-tag reveal" data-ck="about.tag">Who We Are</p>
+      <h2 class="sec-h2 reveal" data-ck="about.h2">About Technocon</h2>
       <p class="sec-p reveal" data-ck="about.text">A Bulgarian-based company specialising in energy and industrial infrastructure projects across Europe. We combine proven engineering expertise, flexible delivery capacity, and lean team structure to deliver results at every project stage — from mobilisation through commissioning and beyond.</p>
 
-      <div class="about-capabilities">
-        <div class="cap reveal">
-          <div class="cap-h">Fast Internal Coordination</div>
-          <div class="cap-p">Rapid decision-making and high adaptability in changing project environments.</div>
-        </div>
-        <div class="cap reveal">
-          <div class="cap-h">Strong Ownership</div>
-          <div class="cap-p">Experience in technical documentation, site interfaces, and execution follow-up.</div>
-        </div>
-        <div class="cap reveal">
-          <div class="cap-h">Lean Structure</div>
-          <div class="cap-p">Hands-on project involvement with efficient communication across all disciplines.</div>
-        </div>
-        <div class="cap reveal">
-          <div class="cap-h">Quick Mobilisation</div>
-          <div class="cap-p">Ability to mobilise core resources and expand through partner network when required.</div>
-        </div>
+      <div class="about-capabilities" data-ck-pairs="about.caps" data-pairs-h="cap-h" data-pairs-p="cap-p" data-pairs-item="cap reveal">
+        <div class="cap reveal"><div class="cap-h">Fast Internal Coordination</div><div class="cap-p">Rapid decision-making and high adaptability in changing project environments.</div></div>
+        <div class="cap reveal"><div class="cap-h">Strong Ownership</div><div class="cap-p">Experience in technical documentation, site interfaces, and execution follow-up.</div></div>
+        <div class="cap reveal"><div class="cap-h">Lean Structure</div><div class="cap-p">Hands-on project involvement with efficient communication across all disciplines.</div></div>
+        <div class="cap reveal"><div class="cap-h">Quick Mobilisation</div><div class="cap-p">Ability to mobilise core resources and expand through partner network when required.</div></div>
       </div>
 
       <!-- ISO Certificates -->
       <div id="about-quality" class="about-certs reveal">
-        <div class="about-certs-label">Quality Assurance</div>
-        <div class="about-certs-title">ISO Certified</div>
-        <p class="about-certs-desc">Technocon holds three internationally recognised ISO certifications — reflecting our commitment to quality management, environmental responsibility, and occupational health &amp; safety across all operations.</p>
-        <div class="iso-boxes">
-          <div class="iso-box" onclick="openLightbox('brand_assets/ISO_9001_2015.png','ISO 9001:2015')">
-            <div class="iso-code">ISO 9001:2015</div>
-            <div class="iso-name">Quality Management System</div>
-            <div class="iso-view">View certificate <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></div>
-          </div>
-          <div class="iso-box" onclick="openLightbox('brand_assets/ISO_14001_2015.png','ISO 14001:2015')">
-            <div class="iso-code">ISO 14001:2015</div>
-            <div class="iso-name">Environmental Management System</div>
-            <div class="iso-view">View certificate <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></div>
-          </div>
-          <div class="iso-box" onclick="openLightbox('brand_assets/ISO_45001_2018.png','ISO 45001:2018')">
-            <div class="iso-code">ISO 45001:2018</div>
-            <div class="iso-name">Occupational Health &amp; Safety Management</div>
-            <div class="iso-view">View certificate <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></div>
-          </div>
+        <div class="about-certs-label" data-ck="quality.label">Quality Assurance</div>
+        <div class="about-certs-title" data-ck="quality.title">ISO Certified</div>
+        <p class="about-certs-desc" data-ck="quality.desc">Technocon holds three internationally recognised ISO certifications — reflecting our commitment to quality management, environmental responsibility, and occupational health &amp; safety across all operations.</p>
+        <div class="iso-boxes" data-ck-isos="quality.isos">
+          <div class="iso-box" onclick="openLightbox('brand_assets/ISO_9001_2015.png','ISO 9001:2015')"><div class="iso-code">ISO 9001:2015</div><div class="iso-name">Quality Management System</div><div class="iso-view">View certificate <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></div></div>
+          <div class="iso-box" onclick="openLightbox('brand_assets/ISO_14001_2015.png','ISO 14001:2015')"><div class="iso-code">ISO 14001:2015</div><div class="iso-name">Environmental Management System</div><div class="iso-view">View certificate <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></div></div>
+          <div class="iso-box" onclick="openLightbox('brand_assets/ISO_45001_2018.png','ISO 45001:2018')"><div class="iso-code">ISO 45001:2018</div><div class="iso-name">Occupational Health &amp; Safety Management</div><div class="iso-view">View certificate <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></div></div>
         </div>
       </div>
 
       <!-- Our Team -->
       <div id="about-team" class="about-certs reveal">
-        <div class="about-certs-label">Our Team</div>
-        <div class="about-certs-title">How We Work</div>
-        <p class="about-certs-desc">A lean, senior-led team built for complex industrial environments — combining hands-on execution with tight coordination across all project phases.</p>
-        <div class="cert-strengths" style="grid-column:unset;margin-top:1.4rem;">
-          <div class="strength reveal">
-            <div class="strength-h">Proven Execution</div>
-            <div class="strength-p">Track record in industrial and infrastructure projects across multiple countries and disciplines.</div>
-          </div>
-          <div class="strength reveal">
-            <div class="strength-h">Flexible Delivery</div>
-            <div class="strength-p">Engineering coordination + site execution + subcontractor management under one roof.</div>
-          </div>
-          <div class="strength reveal">
-            <div class="strength-h">Fast Response</div>
-            <div class="strength-p">Rapid mobilisation and adaptability to client requirements and project-specific procedures.</div>
-          </div>
-          <div class="strength reveal">
-            <div class="strength-h">Multi-Stage Entry</div>
-            <div class="strength-p">Can enter projects at mobilisation, installation, support, or recovery scope phases.</div>
-          </div>
-          <div class="strength reveal">
-            <div class="strength-h">Strong Coordination</div>
-            <div class="strength-p">Tight integration between technical, commercial, and execution functions.</div>
-          </div>
-          <div class="strength reveal">
-            <div class="strength-h">Scalable Capacity</div>
-            <div class="strength-p">Lean core team that expands through a vetted partner network as project scope requires.</div>
-          </div>
+        <div class="about-certs-label" data-ck="team.label">Our Team</div>
+        <div class="about-certs-title" data-ck="team.title">How We Work</div>
+        <p class="about-certs-desc" data-ck="team.desc">A lean, senior-led team built for complex industrial environments — combining hands-on execution with tight coordination across all project phases.</p>
+        <div class="cert-strengths" style="grid-column:unset;margin-top:1.4rem;" data-ck-pairs="team.strengths" data-pairs-h="strength-h" data-pairs-p="strength-p" data-pairs-item="strength reveal">
+          <div class="strength reveal"><div class="strength-h">Proven Execution</div><div class="strength-p">Track record in industrial and infrastructure projects across multiple countries and disciplines.</div></div>
+          <div class="strength reveal"><div class="strength-h">Flexible Delivery</div><div class="strength-p">Engineering coordination + site execution + subcontractor management under one roof.</div></div>
+          <div class="strength reveal"><div class="strength-h">Fast Response</div><div class="strength-p">Rapid mobilisation and adaptability to client requirements and project-specific procedures.</div></div>
+          <div class="strength reveal"><div class="strength-h">Multi-Stage Entry</div><div class="strength-p">Can enter projects at mobilisation, installation, support, or recovery scope phases.</div></div>
+          <div class="strength reveal"><div class="strength-h">Strong Coordination</div><div class="strength-p">Tight integration between technical, commercial, and execution functions.</div></div>
+          <div class="strength reveal"><div class="strength-h">Scalable Capacity</div><div class="strength-p">Lean core team that expands through a vetted partner network as project scope requires.</div></div>
         </div>
       </div>
     </div>
@@ -1637,6 +1593,21 @@ const PROJECTS_STATIC = {
 // ── CMS state
 let currentLang = 'en';
 let CMS_PROJECTS = Object.assign({}, PROJECTS_STATIC); // start with static, override from API
+let CMS_PARTNERS = null;
+
+function buildPartnerMarquee(partners, lang) {
+  const track = document.getElementById('partnersTrack');
+  if (!track || !partners.length) return;
+  const makeItem = p => {
+    const name = (lang === 'bg' && p.name_bg) ? p.name_bg : p.name_en;
+    const icon = p.logo
+      ? `<img class="partner-logo" src="${p.logo}" alt="${name}">`
+      : `<span class="partner-dot"></span>`;
+    return `<div class="partner-item">${icon}<span class="partner-name">${name}</span></div>`;
+  };
+  const set = partners.map(makeItem).join('');
+  track.innerHTML = set + set; // duplicate for seamless CSS loop
+}
 
 // Derive base path so API calls work at / or /temp/ or any subpath
 const API_BASE = (function() {
@@ -1651,6 +1622,7 @@ const API_BASE = (function() {
 // ── Fetch & apply CMS content for a given language
 async function fetchCMS(lang) {
   try {
+    const partnerFetch = CMS_PARTNERS ? null : fetch(API_BASE + '/api/partners');
     const [cRes, pRes] = await Promise.all([
       fetch(API_BASE + `/api/content?lang=${lang}`),
       fetch(API_BASE + `/api/projects?lang=${lang}`)
@@ -1658,11 +1630,51 @@ async function fetchCMS(lang) {
     if (!cRes.ok || !pRes.ok) throw new Error('API unavailable');
     const content  = await cRes.json();
     const projList = await pRes.json();
+    if (partnerFetch) {
+      const prRes = await partnerFetch;
+      if (prRes.ok) CMS_PARTNERS = await prRes.json();
+    }
+    if (CMS_PARTNERS) buildPartnerMarquee(CMS_PARTNERS, lang);
 
     // Apply text content to all [data-ck] elements
     document.querySelectorAll('[data-ck]').forEach(el => {
       const val = content[el.dataset.ck];
-      if (val !== undefined) el.textContent = val;
+      if (val !== undefined && !Array.isArray(val)) el.textContent = val;
+    });
+    // Apply list content to all [data-ck-list] elements
+    document.querySelectorAll('[data-ck-list]').forEach(el => {
+      const val = content[el.dataset.ckList];
+      if (Array.isArray(val) && val.length) {
+        el.innerHTML = val.map(item => `<li>${item}</li>`).join('');
+      }
+    });
+    // Apply pair-card content to all [data-ck-pairs] elements (each item is "Heading||Description")
+    document.querySelectorAll('[data-ck-pairs]').forEach(el => {
+      const val = content[el.dataset.ckPairs];
+      if (!Array.isArray(val) || !val.length) return;
+      const hClass   = el.dataset.pairsH    || '';
+      const pClass   = el.dataset.pairsP    || '';
+      const itemCls  = el.dataset.pairsItem || '';
+      el.innerHTML = val.map(item => {
+        const sep = item.indexOf('||');
+        const h = sep >= 0 ? item.slice(0, sep) : item;
+        const p = sep >= 0 ? item.slice(sep + 2) : '';
+        return `<div class="${itemCls}"><div class="${hClass}">${h}</div><div class="${pClass}">${p}</div></div>`;
+      }).join('');
+    });
+    // Apply ISO cert boxes to all [data-ck-isos] elements (each item is "CODE||Name||imgpath")
+    document.querySelectorAll('[data-ck-isos]').forEach(el => {
+      const val = content[el.dataset.ckIsos];
+      if (!Array.isArray(val) || !val.length) return;
+      const svgArrow = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>`;
+      el.innerHTML = val.map(item => {
+        const parts = item.split('||');
+        const code = parts[0] || '';
+        const name = parts[1] || '';
+        const img  = parts[2] || '';
+        const safeCode = code.replace(/'/g, "\\'");
+        return `<div class="iso-box" onclick="openLightbox('${img}','${safeCode}')"><div class="iso-code">${code}</div><div class="iso-name">${name}</div><div class="iso-view">View certificate ${svgArrow}</div></div>`;
+      }).join('');
     });
 
     // Build CMS_PROJECTS lookup keyed by project.key
@@ -1686,21 +1698,45 @@ async function fetchCMS(lang) {
       };
     });
 
-    // Update project card title and client line from CMS data
+    // Update project card title, client line, and thumbnail from CMS data
     projList.forEach(p => {
       const card = document.querySelector(`.proj-card-g[data-proj="${p.key}"]`);
       if (!card) return;
       const titleEl  = card.querySelector('.proj-card-g-title');
       const clientEl = card.querySelector('.proj-card-g-client');
-      if (titleEl && p.title)  titleEl.textContent  = p.title;
+      const imgEl    = card.querySelector('img');
+      if (titleEl && p.title)   titleEl.textContent  = p.title;
       if (clientEl && p.client) clientEl.textContent = p.client;
+      if (imgEl && p.images?.length) {
+        const thumb = p.images.find(i => i.is_main) || p.images[0];
+        if (thumb) imgEl.src = thumb.filename;
+      }
     });
+
+    // Reorder carousel cards to match sort_order from API
+    const track = document.getElementById('galleryTrack');
+    if (track) {
+      projList.forEach(p => {
+        const card = track.querySelector(`.proj-card-g[data-proj="${p.key}"]`);
+        if (card) track.appendChild(card); // appending in API order moves each to end in sequence
+      });
+      // Reset carousel to position 0 so offset stays valid after reorder
+      galCurIdx = 0;
+      track.style.transform = 'translateX(0)';
+      const pgPrev = document.getElementById('pgPrev');
+      const pgNext = document.getElementById('pgNext');
+      if (pgPrev) pgPrev.disabled = true;
+      if (pgNext) pgNext.disabled = false;
+    }
 
     // If a detail panel is open, refresh its content in the new language
     if (activeProj) {
       const detail = document.getElementById('detail-' + activeProj);
       if (detail) detail.innerHTML = buildDetailHTML(activeProj);
     }
+
+    // Re-observe any .reveal elements created by CMS rendering that weren't in the DOM at page load
+    document.querySelectorAll('.reveal:not(.vis)').forEach(el => observer.observe(el));
   } catch (err) {
     // API unavailable (static hosting) — CMS_PROJECTS already has static fallback data
   }
@@ -1713,6 +1749,7 @@ function setLang(code, btn, label) {
   langDrop.classList.remove('open');
   currentLang = code;
   fetchCMS(code);
+  if (CMS_PARTNERS) buildPartnerMarquee(CMS_PARTNERS, code);
 }
 
 // ── Scroll reveal
