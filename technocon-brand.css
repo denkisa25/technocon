@@ -1,0 +1,600 @@
+/* ============================================================
+   TECHNOCON — Brand System Stylesheet v1.0
+   Apply over existing site CSS (link AFTER existing stylesheet)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap');
+
+:root {
+  /* — Brand core (sampled from logo) — */
+  --tc-green:       #2DB586;
+  --tc-green-deep:  #1F8E66;
+  --tc-blue:        #228CC2;
+  --tc-blue-deep:   #156A95;
+  --tc-black:       #000000;
+  --tc-paper:       #FAFAF7;
+  --tc-fog:         #E8E8E3;
+  --tc-line:        #1A1A1A;
+  --tc-mute:        #6B6B68;
+  --tc-rule:        rgba(0,0,0,0.08);
+  --tc-rule-strong: rgba(0,0,0,0.18);
+
+  /* Semantic */
+  --bg:       var(--tc-paper);
+  --surface:  #FFFFFF;
+  --ink:      var(--tc-line);
+  --ink-soft: var(--tc-mute);
+
+  /* Type stack */
+  --font-display:   'Archivo', 'Helvetica Neue', sans-serif;
+  --font-body:      'Archivo', 'Helvetica Neue', sans-serif;
+  --font-mono:      'JetBrains Mono', 'SF Mono', monospace;
+  --font-editorial: 'Fraunces', Georgia, serif;
+
+  /* Signature gradient */
+  --tc-gradient:   linear-gradient(135deg, var(--tc-green) 0%, var(--tc-blue) 100%);
+  --tc-gradient-h: linear-gradient(90deg,  var(--tc-green) 0%, var(--tc-blue) 100%);
+}
+
+/* — Base — */
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg) !important;
+  color: var(--ink) !important;
+  font-family: var(--font-body) !important;
+  font-feature-settings: "ss01", "tnum";
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+/* — Typography — */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+h1 { font-weight: 900; letter-spacing: -0.04em; }
+h2 { font-weight: 800; letter-spacing: -0.03em; }
+h3 { font-weight: 700; }
+h4 { font-weight: 600; }
+
+/* Editorial italic accent — used inside <em> tags within headlines */
+h1 em, h2 em, h3 em, .tc-em {
+  font-family: var(--font-editorial) !important;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Tabular numerics for stats */
+.tc-num, .num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Mono utility */
+.tc-mono, .mono, .tc-label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+.tc-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+/* Gradient text utility */
+.tc-gradient-text {
+  background: var(--tc-gradient-h);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* — Section-number marker (01 / Services) — */
+.tc-section-num {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--tc-line);
+  padding-top: 12px;
+  margin-bottom: 32px;
+  min-width: 140px;
+}
+
+/* — HERO — keep dark, refine type system — */
+#hero, .hero, section.hero, [id="hero"] {
+  background: var(--tc-line) !important;
+  color: var(--tc-paper) !important;
+  position: relative;
+}
+
+/* Override hero h1 — keep the existing .hero-h1 look but apply Archivo */
+#hero .hero-h1,
+.hero .hero-h1 {
+  color: var(--tc-paper) !important;
+  font-family: var(--font-display) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.04em !important;
+}
+
+/* Hero h1 em — gradient italic accent */
+#hero .hero-h1 em,
+.hero .hero-h1 em {
+  font-family: var(--font-editorial) !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+  background: var(--tc-gradient-h) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  letter-spacing: -0.02em !important;
+}
+
+#hero p, .hero p, .hero-subtitle {
+  color: rgba(250, 250, 247, 0.72) !important;
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 560px;
+}
+
+/* Hero eyebrow tag */
+.hero-tag,
+.hero .eyebrow,
+.hero-eyebrow {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: rgba(250, 250, 247, 0.85) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin-bottom: 24px !important;
+}
+/* Override existing hero-tag::before (the amber short line) to use gradient */
+#hero .hero-tag::before,
+.hero .hero-tag::before {
+  content: "" !important;
+  width: 32px !important;
+  height: 1px !important;
+  background: var(--tc-gradient-h) !important;
+}
+
+/* Hero stat row */
+.stats {
+  background: var(--tc-line) !important;
+  border-top: 1px solid rgba(250,250,247,0.12) !important;
+  border-bottom: none !important;
+}
+.stat {
+  border-right-color: rgba(250,250,247,0.1) !important;
+}
+.stat-n {
+  font-family: var(--font-display) !important;
+  font-weight: 800 !important;
+  font-size: clamp(28px, 3.5vw, 44px) !important;
+  letter-spacing: -0.02em !important;
+  font-variant-numeric: tabular-nums !important;
+  color: var(--tc-paper) !important;
+}
+.stat-l {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  color: rgba(250,250,247,0.55) !important;
+}
+
+/* — Section frame for everything below stats — */
+section:not(#hero):not(#partners) {
+  background: var(--bg);
+}
+section:not(#hero):not(#partners) h2,
+section:not(#hero):not(#partners) .sec-h2 {
+  font-family: var(--font-display) !important;
+  font-size: clamp(40px, 5vw, 72px) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 0.95 !important;
+  color: var(--ink) !important;
+  margin-bottom: 24px !important;
+  text-transform: none !important;
+}
+section:not(#hero):not(#partners) .sec-h2 em {
+  font-family: var(--font-editorial) !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.02em !important;
+  background: var(--tc-gradient-h) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+/* sec-tag (eyebrow) under sections */
+.sec-tag {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: var(--ink-soft) !important;
+  margin-bottom: 12px !important;
+}
+.sec-tag::before { display: none !important; }
+
+/* Section lead */
+.sec-p {
+  font-size: 18px !important;
+  color: var(--ink-soft) !important;
+  line-height: 1.6 !important;
+}
+
+/* — Services section — */
+#services { background: var(--bg) !important; }
+
+.svc {
+  background: var(--surface) !important;
+  border: 0.5px solid var(--tc-rule-strong) !important;
+  border-radius: 0 !important;
+  padding: 32px !important;
+  position: relative;
+}
+.svc::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 32px !important;
+  height: 2px !important;
+  background: var(--tc-gradient-h) !important;
+  transition: width 0.35s ease !important;
+}
+.svc:hover::before { width: 100% !important; }
+.svc:hover { background: #FAFAF7 !important; }
+
+.svc-title {
+  font-family: var(--font-display) !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  color: var(--ink) !important;
+  text-transform: none !important;
+}
+
+.svc-num {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.18em !important;
+  background: var(--tc-gradient-h) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  font-size: 2rem !important;
+  opacity: 1 !important;
+  position: absolute !important;
+  top: 0.5rem !important;
+  right: 1rem !important;
+}
+
+.svc-list li {
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  color: var(--ink-soft) !important;
+  letter-spacing: 0.02em !important;
+  padding: 8px 0 8px 16px !important;
+  border-bottom: 0.5px solid var(--tc-rule) !important;
+}
+.svc-list li::before {
+  content: "›" !important;
+  color: var(--tc-green-deep) !important;
+}
+.svc-list li:last-child { border-bottom: none !important; }
+
+/* service-blocks grid border */
+.service-blocks {
+  background: transparent !important;
+  border: 0.5px solid var(--tc-rule-strong) !important;
+  gap: 0 !important;
+}
+
+/* — Tracking section — */
+.tracking-card {
+  background: var(--surface) !important;
+  border: 0.5px solid var(--tc-rule-strong) !important;
+  border-radius: 0 !important;
+}
+.tracking-h {
+  font-family: var(--font-display) !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: none !important;
+}
+.tracking-sub {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.15em !important;
+  color: var(--ink-soft) !important;
+}
+.tracking-big .n {
+  font-family: var(--font-display) !important;
+  font-size: clamp(48px, 6vw, 80px) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.04em !important;
+  color: var(--ink) !important;
+  font-variant-numeric: tabular-nums !important;
+}
+.tracking-big .l {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.08em !important;
+  color: var(--ink-soft) !important;
+}
+.tracking-p { color: var(--ink-soft) !important; }
+
+/* Workflow pills */
+.flow-dot {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.12em !important;
+  background: var(--surface) !important;
+  border: 0.5px solid var(--tc-rule-strong) !important;
+  border-radius: 0 !important;
+  color: var(--ink) !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 6px 10px !important;
+}
+.flow-dot::before {
+  display: none !important;
+}
+.flow::before { background: rgba(0,0,0,0.1) !important; }
+
+/* — Partners section — dark band — */
+#partners {
+  background: var(--tc-line) !important;
+  color: var(--tc-paper) !important;
+}
+.partners-lbl {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  background: var(--tc-gradient-h) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+.partners-marquee-outer::before {
+  background: linear-gradient(to right, var(--tc-line), transparent) !important;
+}
+.partners-marquee-outer::after {
+  background: linear-gradient(to left, var(--tc-line), transparent) !important;
+}
+.partner-name {
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: rgba(250,250,247,0.85) !important;
+}
+.partner-item:hover .partner-name { color: var(--tc-paper) !important; }
+.partner-dot { background: var(--tc-green) !important; }
+
+/* — Projects section — */
+#projects { background: var(--bg) !important; }
+
+.proj-card-g {
+  border-radius: 0 !important;
+}
+.proj-card-g-title {
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  text-transform: none !important;
+}
+.proj-card-g-client {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.12em !important;
+  color: rgba(255,255,255,0.7) !important;
+}
+.proj-badge {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.12em !important;
+  border-radius: 0 !important;
+}
+.filter-btn {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.15em !important;
+}
+.filter-btn.active, .filter-btn:hover {
+  background: var(--tc-line) !important;
+  color: var(--tc-paper) !important;
+}
+.pgn-btn { border-radius: 0 !important; }
+.pgn-btn:hover {
+  background: var(--tc-line) !important;
+  border-color: var(--tc-line) !important;
+}
+
+/* — About section — */
+#about { background: var(--bg) !important; }
+
+.cap {
+  background: var(--surface) !important;
+  border: 0.5px solid var(--tc-rule-strong) !important;
+  border-left: 2px solid var(--tc-green) !important;
+  border-radius: 0 !important;
+}
+.cap:hover { border-left-color: var(--tc-blue) !important; }
+.cap-h {
+  font-family: var(--font-display) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  text-transform: none !important;
+}
+.cap-p { font-family: var(--font-body) !important; color: var(--ink-soft) !important; }
+
+/* ISO boxes */
+.about-certs-label {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.18em !important;
+  color: var(--ink-soft) !important;
+}
+.about-certs-label::before { display: none !important; }
+
+.about-certs-title {
+  font-family: var(--font-display) !important;
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: none !important;
+  color: var(--ink) !important;
+}
+
+.iso-box {
+  border-radius: 0 !important;
+  border-color: rgba(0,0,0,0.12) !important;
+}
+.iso-box:hover {
+  border-color: var(--tc-green) !important;
+  box-shadow: 0 4px 18px rgba(45,181,134,0.12) !important;
+}
+.iso-code {
+  font-family: var(--font-mono) !important;
+  font-size: 13px !important;
+  letter-spacing: 0.08em !important;
+  font-weight: 700 !important;
+  color: var(--ink) !important;
+}
+.iso-name { color: var(--ink-soft) !important; }
+
+/* Team strength cards */
+.strength {
+  border-radius: 0 !important;
+  border-top: 2px solid var(--tc-green) !important;
+}
+.strength:hover { border-top-color: var(--tc-blue) !important; }
+.strength-h {
+  font-family: var(--font-display) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+  letter-spacing: -0.01em !important;
+}
+.strength-p { color: var(--ink-soft) !important; }
+
+/* — Contact section — */
+#contact { background: var(--surface) !important; }
+#contact .sec-h2 { color: var(--ink) !important; }
+.field label {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.15em !important;
+  color: var(--ink-soft) !important;
+}
+.field input, .field textarea, .field select {
+  border-radius: 0 !important;
+  font-family: var(--font-display) !important;
+}
+.field input:focus, .field textarea:focus, .field select:focus {
+  border-color: var(--tc-green) !important;
+}
+.office {
+  border-radius: 0 !important;
+}
+.office-city {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.15em !important;
+  color: var(--tc-green-deep) !important;
+}
+.office-city::before { background: var(--tc-green) !important; }
+
+/* — Buttons — */
+.btn-a {
+  font-family: var(--font-display) !important;
+  border-radius: 0 !important;
+  background: var(--tc-line) !important;
+  position: relative;
+  overflow: hidden;
+}
+.btn-a::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: var(--tc-gradient-h) !important;
+  opacity: 0 !important;
+  transition: opacity 0.25s !important;
+  z-index: 0 !important;
+}
+.btn-a span { position: relative; z-index: 1; }
+.btn-a:hover::after { opacity: 1 !important; }
+.btn-a:hover {
+  background: var(--tc-line) !important;
+  color: var(--tc-black) !important;
+  box-shadow: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+/* — Navigation — */
+#header.scrolled {
+  background: rgba(250,250,247,0.96) !important;
+}
+nav a, .nav-dropdown > button {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+.dropdown-menu a {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.05em !important;
+}
+.lang-text-btn {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.08em !important;
+}
+
+/* — Footer — */
+footer {
+  background: var(--tc-line) !important;
+  color: var(--tc-paper) !important;
+}
+.footer-brand {
+  font-family: var(--font-mono) !important;
+  color: rgba(250,250,247,0.6) !important;
+}
+.footer-brand span { color: var(--tc-green) !important; }
+.footer-copy {
+  font-family: var(--font-mono) !important;
+  color: rgba(250,250,247,0.35) !important;
+}
+.footer-links a {
+  font-family: var(--font-mono) !important;
+  color: rgba(250,250,247,0.45) !important;
+}
+.footer-links a:hover { color: var(--tc-paper) !important; }
+
+/* — Responsive — */
+@media (max-width: 768px) {
+  section { padding: 64px 24px !important; }
+  .iso-boxes { flex-direction: column !important; }
+}

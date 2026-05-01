@@ -25,8 +25,21 @@ const filename = label
   : `screenshot-${nextN}.png`;
 const outputPath = path.join(screenshotsDir, filename);
 
+// Find installed Chrome automatically from known Puppeteer cache locations
+function findChrome() {
+  const base = path.join(process.env.HOME || '', '.cache', 'puppeteer', 'chrome');
+  if (!fs.existsSync(base)) return undefined;
+  const dirs = fs.readdirSync(base).filter(d => d.startsWith('mac_arm-')).sort().reverse();
+  for (const dir of dirs) {
+    const exe = path.join(base, dir, 'chrome-mac-arm64', 'Google Chrome for Testing.app', 'Contents', 'MacOS', 'Google Chrome for Testing');
+    if (fs.existsSync(exe)) return exe;
+  }
+  return undefined;
+}
+
 const browser = await puppeteer.launch({
   headless: true,
+  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || findChrome(),
   args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
 });
 

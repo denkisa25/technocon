@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
 <style>
 :root {
   --black:      #232020;
@@ -1057,6 +1058,137 @@ footer{
   footer{padding:1.5rem;flex-direction:column;align-items:flex-start}
 }
 </style>
+<style id="tc-brand">
+/* ── TECHNOCON Brand System v1.0 ── */
+:root {
+  --tc-green:#2DB586;--tc-green-deep:#1F8E66;--tc-blue:#228CC2;--tc-blue-deep:#156A95;
+  --tc-black:#000000;--tc-paper:#FAFAF7;--tc-fog:#E8E8E3;--tc-line:#1A1A1A;
+  --tc-mute:#6B6B68;--tc-rule:rgba(0,0,0,0.08);--tc-rule-strong:rgba(0,0,0,0.18);
+  --bg:var(--tc-paper);--surface:#FFFFFF;--ink:var(--tc-line);--ink-soft:var(--tc-mute);
+  --font-display:'Archivo','Helvetica Neue',sans-serif;
+  --font-body:'Archivo','Helvetica Neue',sans-serif;
+  --font-mono:'JetBrains Mono','SF Mono',monospace;
+  --font-editorial:'Fraunces',Georgia,serif;
+  --tc-gradient:linear-gradient(135deg,var(--tc-green) 0%,var(--tc-blue) 100%);
+  --tc-gradient-h:linear-gradient(90deg,var(--tc-green) 0%,var(--tc-blue) 100%);
+}
+body{background:var(--bg)!important;color:var(--ink)!important;font-family:var(--font-body)!important;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-display);letter-spacing:-0.02em;line-height:1.05}
+h1{font-weight:900;letter-spacing:-0.04em}
+h2{font-weight:800;letter-spacing:-0.03em}
+h1 em,h2 em,h3 em,.tc-em{font-family:var(--font-editorial)!important;font-style:italic!important;font-weight:400!important;letter-spacing:-0.01em!important}
+.tc-num,.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.tc-label{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--ink-soft);font-weight:500}
+/* Section number marker */
+.tc-section-num{display:inline-block;font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-soft);border-top:1px solid var(--tc-line);padding-top:12px;margin-bottom:32px;min-width:140px}
+/* Hero */
+#hero,section.hero{background:var(--tc-line)!important;color:var(--tc-paper)!important}
+#hero .hero-h1,.hero .hero-h1{color:var(--tc-paper)!important;font-family:var(--font-display)!important;font-weight:900!important;letter-spacing:-0.04em!important}
+#hero .hero-h1 em,.hero .hero-h1 em{font-family:var(--font-editorial)!important;font-style:italic!important;font-weight:400!important;background:var(--tc-gradient-h)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;letter-spacing:-0.02em!important}
+#hero p,.hero p{color:rgba(250,250,247,0.72)!important}
+.hero-tag{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.18em!important;text-transform:uppercase!important;color:rgba(250,250,247,0.85)!important;display:inline-flex!important;align-items:center!important;gap:12px!important;margin-bottom:24px!important}
+#hero .hero-tag::before,.hero .hero-tag::before{content:""!important;width:32px!important;height:1px!important;background:var(--tc-gradient-h)!important}
+/* Stats bar */
+.stats{background:var(--tc-line)!important;border-top:1px solid rgba(250,250,247,0.12)!important;border-bottom:none!important}
+.stat{border-right-color:rgba(250,250,247,0.1)!important}
+.stat-n{font-family:var(--font-display)!important;font-weight:800!important;font-size:clamp(28px,3.5vw,44px)!important;letter-spacing:-0.02em!important;font-variant-numeric:tabular-nums!important;color:var(--tc-paper)!important}
+.stat-l{font-family:var(--font-mono)!important;font-size:10px!important;letter-spacing:0.15em!important;text-transform:uppercase!important;color:rgba(250,250,247,0.55)!important}
+/* Sections */
+section:not(#hero):not(#partners){background:var(--bg)}
+section:not(#hero):not(#partners) .sec-h2{font-family:var(--font-display)!important;font-size:clamp(40px,5vw,72px)!important;font-weight:800!important;letter-spacing:-0.03em!important;line-height:0.95!important;color:var(--ink)!important;margin-bottom:24px!important;text-transform:none!important}
+section:not(#hero):not(#partners) .sec-h2 em{font-family:var(--font-editorial)!important;font-style:italic!important;font-weight:400!important;letter-spacing:-0.02em!important;background:var(--tc-gradient-h)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+.sec-tag{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.18em!important;text-transform:uppercase!important;color:var(--ink-soft)!important;margin-bottom:12px!important}
+.sec-tag::before{display:none!important}
+.sec-p{font-size:18px!important;color:var(--ink-soft)!important;line-height:1.6!important}
+/* Services */
+#services{background:var(--bg)!important}
+.service-blocks{background:transparent!important;border:0.5px solid var(--tc-rule-strong)!important;gap:0!important}
+.svc{background:var(--surface)!important;border:0.5px solid var(--tc-rule-strong)!important;border-radius:0!important;padding:32px!important;position:relative}
+.svc::before{content:""!important;position:absolute!important;top:0!important;left:0!important;width:32px!important;height:2px!important;background:var(--tc-gradient-h)!important;transition:width 0.35s ease!important}
+.svc:hover::before{width:100%!important}
+.svc:hover{background:#FAFAF7!important}
+.svc-title{font-family:var(--font-display)!important;font-size:20px!important;font-weight:700!important;letter-spacing:-0.01em!important;color:var(--ink)!important;text-transform:none!important}
+.svc-num{font-family:var(--font-mono)!important;background:var(--tc-gradient-h)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;font-weight:600!important;font-size:2rem!important;opacity:1!important;position:absolute!important;top:0.5rem!important;right:1rem!important}
+.svc-list li{font-family:var(--font-mono)!important;font-size:12px!important;color:var(--ink-soft)!important;letter-spacing:0.02em!important;padding:8px 0 8px 16px!important;border-bottom:0.5px solid var(--tc-rule)!important}
+.svc-list li::before{content:"›"!important;color:var(--tc-green-deep)!important}
+.svc-list li:last-child{border-bottom:none!important}
+/* Tracking */
+.tracking-card{background:var(--surface)!important;border:0.5px solid var(--tc-rule-strong)!important;border-radius:0!important}
+.tracking-h{font-family:var(--font-display)!important;font-size:24px!important;font-weight:700!important;letter-spacing:-0.02em!important;text-transform:none!important}
+.tracking-sub{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.15em!important;color:var(--ink-soft)!important}
+.tracking-big .n{font-family:var(--font-display)!important;font-size:clamp(48px,6vw,80px)!important;font-weight:900!important;letter-spacing:-0.04em!important;color:var(--ink)!important;font-variant-numeric:tabular-nums!important}
+.tracking-big .l{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.08em!important;color:var(--ink-soft)!important}
+.tracking-p{color:var(--ink-soft)!important}
+.flow-dot{font-family:var(--font-mono)!important;font-size:10px!important;letter-spacing:0.12em!important;background:var(--surface)!important;border:0.5px solid var(--tc-rule-strong)!important;border-radius:0!important;color:var(--ink)!important;width:auto!important;height:auto!important;padding:6px 10px!important}
+.flow::before{background:rgba(0,0,0,0.1)!important}
+/* Partners */
+#partners{background:var(--tc-line)!important;color:var(--tc-paper)!important}
+.partners-lbl{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.18em!important;text-transform:uppercase!important;background:var(--tc-gradient-h)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+.partners-marquee-outer::before{background:linear-gradient(to right,var(--tc-line),transparent)!important}
+.partners-marquee-outer::after{background:linear-gradient(to left,var(--tc-line),transparent)!important}
+.partner-name{font-family:var(--font-mono)!important;font-size:12px!important;letter-spacing:0.1em!important;text-transform:uppercase!important;color:rgba(250,250,247,0.85)!important}
+.partner-item:hover .partner-name{color:var(--tc-paper)!important}
+.partner-dot{background:var(--tc-green)!important}
+/* Projects */
+#projects{background:var(--bg)!important}
+.proj-card-g{border-radius:0!important}
+.proj-card-g-title{font-family:var(--font-display)!important;font-weight:700!important;letter-spacing:-0.01em!important;text-transform:none!important}
+.proj-card-g-client{font-family:var(--font-mono)!important;font-size:10px!important;letter-spacing:0.12em!important;color:rgba(255,255,255,0.7)!important}
+.proj-badge{font-family:var(--font-mono)!important;font-size:10px!important;letter-spacing:0.12em!important;border-radius:0!important}
+.filter-btn{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.15em!important}
+.filter-btn.active,.filter-btn:hover{background:var(--tc-line)!important;color:var(--tc-paper)!important}
+.pgn-btn{border-radius:0!important}
+.pgn-btn:hover{background:var(--tc-line)!important;border-color:var(--tc-line)!important}
+/* About */
+#about{background:var(--bg)!important}
+.cap{background:var(--surface)!important;border:0.5px solid var(--tc-rule-strong)!important;border-left:2px solid var(--tc-green)!important;border-radius:0!important}
+.cap:hover{border-left-color:var(--tc-blue)!important}
+.cap-h{font-family:var(--font-display)!important;font-size:14px!important;font-weight:700!important;letter-spacing:-0.01em!important;text-transform:none!important}
+.cap-p{color:var(--ink-soft)!important}
+.about-certs-label{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.18em!important;color:var(--ink-soft)!important}
+.about-certs-label::before{display:none!important}
+.about-certs-title{font-family:var(--font-display)!important;font-size:28px!important;font-weight:800!important;letter-spacing:-0.02em!important;text-transform:none!important;color:var(--ink)!important}
+.about-certs-title em{font-family:var(--font-editorial)!important;font-style:italic!important;font-weight:400!important;background:var(--tc-gradient-h)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+.iso-box{border-radius:0!important;border-color:rgba(0,0,0,0.12)!important}
+.iso-box:hover{border-color:var(--tc-green)!important;box-shadow:0 4px 18px rgba(45,181,134,0.12)!important}
+.iso-code{font-family:var(--font-mono)!important;font-size:13px!important;letter-spacing:0.08em!important;font-weight:700!important;color:var(--ink)!important}
+.iso-name{color:var(--ink-soft)!important}
+.strength{border-radius:0!important;border-top:2px solid var(--tc-green)!important}
+.strength:hover{border-top-color:var(--tc-blue)!important}
+.strength-h{font-family:var(--font-display)!important;font-size:13px!important;font-weight:700!important;text-transform:none!important;letter-spacing:-0.01em!important}
+.strength-p{color:var(--ink-soft)!important}
+/* Contact */
+#contact{background:var(--surface)!important}
+.field label{font-family:var(--font-mono)!important;font-size:10px!important;letter-spacing:0.15em!important;color:var(--ink-soft)!important}
+.field input,.field textarea,.field select{border-radius:0!important;font-family:var(--font-display)!important}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--tc-green)!important}
+.office{border-radius:0!important}
+.office-city{font-family:var(--font-mono)!important;font-size:10px!important;letter-spacing:0.15em!important;color:var(--tc-green-deep)!important}
+.office-city::before{background:var(--tc-green)!important}
+/* Buttons */
+.btn-a{font-family:var(--font-display)!important;border-radius:0!important;background:var(--tc-line)!important;position:relative;overflow:hidden}
+.btn-a::after{content:""!important;position:absolute!important;inset:0!important;background:var(--tc-gradient-h)!important;opacity:0!important;transition:opacity 0.25s!important;z-index:0!important}
+.btn-a:hover::after{opacity:1!important}
+.btn-a:hover{background:var(--tc-line)!important;color:var(--tc-black)!important;box-shadow:none!important;animation:none!important;transform:none!important}
+/* Nav */
+#header.scrolled{background:rgba(250,250,247,0.96)!important}
+nav a,.nav-dropdown>button{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.08em!important;text-transform:uppercase!important}
+.dropdown-menu a{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.05em!important}
+.lang-text-btn{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.08em!important}
+/* Footer */
+footer{background:var(--tc-line)!important;color:var(--tc-paper)!important}
+.footer-brand{font-family:var(--font-mono)!important;color:rgba(250,250,247,0.6)!important}
+.footer-brand span{color:var(--tc-green)!important}
+.footer-copy{font-family:var(--font-mono)!important;color:rgba(250,250,247,0.35)!important}
+.footer-links a{font-family:var(--font-mono)!important;color:rgba(250,250,247,0.45)!important}
+.footer-links a:hover{color:var(--tc-paper)!important}
+/* 2-column section header */
+.tc-section-hdr{display:grid;grid-template-columns:180px 1fr;gap:48px;margin-bottom:56px;align-items:start}
+.tc-section-hdr>.tc-section-num{margin-bottom:0}
+.services-intro.tc-section-hdr{grid-template-columns:180px 1fr!important;gap:48px!important}
+@media(max-width:860px){.tc-section-hdr{grid-template-columns:1fr!important;gap:16px!important}}
+@media(max-width:768px){section{padding:64px 24px!important}.iso-boxes{flex-direction:column!important}}
+</style>
 </head>
 <body>
 
@@ -1125,7 +1257,7 @@ footer{
   <div class="hero-grad2"></div>
   <div class="hero-grid-overlay"></div>
   <div class="hero-content">
-    <h1 class="hero-h1">Building Large Scale<br><span class="hero-cycle-wrap"><span class="hero-cycle" id="heroCycle"></span></span><br><em>Infrastructure</em></h1>
+    <h1 class="hero-h1">Building Large Scale<br><span class="hero-cycle-wrap"><span class="hero-cycle" id="heroCycle"></span></span><br><em>Infrastructure.</em></h1>
     <p class="hero-p" data-ck="hero.subtitle">Engineering, procurement, construction and project management for the energy and industrial sector across Europe and beyond.</p>
     <div class="hero-btns">
       <a href="#projects" class="btn-a">View Projects</a>
@@ -1147,13 +1279,13 @@ footer{
 
 <!-- ══════════════════════════════════════════ SERVICES -->
 <section id="services" class="section">
-  <div class="services-intro">
+  <div class="services-intro tc-section-hdr">
+    <span class="tc-section-num">01 / Services</span>
     <div>
       <p class="sec-tag reveal" data-ck="services.tag">Fields of Activity</p>
-      <h2 class="sec-h2 reveal" data-ck="services.h2">Our Services</h2>
+      <h2 class="sec-h2 reveal" data-ck="services.h2">Our <em>Services.</em></h2>
       <p class="sec-p reveal" data-ck="services.intro">From mechanical installation to full turnkey project execution — Technocon delivers integrated solutions across the complete project lifecycle in energy and industrial infrastructure.</p>
     </div>
-    <div></div>
   </div>
 
   <div class="service-blocks">
@@ -1211,7 +1343,8 @@ footer{
   <!-- Tracking system -->
   <div class="tracking-card reveal">
     <div>
-      <div class="tracking-h" data-ck="tracking.h">QR / Barcode Tracking System</div>
+      <span class="tc-section-num">02 / Tracking</span>
+      <div class="tracking-h" data-ck="tracking.h">QR / Barcode <em>Tracking System.</em></div>
       <div class="tracking-sub" data-ck="tracking.sub">In-house materials control — competitive advantage</div>
       <p class="tracking-p" data-ck="tracking.p">Technocon operates a proprietary tracking system for steel structures, piping materials, and concrete precast units. Each item receives a unique QR/barcode ID and is tracked through defined statuses and locations across production, warehouse, and site — in real time.</p>
       <div class="tracking-big">
@@ -1259,9 +1392,14 @@ footer{
 
 <!-- ══════════════════════════════════════════ PROJECTS -->
 <section id="projects" class="section">
-  <p class="sec-tag reveal">Our Work</p>
-  <h2 class="sec-h2 reveal">Projects</h2>
-  <p class="sec-p reveal">Click any project to view details and photos.</p>
+  <div class="tc-section-hdr">
+    <span class="tc-section-num">03 / Projects</span>
+    <div>
+      <p class="sec-tag reveal">Our Work</p>
+      <h2 class="sec-h2 reveal"><em>Projects.</em></h2>
+      <p class="sec-p reveal">Click any project to view details and photos.</p>
+    </div>
+  </div>
 
   <!-- Gallery4 header: description + nav arrows -->
   <div class="proj-gallery-header reveal">
@@ -1378,9 +1516,14 @@ footer{
 <section id="about" class="section">
   <div class="about-layout">
     <div class="about-text">
-      <p class="sec-tag reveal" data-ck="about.tag">Who We Are</p>
-      <h2 class="sec-h2 reveal" data-ck="about.h2">About Technocon</h2>
-      <p class="sec-p reveal" data-ck="about.text">A Bulgarian-based company specialising in energy and industrial infrastructure projects across Europe. We combine proven engineering expertise, flexible delivery capacity, and lean team structure to deliver results at every project stage — from mobilisation through commissioning and beyond.</p>
+      <div class="tc-section-hdr">
+        <span class="tc-section-num">04 / About</span>
+        <div>
+          <p class="sec-tag reveal" data-ck="about.tag">Who We Are</p>
+          <h2 class="sec-h2 reveal" data-ck="about.h2">About <em>Technocon.</em></h2>
+          <p class="sec-p reveal" data-ck="about.text">A Bulgarian-based company specialising in energy and industrial infrastructure projects across Europe. We combine proven engineering expertise, flexible delivery capacity, and lean team structure to deliver results at every project stage — from mobilisation through commissioning and beyond.</p>
+        </div>
+      </div>
 
       <div class="about-capabilities" data-ck-pairs="about.caps" data-pairs-h="cap-h" data-pairs-p="cap-p" data-pairs-item="cap reveal">
         <div class="cap reveal"><div class="cap-h">Fast Internal Coordination</div><div class="cap-p">Rapid decision-making and high adaptability in changing project environments.</div></div>
@@ -1391,8 +1534,9 @@ footer{
 
       <!-- ISO Certificates -->
       <div id="about-quality" class="about-certs reveal">
+        <span class="tc-section-num">05 / Quality</span>
         <div class="about-certs-label" data-ck="quality.label">Quality Assurance</div>
-        <div class="about-certs-title" data-ck="quality.title">ISO Certified</div>
+        <div class="about-certs-title" data-ck="quality.title">ISO <em>Certified.</em></div>
         <p class="about-certs-desc" data-ck="quality.desc">Technocon holds three internationally recognised ISO certifications — reflecting our commitment to quality management, environmental responsibility, and occupational health &amp; safety across all operations.</p>
         <div class="iso-boxes" data-ck-isos="quality.isos">
           <div class="iso-box" onclick="openLightbox('brand_assets/ISO_9001_2015.png','ISO 9001:2015')"><div class="iso-code">ISO 9001:2015</div><div class="iso-name">Quality Management System</div><div class="iso-view">View certificate <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></div></div>
@@ -1403,8 +1547,9 @@ footer{
 
       <!-- Our Team -->
       <div id="about-team" class="about-certs reveal">
+        <span class="tc-section-num">06 / Team</span>
         <div class="about-certs-label" data-ck="team.label">Our Team</div>
-        <div class="about-certs-title" data-ck="team.title">How We Work</div>
+        <div class="about-certs-title" data-ck="team.title">How We <em>Work.</em></div>
         <p class="about-certs-desc" data-ck="team.desc">A lean, senior-led team built for complex industrial environments — combining hands-on execution with tight coordination across all project phases.</p>
         <div class="cert-strengths" style="grid-column:unset;margin-top:1.4rem;" data-ck-pairs="team.strengths" data-pairs-h="strength-h" data-pairs-p="strength-p" data-pairs-item="strength reveal">
           <div class="strength reveal"><div class="strength-h">Proven Execution</div><div class="strength-p">Track record in industrial and infrastructure projects across multiple countries and disciplines.</div></div>
@@ -1427,9 +1572,14 @@ footer{
 
 <!-- ══════════════════════════════════════════ CONTACT -->
 <section id="contact" class="section">
-  <p class="sec-tag reveal">Get In Touch</p>
-  <h2 class="sec-h2 reveal">Contact Us</h2>
-  <p class="sec-p reveal">Ready to review your quotation, submit technical and commercial proposals, and mobilise our task force team to satisfy your project needs.</p>
+  <div class="tc-section-hdr">
+    <span class="tc-section-num">07 / Contact</span>
+    <div>
+      <p class="sec-tag reveal">Get In Touch</p>
+      <h2 class="sec-h2 reveal">Get In <em>Touch.</em></h2>
+      <p class="sec-p reveal">Ready to review your quotation, submit technical and commercial proposals, and mobilise our task force team to satisfy your project needs.</p>
+    </div>
+  </div>
   <div class="contact-layout">
     <div>
       <div class="offices">
