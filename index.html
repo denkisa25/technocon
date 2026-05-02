@@ -73,14 +73,14 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--ink);overflow
 #header.scrolled .header-inner{padding:.5rem 60px}
 .logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;margin-right:2rem}
 .logo .tc-logo{
-  display:block;height:68px;width:auto;color:var(--tc-paper);
+  display:block;height:130px;width:auto;color:var(--tc-paper);
   transition:height .4s cubic-bezier(.4,0,.2,1);
 }
-#header.scrolled .logo .tc-logo{height:48px}
+#header.scrolled .logo .tc-logo{height:80px}
 .nav-wrap{display:flex;align-items:center;flex:1;justify-content:space-between}
 nav{display:flex;align-items:center;gap:0}
 nav a,.nav-dropdown>button{
-  font-family:var(--font-mono);font-weight:500;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  font-family:var(--font-mono);font-weight:500;font-size:15px;letter-spacing:.08em;text-transform:uppercase;
   color:rgba(255,255,255,.75);text-decoration:none;padding:.5rem 1rem;
   background:none;border:none;cursor:pointer;position:relative;white-space:nowrap;
   transition:color .2s ease;display:flex;align-items:center;gap:4px;
@@ -103,7 +103,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 }
 .nav-dropdown:hover .dropdown-menu{opacity:1;pointer-events:all;transform:translateY(0)}
 .dropdown-menu a{
-  display:block;padding:.6rem 1.2rem;font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+  display:block;padding:.6rem 1.2rem;font-family:var(--font-mono);font-size:14px;letter-spacing:.05em;text-transform:uppercase;
   color:rgba(250,250,247,.55);text-decoration:none;border-bottom:0.5px solid rgba(250,250,247,.08);
   transition:color .15s ease,padding-left .15s ease;
 }
@@ -113,9 +113,9 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .dropdown-menu a:hover::before{opacity:1}
 .header-right{display:flex;align-items:center}
 .lang-inline{display:flex;align-items:center;gap:4px}
-.lang-btn{background:none;border:none;cursor:pointer;font-family:var(--font-mono);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(250,250,247,.4);padding:0;transition:color .2s}
+.lang-btn{background:none;border:none;cursor:pointer;font-family:var(--font-mono);font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(250,250,247,.4);padding:0;transition:color .2s}
 .lang-btn.active,.lang-btn:hover{color:var(--tc-paper)}
-.lang-sep{font-family:var(--font-mono);font-size:13px;color:rgba(250,250,247,.2);user-select:none}
+.lang-sep{font-family:var(--font-mono);font-size:15px;color:rgba(250,250,247,.2);user-select:none}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;margin-left:auto}
 .hamburger span{display:block;width:22px;height:2px;background:#fff;transition:transform .3s,opacity .3s}
 @media(max-width:960px){
@@ -263,33 +263,34 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .workflow-step .code::before{content:'';width:6px;height:6px;background:var(--tc-green);border-radius:50%;flex-shrink:0}
 .workflow-step .desc{font-family:var(--font-mono);font-size:10px;color:var(--ink-soft);letter-spacing:.05em;text-transform:uppercase}
 
-/* ── PARTNERS (DARK STRIP) ── */
-#partners{background:var(--tc-line);color:var(--tc-paper);padding:40px 0;border-bottom:none}
-.partners-inner{max-width:1280px;margin:0 auto;padding:0 60px;display:grid;grid-template-columns:200px 1fr;gap:48px;align-items:center}
-.partners-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;background:var(--tc-gradient-h);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600}
+/* ── PARTNERS ── */
+#partners{background:var(--bg);padding-top:96px;padding-bottom:0;border-bottom:0.5px solid var(--tc-rule)}
+.partners-strip{background:#ffffff;padding:52px 0;border-top:0.5px solid var(--tc-rule)}
 .partners-marquee-outer{position:relative;overflow:hidden}
-.partners-marquee-outer::before,.partners-marquee-outer::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
-.partners-marquee-outer::before{left:0;background:linear-gradient(to right,var(--tc-line),transparent)}
-.partners-marquee-outer::after{right:0;background:linear-gradient(to left,var(--tc-line),transparent)}
-.partners-marquee-track{display:flex;align-items:center;width:max-content;animation:marquee 22s linear infinite}
-.partners-marquee-track:hover{animation-play-state:paused}
+.partners-marquee-outer::before,.partners-marquee-outer::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none}
+.partners-marquee-outer::before{left:0;background:linear-gradient(to right,#ffffff,transparent)}
+.partners-marquee-outer::after{right:0;background:linear-gradient(to left,#ffffff,transparent)}
+.partners-marquee-outer{cursor:grab}
+.partners-marquee-outer.dragging{cursor:grabbing}
+.partners-marquee-track{display:flex;align-items:center;width:max-content;animation:marquee 28s linear infinite}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.partner-item{display:flex;align-items:center;gap:.75rem;padding:0 2.5rem;white-space:nowrap}
-.partner-dot{width:4px;height:4px;border-radius:50%;background:var(--tc-green);flex-shrink:0;opacity:.7}
-.partner-name{font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(250,250,247,.7);transition:color .2s}
-.partner-item:hover .partner-name{color:var(--tc-paper)}
-.partner-logo{height:24px;width:auto;max-width:96px;object-fit:contain;opacity:.45;filter:grayscale(1) brightness(2);transition:opacity .25s,filter .25s}
-.partner-item:hover .partner-logo{opacity:.9;filter:grayscale(0) brightness(1.2)}
+.partner-item{display:flex;flex-direction:column;align-items:center;gap:.65rem;padding:0 3.5rem;white-space:nowrap}
+.partner-dot{width:5px;height:5px;border-radius:50%;background:var(--tc-green);flex-shrink:0;opacity:.7}
+.partner-name{font-family:var(--font-mono);font-size:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--tc-mute);transition:color .2s}
+.partner-item:hover .partner-name{color:var(--tc-line)}
+.partner-logo{height:52px;width:auto;max-width:130px;object-fit:contain;transition:opacity .25s,transform .25s}
+.partner-item:hover .partner-logo{opacity:.85;transform:scale(1.06)}
 
 /* ── PROJECTS ── */
 #projects{background:var(--bg)}
 .proj-badge{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .6rem;display:inline-block}
 .badge-ongoing{background:rgba(45,181,134,.25);color:var(--tc-paper);border:1px solid rgba(45,181,134,.5)}
 .badge-completed{background:rgba(26,26,26,.7);color:var(--tc-paper);border:1px solid rgba(250,250,247,.2)}
-.projects-filters{display:inline-flex;gap:0;border:0.5px solid var(--tc-rule-strong);margin-bottom:32px;overflow:hidden}
+.projects-filters{display:inline-flex;align-self:flex-start;gap:0;border:0.5px solid var(--tc-rule-strong);margin-bottom:32px;overflow:hidden}
 .filter-btn{font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;padding:10px 20px;background:transparent;border:none;border-right:0.5px solid var(--tc-rule-strong);cursor:pointer;color:var(--ink-soft);transition:background .2s,color .2s}
-.filter-btn:last-child{border-right:none}
-.filter-btn.active,.filter-btn:hover{background:var(--tc-line);color:var(--tc-paper)}
+.filter-btn:last-child{border-right:none;padding-right:20px}
+.filter-btn.active{background:var(--tc-gradient-h);color:var(--tc-paper)}
+.filter-btn:hover:not(.active){background:var(--tc-line);color:var(--tc-paper)}
 .proj-gallery-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2rem;gap:2rem;flex-wrap:wrap}
 .proj-gallery-meta{display:flex;flex-direction:column;gap:.75rem}
 .proj-gallery-desc{max-width:520px;font-family:var(--font-mono);font-size:12px;line-height:1.7;color:var(--ink-soft);letter-spacing:.03em}
@@ -358,13 +359,17 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 /* ── ISO / QUALITY ── */
 #quality{background:var(--surface)}
 .iso-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:0.5px solid var(--tc-rule-strong);background:var(--surface)}
-.iso-card{padding:36px;border-right:0.5px solid var(--tc-rule-strong)}
+.iso-card{padding:36px;border-right:0.5px solid var(--tc-rule-strong);display:flex;align-items:center;gap:28px}
 .iso-card:last-child{border-right:none}
+.iso-card-text{flex:1;min-width:0}
 .iso-card .badge{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;background:var(--tc-gradient-h);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600;margin-bottom:16px}
 .iso-card h3{font-family:var(--font-display);font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px;font-variant-numeric:tabular-nums;color:var(--ink)}
 .iso-card p{font-size:14px;color:var(--ink-soft);margin-bottom:24px;line-height:1.5}
 .iso-card a{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:4px;cursor:pointer}
 .iso-card a:hover{color:var(--tc-green);border-bottom-color:var(--tc-green)}
+.iso-thumb-wrap{flex-shrink:0;background:#e8e8e3;padding:6px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 10px rgba(0,0,0,.10)}
+.iso-thumb-wrap:hover{transform:scale(1.04);box-shadow:0 6px 20px rgba(0,0,0,.16)}
+.iso-card-thumb{width:120px;height:auto;display:block;filter:contrast(1.05)}
 
 /* ── TEAM ── */
 #team{background:var(--bg)}
@@ -376,7 +381,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 /* ── CONTACT ── */
 #contact{background:var(--surface);position:relative;overflow:hidden}
 #contact::before{content:'';position:absolute;inset:0;background-image:url('brand_assets/DJI_0012.JPG');background-size:cover;background-position:center;opacity:.05}
-.contact-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.contact-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:stretch}
 .offices{display:flex;flex-direction:column;gap:0}
 .office{padding:1.8rem;background:var(--surface);border:0.5px solid var(--tc-rule-strong);box-shadow:0 2px 12px rgba(0,0,0,.04)}
 .office-city{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tc-green-deep);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
@@ -388,12 +393,19 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .gmap-frame{width:100%;height:260px;border:none;display:block}
 .field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:20px}
 .field-pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:0}
-.field label{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:6px}
-.field input,.field textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--tc-rule-strong);padding:10px 0;font-family:var(--font-display);font-size:15px;color:var(--ink);transition:border-color .2s;outline:none}
+.field label{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);display:block;margin-bottom:6px}
+.field input,.field textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--tc-rule-strong);padding:10px 0;font-family:var(--font-display);font-size:15px;font-weight:400;color:var(--ink);transition:border-color .2s;outline:none}
 .field input:focus,.field textarea:focus{border-bottom-color:var(--tc-line)}
-.field textarea{resize:vertical;min-height:80px}
-.submit-btn{font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 22px;background:var(--tc-line);color:var(--tc-paper);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;margin-top:8px;position:relative;overflow:hidden;transition:all .25s ease;width:100%;justify-content:center}
-.submit-btn::before{content:'';position:absolute;inset:0;background:var(--tc-gradient-h);opacity:0;transition:opacity .25s}
+.field textarea{resize:none;min-height:80px}
+.contact-form-col{display:flex;flex-direction:column}
+.contact-form-col form{display:flex;flex-direction:column;flex:1}
+.field.grow-field{flex:1;display:flex;flex-direction:column;margin-bottom:0}
+.field.grow-field textarea{flex:1;min-height:120px}
+.field-error{font-family:var(--font-mono);font-size:11px;color:#c0392b;letter-spacing:.04em;margin-top:3px;display:none}
+.field-error.show{display:block}
+.field input.invalid,.field textarea.invalid{border-bottom-color:#c0392b}
+.submit-btn{font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 22px;background:var(--tc-gradient-h);color:var(--tc-paper);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;margin-top:16px;position:relative;overflow:hidden;transition:all .25s ease;width:100%;justify-content:center}
+.submit-btn::before{content:'';position:absolute;inset:0;background:var(--tc-line);opacity:0;transition:opacity .25s}
 .submit-btn span{position:relative;z-index:1}
 .submit-btn:hover::before{opacity:1}
 
@@ -409,15 +421,16 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 /* ── FOOTER ── */
 footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
 .footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:0.5px solid rgba(250,250,247,.18)}
-.footer-tagline{font-family:var(--font-editorial);font-size:28px;font-weight:400;letter-spacing:-.02em;line-height:1.15;color:var(--tc-paper);margin-bottom:16px}
+.footer-brand{display:flex;align-items:center;gap:28px}
+.footer-logo{display:block;height:130px;width:auto;color:var(--tc-paper);opacity:.9;flex-shrink:0}
+.footer-tagline{font-family:var(--font-editorial);font-size:28px;font-weight:400;letter-spacing:-.02em;line-height:1.15;color:var(--tc-paper);margin:0}
 .footer-tagline em{font-style:italic;background:var(--tc-gradient-h);-webkit-background-clip:text;background-clip:text;color:transparent}
-.footer-copy{font-family:var(--font-mono);font-size:12px;color:rgba(250,250,247,.5);line-height:1.6}
+.footer-bottom{max-width:1280px;margin:0 auto;padding-top:32px;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(250,250,247,.4)}
 .footer-col-hdr{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,250,247,.6);font-weight:500;margin-bottom:20px}
 .footer-nav-list{list-style:none}
 .footer-nav-list li{font-family:var(--font-mono);font-size:13px;color:rgba(250,250,247,.75);padding:6px 0}
 .footer-nav-list a{color:inherit;text-decoration:none;transition:color .2s}
 .footer-nav-list a:hover{color:var(--tc-paper)}
-.footer-bottom{max-width:1280px;margin:0 auto;padding-top:32px;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(250,250,247,.4)}
 
 /* ── REVEAL ── */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
@@ -670,11 +683,28 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
 </section>
 
 <!-- ══ PARTNERS ══ -->
-<section id="partners">
-  <div class="partners-inner">
-    <div class="partners-label">— Strategic Partners</div>
+<section id="partners" class="section" style="padding-bottom:0">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num reveal">03 / Partners</div>
+      <div class="section-title">
+        <p class="sec-tag reveal" data-ck="partners.tag">Trusted Relationships</p>
+        <h2 class="reveal" data-ck="partners.h2">Strategic <em>Partners.</em></h2>
+        <p class="reveal" data-ck="partners.desc">A network of trusted companies and clients we have collaborated with across energy and industrial infrastructure projects in Europe and beyond.</p>
+      </div>
+    </div>
+  </div>
+  <div class="partners-strip">
     <div class="partners-marquee-outer">
       <div class="partners-marquee-track" id="partnersTrack">
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Vemak</span></div>
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Arkad S.p.A.</span></div>
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Sicilsaldo Group</span></div>
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Camel Oil Tanzania</span></div>
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Bulgartransgaz</span></div>
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Eesti Energia</span></div>
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Glavbolgarstroy</span></div>
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">ADNOC</span></div>
         <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Vemak</span></div>
         <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Arkad S.p.A.</span></div>
         <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Sicilsaldo Group</span></div>
@@ -692,7 +722,7 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
 <section id="projects" class="section">
   <div class="container">
     <div class="section-header">
-      <div class="section-num reveal">03 / Projects</div>
+      <div class="section-num reveal">04 / Projects</div>
       <div class="section-title">
         <p class="sec-tag reveal">Our Work</p>
         <h2 class="reveal">Selected <em>Projects.</em></h2>
@@ -801,7 +831,7 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
 <section id="about" class="section">
   <div class="container">
     <div class="section-header">
-      <div class="section-num reveal">04 / About</div>
+      <div class="section-num reveal">05 / About</div>
       <div class="section-title">
         <p class="sec-tag reveal" data-ck="about.tag">Who We Are</p>
         <h2 class="reveal" data-ck="about.h2">About <em>Technocon.</em></h2>
@@ -828,7 +858,7 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
 <section id="quality" class="section">
   <div class="container">
     <div class="section-header">
-      <div class="section-num reveal">05 / Quality</div>
+      <div class="section-num reveal">06 / Quality</div>
       <div class="section-title">
         <p class="sec-tag reveal" data-ck="quality.label">Quality Assurance</p>
         <h2 class="reveal" data-ck="quality.title">ISO <em>Certified.</em></h2>
@@ -837,22 +867,31 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
     </div>
     <div class="iso-grid reveal" data-ck-isos="quality.isos">
       <div class="iso-card">
-        <div class="badge">— Standard</div>
-        <h3>ISO 9001:2015</h3>
-        <p>Quality Management System</p>
-        <a onclick="openLightbox('brand_assets/ISO_9001_2015.png','ISO 9001:2015')">View certificate →</a>
+        <div class="iso-card-text">
+          <div class="badge">— Standard</div>
+          <h3>ISO 9001:2015</h3>
+          <p>Quality Management System</p>
+          <a onclick="openLightbox('brand_assets/ISO_9001_2015.png','ISO 9001:2015')">View certificate →</a>
+        </div>
+        <div class="iso-thumb-wrap" onclick="openLightbox('brand_assets/ISO_9001_2015.png','ISO 9001:2015')"><img class="iso-card-thumb" src="brand_assets/ISO_9001_2015.png" alt="ISO 9001:2015" loading="eager"></div>
       </div>
       <div class="iso-card">
-        <div class="badge">— Standard</div>
-        <h3>ISO 14001:2015</h3>
-        <p>Environmental Management System</p>
-        <a onclick="openLightbox('brand_assets/ISO_14001_2015.png','ISO 14001:2015')">View certificate →</a>
+        <div class="iso-card-text">
+          <div class="badge">— Standard</div>
+          <h3>ISO 14001:2015</h3>
+          <p>Environmental Management System</p>
+          <a onclick="openLightbox('brand_assets/ISO_14001_2015.png','ISO 14001:2015')">View certificate →</a>
+        </div>
+        <div class="iso-thumb-wrap" onclick="openLightbox('brand_assets/ISO_14001_2015.png','ISO 14001:2015')"><img class="iso-card-thumb" src="brand_assets/ISO_14001_2015.png" alt="ISO 14001:2015" loading="eager"></div>
       </div>
       <div class="iso-card">
-        <div class="badge">— Standard</div>
-        <h3>ISO 45001:2018</h3>
-        <p>Occupational Health &amp; Safety</p>
-        <a onclick="openLightbox('brand_assets/ISO_45001_2018.png','ISO 45001:2018')">View certificate →</a>
+        <div class="iso-card-text">
+          <div class="badge">— Standard</div>
+          <h3>ISO 45001:2018</h3>
+          <p>Occupational Health &amp; Safety</p>
+          <a onclick="openLightbox('brand_assets/ISO_45001_2018.png','ISO 45001:2018')">View certificate →</a>
+        </div>
+        <div class="iso-thumb-wrap" onclick="openLightbox('brand_assets/ISO_45001_2018.png','ISO 45001:2018')"><img class="iso-card-thumb" src="brand_assets/ISO_45001_2018.png" alt="ISO 45001:2018" loading="eager"></div>
       </div>
     </div>
   </div>
@@ -862,7 +901,7 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
 <section id="team" class="section">
   <div class="container">
     <div class="section-header">
-      <div class="section-num reveal">06 / Team</div>
+      <div class="section-num reveal">07 / Team</div>
       <div class="section-title">
         <p class="sec-tag reveal" data-ck="team.label">Our Team</p>
         <h2 class="reveal" data-ck="team.title">How We <em>Work.</em></h2>
@@ -884,7 +923,7 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
 <section id="contact" class="section">
   <div class="container">
     <div class="section-header">
-      <div class="section-num reveal">07 / Contact</div>
+      <div class="section-num reveal">08 / Contact</div>
       <div class="section-title">
         <p class="sec-tag reveal">Get In Touch</p>
         <h2 class="reveal">Get In <em>Touch.</em></h2>
@@ -914,21 +953,41 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
             </div>
           </div>
           <div class="office reveal" style="padding:12px;overflow:hidden;border:0.5px solid var(--tc-rule-strong);border-top:none">
-            <iframe class="gmap-frame" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+            <iframe class="gmap-frame" loading="eager" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
               src="https://www.google.com/maps?q=Osogovo+st.+51,+1303+Sofia,+Bulgaria&output=embed"
               title="Technocon Head Office location"></iframe>
           </div>
         </div>
       </div>
-      <div class="reveal" style="padding-top:1.8rem">
-        <form onsubmit="submitForm(event)">
+      <div class="contact-form-col reveal">
+        <form id="contactForm" novalidate onsubmit="submitForm(event)">
           <div class="field-pair">
-            <div class="field"><label>First Name</label><input type="text" name="firstName" placeholder="John" required></div>
-            <div class="field"><label>Last Name</label><input type="text" name="lastName" placeholder="Smith" required></div>
+            <div class="field">
+              <label>First Name</label>
+              <input type="text" name="firstName" placeholder="John">
+              <span class="field-error" id="err-firstName">First name is required.</span>
+            </div>
+            <div class="field">
+              <label>Last Name</label>
+              <input type="text" name="lastName" placeholder="Smith">
+              <span class="field-error" id="err-lastName">Last name is required.</span>
+            </div>
           </div>
-          <div class="field"><label>Company</label><input type="text" name="company" placeholder="Company Name"></div>
-          <div class="field"><label>Email</label><input type="email" name="email" placeholder="john@company.com" required></div>
-          <div class="field"><label>Message</label><textarea name="message" placeholder="Describe your project requirements…" required></textarea></div>
+          <div class="field">
+            <label>Company</label>
+            <input type="text" name="company" placeholder="Company Name">
+            <span class="field-error" id="err-company">Company is required.</span>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="john@company.com">
+            <span class="field-error" id="err-email">A valid email address is required.</span>
+          </div>
+          <div class="field grow-field">
+            <label>Message</label>
+            <textarea name="message" placeholder="Describe your project requirements…"></textarea>
+            <span class="field-error" id="err-message">Message is required.</span>
+          </div>
           <button type="submit" class="submit-btn"><span>Send Message</span></button>
         </form>
       </div>
@@ -939,9 +998,9 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
 <!-- ══ FOOTER ══ -->
 <footer>
   <div class="footer-inner">
-    <div>
-      <h3 class="footer-tagline">Constructed in<br><em>three dimensions.</em></h3>
-      <p class="footer-copy">© 2026 Technocon EOOD — Energy &amp; Industrial Infrastructure, Sofia, Bulgaria.</p>
+    <div class="footer-brand">
+      <svg class="footer-logo" viewBox="0 0 315.101 366.006" aria-label="Technocon"><use href="#tc-mark-gradient"/></svg>
+      <h3 class="footer-tagline" data-ck="footer.tagline">Constructed in<br><em>three dimensions.</em></h3>
     </div>
     <div>
       <h4 class="footer-col-hdr">— Navigate</h4>
@@ -963,7 +1022,7 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
     </div>
   </div>
   <div class="footer-bottom">
-    <span>TECHNOCON / 2026 / v2.0</span>
+    <span data-ck="footer.legal">© 2026 Technocon EOOD — Energy &amp; Industrial Infrastructure, Sofia, Bulgaria.</span>
     <span>Document 0001 / 0024</span>
   </div>
 </footer>
@@ -1109,7 +1168,7 @@ async function fetchCMS(lang) {
         const parts = item.split('||');
         const code = parts[0] || '', name = parts[1] || '', img = parts[2] || '';
         const safeCode = code.replace(/'/g, "\\'");
-        return `<div class="iso-card"><div class="badge">— Standard</div><h3>${code}</h3><p>${name}</p><a onclick="openLightbox('${img}','${safeCode}')">View certificate →</a></div>`;
+        return `<div class="iso-card"><div class="iso-card-text"><div class="badge">— Standard</div><h3>${code}</h3><p>${name}</p><a onclick="openLightbox('${img}','${safeCode}')">View certificate →</a></div>${img ? `<div class="iso-thumb-wrap" onclick="openLightbox('${img}','${safeCode}')"><img class="iso-card-thumb" src="${img}" alt="${safeCode}" loading="eager"></div>` : ''}</div>`;
       }).join('');
     });
     CMS_PROJECTS = {};
@@ -1242,10 +1301,39 @@ function carouselGo(idx) { updateCarousel(idx); }
 
 // ── Form
 function submitForm(e) {
-  e.preventDefault(); const form = e.target; const btn = form.querySelector('button[type=submit]');
-  const data = { firstName: form.firstName.value.trim(), lastName: form.lastName.value.trim(), company: form.company.value.trim(), email: form.email.value.trim(), message: form.message.value.trim() };
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type=submit]');
+
+  // Clear previous errors
+  form.querySelectorAll('.field-error').forEach(el => { el.classList.remove('show'); });
+  form.querySelectorAll('.invalid').forEach(el => { el.classList.remove('invalid'); });
+
+  const v = {
+    firstName: form.firstName.value.trim(),
+    lastName:  form.lastName.value.trim(),
+    company:   form.company.value.trim(),
+    email:     form.email.value.trim(),
+    message:   form.message.value.trim(),
+  };
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email);
+
+  let valid = true;
+  function fail(name, inputName) {
+    document.getElementById('err-' + name).classList.add('show');
+    form[inputName || name].classList.add('invalid');
+    valid = false;
+  }
+  if (!v.firstName) fail('firstName');
+  if (!v.lastName)  fail('lastName');
+  if (!v.company)   fail('company');
+  if (!v.email || !emailOk) fail('email');
+  if (!v.message)   fail('message');
+
+  if (!valid) return;
+
   btn.disabled = true; btn.querySelector('span').textContent = 'Sending…';
-  fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+  fetch('/api/contact', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(v) })
     .then(r => r.json())
     .then(res => {
       if (res.ok) { btn.querySelector('span').textContent = 'Message Sent ✓'; form.reset(); setTimeout(() => { btn.querySelector('span').textContent = 'Send Message'; btn.disabled = false; }, 4000); }
@@ -1281,6 +1369,56 @@ window.addEventListener('scroll', () => {
 function openLightbox(src, alt) { const overlay = document.getElementById('lb-overlay'); const img = document.getElementById('lb-img'); img.src = src; img.alt = alt || ''; overlay.classList.add('lb-open'); document.body.style.overflow = 'hidden'; }
 function closeLightbox() { document.getElementById('lb-overlay').classList.remove('lb-open'); document.body.style.overflow = ''; }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+
+// ── Partners drag-to-scroll
+(function() {
+  const DURATION = 28; // must match CSS animation duration (seconds)
+  const outer = document.querySelector('.partners-marquee-outer');
+  const track = document.getElementById('partnersTrack');
+  if (!outer || !track) return;
+
+  let dragging = false, startX = 0, dragOffset = 0, baseOffset = 0;
+
+  function getCurrentX() {
+    const m = getComputedStyle(track).transform;
+    if (!m || m === 'none') return 0;
+    const v = m.match(/matrix.*\((.+)\)/);
+    return v ? parseFloat(v[1].split(', ')[4]) : 0;
+  }
+
+  function resumeFrom(px) {
+    const half = track.scrollWidth / 2;
+    let pos = px % half;
+    if (pos > 0) pos -= half;
+    const delay = (pos / half) * DURATION; // negative seconds
+    track.style.transform = '';
+    track.style.animationDelay = delay + 's';
+    track.style.animationPlayState = 'running';
+  }
+
+  outer.addEventListener('mousedown', function(e) {
+    dragging = true;
+    startX = e.clientX;
+    baseOffset = getCurrentX();
+    track.style.animationPlayState = 'paused';
+    track.style.transform = 'translateX(' + baseOffset + 'px)';
+    outer.classList.add('dragging');
+    e.preventDefault();
+  });
+
+  window.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    dragOffset = baseOffset + (e.clientX - startX);
+    track.style.transform = 'translateX(' + dragOffset + 'px)';
+  });
+
+  window.addEventListener('mouseup', function() {
+    if (!dragging) return;
+    dragging = false;
+    outer.classList.remove('dragging');
+    resumeFrom(dragOffset);
+  });
+})();
 
 // ── Bootstrap CMS
 fetchCMS('en');
