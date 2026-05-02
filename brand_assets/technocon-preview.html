@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECHNOCON — Brand Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --tc-green: #2DB586;
+    --tc-green-deep: #1F8E66;
+    --tc-blue: #228CC2;
+    --tc-blue-deep: #156A95;
+    --tc-black: #000000;
+    --tc-paper: #FAFAF7;
+    --tc-fog: #E8E8E3;
+    --tc-line: #1A1A1A;
+    --tc-mute: #6B6B68;
+    --tc-rule: rgba(0,0,0,0.08);
+    --tc-rule-strong: rgba(0,0,0,0.18);
+    --bg: var(--tc-paper);
+    --surface: #FFFFFF;
+    --ink: var(--tc-line);
+    --ink-soft: var(--tc-mute);
+    --font-display: 'Archivo', 'Helvetica Neue', sans-serif;
+    --font-body: 'Archivo', 'Helvetica Neue', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+    --font-editorial: 'Fraunces', Georgia, serif;
+    --tc-gradient: linear-gradient(135deg, var(--tc-green) 0%, var(--tc-blue) 100%);
+    --tc-gradient-h: linear-gradient(90deg, var(--tc-green) 0%, var(--tc-blue) 100%);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-feature-settings: "ss01", "tnum";
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+  /* ── NAV ── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(26,26,26,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 0.5px solid rgba(250,250,247,0.18);
+  }
+  .nav-inner {
+    max-width: 1280px; margin: 0 auto;
+    padding: 18px 40px;
+    display: flex; align-items: center; justify-content: space-between; gap: 32px;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 800; font-size: 14px; letter-spacing: 0.15em;
+    color: var(--tc-paper);
+  }
+  .nav-mark {
+    width: 28px; height: 28px;
+    background: var(--tc-gradient);
+    display: inline-block;
+  }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    color: rgba(250,250,247,0.85); text-decoration: none;
+    font-size: 11px; font-family: var(--font-mono);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--tc-paper); }
+  .nav-meta {
+    font-family: var(--font-mono); font-size: 11px;
+    color: rgba(250,250,247,0.6); letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .nav-meta .lang { color: var(--tc-paper); }
+
+  /* ── HERO (DARK) ── */
+  .hero {
+    background: var(--tc-line);
+    color: var(--tc-paper);
+    position: relative;
+    padding: 100px 40px 80px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(250,250,247,0.04) 0.5px, transparent 0.5px),
+      linear-gradient(90deg, rgba(250,250,247,0.04) 0.5px, transparent 0.5px);
+    background-size: 64px 64px;
+    pointer-events: none;
+    mask-image: linear-gradient(180deg, black, transparent 70%);
+    -webkit-mask-image: linear-gradient(180deg, black, transparent 70%);
+  }
+  .hero-doc {
+    position: absolute; top: 24px; right: 40px;
+    font-family: var(--font-mono); font-size: 10px;
+    color: rgba(250,250,247,0.4); letter-spacing: 0.15em;
+  }
+  .hero-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-tag {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 32px;
+    display: inline-flex; align-items: center; gap: 12px;
+    color: rgba(250,250,247,0.85);
+  }
+  .hero-tag::before {
+    content: ""; width: 32px; height: 1px; background: var(--tc-gradient-h);
+  }
+  .hero h1 {
+    font-size: clamp(56px, 8vw, 110px);
+    font-weight: 900; letter-spacing: -0.04em;
+    line-height: 0.88;
+    max-width: 1100px;
+    margin-bottom: 32px;
+  }
+  .hero h1 em {
+    font-family: var(--font-editorial);
+    font-style: italic; font-weight: 400;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    letter-spacing: -0.02em;
+  }
+  .hero-sub {
+    font-size: 17px; color: rgba(250,250,247,0.72);
+    line-height: 1.6; max-width: 580px;
+    margin-bottom: 40px;
+  }
+  .hero-cta { display: flex; gap: 16px; margin-bottom: 64px; }
+  .btn {
+    font-family: var(--font-display); font-size: 11px;
+    font-weight: 600; letter-spacing: 0.1em;
+    padding: 14px 22px;
+    border: none; cursor: pointer;
+    text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 10px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    background: var(--tc-paper); color: var(--tc-line);
+    position: relative; overflow: hidden;
+  }
+  .btn::before {
+    content: ""; position: absolute; inset: 0;
+    background: var(--tc-gradient-h);
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .btn span, .btn .arr { position: relative; z-index: 1; }
+  .btn:hover::before { opacity: 1; }
+  .arr {
+    width: 8px; height: 8px;
+    border-top: 1.5px solid currentColor;
+    border-right: 1.5px solid currentColor;
+    transform: rotate(45deg);
+  }
+  .btn-ghost {
+    background: transparent; color: var(--tc-paper);
+    border: 1px solid rgba(250,250,247,0.5);
+  }
+  .btn-ghost:hover { background: var(--tc-paper); color: var(--tc-line); }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid rgba(250,250,247,0.18);
+    padding-top: 32px;
+  }
+  .hero-stat { padding-right: 24px; border-right: 0.5px solid rgba(250,250,247,0.12); }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat .n {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800; letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  .hero-stat .l {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(250,250,247,0.55); margin-top: 10px;
+  }
+
+  .scroll-indicator {
+    position: absolute; bottom: 24px; left: 40px;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(250,250,247,0.5);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .scroll-indicator::after {
+    content: ""; width: 32px; height: 1px;
+    background: rgba(250,250,247,0.4);
+  }
+
+  /* ── SECTIONS (paper) ── */
+  .section {
+    padding: 96px 0;
+    border-bottom: 0.5px solid var(--tc-rule);
+    position: relative;
+  }
+  .section-header {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 48px; margin-bottom: 64px;
+    align-items: start;
+  }
+  .section-num {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--ink-soft); letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--tc-line);
+    padding-top: 12px;
+  }
+  .section-title h2 {
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 800; letter-spacing: -0.03em;
+    line-height: 0.95; margin-bottom: 24px;
+  }
+  .section-title h2 em {
+    font-family: var(--font-editorial);
+    font-style: italic; font-weight: 400;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    letter-spacing: -0.02em;
+  }
+  .section-title p {
+    font-size: 17px; color: var(--ink-soft);
+    max-width: 640px; line-height: 1.6;
+  }
+
+  /* ── SERVICES ── */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border: 0.5px solid var(--tc-rule-strong);
+  }
+  .service-card {
+    padding: 36px;
+    background: var(--surface);
+    border-right: 0.5px solid var(--tc-rule-strong);
+    border-bottom: 0.5px solid var(--tc-rule-strong);
+    position: relative;
+  }
+  .service-card:nth-child(2n) { border-right: none; }
+  .service-card:nth-last-child(-n+2) { border-bottom: none; }
+  .service-card::before {
+    content: ""; position: absolute;
+    top: 0; left: 0; width: 32px; height: 2px;
+    background: var(--tc-gradient-h);
+  }
+  .service-card .num {
+    font-family: var(--font-mono); font-size: 11px;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-weight: 600; letter-spacing: 0.18em;
+    margin-bottom: 20px;
+  }
+  .service-card h3 {
+    font-size: 24px; font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .service-card ul { list-style: none; padding: 0; }
+  .service-card ul li {
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--ink-soft); padding: 8px 0 8px 18px;
+    border-bottom: 0.5px solid var(--tc-rule);
+    position: relative;
+  }
+  .service-card ul li::before {
+    content: "—"; position: absolute; left: 0;
+    color: var(--tc-green-deep);
+  }
+  .service-card ul li:last-child { border-bottom: none; }
+
+  /* ── TRACKING ── */
+  .tracking { background: var(--surface); }
+  .tracking-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 48px; align-items: start;
+  }
+  .tracking-stat {
+    font-size: clamp(80px, 10vw, 140px);
+    font-weight: 900; letter-spacing: -0.04em;
+    line-height: 0.9; font-variant-numeric: tabular-nums;
+    margin-bottom: 16px;
+  }
+  .tracking-stat-label {
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--ink-soft); max-width: 360px;
+    line-height: 1.6;
+  }
+  .workflow-label {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .workflow-label::before {
+    content: ""; width: 32px; height: 1px;
+    background: var(--tc-gradient-h);
+  }
+  .workflow {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .workflow-step {
+    padding: 14px 16px;
+    border: 0.5px solid var(--tc-rule-strong);
+    background: var(--surface);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .workflow-step .code {
+    font-family: var(--font-mono); font-size: 13px;
+    font-weight: 600; letter-spacing: 0.1em;
+    color: var(--ink);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .workflow-step .code::before {
+    content: ""; width: 6px; height: 6px;
+    background: var(--tc-green); border-radius: 50%;
+  }
+  .workflow-step .desc {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--ink-soft); letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── PARTNERS ── */
+  .partners {
+    background: var(--tc-line); color: var(--tc-paper);
+    padding: 40px;
+  }
+  .partners-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 48px; align-items: center;
+  }
+  .partners-label {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-weight: 600;
+  }
+  .partners-list {
+    display: flex; flex-wrap: wrap; gap: 28px;
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .partners-list span { display: flex; align-items: center; gap: 6px; }
+  .partners-list span::before {
+    content: ""; width: 4px; height: 4px;
+    background: var(--tc-green);
+  }
+
+  /* ── PROJECTS ── */
+  .filters {
+    display: inline-flex; gap: 0;
+    border: 0.5px solid var(--tc-rule-strong);
+    margin-bottom: 32px;
+  }
+  .filter-btn {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 10px 20px;
+    background: transparent; border: none;
+    border-right: 0.5px solid var(--tc-rule-strong);
+    cursor: pointer; color: var(--ink-soft);
+  }
+  .filter-btn:last-child { border-right: none; }
+  .filter-btn.active {
+    background: var(--tc-line); color: var(--tc-paper);
+  }
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 0.5px solid var(--tc-rule-strong);
+  }
+  .project-card {
+    background: var(--surface);
+    border-right: 0.5px solid var(--tc-rule-strong);
+    border-bottom: 0.5px solid var(--tc-rule-strong);
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .project-card:nth-child(3n) { border-right: none; }
+  .project-card:nth-last-child(-n+3) { border-bottom: none; }
+  .project-img {
+    height: 200px;
+    background:
+      linear-gradient(135deg, rgba(45,181,134,0.85), rgba(34,140,194,0.85)),
+      var(--tc-line);
+    position: relative; overflow: hidden;
+  }
+  .project-img::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.25) 0.5px, transparent 0.5px),
+      linear-gradient(90deg, rgba(0,0,0,0.25) 0.5px, transparent 0.5px);
+    background-size: 24px 24px;
+  }
+  .project-img::after {
+    content: ""; position: absolute;
+    left: 24px; top: 24px; bottom: 24px; right: 24px;
+    border: 0.5px solid rgba(0,0,0,0.3);
+  }
+  .project-img-meta {
+    position: absolute; bottom: 16px; left: 20px;
+    color: var(--tc-black);
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
+  }
+  .project-status {
+    position: absolute; top: 16px; right: 16px;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 600; padding: 4px 10px;
+  }
+  .project-status.ongoing { background: var(--tc-green); color: var(--tc-black); }
+  .project-status.completed { background: var(--tc-line); color: var(--tc-paper); }
+  .project-body { padding: 20px; }
+  .project-meta {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--ink-soft); letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .project-card h3 {
+    font-size: 19px; font-weight: 700;
+    letter-spacing: -0.01em; line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .project-card p {
+    font-size: 13px; color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ── ABOUT ── */
+  .pillars {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 0.5px solid var(--tc-rule-strong);
+    background: var(--surface);
+    margin-top: 24px;
+  }
+  .pillar {
+    padding: 32px;
+    border-right: 0.5px solid var(--tc-rule-strong);
+    position: relative;
+  }
+  .pillar::before {
+    content: ""; position: absolute;
+    top: 0; left: 0; width: 24px; height: 2px;
+    background: var(--tc-gradient-h);
+  }
+  .pillar:last-child { border-right: none; }
+  .pillar h3 {
+    font-size: 19px; font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .pillar p {
+    font-size: 13px; color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ── ISO ── */
+  .iso-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 0.5px solid var(--tc-rule-strong);
+    background: var(--surface);
+  }
+  .iso-card {
+    padding: 36px;
+    border-right: 0.5px solid var(--tc-rule-strong);
+  }
+  .iso-card:last-child { border-right: none; }
+  .iso-card .badge {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-weight: 600; margin-bottom: 16px;
+  }
+  .iso-card h3 {
+    font-size: 26px; font-weight: 800;
+    letter-spacing: -0.02em; margin-bottom: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  .iso-card p {
+    font-size: 14px; color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  .iso-card a {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px solid var(--tc-line);
+    padding-bottom: 4px;
+  }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+  .contact-info-block { margin-bottom: 24px; }
+  .contact-info-label {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: 8px;
+  }
+  .contact-info-block p,
+  .contact-info-block a {
+    font-family: var(--font-mono); font-size: 14px;
+    color: var(--ink); text-decoration: none;
+    line-height: 1.8;
+    display: block;
+  }
+  .contact-form { display: grid; gap: 20px; }
+  .field-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .field label {
+    display: block;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: 6px;
+  }
+  .field input, .field textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--tc-rule-strong);
+    padding: 10px 0;
+    font-family: var(--font-display); font-size: 15px;
+    color: var(--ink);
+    transition: border-color 0.2s;
+  }
+  .field input:focus, .field textarea:focus {
+    outline: none;
+    border-bottom-color: var(--tc-line);
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--tc-line); color: var(--tc-paper);
+    padding: 64px 40px 32px;
+  }
+  .footer-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px; padding-bottom: 48px;
+    border-bottom: 0.5px solid rgba(250,250,247,0.18);
+  }
+  .footer-brand h3 {
+    font-size: 28px; font-weight: 800;
+    letter-spacing: -0.02em; margin-bottom: 12px;
+    line-height: 1.15;
+  }
+  .footer-brand h3 em {
+    font-family: var(--font-editorial);
+    font-style: italic; font-weight: 400;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .footer-brand p {
+    font-size: 13px; color: rgba(250,250,247,0.6);
+    line-height: 1.6; max-width: 380px;
+  }
+  .footer h4 {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(250,250,247,0.6); font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .footer ul { list-style: none; }
+  .footer ul li {
+    font-family: var(--font-mono); font-size: 13px;
+    color: rgba(250,250,247,0.85);
+    padding: 6px 0;
+  }
+  .footer ul li a {
+    color: inherit; text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer ul li a:hover { color: var(--tc-paper); }
+  .footer-bottom {
+    max-width: 1280px; margin: 0 auto;
+    padding-top: 32px;
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(250,250,247,0.4);
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== NAV ====== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <span class="nav-mark"></span>
+      <span>TECHNOCON</span>
+    </div>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-meta">
+      <span class="lang">EN</span>
+      <span>BG</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ====== HERO (DARK) ====== -->
+<section class="hero" id="hero">
+  <span class="hero-doc">0001 / 0024 — TECHNOCON / 2026</span>
+  <div class="hero-inner">
+    <span class="hero-tag">Energy &amp; Industrial Infrastructure</span>
+    <h1>Building Large Scale<br><em>Infrastructure.</em></h1>
+    <p class="hero-sub">Engineering, procurement, construction and project management for the energy and industrial sector across Europe and beyond.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn"><span>View Projects</span><span class="arr"></span></a>
+      <a href="#contact" class="btn btn-ghost"><span>Contact Us</span></a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="n">€11M+</div><div class="l">Contract Value</div></div>
+      <div class="hero-stat"><div class="n">4,000+</div><div class="l">Tracked Items</div></div>
+      <div class="hero-stat"><div class="n">7+</div><div class="l">Major Projects</div></div>
+      <div class="hero-stat"><div class="n">3</div><div class="l">ISO Certifications</div></div>
+    </div>
+  </div>
+  <div class="scroll-indicator">Scroll</div>
+</section>
+
+<!-- ====== SERVICES ====== -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">01 / Services</div>
+      <div class="section-title">
+        <h2>Our <em>Services.</em></h2>
+        <p>From mechanical installation to full turnkey project execution — Technocon delivers integrated solutions across the complete project lifecycle in energy and industrial infrastructure.</p>
+      </div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="num">— 01</div>
+        <h3>Construction &amp; Installation</h3>
+        <ul>
+          <li>Mechanical equipment installation</li>
+          <li>Welding and piping works</li>
+          <li>Testing and commissioning assistance</li>
+          <li>Steel structure erection</li>
+          <li>Civil works</li>
+          <li>Supervision &amp; QA/QC</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="num">— 02</div>
+        <h3>Engineering &amp; Turnkey Execution</h3>
+        <ul>
+          <li>Design and design coordination</li>
+          <li>Technical supervision</li>
+          <li>Engineering support</li>
+          <li>Scope integration</li>
+          <li>End-to-end project delivery</li>
+          <li>As-built documentation</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="num">— 03</div>
+        <h3>Procurement</h3>
+        <ul>
+          <li>Procurement coordination &amp; expediting</li>
+          <li>Process equipment &amp; raw materials</li>
+          <li>Surplus materials</li>
+          <li>Vendor list &amp; vendor follow-up</li>
+          <li>TBE preparation</li>
+          <li>Transport &amp; warehouse logistics</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="num">— 04</div>
+        <h3>Project Management &amp; Controls</h3>
+        <ul>
+          <li>Progress reporting &amp; planning</li>
+          <li>Final installation management</li>
+          <li>Weekly/daily reports</li>
+          <li>Interface management</li>
+          <li>Multi-discipline coordination</li>
+          <li>Subcontractor management</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== TRACKING ====== -->
+<section class="section tracking">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">02 / Tracking</div>
+      <div class="section-title">
+        <h2>QR / Barcode <em>Tracking System.</em></h2>
+        <p>In-house materials control — competitive advantage. Technocon operates a proprietary tracking system for steel structures, piping materials, and concrete precast units. Each item receives a unique QR/barcode ID and is tracked through defined statuses across production, warehouse, and site — in real time.</p>
+      </div>
+    </div>
+    <div class="tracking-grid">
+      <div>
+        <div class="tracking-stat">4,000+</div>
+        <div class="tracking-stat-label">produced items tracked across multi-project operations</div>
+      </div>
+      <div>
+        <div class="workflow-label">Status Workflow</div>
+        <div class="workflow">
+          <div class="workflow-step"><div class="code">PRD</div><div class="desc">Produced</div></div>
+          <div class="workflow-step"><div class="code">QC</div><div class="desc">Quality Control</div></div>
+          <div class="workflow-step"><div class="code">RDY</div><div class="desc">Ready</div></div>
+          <div class="workflow-step"><div class="code">DSP</div><div class="desc">Dispatched</div></div>
+          <div class="workflow-step"><div class="code">DLV</div><div class="desc">Delivered</div></div>
+          <div class="workflow-step"><div class="code">INS</div><div class="desc">Installed</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PARTNERS (DARK STRIP) ====== -->
+<section class="partners">
+  <div class="partners-inner">
+    <div class="partners-label">— Strategic Partners</div>
+    <div class="partners-list">
+      <span>Vemak</span>
+      <span>Arkad S.p.A.</span>
+      <span>Sicilsaldo Group</span>
+      <span>Camel Oil Tanzania</span>
+      <span>Bulgartransgaz</span>
+      <span>Eesti Energia</span>
+      <span>Glavbolgarstroy</span>
+      <span>ADNOC</span>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PROJECTS ====== -->
+<section class="section" id="projects">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">03 / Projects</div>
+      <div class="section-title">
+        <h2>Selected <em>Projects.</em></h2>
+        <p>Click any project to view full details, photos, and scope of works.</p>
+      </div>
+    </div>
+    <div class="filters">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Ongoing</button>
+      <button class="filter-btn">Completed</button>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-img">
+          <span class="project-status ongoing">Ongoing</span>
+          <div class="project-img-meta">BG · 24·041</div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">Glavbolgarstroy AD · Bulgaria</div>
+          <h3>Border Checkpoint Reconstruction</h3>
+          <p>Strategic modernisation of a border checkpoint — full multi-discipline scope from engineering through construction.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-img">
+          <span class="project-status completed">Completed</span>
+          <div class="project-img-meta">BG · 22·018</div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">Bulgartransgaz EAD · Bulgaria</div>
+          <h3>Balkan Stream Pipeline</h3>
+          <p>Gas transmission pipeline across Bulgaria — Turkish to Serbian border — including commissioning and O&amp;M support.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-img">
+          <span class="project-status completed">Completed</span>
+          <div class="project-img-meta">EE · 21·008</div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">Eesti Energia · Estonia</div>
+          <h3>Enefit-280 Narva Oil Plant</h3>
+          <p>400 t steel structures, 360 t piping, 50 t stainless steel — oil shale processing plant construction and commissioning.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-img">
+          <span class="project-status completed">Completed</span>
+          <div class="project-img-meta">BG · 20·032</div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">Bulgartransgaz EAD · Bulgaria</div>
+          <h3>Lozen Pig Launcher Station</h3>
+          <p>Full reconstruction on the active 48" gas pipeline — access road, perimeter drainage, and fire protection strip.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-img">
+          <span class="project-status completed">Completed</span>
+          <div class="project-img-meta">BG · 19·024</div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">Glavbolgarstroy AD · Bulgaria</div>
+          <h3>Chiren UGS Expansion</h3>
+          <p>New aboveground area for Chiren Underground Gas Storage — compressor station, gas treatment, TEG regeneration.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-img">
+          <span class="project-status ongoing">Ongoing</span>
+          <div class="project-img-meta">AE · 25·002</div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">ADNOC · United Arab Emirates</div>
+          <h3>ADNOC Procurement — UAE</h3>
+          <p>Fire-rated LGS buildings and refurbished ISO container units — fully fitted and ready for deployment in the UAE.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== ABOUT ====== -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">04 / About</div>
+      <div class="section-title">
+        <h2>About <em>Technocon.</em></h2>
+        <p>A Bulgarian-based company specialising in energy and industrial infrastructure projects across Europe. We combine proven engineering expertise, flexible delivery capacity, and lean team structure to deliver results at every project stage — from mobilisation through commissioning and beyond.</p>
+      </div>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <h3>Fast Internal Coordination</h3>
+        <p>Rapid decision-making and high adaptability in changing project environments.</p>
+      </div>
+      <div class="pillar">
+        <h3>Strong Ownership</h3>
+        <p>Experience in technical documentation, site interfaces, and execution follow-up.</p>
+      </div>
+      <div class="pillar">
+        <h3>Lean Structure</h3>
+        <p>Hands-on project involvement with efficient communication across all disciplines.</p>
+      </div>
+      <div class="pillar">
+        <h3>Quick Mobilisation</h3>
+        <p>Ability to mobilise core resources and expand through partner network when required.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== ISO ====== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">05 / Quality</div>
+      <div class="section-title">
+        <h2>ISO <em>Certified.</em></h2>
+        <p>Technocon holds three internationally recognised ISO certifications — reflecting our commitment to quality management, environmental responsibility, and occupational health &amp; safety across all operations.</p>
+      </div>
+    </div>
+    <div class="iso-grid">
+      <div class="iso-card">
+        <div class="badge">— Standard</div>
+        <h3>ISO 9001:2015</h3>
+        <p>Quality Management System</p>
+        <a href="#">View certificate →</a>
+      </div>
+      <div class="iso-card">
+        <div class="badge">— Standard</div>
+        <h3>ISO 14001:2015</h3>
+        <p>Environmental Management System</p>
+        <a href="#">View certificate →</a>
+      </div>
+      <div class="iso-card">
+        <div class="badge">— Standard</div>
+        <h3>ISO 45001:2018</h3>
+        <p>Occupational Health &amp; Safety</p>
+        <a href="#">View certificate →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== TEAM / HOW WE WORK ====== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">06 / Team</div>
+      <div class="section-title">
+        <h2>How We <em>Work.</em></h2>
+        <p>A lean, senior-led team built for complex industrial environments — combining hands-on execution with tight coordination across all project phases.</p>
+      </div>
+    </div>
+    <div class="pillars" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="pillar">
+        <h3>Proven Execution</h3>
+        <p>Track record in industrial and infrastructure projects across multiple countries and disciplines.</p>
+      </div>
+      <div class="pillar">
+        <h3>Flexible Delivery</h3>
+        <p>Engineering coordination + site execution + subcontractor management under one roof.</p>
+      </div>
+      <div class="pillar">
+        <h3>Fast Response</h3>
+        <p>Rapid mobilisation and adaptability to client requirements and project-specific procedures.</p>
+      </div>
+      <div class="pillar">
+        <h3>Multi-Stage Entry</h3>
+        <p>Can enter projects at mobilisation, installation, support, or recovery scope phases.</p>
+      </div>
+      <div class="pillar">
+        <h3>Strong Coordination</h3>
+        <p>Tight integration between technical, commercial, and execution functions.</p>
+      </div>
+      <div class="pillar">
+        <h3>Scalable Capacity</h3>
+        <p>Lean core team that expands through a vetted partner network as project scope requires.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CONTACT ====== -->
+<section class="section" id="contact" style="background: var(--surface);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">07 / Contact</div>
+      <div class="section-title">
+        <h2>Get In <em>Touch.</em></h2>
+        <p>Ready to review your quotation, submit technical and commercial proposals, and mobilise our task force team to satisfy your project needs.</p>
+      </div>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info-block">
+          <div class="contact-info-label">— Head Office</div>
+          <p>Osogovo st. 51, 1303<br>Sofia, Bulgaria</p>
+        </div>
+        <div class="contact-info-block">
+          <div class="contact-info-label">— Email</div>
+          <a href="mailto:dcc@techno-con.eu">dcc@techno-con.eu</a>
+          <a href="mailto:office@techno-con.eu">office@techno-con.eu</a>
+        </div>
+        <div class="contact-info-block">
+          <div class="contact-info-label">— Phone</div>
+          <a href="tel:+359889627304">+359 88 9627304</a>
+          <a href="tel:+359888304414">+359 88 8304414</a>
+        </div>
+        <div class="contact-info-block">
+          <div class="contact-info-label">— Web</div>
+          <a href="https://www.techno-con.eu">www.techno-con.eu</a>
+        </div>
+      </div>
+      <form class="contact-form">
+        <div class="field-pair">
+          <div class="field"><label>First Name</label><input type="text"></div>
+          <div class="field"><label>Last Name</label><input type="text"></div>
+        </div>
+        <div class="field"><label>Company</label><input type="text"></div>
+        <div class="field"><label>Email</label><input type="email"></div>
+        <div class="field"><label>Message</label><textarea rows="3"></textarea></div>
+        <a href="#" class="btn" style="background: var(--tc-line); color: var(--tc-paper); width: fit-content;"><span>Send Message</span><span class="arr"></span></a>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>Constructed in<br><em>three dimensions.</em></h3>
+      <p>© 2026 Technocon EOOD — Energy &amp; Industrial Infrastructure, Sofia, Bulgaria.</p>
+    </div>
+    <div>
+      <h4>— Navigate</h4>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>— Office</h4>
+      <ul>
+        <li>Osogovo st. 51</li>
+        <li>1303 Sofia, Bulgaria</li>
+        <li>+359 88 9627304</li>
+        <li>office@techno-con.eu</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>TECHNOCON / 2026 / v1.0</span>
+    <span>Document 0001 / 0024</span>
+  </div>
+</footer>
+
+</body>
+</html>

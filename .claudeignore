@@ -1,0 +1,16 @@
+# Large binary assets — explicitly read by path when needed, not globbed
+brand_assets/*.mp4
+brand_assets/*.JPG
+brand_assets/*.jpeg
+brand_assets/*.png
+brand_assets/PICS/
+brand_assets/*.pdf
+brand_assets/TECHNOCON_PROJECT.pdf
+
+# Generated screenshots — read explicitly by path after capture
+temporary screenshots/
+
+# Build artifacts
+node_modules/
+video/
+package-lock.json

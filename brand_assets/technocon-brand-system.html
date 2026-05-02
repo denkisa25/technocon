@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECHNOCON — Brand System v1.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* ========== TECHNOCON BRAND CORE ========== */
+    /* Sampled directly from the supplied logo */
+    --tc-green: #2DB586;        /* Signal Green — gradient origin */
+    --tc-green-deep: #1F8E66;   /* Green deep — text on light */
+    --tc-blue: #228CC2;         /* Signal Blue — gradient terminus */
+    --tc-blue-deep: #156A95;    /* Blue deep — text on light */
+    --tc-black: #000000;        /* Structural black — grid lines */
+    --tc-paper: #FAFAF7;        /* Paper — primary surface */
+    --tc-fog: #E8E8E3;          /* Fog — subtle surface */
+    --tc-line: #1A1A1A;         /* Near-black — body text */
+    --tc-mute: #6B6B68;         /* Mute — secondary text */
+    --tc-rule: rgba(0,0,0,0.08);
+    --tc-rule-strong: rgba(0,0,0,0.18);
+
+    /* Semantic */
+    --bg: var(--tc-paper);
+    --surface: #FFFFFF;
+    --ink: var(--tc-line);
+    --ink-soft: var(--tc-mute);
+
+    /* Typography */
+    --font-display: 'Archivo', 'Helvetica Neue', sans-serif;
+    --font-body: 'Archivo', 'Helvetica Neue', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+    --font-editorial: 'Fraunces', Georgia, serif;
+
+    /* Brand gradient — the signature element */
+    --tc-gradient: linear-gradient(135deg, var(--tc-green) 0%, var(--tc-blue) 100%);
+    --tc-gradient-h: linear-gradient(90deg, var(--tc-green) 0%, var(--tc-blue) 100%);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-feature-settings: "ss01", "tnum";
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  /* ========== UTILITY ========== */
+  .mono { font-family: var(--font-mono); font-feature-settings: "tnum"; letter-spacing: 0.02em; }
+  .label { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-soft); }
+  .num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+  .gradient-text {
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ========== LOGO MARK (reconstructed as SVG) ========== */
+  /* Used as a reusable component — takes color via currentColor or gradient */
+  .tc-mark { display: inline-block; line-height: 0; }
+  .tc-mark svg { display: block; }
+
+  /* ========== TOP NAV ========== */
+  .top-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,250,247,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 0.5px solid var(--tc-rule-strong);
+  }
+  .top-nav-inner {
+    max-width: 1440px; margin: 0 auto;
+    padding: 14px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 32px;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 800; font-size: 13px; letter-spacing: 0.05em;
+  }
+  .nav-brand-meta {
+    font-family: var(--font-mono); font-size: 9px;
+    font-weight: 400; letter-spacing: 0.18em;
+    color: var(--ink-soft); text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 24px; flex: 1; justify-content: center; }
+  .nav-links a {
+    color: var(--ink); text-decoration: none;
+    font-size: 11px; font-family: var(--font-mono);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--tc-blue-deep); }
+  .nav-meta {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--ink-soft); letter-spacing: 0.05em;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-meta .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--tc-gradient);
+    background: var(--tc-green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  /* ========== SECTION FRAME ========== */
+  .section {
+    max-width: 1440px; margin: 0 auto;
+    padding: 96px 40px;
+    position: relative;
+    border-bottom: 0.5px solid var(--tc-rule);
+  }
+  .section-header {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px; margin-bottom: 64px;
+    align-items: start;
+  }
+  .section-num {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--ink-soft); letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--tc-line);
+    padding-top: 12px;
+  }
+  .section-title h2 {
+    font-size: clamp(40px, 5vw, 72px);
+    font-weight: 800; letter-spacing: -0.03em;
+    line-height: 0.95; margin-bottom: 24px;
+  }
+  .section-title h2 .gradient-text { letter-spacing: -0.03em; }
+  .section-title h2 em {
+    font-family: var(--font-editorial); font-style: italic;
+    font-weight: 400;
+  }
+  .section-title p {
+    font-size: 18px; color: var(--ink-soft);
+    max-width: 640px; line-height: 1.6;
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    max-width: 1440px; margin: 0 auto;
+    padding: 80px 40px 120px;
+    border-bottom: 0.5px solid var(--tc-rule);
+    position: relative;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr 280px;
+    gap: 48px; align-items: end;
+    position: relative; z-index: 2;
+  }
+  .hero-meta {
+    font-family: var(--font-mono); font-size: 11px;
+    line-height: 2; color: var(--ink-soft);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .hero-meta div { display: flex; justify-content: space-between; border-bottom: 0.5px solid var(--tc-rule); padding: 6px 0; }
+  .hero-meta div span:last-child { color: var(--ink); }
+  .hero-tag {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 32px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-tag::before {
+    content: ""; width: 32px; height: 1px;
+    background: var(--tc-gradient-h);
+  }
+  .hero-tag span { background: var(--tc-gradient-h); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 600; }
+  .hero-title h1 {
+    font-size: clamp(56px, 9vw, 144px);
+    font-weight: 900; letter-spacing: -0.04em;
+    line-height: 0.85;
+  }
+  .hero-title h1 .line2 {
+    display: block; font-style: italic; font-weight: 400;
+    font-family: var(--font-editorial);
+    letter-spacing: -0.02em;
+  }
+  .hero-subtitle {
+    font-size: 16px; color: var(--ink-soft);
+    line-height: 1.6; max-width: 480px;
+    border-left: 2px solid;
+    border-image: var(--tc-gradient-h) 1;
+    padding-left: 16px; margin-top: 24px;
+  }
+  .hero-spec {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--ink-soft); letter-spacing: 0.1em;
+    text-transform: uppercase; line-height: 2;
+  }
+  .hero-spec .axis {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 8px; align-items: center;
+    border-top: 0.5px solid var(--tc-rule);
+    padding-top: 8px;
+  }
+  .hero-spec .axis .line { height: 1px; background: var(--tc-rule-strong); }
+  .hero-spec .ok { color: var(--tc-green-deep); }
+
+  /* Isometric grid overlay — references the logo's geometry */
+  .blueprint-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--tc-rule) 0.5px, transparent 0.5px),
+      linear-gradient(90deg, var(--tc-rule) 0.5px, transparent 0.5px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    opacity: 0.7;
+    mask-image: linear-gradient(180deg, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(180deg, transparent, black 15%, black 85%, transparent);
+  }
+
+  /* ========== PILLARS ========== */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 0.5px solid var(--tc-rule-strong);
+    margin-top: 48px;
+    background: var(--surface);
+  }
+  .pillar {
+    padding: 40px 32px;
+    border-right: 0.5px solid var(--tc-rule-strong);
+    position: relative;
+  }
+  .pillar::before {
+    content: "";
+    position: absolute; top: 0; left: 0;
+    width: 32px; height: 3px;
+    background: var(--tc-gradient-h);
+  }
+  .pillar:last-child { border-right: none; }
+  .pillar-num {
+    font-family: var(--font-mono); font-size: 11px;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    margin-bottom: 24px;
+  }
+  .pillar h3 {
+    font-size: 28px; font-weight: 700;
+    letter-spacing: -0.02em; margin-bottom: 16px;
+    line-height: 1.05;
+  }
+  .pillar p { color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+
+  /* ========== LOGO SECTION ========== */
+  .logo-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; border: 0.5px solid var(--tc-rule-strong);
+  }
+  .logo-cell {
+    aspect-ratio: 4/3.2;
+    border-right: 0.5px solid var(--tc-rule-strong);
+    border-bottom: 0.5px solid var(--tc-rule-strong);
+    display: grid; place-items: center;
+    background: var(--surface);
+    position: relative;
+    padding: 32px;
+  }
+  .logo-cell:nth-child(3n) { border-right: none; }
+  .logo-cell:nth-last-child(-n+3) { border-bottom: none; }
+  .logo-cell.dark { background: var(--tc-black); }
+  .logo-cell.gradient { background: var(--tc-gradient); }
+  .logo-cell .logo-meta {
+    position: absolute; bottom: 16px; left: 20px;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .logo-cell.dark .logo-meta { color: rgba(255,255,255,0.5); }
+  .logo-cell.gradient .logo-meta { color: rgba(0,0,0,0.7); }
+  .logo-lockup-v {
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+  }
+  .logo-lockup-h {
+    display: flex; align-items: center; gap: 20px;
+  }
+  .logo-wordmark {
+    font-weight: 800; font-size: 22px;
+    letter-spacing: 0.16em; line-height: 1;
+  }
+  .logo-cell.dark .logo-wordmark { color: var(--tc-paper); }
+  .logo-cell.gradient .logo-wordmark { color: var(--tc-black); }
+
+  /* Logo construction grid demo */
+  .construction-demo {
+    background: var(--surface);
+    border: 0.5px solid var(--tc-rule-strong);
+    padding: 48px;
+    margin-top: 32px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: center;
+  }
+  .construction-info dt {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--ink-soft); margin-top: 16px; margin-bottom: 4px;
+  }
+  .construction-info dt:first-child { margin-top: 0; }
+  .construction-info dd { font-size: 14px; color: var(--ink); }
+  .construction-info h3 {
+    font-size: 28px; font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 24px;
+  }
+
+  /* ========== COLOR ========== */
+  .color-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; border: 0.5px solid var(--tc-rule-strong);
+  }
+  .swatch {
+    aspect-ratio: 1;
+    padding: 24px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    border-right: 0.5px solid var(--tc-rule-strong);
+    border-bottom: 0.5px solid var(--tc-rule-strong);
+    position: relative;
+  }
+  .swatch:nth-child(4n) { border-right: none; }
+  .swatch:nth-last-child(-n+4) { border-bottom: none; }
+  .swatch-name { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; }
+  .swatch-hex { font-family: var(--font-mono); font-size: 11px; opacity: 0.75; }
+  .swatch-info { display: flex; justify-content: space-between; align-items: end; font-family: var(--font-mono); font-size: 10px; }
+
+  .gradient-strip {
+    margin-top: 32px;
+    height: 80px;
+    background: var(--tc-gradient-h);
+    position: relative;
+    border: 0.5px solid var(--tc-rule-strong);
+  }
+  .gradient-strip-meta {
+    position: absolute;
+    inset: 0;
+    padding: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    color: rgba(0,0,0,0.85);
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
+  }
+  .gradient-strip-meta .stop { display: flex; align-items: center; gap: 8px; }
+  .gradient-strip-meta .stop-dot {
+    width: 12px; height: 12px;
+    border: 1.5px solid var(--tc-line);
+    background: white;
+  }
+  .gradient-strip-meta .label-block {
+    background: var(--tc-line); color: white;
+    padding: 8px 14px;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.12em;
+  }
+
+  /* ========== TYPOGRAPHY ========== */
+  .type-system {
+    display: grid; grid-template-columns: 240px 1fr; gap: 48px;
+    background: var(--surface);
+    border: 0.5px solid var(--tc-rule-strong);
+    padding: 48px;
+  }
+  .type-meta { font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); }
+  .type-meta dt { letter-spacing: 0.15em; text-transform: uppercase; margin-top: 16px; margin-bottom: 4px; }
+  .type-meta dt:first-child { margin-top: 0; }
+  .type-meta dd { color: var(--ink); font-size: 13px; }
+  .type-stack { display: grid; gap: 32px; }
+  .type-row {
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 24px; align-items: baseline;
+    padding-bottom: 24px; border-bottom: 0.5px solid var(--tc-rule);
+  }
+  .type-row:last-child { border-bottom: none; }
+  .type-row .spec { font-family: var(--font-mono); font-size: 10px; color: var(--ink-soft); letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.6; }
+  .type-display-1 { font-size: 88px; font-weight: 900; letter-spacing: -0.04em; line-height: 0.9; }
+  .type-display-2 { font-size: 56px; font-weight: 800; letter-spacing: -0.03em; line-height: 0.95; }
+  .type-h1 { font-size: 40px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; }
+  .type-h2 { font-size: 28px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.15; }
+  .type-body { font-size: 16px; font-weight: 400; line-height: 1.65; max-width: 560px; color: var(--ink-soft); }
+  .type-mono-display { font-family: var(--font-mono); font-size: 14px; font-weight: 500; letter-spacing: 0.05em; line-height: 1.6; color: var(--ink-soft); }
+  .type-editorial-display { font-family: var(--font-editorial); font-size: 36px; font-style: italic; font-weight: 400; line-height: 1.2; letter-spacing: -0.01em; }
+
+  /* ========== VOICE ========== */
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .voice-card {
+    background: var(--surface);
+    border: 0.5px solid var(--tc-rule-strong);
+    padding: 32px;
+    position: relative;
+  }
+  .voice-yes { border-left: 4px solid; border-image: var(--tc-gradient) 1; }
+  .voice-no { border-left: 4px solid var(--ink-soft); opacity: 0.85; }
+  .voice-card .label { margin-bottom: 16px; }
+  .voice-card .quote {
+    font-size: 22px; font-family: var(--font-editorial);
+    font-style: italic; line-height: 1.4; color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .voice-card .why {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--ink-soft); line-height: 1.6;
+    border-top: 0.5px solid var(--tc-rule); padding-top: 12px;
+  }
+
+  /* ========== COMPONENTS ========== */
+  .components-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .comp-card {
+    background: var(--surface);
+    border: 0.5px solid var(--tc-rule-strong);
+    padding: 32px;
+    position: relative;
+  }
+  .comp-card::before {
+    content: ""; position: absolute;
+    top: 0; left: 0; height: 2px;
+    width: 32px; background: var(--tc-gradient-h);
+  }
+  .comp-label {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: 24px;
+    display: flex; justify-content: space-between;
+  }
+
+  /* Buttons */
+  .btn {
+    font-family: var(--font-display); font-size: 11px;
+    font-weight: 600; letter-spacing: 0.1em;
+    padding: 14px 22px;
+    border: none; cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex; align-items: center; gap: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .btn-primary {
+    background: var(--tc-line); color: var(--tc-paper);
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::before {
+    content: ""; position: absolute;
+    inset: 0; background: var(--tc-gradient-h);
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .btn-primary span, .btn-primary .btn-arrow { position: relative; z-index: 1; }
+  .btn-primary:hover::before { opacity: 1; }
+  .btn-secondary {
+    background: transparent; color: var(--tc-line);
+    border: 1px solid var(--tc-line);
+  }
+  .btn-secondary:hover { background: var(--tc-line); color: var(--tc-paper); }
+  .btn-gradient {
+    background: var(--tc-gradient-h);
+    color: var(--tc-black);
+  }
+  .btn-gradient:hover { filter: brightness(0.92); }
+  .btn-ghost {
+    background: transparent; color: var(--tc-line);
+    padding: 14px 0; border-bottom: 1px solid var(--tc-line);
+  }
+  .btn-arrow {
+    width: 8px; height: 8px;
+    border-top: 1.5px solid currentColor;
+    border-right: 1.5px solid currentColor;
+    transform: rotate(45deg);
+  }
+
+  /* Stats */
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--tc-rule-strong); }
+  .stat { background: var(--surface); padding: 24px; }
+  .stat-num {
+    font-size: 44px; font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 8px;
+  }
+  .stat-num .unit {
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-size: 22px; margin-left: 4px;
+  }
+  .stat-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-soft); }
+
+  /* Badges */
+  .badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 6px 10px;
+    border: 0.5px solid var(--tc-rule-strong);
+    font-weight: 500;
+  }
+  .badge-active { background: var(--tc-line); color: var(--tc-paper); border-color: var(--tc-line); }
+  .badge-gradient { background: var(--tc-gradient-h); color: var(--tc-black); border: none; }
+  .badge-green { background: var(--tc-green); color: var(--tc-black); border-color: var(--tc-green); }
+  .badge-blue { background: var(--tc-blue); color: white; border-color: var(--tc-blue); }
+
+  /* Project tile */
+  .project-card {
+    border: 0.5px solid var(--tc-rule-strong);
+    overflow: hidden;
+  }
+  .project-img {
+    height: 200px;
+    background:
+      linear-gradient(135deg, rgba(45,181,134,0.85), rgba(34,140,194,0.85)),
+      var(--tc-line);
+    position: relative;
+    overflow: hidden;
+  }
+  .project-img::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.25) 0.5px, transparent 0.5px),
+      linear-gradient(90deg, rgba(0,0,0,0.25) 0.5px, transparent 0.5px);
+    background-size: 24px 24px;
+  }
+  .project-img::after {
+    content: "";
+    position: absolute; left: 24px; top: 24px; bottom: 24px; right: 24px;
+    border: 0.5px solid rgba(0,0,0,0.3);
+  }
+  .project-img-meta {
+    position: absolute; bottom: 16px; left: 20px;
+    color: var(--tc-black);
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
+  }
+  .project-img-meta .coords { opacity: 0.7; }
+  .project-body { padding: 20px; background: var(--surface); }
+  .project-meta { font-family: var(--font-mono); font-size: 10px; color: var(--ink-soft); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; display: flex; justify-content: space-between; }
+  .project-title { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 8px; }
+  .project-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+
+  /* ========== WEBSITE MOCKUP ========== */
+  .mockup-frame {
+    background: var(--bg);
+    border: 0.5px solid var(--tc-rule-strong);
+    margin-top: 48px;
+    overflow: hidden;
+  }
+  .mockup-tabs {
+    display: flex;
+    background: var(--tc-fog);
+    padding: 12px 16px;
+    gap: 12px; align-items: center;
+    border-bottom: 0.5px solid var(--tc-rule-strong);
+  }
+  .mockup-dots { display: flex; gap: 6px; }
+  .mockup-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--ink-soft); opacity: 0.4; }
+  .mockup-url {
+    flex: 1; font-family: var(--font-mono); font-size: 11px;
+    color: var(--ink-soft); padding: 6px 12px;
+    background: var(--surface);
+    border-radius: 4px; max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .web-nav {
+    padding: 18px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 0.5px solid var(--tc-rule);
+    background: var(--bg);
+  }
+  .web-nav .logo {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .web-nav .logo-text {
+    font-weight: 800; font-size: 14px; letter-spacing: 0.15em;
+  }
+  .web-nav-links { display: flex; gap: 28px; font-size: 12px; font-family: var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; }
+  .web-nav-links a { color: var(--ink); text-decoration: none; }
+
+  .web-hero {
+    padding: 80px 40px 48px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    align-items: end;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+  .web-hero::before {
+    content: "0001 / 0042";
+    position: absolute; top: 24px; right: 40px;
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--ink-soft); letter-spacing: 0.15em;
+  }
+  .web-hero::after {
+    content: "";
+    position: absolute; left: 40px; right: 40px; bottom: 0; top: 0;
+    background-image:
+      linear-gradient(var(--tc-rule) 0.5px, transparent 0.5px),
+      linear-gradient(90deg, var(--tc-rule) 0.5px, transparent 0.5px);
+    background-size: 64px 64px;
+    pointer-events: none;
+    mask-image: linear-gradient(180deg, black, transparent 70%);
+    -webkit-mask-image: linear-gradient(180deg, black, transparent 70%);
+    opacity: 0.6;
+  }
+  .web-hero > * { position: relative; z-index: 1; }
+  .web-hero-tag {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-weight: 600; width: fit-content;
+  }
+  .web-hero-tag::before {
+    content: ""; width: 32px; height: 1px; background: var(--tc-gradient-h);
+  }
+  .web-hero h1 {
+    font-size: 68px; font-weight: 900;
+    letter-spacing: -0.04em; line-height: 0.9;
+  }
+  .web-hero h1 em {
+    font-family: var(--font-editorial); font-style: italic;
+    font-weight: 400;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .web-hero-side { display: grid; gap: 24px; }
+  .web-hero-desc {
+    font-size: 15px; color: var(--ink-soft); line-height: 1.6;
+    border-left: 2px solid var(--tc-line); padding-left: 16px;
+  }
+  .web-hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; border-top: 1px solid var(--tc-line); padding-top: 16px;
+  }
+  .web-hero-stats .s { padding-right: 12px; border-right: 0.5px solid var(--tc-rule); }
+  .web-hero-stats .s:last-child { border-right: none; }
+  .web-hero-stats .n { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
+  .web-hero-stats .n .unit {
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-size: 14px; margin-left: 2px;
+  }
+  .web-hero-stats .l { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-top: 4px; }
+  .web-hero-cta { display: flex; gap: 16px; }
+
+  /* Capabilities strip */
+  .cap-strip {
+    padding: 32px 40px;
+    background: var(--tc-line); color: var(--tc-paper);
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 48px; align-items: center;
+  }
+  .cap-strip .label {
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-weight: 600;
+  }
+  .cap-list {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .cap-list span { display: flex; align-items: center; gap: 6px; }
+  .cap-list span::before {
+    content: ""; width: 4px; height: 4px;
+    background: var(--tc-gradient-h);
+    background: var(--tc-green);
+  }
+
+  /* ========== MOBILE ========== */
+  .mobile-pair {
+    display: grid; grid-template-columns: 320px 320px;
+    gap: 48px; justify-content: center; margin-top: 48px;
+  }
+  .phone {
+    background: var(--tc-line);
+    border-radius: 36px;
+    padding: 12px;
+    aspect-ratio: 9/19;
+    position: relative;
+  }
+  .phone-screen {
+    background: var(--bg);
+    border-radius: 26px;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  .phone-notch {
+    position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+    width: 80px; height: 22px; background: var(--tc-line);
+    border-radius: 12px; z-index: 10;
+  }
+  .m-content { padding: 48px 20px 20px; height: 100%; overflow: hidden; }
+
+  .m-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 0 14px; border-bottom: 0.5px solid var(--tc-rule);
+  }
+  .m-logo {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 800; font-size: 12px; letter-spacing: 0.12em;
+  }
+  .m-menu { display: grid; gap: 4px; }
+  .m-menu span { display: block; width: 18px; height: 1.5px; background: var(--tc-line); }
+
+  .m-hero { padding: 24px 0; }
+  .m-tag {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .m-h1 {
+    font-size: 32px; font-weight: 900;
+    letter-spacing: -0.03em; line-height: 0.9;
+    margin-bottom: 12px;
+  }
+  .m-h1 em {
+    font-family: var(--font-editorial); font-style: italic; font-weight: 400;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .m-desc {
+    font-size: 12px; color: var(--ink-soft); line-height: 1.5;
+    border-left: 1.5px solid var(--tc-line); padding-left: 10px;
+    margin-bottom: 16px;
+  }
+  .m-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 8px; padding: 12px 0;
+    border-top: 1px solid var(--tc-line);
+    border-bottom: 0.5px solid var(--tc-rule);
+    margin-bottom: 16px;
+  }
+  .m-stats .n { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; }
+  .m-stats .n .unit {
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-size: 11px;
+  }
+  .m-stats .l { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-top: 2px; }
+  .m-cta {
+    background: var(--tc-line); color: var(--tc-paper);
+    padding: 12px; text-align: center;
+    font-family: var(--font-display); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+    display: flex; justify-content: center; align-items: center; gap: 8px;
+  }
+
+  .m-section-h {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--tc-line);
+    padding-bottom: 8px; margin-bottom: 12px;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .m-section-h .count { color: var(--ink-soft); }
+  .m-proj {
+    border-bottom: 0.5px solid var(--tc-rule);
+    padding: 12px 0;
+  }
+  .m-proj-meta {
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: 6px;
+  }
+  .m-proj-title {
+    font-size: 14px; font-weight: 700; line-height: 1.2;
+    letter-spacing: -0.01em; margin-bottom: 4px;
+  }
+  .m-proj-desc {
+    font-size: 11px; color: var(--ink-soft); line-height: 1.4;
+  }
+  .m-proj-tag {
+    display: inline-block;
+    font-family: var(--font-mono); font-size: 8px;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+    padding: 2px 6px; margin-top: 6px;
+  }
+
+  /* ========== DECK SLIDES ========== */
+  .deck-stack { display: grid; gap: 32px; }
+  .slide {
+    aspect-ratio: 16/9;
+    border: 0.5px solid var(--tc-rule-strong);
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+  }
+  .slide-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--tc-rule) 0.5px, transparent 0.5px),
+      linear-gradient(90deg, var(--tc-rule) 0.5px, transparent 0.5px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  .slide-meta {
+    position: absolute;
+    top: 24px; left: 32px; right: 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--ink-soft);
+    z-index: 2;
+  }
+  .slide-meta .left { display: flex; align-items: center; gap: 12px; font-weight: 600; letter-spacing: 0.18em; }
+  .slide-footer {
+    position: absolute;
+    bottom: 24px; left: 32px; right: 32px;
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--ink-soft); letter-spacing: 0.1em; text-transform: uppercase;
+    z-index: 2;
+  }
+  .slide-footer .progress {
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-weight: 600;
+  }
+
+  /* Title slide */
+  .slide-title {
+    position: absolute; left: 32px; top: 50%;
+    transform: translateY(-50%);
+    z-index: 2; max-width: 80%;
+  }
+  .slide-title .pre {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-weight: 600;
+    width: fit-content;
+  }
+  .slide-title .pre::before {
+    content: ""; width: 32px; height: 1px; background: var(--tc-gradient-h);
+  }
+  .slide-title h1 {
+    font-size: 64px; font-weight: 900;
+    letter-spacing: -0.04em; line-height: 0.9;
+  }
+  .slide-title h1 em {
+    font-family: var(--font-editorial); font-style: italic;
+    font-weight: 400;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .slide-title p {
+    margin-top: 20px; font-size: 14px;
+    color: var(--ink-soft); max-width: 480px;
+    border-left: 2px solid var(--tc-line);
+    padding-left: 12px; line-height: 1.5;
+  }
+
+  /* Stats slide (dark) */
+  .slide-dark {
+    background: var(--tc-line); color: var(--tc-paper);
+  }
+  .slide-dark .slide-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 0.5px, transparent 0.5px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 0.5px, transparent 0.5px);
+  }
+  .slide-dark .slide-meta { color: rgba(255,255,255,0.5); }
+  .slide-dark .slide-footer { color: rgba(255,255,255,0.5); }
+
+  .slide-stats {
+    position: absolute; inset: 80px 32px 56px;
+    z-index: 2;
+    display: grid; grid-template-rows: auto 1fr; gap: 32px;
+  }
+  .slide-stats h2 {
+    font-size: 32px; font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.1;
+    max-width: 70%;
+  }
+  .slide-stats h2 em {
+    font-family: var(--font-editorial); font-style: italic; font-weight: 400;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .slide-stat-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; align-self: end;
+    border-top: 1px solid;
+    border-image: var(--tc-gradient-h) 1;
+    padding-top: 24px;
+  }
+  .slide-stat { padding-right: 16px; border-right: 0.5px solid rgba(255,255,255,0.1); padding-left: 16px; }
+  .slide-stat:first-child { padding-left: 0; }
+  .slide-stat:last-child { border-right: none; }
+  .slide-stat .n {
+    font-size: 56px; font-weight: 900;
+    letter-spacing: -0.03em; line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .slide-stat .n .unit {
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-size: 22px; margin-left: 4px;
+  }
+  .slide-stat .l {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); margin-top: 8px;
+  }
+
+  /* Capability slide */
+  .slide-content {
+    position: absolute; inset: 80px 32px 56px;
+    z-index: 2;
+    display: grid; grid-template-columns: 280px 1fr;
+    gap: 48px;
+  }
+  .slide-content-left h2 {
+    font-size: 36px; font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1; margin-bottom: 20px;
+  }
+  .slide-content-left h2 em {
+    font-family: var(--font-editorial); font-style: italic; font-weight: 400;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .slide-content-left p { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+  .slide-cap-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+    border-top: 0.5px solid var(--tc-rule-strong);
+    border-left: 0.5px solid var(--tc-rule-strong);
+  }
+  .slide-cap {
+    padding: 20px;
+    border-right: 0.5px solid var(--tc-rule-strong);
+    border-bottom: 0.5px solid var(--tc-rule-strong);
+    background: var(--surface);
+  }
+  .slide-cap .num {
+    font-family: var(--font-mono); font-size: 10px;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+  .slide-cap h4 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.2; }
+  .slide-cap p { font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
+
+  /* ========== APPLICATIONS ========== */
+  .app-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 220px 220px;
+    gap: 16px;
+  }
+  .app-tile {
+    background: var(--surface);
+    border: 0.5px solid var(--tc-rule-strong);
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .app-business-card {
+    grid-row: 1 / 3;
+    display: grid; place-items: center;
+    background: var(--bg);
+  }
+  .business-card {
+    width: 280px; height: 160px;
+    background: var(--tc-line);
+    color: var(--tc-paper);
+    padding: 20px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative;
+  }
+  .business-card::before {
+    content: ""; position: absolute;
+    top: 0; left: 0; width: 32px; height: 4px;
+    background: var(--tc-gradient-h);
+  }
+  .bc-name { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+  .bc-title {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.65); margin-top: 2px;
+  }
+  .bc-meta {
+    font-family: var(--font-mono); font-size: 9px;
+    line-height: 1.7; letter-spacing: 0.05em;
+  }
+  .bc-mark {
+    position: absolute; bottom: 16px; right: 16px;
+  }
+
+  .app-letterhead {
+    background: var(--surface);
+    padding: 24px;
+    font-family: var(--font-mono); font-size: 9px;
+    color: var(--ink-soft); letter-spacing: 0.05em;
+    line-height: 1.8;
+  }
+  .app-letterhead .lh-top {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--tc-line);
+    padding-bottom: 8px; margin-bottom: 12px;
+    text-transform: uppercase; letter-spacing: 0.12em;
+  }
+  .app-letterhead .lh-mark {
+    display: flex; align-items: center; gap: 6px;
+    font-weight: 700; color: var(--tc-line); letter-spacing: 0.15em;
+    text-transform: none; font-family: var(--font-display); font-size: 13px;
+  }
+  .app-letterhead .lh-body {
+    height: 100px;
+    background:
+      repeating-linear-gradient(transparent 0, transparent 14px, var(--tc-rule) 14px, var(--tc-rule) 14.5px);
+  }
+
+  .app-poster {
+    background: var(--tc-gradient);
+    color: var(--tc-black);
+    padding: 24px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative;
+  }
+  .app-poster .ap-h {
+    font-size: 36px; font-weight: 900;
+    letter-spacing: -0.03em; line-height: 0.9;
+  }
+  .app-poster .ap-h em { font-family: var(--font-editorial); font-style: italic; font-weight: 400; }
+  .app-poster .ap-meta {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border-top: 1px solid var(--tc-black); padding-top: 8px;
+    display: flex; justify-content: space-between; font-weight: 500;
+  }
+
+  .app-signage {
+    grid-column: 2 / 4;
+    background: var(--tc-line); color: var(--tc-paper);
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 16px;
+    padding: 24px;
+  }
+  .signage-title {
+    font-size: 24px; font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1;
+  }
+  .signage-spec {
+    display: grid; gap: 8px;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.05em;
+  }
+  .signage-spec div {
+    display: flex; justify-content: space-between;
+    border-bottom: 0.5px solid rgba(255,255,255,0.2);
+    padding-bottom: 4px;
+  }
+  .signage-spec div span:first-child { color: rgba(255,255,255,0.5); }
+  .signage-spec div span:last-child { font-weight: 500; }
+
+  /* ========== GRID DEMO ========== */
+  .grid-system-demo {
+    border: 0.5px solid var(--tc-rule-strong);
+    padding: 32px;
+    background: var(--surface);
+  }
+  .grid-cols {
+    display: grid; grid-template-columns: repeat(12, 1fr);
+    gap: 16px; margin-top: 16px;
+  }
+  .grid-col {
+    background: linear-gradient(135deg, rgba(45,181,134,0.08), rgba(34,140,194,0.08));
+    border: 0.5px dashed var(--tc-blue);
+    height: 80px;
+    display: grid; place-items: center;
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--tc-blue-deep);
+    font-weight: 500;
+  }
+
+  /* ========== FOOTER ========== */
+  .footer {
+    background: var(--tc-line); color: var(--tc-paper);
+    padding: 64px 40px;
+  }
+  .footer-inner {
+    max-width: 1440px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px; align-items: start;
+  }
+  .footer-brand-mark { margin-bottom: 24px; }
+  .footer-brand h3 {
+    font-size: 48px; font-weight: 900;
+    letter-spacing: -0.03em; line-height: 0.95;
+    margin-bottom: 16px;
+  }
+  .footer-brand h3 em {
+    font-family: var(--font-editorial); font-style: italic; font-weight: 400;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .footer-brand p { font-size: 14px; color: rgba(250,250,247,0.6); max-width: 360px; line-height: 1.6; }
+  .footer h4 {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    background: var(--tc-gradient-h);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .footer ul { list-style: none; }
+  .footer ul li { font-size: 13px; line-height: 2; color: rgba(250,250,247,0.7); }
+  .footer-bottom {
+    max-width: 1440px; margin: 48px auto 0;
+    padding-top: 24px;
+    border-top: 0.5px solid rgba(250,250,247,0.15);
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(250,250,247,0.4);
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 1024px) {
+    .section-header { grid-template-columns: 1fr; gap: 16px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    .pillars { grid-template-columns: 1fr; }
+    .pillar { border-right: none; border-bottom: 0.5px solid var(--tc-rule-strong); }
+    .pillar:last-child { border-bottom: none; }
+    .components-grid, .voice-grid { grid-template-columns: 1fr; }
+    .color-grid { grid-template-columns: repeat(2, 1fr); }
+    .swatch:nth-child(4n) { border-right: 0.5px solid var(--tc-rule-strong); }
+    .swatch:nth-child(2n) { border-right: none; }
+    .web-hero { grid-template-columns: 1fr; padding: 48px 24px 32px; }
+    .web-hero h1 { font-size: 48px; }
+    .mobile-pair { grid-template-columns: 1fr; max-width: 320px; margin: 48px auto 0; }
+    .app-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .app-business-card { grid-row: auto; }
+    .app-signage { grid-column: auto; grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .type-system, .construction-demo { grid-template-columns: 1fr; gap: 32px; }
+    .logo-grid { grid-template-columns: 1fr; }
+    .logo-cell { border-right: none; aspect-ratio: 16/10; }
+    .web-nav-links { display: none; }
+  }
+  @media (max-width: 600px) {
+    .section, .hero { padding: 48px 20px; }
+    .top-nav-inner { padding: 12px 20px; }
+    .footer { padding: 48px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== REUSABLE LOGO MARK SVG (defined once, referenced via <use>) ========== -->
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+  <defs>
+    <symbol id="tc-mark-gradient" viewBox="0 0 315.101 366.006">
+      <line x1="64.867" y1="3" x2="64.867" y2="112.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="188.435" y1="250" x2="188.435" y2="312.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="250.406" y1="123" x2="250.406" y2="312.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="3.041" y1="64.826" x2="62.26" y2="64.826" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="243.041" y1="126.617" x2="312.26" y2="126.617" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="252.041" y1="188.426" x2="312.26" y2="188.426" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="126.599" y1="250.234" x2="312.26" y2="250.234" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="3.041" y1="250.234" x2="64.121" y2="250.234" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <rect x="3.041" y="3" width="309.061" height="309.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <polygon points="125.599 3 312.101 3 312.101 64.826 250.474 127.36 250.474 189.609 128.599 312.061 64.867 312.061 64.867 188.426 3.041 188.426 3.041 125.617 125.599 3" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <polyline points="64.867 66.066 64.867 126.617 126.599 126.617 126.599 250.234 188.435 250.234 188.435 126.617 250.474 126.617 250.474 64.809 64.162 64.809" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="3.041" y1="188.426" x2="64.867" y2="126.617" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="64.867" y1="188.426" x2="126.599" y2="126.617" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="64.867" y1="312.061" x2="126.599" y2="250.234" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="250.474" y1="64.809" x2="312.101" y2="3" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <polygon points="30.198 325.161 0 325.161 0 331.725 11.928 331.725 11.928 365.196 18.319 365.196 18.319 331.725 30.198 331.725 30.198 325.161" style="fill:currentColor"/>
+      <polygon points="57.995 348.055 57.995 341.491 40.176 341.491 40.176 331.725 58.684 331.725 58.684 325.161 33.784 325.161 33.784 365.196 59.078 365.196 59.078 358.631 40.176 358.631 40.176 348.055 57.995 348.055" style="fill:currentColor"/>
+      <path d="M219.658,597.311c-6.757,0-10.292-7.146-10.292-14.206S212.9,568.9,219.658,568.9c5.322,0,7.746,3.895,8.846,7.238h6.506c-1.657-8.558-7.536-13.861-15.4-13.861-10.92,0-16.634,10.478-16.634,20.828s5.714,20.828,16.634,20.828c7.865,0,13.744-5.3,15.4-13.86H228.5C227.4,593.417,224.98,597.311,219.658,597.311Z" transform="translate(-139.705 -237.927)" style="fill:currentColor"/>
+      <polygon points="129.307 365.196 129.307 325.161 122.916 325.161 122.916 341.78 105.122 341.78 105.122 325.161 98.73 325.161 98.73 365.196 105.122 365.196 105.122 348.345 122.916 348.345 122.916 365.196 129.307 365.196" style="fill:currentColor"/>
+      <polygon points="167.029 365.196 167.029 325.161 160.982 325.161 160.982 353.682 142.874 325.161 136.96 325.161 136.96 365.196 142.958 365.196 142.958 336.674 161.066 365.196 167.029 365.196" style="fill:currentColor"/>
+      <path d="M328.89,562.277c-9.651,0-16.929,8.954-16.929,20.828s7.278,20.828,16.929,20.828,16.93-8.954,16.93-20.828S338.542,562.277,328.89,562.277Zm0,35.034a9.207,9.207,0,0,1-7.826-4.549,18.548,18.548,0,0,1,0-19.313,9.207,9.207,0,0,1,7.826-4.549c6.845,0,10.538,7.319,10.538,14.205S335.735,597.311,328.89,597.311Z" transform="translate(-139.705 -237.927)" style="fill:currentColor"/>
+      <path d="M366.3,597.311c-6.756,0-10.292-7.146-10.292-14.206S359.545,568.9,366.3,568.9c5.321,0,7.745,3.895,8.846,7.238h6.507c-1.658-8.558-7.536-13.861-15.4-13.861-10.921,0-16.635,10.478-16.635,20.828s5.714,20.828,16.635,20.828c7.865,0,13.743-5.3,15.4-13.86h-6.507C374.046,593.417,371.622,597.311,366.3,597.311Z" transform="translate(-139.705 -237.927)" style="fill:currentColor"/>
+      <path d="M401.581,562.277c-9.652,0-16.93,8.954-16.93,20.828s7.278,20.828,16.93,20.828,16.929-8.954,16.929-20.828S411.232,562.277,401.581,562.277Zm0,35.034a9.207,9.207,0,0,1-7.827-4.549,18.554,18.554,0,0,1,0-19.313,9.207,9.207,0,0,1,7.827-4.549c6.844,0,10.538,7.319,10.538,14.205S408.425,597.311,401.581,597.311Z" transform="translate(-139.705 -237.927)" style="fill:currentColor"/>
+      <polygon points="315.1 365.196 315.1 325.161 309.053 325.161 309.053 353.682 290.945 325.161 285.032 325.161 285.032 365.196 291.03 365.196 291.03 336.674 309.138 365.196 315.1 365.196" style="fill:currentColor"/>
+    </symbol>
+    <symbol id="tc-mark" viewBox="0 0 315.101 366.006">
+      <use href="#tc-mark-gradient"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ========== TOP NAV ========== -->
+<nav class="top-nav">
+  <div class="top-nav-inner">
+    <div class="nav-brand">
+      <svg width="28" height="28" viewBox="0 0 315.101 366.006"><use href="#tc-mark-gradient"/></svg>
+      <div>
+        TECHNOCON
+        <div class="nav-brand-meta">Brand System v1.0</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#concept">Concept</a>
+      <a href="#logo">Logo</a>
+      <a href="#color">Color</a>
+      <a href="#type">Type</a>
+      <a href="#voice">Voice</a>
+      <a href="#components">UI</a>
+      <a href="#web">Web</a>
+      <a href="#deck">Deck</a>
+      <a href="#applications">Apps</a>
+    </div>
+    <div class="nav-meta">
+      <span class="dot"></span>
+      <span>2026.04.30</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="blueprint-bg"></div>
+  <div class="hero-grid">
+    <div class="hero-meta">
+      <div><span>System</span><span>v1.0</span></div>
+      <div><span>Sector</span><span>Industrial</span></div>
+      <div><span>Scale</span><span>GW · TWh</span></div>
+      <div><span>Stance</span><span>Engineered</span></div>
+    </div>
+    <div class="hero-title">
+      <div class="hero-tag">— TECHNOCON brand concept <span>v1.0</span></div>
+      <h1>
+        Constructed in<br>
+        <span class="line2">three dimensions.</span>
+      </h1>
+      <p class="hero-subtitle">
+        A design system for builders of large-scale industrial and energy infrastructure. The grid extends from the logo across every surface — deck, web, document, site signage. Specified once. Applied everywhere.
+      </p>
+    </div>
+    <div class="hero-spec">
+      <div class="axis"><span>A</span><span class="line"></span><span>B</span></div>
+      <div>00.00 · 90°</div>
+      <div>Δ ±0.5mm</div>
+      <div class="ok">Tolerance OK</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONCEPT ========== -->
+<section class="section" id="concept">
+  <div class="section-header">
+    <div class="section-num">01 / Concept</div>
+    <div class="section-title">
+      <h2>The logo is the <span class="gradient-text">whole concept.</span></h2>
+      <p>An isometric T inside a square grid — geometry that is itself a piece of engineering. The system extends this idea outward: a flat grid that becomes structural when projected into space. We don't decorate around the mark. We build out from it.</p>
+    </div>
+  </div>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num">— 01 / Grid as foundation</div>
+      <h3>Every artifact sits on the grid.</h3>
+      <p>The 4×4 grid behind the logo extends to a 12-column layout grid across all surfaces. Margins scale, gutters are 16px multiples. The bones are visible in every artifact — partial grid lines fading into negative space, dimension callouts in mono type.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">— 02 / Gradient as energy</div>
+      <h3>Green to blue carries the spark.</h3>
+      <p>The signature green-to-blue gradient is reserved for energy-carrying moments only — primary CTAs, key data points, accent words, gradient text on dark slides. Used 5–10% of any composition. Never as a background fill behind body content.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">— 03 / Black does the work</div>
+      <h3>Structural black, generous paper.</h3>
+      <p>Black handles all heavy lifting — text, lines, dark surfaces. Paper holds 60% of every layout. The gradient never fights black for attention; it appears, makes its point, recedes. The result is quiet confidence with a single signature flourish.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== LOGO ========== -->
+<section class="section" id="logo">
+  <div class="section-header">
+    <div class="section-num">02 / Logo system</div>
+    <div class="section-title">
+      <h2>One mark, <em>measured</em> applications.</h2>
+      <p>The mark always sits on a clear field equal to one quarter of its own width. Six approved lockups handle every context — primary marketing surfaces, dark backgrounds, accent applications, and minimum-size scenarios where the mark stands alone.</p>
+    </div>
+  </div>
+  <div class="logo-grid">
+    <div class="logo-cell">
+      <div class="logo-lockup-v">
+        <svg width="120" height="120" viewBox="0 0 315.101 366.006" style="color: var(--tc-line);"><use href="#tc-mark-gradient"/></svg>
+        <div class="logo-wordmark">TECHNOCON</div>
+      </div>
+      <div class="logo-meta">01 — Primary, vertical lockup</div>
+    </div>
+    <div class="logo-cell dark">
+      <div class="logo-lockup-v">
+        <svg width="120" height="120" viewBox="0 0 315.101 366.006" style="color: var(--tc-paper);"><use href="#tc-mark-gradient"/></svg>
+        <div class="logo-wordmark">TECHNOCON</div>
+      </div>
+      <div class="logo-meta">02 — Reversed on black</div>
+    </div>
+    <div class="logo-cell gradient">
+      <div class="logo-lockup-v">
+        <svg width="120" height="120" viewBox="0 0 315.101 366.006" style="color: var(--tc-black); --mark-stroke: var(--tc-black);"><use href="#tc-mark"/></svg>
+        <div class="logo-wordmark">TECHNOCON</div>
+      </div>
+      <div class="logo-meta">03 — Mono on gradient</div>
+    </div>
+    <div class="logo-cell">
+      <svg width="120" height="120" viewBox="0 0 315.101 366.006" style="color: var(--tc-line);"><use href="#tc-mark-gradient"/></svg>
+      <div class="logo-meta">04 — Mark only / app icon</div>
+    </div>
+    <div class="logo-cell dark">
+      <svg width="120" height="120" viewBox="0 0 315.101 366.006" style="color: var(--tc-paper);"><use href="#tc-mark-gradient"/></svg>
+      <div class="logo-meta">05 — Mark, reversed</div>
+    </div>
+    <div class="logo-cell">
+      <svg width="120" height="120" viewBox="0 0 315.101 366.006" style="color: var(--tc-line); --mark-stroke: var(--tc-line);"><use href="#tc-mark"/></svg>
+      <div class="logo-meta">06 — Single-color, print/fax/etch</div>
+    </div>
+  </div>
+
+  <div class="construction-demo">
+    <div>
+      <h3>Construction grid &amp; clear space</h3>
+      <dl class="construction-info">
+        <dt>Mark grid</dt><dd>4×4 square, mark inscribed at 100% of bounding box</dd>
+        <dt>Clear space</dt><dd>1× of one grid unit on all sides — minimum</dd>
+        <dt>Minimum size</dt><dd>24px digital · 8mm print (mark only)</dd>
+        <dt>Wordmark</dt><dd>Archivo 800 · letter-spacing 0.16em · UPPERCASE only</dd>
+        <dt>Wordmark size</dt><dd>0.32× the mark height (vertical lockup)</dd>
+        <dt>Never</dt><dd>Recolor outside palette · skew · drop shadow · place on busy photo without mask · stretch</dd>
+      </dl>
+    </div>
+    <div style="display: grid; place-items: center; padding: 32px; background: var(--bg); border: 0.5px dashed var(--tc-rule-strong); position: relative;">
+      <div style="position: relative; padding: 40px;">
+        <!-- Clear space indicators -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 40px; background: repeating-linear-gradient(90deg, var(--tc-rule-strong) 0, var(--tc-rule-strong) 4px, transparent 4px, transparent 8px); opacity: 0.4;"></div>
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: repeating-linear-gradient(90deg, var(--tc-rule-strong) 0, var(--tc-rule-strong) 4px, transparent 4px, transparent 8px); opacity: 0.4;"></div>
+        <div style="position: absolute; top: 0; bottom: 0; left: 0; width: 40px; background: repeating-linear-gradient(0deg, var(--tc-rule-strong) 0, var(--tc-rule-strong) 4px, transparent 4px, transparent 8px); opacity: 0.4;"></div>
+        <div style="position: absolute; top: 0; bottom: 0; right: 0; width: 40px; background: repeating-linear-gradient(0deg, var(--tc-rule-strong) 0, var(--tc-rule-strong) 4px, transparent 4px, transparent 8px); opacity: 0.4;"></div>
+        <svg width="160" height="160" viewBox="0 0 315.101 366.006" style="color: var(--tc-line);"><use href="#tc-mark-gradient"/></svg>
+      </div>
+      <div style="position: absolute; top: 8px; left: 16px; font-family: var(--font-mono); font-size: 10px; color: var(--ink-soft); letter-spacing: 0.1em; text-transform: uppercase;">— Clear space = 1× grid unit</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COLOR ========== -->
+<section class="section" id="color">
+  <div class="section-header">
+    <div class="section-num">03 / Color system</div>
+    <div class="section-title">
+      <h2>Black, paper, <span class="gradient-text">spark.</span></h2>
+      <p>The signature gradient is the brand's only true accent. Black does all structural work. Paper holds the layout. Supporting neutrals are quiet, never fighting for attention. Eight tokens in total — that is the entire palette.</p>
+    </div>
+  </div>
+  <div class="color-grid">
+    <div class="swatch" style="background: #000000; color: #FAFAF7;">
+      <div>
+        <div class="swatch-name">Carbon</div>
+        <div class="swatch-hex">#000000</div>
+      </div>
+      <div class="swatch-info">
+        <span>01 / Structural</span>
+        <span>RGB 0·0·0</span>
+      </div>
+    </div>
+    <div class="swatch" style="background: #2DB586; color: #000;">
+      <div>
+        <div class="swatch-name">Signal Green</div>
+        <div class="swatch-hex">#2DB586</div>
+      </div>
+      <div class="swatch-info">
+        <span>02 / Gradient origin</span>
+        <span>RGB 45·181·134</span>
+      </div>
+    </div>
+    <div class="swatch" style="background: #228CC2; color: #FAFAF7;">
+      <div>
+        <div class="swatch-name">Signal Blue</div>
+        <div class="swatch-hex">#228CC2</div>
+      </div>
+      <div class="swatch-info">
+        <span>03 / Gradient terminus</span>
+        <span>RGB 34·140·194</span>
+      </div>
+    </div>
+    <div class="swatch" style="background: #1F8E66; color: #FAFAF7;">
+      <div>
+        <div class="swatch-name">Green Deep</div>
+        <div class="swatch-hex">#1F8E66</div>
+      </div>
+      <div class="swatch-info">
+        <span>04 / Text on light</span>
+        <span>RGB 31·142·102</span>
+      </div>
+    </div>
+    <div class="swatch" style="background: #156A95; color: #FAFAF7;">
+      <div>
+        <div class="swatch-name">Blue Deep</div>
+        <div class="swatch-hex">#156A95</div>
+      </div>
+      <div class="swatch-info">
+        <span>05 / Text on light</span>
+        <span>RGB 21·106·149</span>
+      </div>
+    </div>
+    <div class="swatch" style="background: #FAFAF7; color: #000; border-right: 0.5px solid var(--tc-rule-strong);">
+      <div>
+        <div class="swatch-name">Paper</div>
+        <div class="swatch-hex">#FAFAF7</div>
+      </div>
+      <div class="swatch-info">
+        <span>06 / Surface</span>
+        <span>RGB 250·250·247</span>
+      </div>
+    </div>
+    <div class="swatch" style="background: #E8E8E3; color: #000;">
+      <div>
+        <div class="swatch-name">Fog</div>
+        <div class="swatch-hex">#E8E8E3</div>
+      </div>
+      <div class="swatch-info">
+        <span>07 / Mute surface</span>
+        <span>RGB 232·232·227</span>
+      </div>
+    </div>
+    <div class="swatch" style="background: #6B6B68; color: #FAFAF7;">
+      <div>
+        <div class="swatch-name">Steel</div>
+        <div class="swatch-hex">#6B6B68</div>
+      </div>
+      <div class="swatch-info">
+        <span>08 / Secondary text</span>
+        <span>RGB 107·107·104</span>
+      </div>
+    </div>
+  </div>
+  <div class="gradient-strip">
+    <div class="gradient-strip-meta">
+      <div class="stop">
+        <div class="stop-dot" style="background: #2DB586;"></div>
+        <span>#2DB586 · Signal Green · 0%</span>
+      </div>
+      <div class="label-block">Signature gradient · 135°</div>
+      <div class="stop">
+        <span>100% · Signal Blue · #228CC2</span>
+        <div class="stop-dot" style="background: #228CC2;"></div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 24px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); display: flex; justify-content: space-between; letter-spacing: 0.1em; text-transform: uppercase;">
+    <span>Allocation: 60% paper · 30% carbon · 8% steel/fog · ≤2% gradient</span>
+    <span>WCAG AA verified · gradient = decorative only</span>
+  </div>
+</section>
+
+<!-- ========== TYPOGRAPHY ========== -->
+<section class="section" id="type">
+  <div class="section-header">
+    <div class="section-num">04 / Typography</div>
+    <div class="section-title">
+      <h2>Three voices, <em>one</em> rhythm.</h2>
+      <p>Archivo for everything structural — display, UI, body. JetBrains Mono for data, specs, labels — anything that should read as fact. Fraunces italic for the rare editorial moment when a sentence needs to breathe.</p>
+    </div>
+  </div>
+  <div class="type-system">
+    <dl class="type-meta">
+      <dt>Display &amp; UI</dt><dd>Archivo</dd>
+      <dt>Weights</dt><dd>400 · 600 · 800 · 900</dd>
+      <dt>Optical</dt><dd>Tabular numerals on</dd>
+      <dt>Tracking</dt><dd>−0.04 to −0.01em (display)</dd>
+      <dt style="margin-top: 24px;">Mono</dt><dd>JetBrains Mono</dd>
+      <dt>Use</dt><dd>Labels, specs, data, project codes</dd>
+      <dt style="margin-top: 24px;">Editorial</dt><dd>Fraunces italic</dd>
+      <dt>Use</dt><dd>Pull quotes &amp; gradient accent words. Never body copy.</dd>
+      <dt style="margin-top: 24px;">Casing</dt><dd>Sentence case body. UPPER for mono labels &amp; wordmark only.</dd>
+    </dl>
+    <div class="type-stack">
+      <div class="type-row">
+        <div class="spec">Display 1<br>88 / 0.9<br>900</div>
+        <div>
+          <div class="type-display-1">12 GW delivered.</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="spec">Display 2<br>56 / 0.95<br>800</div>
+        <div>
+          <div class="type-display-2">Constructed in <span class="editorial gradient-text">three dimensions</span>.</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="spec">H1<br>40 / 1.05<br>700</div>
+        <div>
+          <div class="type-h1">Powering the world's hardest infrastructure.</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="spec">H2<br>28 / 1.15<br>600</div>
+        <div>
+          <div class="type-h2">EPC delivery across power, oil &amp; gas, and renewables.</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="spec">Body<br>16 / 1.65<br>400</div>
+        <div>
+          <div class="type-body">For three decades TECHNOCON has engineered, procured, and constructed energy infrastructure that operates without compromise. Every joint specified, every weld inspected, every milestone delivered to plan.</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="spec">Editorial<br>36 / 1.2<br>400 italic</div>
+        <div>
+          <div class="type-editorial-display">"What we build is meant to outlast the contracts we signed it under."</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="spec">Mono<br>14 / 1.6<br>500</div>
+        <div>
+          <div class="type-mono-display">PROJECT 24·041 / SUBSTATION RETROFIT / 220kV → 400kV / Q3 2026 ENERGIZATION</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== VOICE ========== -->
+<section class="section" id="voice">
+  <div class="section-header">
+    <div class="section-num">05 / Voice &amp; tone</div>
+    <div class="section-title">
+      <h2>Numbers are the <span class="gradient-text">brand's vocabulary.</span></h2>
+      <p>Confident, specific, technical-but-readable. Lead with concrete capability — never with superlatives. If a sentence can be replaced with a number and a unit, replace it.</p>
+    </div>
+  </div>
+  <div class="voice-grid">
+    <div class="voice-card voice-yes">
+      <div class="label" style="color: var(--tc-blue-deep);">— Yes / On brand</div>
+      <div class="quote">"12 GW of generation capacity delivered across four continents since 1998."</div>
+      <div class="why">Why: A specific number, a specific scale, a specific timeframe. The reader knows exactly what was done. No adjectives doing the work that nouns should do.</div>
+    </div>
+    <div class="voice-card voice-no">
+      <div class="label">— No / Off brand</div>
+      <div class="quote">"We are an industry-leading provider of world-class energy solutions for tomorrow's needs."</div>
+      <div class="why">Why: Five superlatives, zero facts. Every competitor's website says this. The sentence could be cut entirely and nothing would be lost.</div>
+    </div>
+    <div class="voice-card voice-yes">
+      <div class="label" style="color: var(--tc-blue-deep);">— Yes / On brand</div>
+      <div class="quote">"Substation commissioned 14 days ahead of schedule. Outage window: 38 hours."</div>
+      <div class="why">Why: Reads like an entry in a project log. Schedule and outage figures are what clients actually evaluate. The work speaks for itself.</div>
+    </div>
+    <div class="voice-card voice-no">
+      <div class="label">— No / Off brand</div>
+      <div class="quote">"Our team's tireless dedication to excellence drove a successful project outcome."</div>
+      <div class="why">Why: Pure connective tissue with nothing inside. "Tireless dedication" is a phrase, not a fact. Cut and replace with what was actually delivered.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COMPONENTS ========== -->
+<section class="section" id="components">
+  <div class="section-header">
+    <div class="section-num">06 / Component library</div>
+    <div class="section-title">
+      <h2>Atoms with <em>tolerances.</em></h2>
+      <p>Every component is specified the way a steel detail is specified — dimensions, materials, allowed states. Documented once, reused everywhere.</p>
+    </div>
+  </div>
+  <div class="components-grid">
+    <div class="comp-card">
+      <div class="comp-label">
+        <span>— Component / Buttons</span>
+        <span>BTN.001</span>
+      </div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+        <button class="btn btn-primary"><span>Request proposal</span> <span class="btn-arrow"></span></button>
+        <button class="btn btn-secondary">View capabilities</button>
+        <button class="btn btn-gradient">Get quote <span class="btn-arrow"></span></button>
+        <a href="#" class="btn btn-ghost">Download factsheet <span class="btn-arrow"></span></a>
+      </div>
+      <div style="margin-top: 24px; font-family: var(--font-mono); font-size: 10px; color: var(--ink-soft); line-height: 1.8; letter-spacing: 0.05em;">
+        PADDING 14 / 22 · TYPE 11 / 600 / +0.10 · UPPERCASE · ARROW 8×8 ROTATED 45°<br>
+        PRIMARY HOVER REVEALS GRADIENT · GRADIENT VARIANT FOR HIGH-EMPHASIS CTAs
+      </div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-label">
+        <span>— Component / Stat grid</span>
+        <span>STAT.001</span>
+      </div>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="stat-num num">1,247<span class="unit">MW</span></div>
+          <div class="stat-label">Capacity online</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num num">38<span class="unit">/ 38</span></div>
+          <div class="stat-label">On-time milestones</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num num">0<span class="unit">LTI</span></div>
+          <div class="stat-label">Days, current</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num num">€2.4<span class="unit">B</span></div>
+          <div class="stat-label">Active backlog</div>
+        </div>
+      </div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-label">
+        <span>— Component / Badges</span>
+        <span>BDG.001</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge badge-active">Energized</span>
+        <span class="badge badge-gradient">Critical path</span>
+        <span class="badge badge-green">Commissioned</span>
+        <span class="badge badge-blue">EPC</span>
+        <span class="badge">In progress</span>
+        <span class="badge">220 kV</span>
+        <span class="badge">Q3 2026</span>
+      </div>
+      <div style="margin-top: 24px; font-family: var(--font-mono); font-size: 10px; color: var(--ink-soft); line-height: 1.8; letter-spacing: 0.05em;">
+        TYPE MONO 10 / 500 / +0.10 · UPPERCASE · PADDING 6 / 10 · BORDER 0.5
+      </div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-label">
+        <span>— Component / Project tile</span>
+        <span>PRJ.001</span>
+      </div>
+      <div class="project-card">
+        <div class="project-img">
+          <div class="project-img-meta">
+            <div>Substation 24·041</div>
+            <div class="coords">52.3676°N · 4.9041°E</div>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span>Energy / T&amp;D</span>
+            <span>2025—2027</span>
+          </div>
+          <div class="project-title">North Sea Interconnector Phase II</div>
+          <div class="project-desc">400 kV substation extension and HVDC converter station tying offshore wind to the European grid.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WEBSITE ========== -->
+<section class="section" id="web">
+  <div class="section-header">
+    <div class="section-num">07 / Website application</div>
+    <div class="section-title">
+      <h2>Same atoms, <span class="gradient-text">composed at scale.</span></h2>
+      <p>The website hero uses the same type ramp, the same grid, the same gradient rules as the deck and the brochure. The shape of the system survives every channel.</p>
+    </div>
+  </div>
+  <div class="mockup-frame">
+    <div class="mockup-tabs">
+      <div class="mockup-dots"><span></span><span></span><span></span></div>
+      <div class="mockup-url">technocon.com</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div>
+      <div class="web-nav">
+        <div class="logo">
+          <svg width="28" height="28" viewBox="0 0 315.101 366.006" style="color: var(--tc-line);"><use href="#tc-mark-gradient"/></svg>
+        </div>
+        <div class="web-nav-links">
+          <a>Capabilities</a>
+          <a>Projects</a>
+          <a>About</a>
+          <a>Insights</a>
+          <a>Contact</a>
+        </div>
+        <button class="btn btn-primary" style="padding: 10px 16px; font-size: 10px;"><span>Request proposal</span> <span class="btn-arrow"></span></button>
+      </div>
+      <div class="web-hero">
+        <div>
+          <div class="web-hero-tag">— Industrial &amp; energy infrastructure since 1998</div>
+          <h1>Built to <em>outlast</em><br>the grid it<br>serves.</h1>
+        </div>
+        <div class="web-hero-side">
+          <div class="web-hero-desc">
+            EPC delivery for power generation, transmission, and energy transition projects across Europe, MENA and Central Asia. Specified, procured, and constructed under one roof.
+          </div>
+          <div class="web-hero-stats">
+            <div class="s">
+              <div class="n num">12<span class="unit">GW</span></div>
+              <div class="l">Delivered capacity</div>
+            </div>
+            <div class="s">
+              <div class="n num">147</div>
+              <div class="l">Active projects</div>
+            </div>
+            <div class="s">
+              <div class="n num">28<span class="unit">yr</span></div>
+              <div class="l">Operating record</div>
+            </div>
+          </div>
+          <div class="web-hero-cta">
+            <button class="btn btn-primary"><span>View capabilities</span> <span class="btn-arrow"></span></button>
+            <button class="btn btn-secondary">Recent projects</button>
+          </div>
+        </div>
+      </div>
+      <div class="cap-strip">
+        <div class="label">— Capabilities</div>
+        <div class="cap-list">
+          <span>Power generation</span>
+          <span>Transmission</span>
+          <span>Substations</span>
+          <span>Renewables</span>
+          <span>Hydrogen</span>
+          <span>Storage</span>
+          <span>EPC</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== MOBILE ========== -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-num">08 / Mobile</div>
+    <div class="section-title">
+      <h2>Compressed, <em>never</em> softened.</h2>
+      <p>The mobile system inherits every rule. Type stays heavy, the gradient stays sparse, the dimension lines and project codes survive at small scale because they were drawn for it.</p>
+    </div>
+  </div>
+  <div class="mobile-pair">
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="m-content">
+          <div class="m-nav">
+            <div class="m-logo">
+              <svg width="20" height="20" viewBox="0 0 315.101 366.006" style="color: var(--tc-line);"><use href="#tc-mark-gradient"/></svg>
+              TECHNOCON
+            </div>
+            <div class="m-menu"><span></span><span></span><span></span></div>
+          </div>
+          <div class="m-hero">
+            <div class="m-tag">— Since 1998</div>
+            <div class="m-h1">Built to <em>outlast</em> the grid it serves.</div>
+            <div class="m-desc">EPC delivery for power, transmission and energy transition across three continents.</div>
+            <div class="m-stats">
+              <div><div class="n num">12<span class="unit">GW</span></div><div class="l">Delivered</div></div>
+              <div><div class="n num">147</div><div class="l">Projects</div></div>
+              <div><div class="n num">28<span class="unit">yr</span></div><div class="l">Record</div></div>
+            </div>
+            <div class="m-cta">Request proposal <span class="btn-arrow"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="m-content">
+          <div class="m-nav">
+            <div class="m-logo">
+              <svg width="20" height="20" viewBox="0 0 315.101 366.006" style="color: var(--tc-line);"><use href="#tc-mark-gradient"/></svg>
+              TECHNOCON
+            </div>
+            <div class="m-menu"><span></span><span></span><span></span></div>
+          </div>
+          <div class="m-section-h" style="margin-top: 24px;">
+            <span>— Recent projects</span>
+            <span class="count">147 total</span>
+          </div>
+          <div class="m-proj">
+            <div class="m-proj-meta"><span>Energy / T&amp;D</span><span>2025—2027</span></div>
+            <div class="m-proj-title">North Sea Interconnector Phase II</div>
+            <div class="m-proj-desc">400 kV substation extension and HVDC converter station.</div>
+            <span class="m-proj-tag" style="background: var(--tc-gradient-h); color: var(--tc-black);">Active</span>
+          </div>
+          <div class="m-proj">
+            <div class="m-proj-meta"><span>Power / Gen</span><span>2024—2026</span></div>
+            <div class="m-proj-title">Almaty CCGT Plant</div>
+            <div class="m-proj-desc">880 MW combined-cycle gas turbine, BOP scope.</div>
+            <span class="m-proj-tag" style="background: var(--tc-blue); color: white;">EPC</span>
+          </div>
+          <div class="m-proj">
+            <div class="m-proj-meta"><span>Renewables</span><span>2023—2025</span></div>
+            <div class="m-proj-title">Karakum Solar Field</div>
+            <div class="m-proj-desc">540 MWp utility-scale PV with 120 MWh storage.</div>
+            <span class="m-proj-tag" style="background: var(--tc-line); color: var(--tc-paper);">Energized</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DECK ========== -->
+<section class="section" id="deck">
+  <div class="section-header">
+    <div class="section-num">09 / Pitch deck</div>
+    <div class="section-title">
+      <h2>Same system, <span class="gradient-text">16:9 frame.</span></h2>
+      <p>Three slide archetypes — title, evidence, capability — combine to handle any pitch. Dark slides for evidence and gravitas, light for narrative and detail. Grid visible at all times. Gradient appears once per slide, maximum.</p>
+    </div>
+  </div>
+  <div class="deck-stack">
+    <div class="slide">
+      <div class="slide-grid"></div>
+      <div class="slide-meta">
+        <div class="left">
+          <svg width="22" height="22" viewBox="0 0 315.101 366.006" style="color: var(--tc-line);"><use href="#tc-mark-gradient"/></svg>
+          <span>TECHNOCON / 2026</span>
+        </div>
+        <div>Confidential — Investor briefing</div>
+      </div>
+      <div class="slide-title">
+        <div class="pre">— Investor briefing · Q2 2026</div>
+        <h1>Constructed in<br><em>three dimensions.</em></h1>
+        <p>Three decades of EPC delivery for the world's most demanding industrial and energy infrastructure. We are not pivoting to the energy transition — we are building it.</p>
+      </div>
+      <div class="slide-footer">
+        <span class="progress">01 / 24</span>
+        <span>technocon.com</span>
+      </div>
+    </div>
+
+    <div class="slide slide-dark">
+      <div class="slide-grid"></div>
+      <div class="slide-meta">
+        <div class="left">
+          <svg width="22" height="22" viewBox="0 0 315.101 366.006" style="color: var(--tc-paper);"><use href="#tc-mark-gradient"/></svg>
+          <span>TECHNOCON / 2026</span>
+        </div>
+        <div>Track record</div>
+      </div>
+      <div class="slide-stats">
+        <h2>Twenty-eight years. Four continents.<br>Numbers that <em>compound.</em></h2>
+        <div class="slide-stat-grid">
+          <div class="slide-stat">
+            <div class="n num">12<span class="unit">GW</span></div>
+            <div class="l">Generation delivered</div>
+          </div>
+          <div class="slide-stat">
+            <div class="n num">2,400<span class="unit">km</span></div>
+            <div class="l">Transmission built</div>
+          </div>
+          <div class="slide-stat">
+            <div class="n num">€2.4<span class="unit">B</span></div>
+            <div class="l">Active backlog</div>
+          </div>
+          <div class="slide-stat">
+            <div class="n num">38<span class="unit">/ 38</span></div>
+            <div class="l">On-time milestones</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="progress">04 / 24</span>
+        <span>Track record</span>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-grid"></div>
+      <div class="slide-meta">
+        <div class="left">
+          <svg width="22" height="22" viewBox="0 0 315.101 366.006" style="color: var(--tc-line);"><use href="#tc-mark-gradient"/></svg>
+          <span>TECHNOCON / 2026</span>
+        </div>
+        <div>Capability map</div>
+      </div>
+      <div class="slide-content">
+        <div class="slide-content-left">
+          <h2>End-to-end, <em>under one roof.</em></h2>
+          <p>From feasibility to commissioning, TECHNOCON owns every phase of execution. No subcontracted scope on the critical path. Single accountability across the full project lifecycle.</p>
+        </div>
+        <div class="slide-cap-grid">
+          <div class="slide-cap">
+            <div class="num">— 01</div>
+            <h4>Engineering</h4>
+            <p>FEED, detailed design, BIM coordination across 14 disciplines.</p>
+          </div>
+          <div class="slide-cap">
+            <div class="num">— 02</div>
+            <h4>Procurement</h4>
+            <p>Long-lead equipment, vendor management, expediting.</p>
+          </div>
+          <div class="slide-cap">
+            <div class="num">— 03</div>
+            <h4>Construction</h4>
+            <p>Civil, mechanical, electrical, instrumentation — direct hire.</p>
+          </div>
+          <div class="slide-cap">
+            <div class="num">— 04</div>
+            <h4>Commissioning</h4>
+            <p>SAT, energization, performance testing, handover.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="progress">09 / 24</span>
+        <span>Capabilities</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== APPLICATIONS ========== -->
+<section class="section" id="applications">
+  <div class="section-header">
+    <div class="section-num">10 / Applications</div>
+    <div class="section-title">
+      <h2>The system <em>in the wild.</em></h2>
+      <p>Business card, letterhead, recruitment poster, site signage — same atoms, different scales. Every artifact recognizably part of the same family without needing the wordmark to prove it.</p>
+    </div>
+  </div>
+  <div class="app-grid">
+    <div class="app-tile app-business-card">
+      <div class="business-card">
+        <div>
+          <div class="bc-name">Elena Vasquez</div>
+          <div class="bc-title">Director, Project Delivery</div>
+        </div>
+        <div class="bc-meta">
+          E.VASQUEZ@TECHNOCON.COM<br>
+          +44 20 7946 0312<br>
+          KING'S CROSS · LONDON N1
+        </div>
+        <div class="bc-mark">
+          <svg width="32" height="32" viewBox="0 0 315.101 366.006" style="color: var(--tc-paper);"><use href="#tc-mark-gradient"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="app-tile app-letterhead">
+      <div class="lh-top">
+        <span class="lh-mark">
+          <svg width="20" height="20" viewBox="0 0 315.101 366.006" style="color: var(--tc-line);"><use href="#tc-mark-gradient"/></svg>
+          TECHNOCON
+        </span>
+        <span>Doc 24·041 / Rev B</span>
+      </div>
+      <div class="lh-body"></div>
+      <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+        <span>Page 1 / 12</span>
+        <span>Confidential</span>
+      </div>
+    </div>
+    <div class="app-tile app-poster">
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px; font-weight: 500;">— Now hiring</div>
+        <div class="ap-h">Build <em>what<br>lasts.</em></div>
+      </div>
+      <div class="ap-meta">
+        <span>Careers / 2026</span>
+        <span>14 roles open</span>
+      </div>
+    </div>
+    <div class="app-tile app-signage">
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; background: var(--tc-gradient-h); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 600; margin-bottom: 12px;">— Site signage</div>
+        <div class="signage-title">Project 24·041<br>North Sea<br>Interconnector</div>
+      </div>
+      <div class="signage-spec">
+        <div><span>CONTRACTOR</span><span>TECHNOCON</span></div>
+        <div><span>PHASE</span><span>EPC</span></div>
+        <div><span>CAPACITY</span><span>1.4 GW</span></div>
+        <div><span>ENERGIZE</span><span>Q3 2027</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GRID ========== -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-num">11 / Grid system</div>
+    <div class="section-title">
+      <h2>12 columns. <span class="gradient-text">96px header padding.</span></h2>
+      <p>The same 12-column grid runs every artifact. Web uses 12 columns; deck uses 8; brochure uses 6. Margins scale with viewport, gutters are always 16px multiples. The bones of the system are visible if you look.</p>
+    </div>
+  </div>
+  <div class="grid-system-demo">
+    <div style="font-family: var(--font-mono); font-size: 10px; color: var(--ink-soft); letter-spacing: 0.1em; text-transform: uppercase; display: flex; justify-content: space-between;">
+      <span>— 12 col / 16 gutter / 40 margin</span>
+      <span>Section padding 96 vertical</span>
+    </div>
+    <div class="grid-cols">
+      <div class="grid-col">01</div>
+      <div class="grid-col">02</div>
+      <div class="grid-col">03</div>
+      <div class="grid-col">04</div>
+      <div class="grid-col">05</div>
+      <div class="grid-col">06</div>
+      <div class="grid-col">07</div>
+      <div class="grid-col">08</div>
+      <div class="grid-col">09</div>
+      <div class="grid-col">10</div>
+      <div class="grid-col">11</div>
+      <div class="grid-col">12</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-brand-mark">
+        <svg width="48" height="48" viewBox="0 0 315.101 366.006" style="color: var(--tc-paper);"><use href="#tc-mark-gradient"/></svg>
+      </div>
+      <h3>Constructed in<br><em>three dimensions.</em></h3>
+      <p>This brand system is a design specification, not a style guide. Treat every dimension as load-bearing. Update through revision-controlled releases. Document version v1.0 · 2026.04.30.</p>
+    </div>
+    <div>
+      <h4>— System</h4>
+      <ul>
+        <li>Concept</li>
+        <li>Logo lockups</li>
+        <li>Color system</li>
+        <li>Typography</li>
+        <li>Voice &amp; tone</li>
+        <li>Components</li>
+      </ul>
+    </div>
+    <div>
+      <h4>— Applications</h4>
+      <ul>
+        <li>Website</li>
+        <li>Mobile</li>
+        <li>Pitch deck</li>
+        <li>Stationery</li>
+        <li>Site signage</li>
+        <li>Recruitment</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>TECHNOCON / Brand System v1.0 / 2026.04.30</span>
+    <span>Document 0001 / 0042</span>
+  </div>
+</footer>
+
+</body>
+</html>

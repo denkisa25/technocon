@@ -3,1250 +3,547 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Technocon — Energy & Industrial Infrastructure</title>
+<title>Technocon — Energy &amp; Industrial Infrastructure</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
 <style>
+/* ── BRAND VARIABLES ── */
 :root {
-  --black:      #232020;
-  --surface:    #F5F5F5;
-  --surface2:   #EBEBEB;
-  --border:     rgba(0,0,0,0.09);
-  --amber:      #0089cf;
-  --amber2:     #1a9fdf;
-  --amber-dim:  rgba(0,137,207,0.12);
-  --green:      #30b683;
-  --grey1:      #545254;
-  --grey2:      #2C2A2A;
-  --grey3:      #232020;
+  --tc-green:       #2DB586;
+  --tc-green-deep:  #1F8E66;
+  --tc-blue:        #228CC2;
+  --tc-blue-deep:   #156A95;
+  --tc-black:       #000000;
+  --tc-paper:       #FAFAF7;
+  --tc-fog:         #E8E8E3;
+  --tc-line:        #1A1A1A;
+  --tc-mute:        #6B6B68;
+  --tc-rule:        rgba(0,0,0,0.08);
+  --tc-rule-strong: rgba(0,0,0,0.18);
+  --bg:       var(--tc-paper);
+  --surface:  #FFFFFF;
+  --ink:      var(--tc-line);
+  --ink-soft: var(--tc-mute);
+  --font-display:   'Archivo','Helvetica Neue',sans-serif;
+  --font-body:      'Archivo','Helvetica Neue',sans-serif;
+  --font-mono:      'JetBrains Mono','SF Mono',monospace;
+  --font-editorial: 'Fraunces',Georgia,serif;
+  --tc-gradient:   linear-gradient(135deg, var(--tc-green) 0%, var(--tc-blue) 100%);
+  --tc-gradient-h: linear-gradient(90deg,  var(--tc-green) 0%, var(--tc-blue) 100%);
+  /* Compat aliases used by ported components */
+  --amber:      var(--tc-green);
+  --amber2:     var(--tc-green-deep);
+  --amber-dim:  rgba(45,181,134,0.12);
+  --black:      var(--tc-line);
   --white:      #FFFFFF;
-  --header-h:   80px;
+  --border:     var(--tc-rule);
+  --grey1:      var(--tc-mute);
+  --grey2:      var(--tc-mute);
+  --green:      var(--tc-green);
+  --blue:       var(--tc-blue);
+  --header-h:   72px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:17px}
-body{font-family:'Roboto',sans-serif;background:#FFFFFF;color:var(--black);overflow-x:hidden}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","tnum"}
 
-/* ─── HEADER ─────────────────────────────── */
+/* ── HEADER / NAV ── */
 #header{
   position:fixed;top:0;left:0;right:0;z-index:200;
-  display:flex;align-items:center;justify-content:flex-start;
-  padding:1rem 2.5rem;
-  background:transparent;
-  border-bottom:1px solid transparent;
-  transition:background .4s ease,box-shadow .4s ease,border-color .4s ease,padding .4s ease;
+  display:flex;justify-content:center;
+  background:rgba(26,26,26,0.6);
+  backdrop-filter:blur(16px);
+  border-bottom:0.5px solid rgba(250,250,247,0.08);
+  box-shadow:0 4px 24px rgba(0,0,0,.2);
+  transition:background .4s ease,box-shadow .4s ease,border-color .4s ease,backdrop-filter .4s ease;
 }
 #header.scrolled{
-  padding:.4rem 2.5rem;
-  background:rgba(255,255,255,0.98);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-  box-shadow:0 4px 24px rgba(0,0,0,.08);
+  background:rgba(26,26,26,1);
+  backdrop-filter:blur(0px);
+  border-bottom:0.5px solid rgba(250,250,247,0.12);
+  box-shadow:0 4px 32px rgba(0,0,0,.4);
 }
-
-/* Logo */
+.header-inner{
+  width:100%;max-width:1280px;
+  padding:1rem 60px;
+  display:flex;align-items:center;
+  transition:padding .4s ease;
+}
+#header.scrolled .header-inner{padding:.5rem 60px}
 .logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;margin-right:2rem}
-.logo img{
-  display:block;width:130px;height:auto;
-  background:#fff;
-  padding:10px 14px;
-  border-radius:4px;
-  box-shadow:0 10px 44px rgba(0,0,0,.5),0 2px 10px rgba(0,0,0,.3);
-  transition:width .4s cubic-bezier(.4,0,.2,1),
-             padding .4s cubic-bezier(.4,0,.2,1),
-             box-shadow .4s ease,
-             border-radius .4s ease;
+.logo .tc-logo{
+  display:block;height:68px;width:auto;color:var(--tc-paper);
+  transition:height .4s cubic-bezier(.4,0,.2,1);
 }
-#header.scrolled .logo img{
-  width:38px;
-  padding:2px 3px;
-  box-shadow:none;
-  border-radius:2px;
-}
-
-/* nav */
+#header.scrolled .logo .tc-logo{height:48px}
 .nav-wrap{display:flex;align-items:center;flex:1;justify-content:space-between}
 nav{display:flex;align-items:center;gap:0}
-
-nav a, .nav-dropdown > button {
-  font-family:'Roboto',sans-serif;
-  font-weight:700;font-size:1.05rem;
-  letter-spacing:.06em;text-transform:uppercase;
-  color:rgba(255,255,255,.88);text-decoration:none;
-  padding:.5rem 1rem;
-  background:none;border:none;cursor:pointer;
-  position:relative;white-space:nowrap;
-  transition:color .2s ease;
-  display:flex;align-items:center;gap:4px;
+nav a,.nav-dropdown>button{
+  font-family:var(--font-mono);font-weight:500;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.75);text-decoration:none;padding:.5rem 1rem;
+  background:none;border:none;cursor:pointer;position:relative;white-space:nowrap;
+  transition:color .2s ease;display:flex;align-items:center;gap:4px;
 }
 nav a::after,.nav-dropdown>button::after{
   content:'';position:absolute;bottom:0;left:50%;right:50%;
-  height:2px;background:var(--amber);
+  height:1px;background:var(--tc-green);
   transition:left .25s ease,right .25s ease;
 }
-nav a:hover,nav a.active,.nav-dropdown>button:hover{color:var(--white)}
+nav a:hover,nav a.active,.nav-dropdown>button:hover{color:#fff}
 nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1rem;right:1rem}
-
-/* When scrolled — dark links on white background */
-#header.scrolled nav a,
-#header.scrolled .nav-dropdown > button{color:var(--grey1)}
-#header.scrolled nav a:hover,
-#header.scrolled nav a.active,
-#header.scrolled .nav-dropdown > button:hover{color:var(--black)}
-
 .nav-dropdown{position:relative}
-.nav-dropdown>button .chevron{
-  width:10px;height:10px;
-  transition:transform .25s ease;
-  display:inline-block;margin-left:2px;
-}
+.nav-dropdown>button .chevron{width:10px;height:10px;transition:transform .25s ease;display:inline-block;margin-left:2px}
 .nav-dropdown:hover>button .chevron{transform:rotate(180deg)}
-
 .dropdown-menu{
-  position:absolute;top:calc(100% + 4px);left:0;
-  min-width:220px;
-  background:rgba(255,255,255,.98);
-  border:1px solid var(--border);
-  border-top:2px solid var(--amber);
-  padding:.5rem 0;
-  opacity:0;pointer-events:none;
-  transform:translateY(-6px);
-  transition:opacity .2s ease,transform .2s ease;
-  backdrop-filter:blur(12px);
-  box-shadow:0 8px 24px rgba(0,0,0,.1);
+  position:absolute;top:calc(100% + 4px);left:0;min-width:220px;
+  background:rgba(20,20,20,0.97);border:0.5px solid rgba(250,250,247,0.12);border-top:1px solid var(--tc-green);
+  padding:.5rem 0;opacity:0;pointer-events:none;transform:translateY(-6px);
+  transition:opacity .2s ease,transform .2s ease;backdrop-filter:blur(16px);box-shadow:0 12px 32px rgba(0,0,0,.35);
 }
 .nav-dropdown:hover .dropdown-menu{opacity:1;pointer-events:all;transform:translateY(0)}
 .dropdown-menu a{
-  display:block;padding:.6rem 1.2rem;
-  font-family:'Roboto',sans-serif;
-  font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;
-  color:var(--grey1);text-decoration:none;
-  border-bottom:1px solid rgba(0,0,0,.05);
-  transition:color .15s ease,padding-left .15s ease,background .15s ease;
+  display:block;padding:.6rem 1.2rem;font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+  color:rgba(250,250,247,.55);text-decoration:none;border-bottom:0.5px solid rgba(250,250,247,.08);
+  transition:color .15s ease,padding-left .15s ease;
 }
 .dropdown-menu a:last-child{border-bottom:none}
-.dropdown-menu a::before{content:'—';color:var(--amber);margin-right:.5rem;opacity:0;transition:opacity .15s ease}
-.dropdown-menu a:hover{color:var(--black);padding-left:1.6rem;background:rgba(0,137,207,.05)}
+.dropdown-menu a::before{content:'—';color:var(--tc-green);margin-right:.5rem;opacity:0;transition:opacity .15s ease}
+.dropdown-menu a:hover{color:rgba(250,250,247,.9);padding-left:1.6rem}
 .dropdown-menu a:hover::before{opacity:1}
-
-/* header right — icon buttons */
-.header-right{display:flex;align-items:center;gap:.25rem}
-
-.hdr-icon-btn{
-  position:relative;
-  width:38px;height:38px;
-  background:none;border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  color:rgba(255,255,255,.88);
-  border-radius:50%;
-  transition:color .2s,background .2s;
-}
-.hdr-icon-btn:hover{color:var(--white);background:rgba(255,255,255,.12)}
-.hdr-icon-btn svg{width:20px;height:20px;flex-shrink:0}
-#header.scrolled .hdr-icon-btn{color:var(--grey1)}
-#header.scrolled .hdr-icon-btn:hover{color:var(--black);background:rgba(0,0,0,.05)}
-
-/* language dropdown */
-.lang-drop{position:relative}
-.lang-text-btn{
-  background:none;border:none;cursor:pointer;
-  font-family:'Roboto',sans-serif;
-  font-size:1.05rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--white);
-  display:flex;align-items:center;gap:3px;
-  padding:.4rem .5rem;
-  transition:color .2s ease;
-}
-#header.scrolled .lang-text-btn{color:var(--grey1)}
-#header.scrolled .lang-text-btn:hover{color:var(--black)}
-.lang-text-btn:hover{color:var(--white)}
-.lang-text-btn .chevron{width:10px;height:10px;transition:transform .25s ease;margin-left:1px}
-.lang-drop.open .lang-text-btn .chevron{transform:rotate(180deg)}
-.lang-menu{
-  position:absolute;top:calc(100% + 4px);right:0;
-  min-width:60px;
-  background:rgba(255,255,255,.99);
-  border:1px solid var(--border);
-  border-top:2px solid var(--amber);
-  padding:.3rem 0;
-  border-radius:0 0 3px 3px;
-  box-shadow:0 8px 24px rgba(0,0,0,.12);
-  opacity:0;pointer-events:none;
-  transform:translateY(-6px);
-  transition:opacity .2s ease,transform .2s ease;
-  z-index:300;
-}
-.lang-drop.open .lang-menu{opacity:1;pointer-events:all;transform:translateY(0)}
-.lang-menu button{
-  display:block;width:100%;padding:.45rem .8rem;
-  background:none;border:none;cursor:pointer;
-  font-family:'Roboto',sans-serif;
-  font-size:.82rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
-  color:var(--grey1);text-align:center;
-  transition:color .15s,background .15s;
-}
-.lang-menu button:hover{color:var(--black);background:rgba(0,137,207,.05)}
-.lang-menu button.active{color:var(--amber)}
-
-/* google map embed */
-.office-map{padding:0;overflow:hidden;border:1px solid var(--border);border-radius:2px}
-.gmap-frame{width:100%;height:260px;border:none;display:block}
-.gmap-link{
-  display:flex;align-items:center;gap:.5rem;
-  padding:.75rem 1rem;
-  font-family:'Roboto',sans-serif;
-  font-size:.8rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--grey1);text-decoration:none;
-  border-top:1px solid var(--border);
-  transition:color .2s,background .2s;
-}
-.gmap-link:hover{color:var(--amber);background:rgba(0,137,207,.04)}
-.gmap-link svg{flex-shrink:0}
-
-.hamburger{
-  display:none;flex-direction:column;gap:5px;
-  background:none;border:none;cursor:pointer;padding:4px;
-  margin-left:auto;
-}
-.hamburger span{display:block;width:22px;height:2px;background:var(--white);transition:transform .3s,opacity .3s}
-#header.scrolled .hamburger span{background:var(--black)}
-
-/* mobile nav */
+.header-right{display:flex;align-items:center}
+.lang-inline{display:flex;align-items:center;gap:4px}
+.lang-btn{background:none;border:none;cursor:pointer;font-family:var(--font-mono);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(250,250,247,.4);padding:0;transition:color .2s}
+.lang-btn.active,.lang-btn:hover{color:var(--tc-paper)}
+.lang-sep{font-family:var(--font-mono);font-size:13px;color:rgba(250,250,247,.2);user-select:none}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;margin-left:auto}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;transition:transform .3s,opacity .3s}
 @media(max-width:960px){
+  .header-inner{padding:1rem 2.5rem}
+  #header.scrolled .header-inner{padding:.5rem 2.5rem}
   .hamburger{display:flex}
-  .nav-wrap{
-    display:none;position:absolute;top:100%;left:0;right:0;
-    background:rgba(255,255,255,.99);border-bottom:1px solid var(--border);
-    flex-direction:column;align-items:flex-start;
-    padding:1rem 1.5rem 1.5rem;gap:.5rem;
-    box-shadow:0 8px 24px rgba(0,0,0,.08);
-  }
+  .nav-wrap{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(20,20,20,0.98);border-bottom:0.5px solid rgba(250,250,247,0.12);flex-direction:column;align-items:flex-start;padding:1rem 1.5rem 1.5rem;gap:.5rem;box-shadow:0 8px 24px rgba(0,0,0,.4)}
   .nav-wrap.open{display:flex}
-  /* Always dark text in the mobile drawer regardless of scroll state */
-  .nav-wrap nav a,
-  .nav-wrap .nav-dropdown > button{color:var(--grey1)!important}
-  .nav-wrap nav a:hover,
-  .nav-wrap .nav-dropdown > button:hover{color:var(--black)!important}
-  .hdr-icon-btn{color:var(--grey1)!important}
-  .hdr-icon-btn:hover{color:var(--black)!important}
   nav{flex-direction:column;align-items:flex-start;width:100%}
-  nav a,.nav-dropdown>button{padding:.65rem 0;width:100%;border-bottom:1px solid rgba(0,0,0,.05)}
+  nav a,.nav-dropdown>button{padding:.65rem 0;width:100%;border-bottom:0.5px solid rgba(250,250,247,.08)}
   nav a::after,.nav-dropdown>button::after{display:none}
-  .dropdown-menu{position:static;opacity:1;pointer-events:all;transform:none;border:none;border-left:2px solid var(--amber);padding:0 0 0 1rem;margin:.25rem 0 .5rem;backdrop-filter:none;background:none;min-width:0;box-shadow:none}
-  .dropdown-menu a{padding:.5rem 0;border:none}
+  .dropdown-menu{position:static;opacity:1;pointer-events:all;transform:none;border:none;border-left:1px solid var(--tc-green);padding:0 0 0 1rem;margin:.25rem 0 .5rem;backdrop-filter:none;background:none;min-width:0;box-shadow:none}
+  .dropdown-menu a{padding:.5rem 0;border:none;color:rgba(250,250,247,.5)}
   .header-right{padding:.5rem 0;width:100%}
 }
 
-/* ─── HERO ─────────────────────────────── */
+/* ── HERO ── */
 #hero{
   height:100vh;min-height:620px;
   position:relative;display:flex;align-items:flex-end;
-  padding:0 2.5rem calc(4rem + var(--header-h)/2);
-  overflow:hidden;margin-top:0;
+  padding:0 60px 80px;
+  overflow:hidden;
+  background:var(--tc-line);color:var(--tc-paper);
 }
-.hero-bg{
-  position:absolute;inset:0;overflow:hidden;
-}
-.hero-bg video{
-  width:100%;height:100%;object-fit:cover;object-position:center 40%;
-  display:block;
-}
-@keyframes heroKen{from{transform:scale(1.06) translateX(0px)}to{transform:scale(1.0) translateX(-10px)}}
-.hero-grad{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.48) 45%,rgba(0,0,0,.08) 100%);
-}
-.hero-grad2{
-  position:absolute;inset:0;
-  background:linear-gradient(100deg,rgba(0,137,207,.08) 0%,transparent 55%);
-}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hero-bg video{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.48) 45%,rgba(0,0,0,.08) 100%)}
+.hero-grad2{position:absolute;inset:0;background:linear-gradient(100deg,rgba(26,26,26,.35) 0%,transparent 55%)}
 .hero-grid-overlay{
   position:absolute;inset:0;
-  background-image:
-    repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0px,rgba(255,255,255,.03) 1px,transparent 1px,transparent 44px),
-    repeating-linear-gradient(-45deg,rgba(255,255,255,.03) 0px,rgba(255,255,255,.03) 1px,transparent 1px,transparent 44px);
-  pointer-events:none;
+  background-image:linear-gradient(rgba(250,250,247,.04) 0.5px,transparent 0.5px),linear-gradient(90deg,rgba(250,250,247,.04) 0.5px,transparent 0.5px);
+  background-size:64px 64px;pointer-events:none;
+  mask-image:linear-gradient(180deg,black,transparent 70%);
+  -webkit-mask-image:linear-gradient(180deg,black,transparent 70%);
 }
-
-.hero-content{position:relative;z-index:1;max-width:780px}
+.hero-doc{
+  position:absolute;top:24px;right:60px;
+  font-family:var(--font-mono);font-size:10px;color:rgba(250,250,247,.4);letter-spacing:.15em;
+  z-index:1;
+}
+.hero-inner{max-width:1280px;margin:0 auto;position:relative;z-index:1;width:100%}
 .hero-tag{
-  display:inline-flex;align-items:center;gap:.6rem;
-  font-family:'Roboto',sans-serif;
-  font-size:.85rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--amber);margin-bottom:1.2rem;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(250,250,247,.85);margin-bottom:32px;display:inline-flex;align-items:center;gap:12px;
   opacity:0;animation:fadeUp .6s .4s ease forwards;
 }
-.hero-tag::before{content:'';width:24px;height:1px;background:var(--amber)}
+.hero-tag::before{content:'';width:32px;height:1px;background:var(--tc-gradient-h)}
 .hero-h1{
-  font-family:'Roboto',sans-serif;
-  font-size:clamp(1.8rem,3.6vw,3.8rem);
-  font-weight:900;line-height:1.18;letter-spacing:-.02em;
-  text-transform:uppercase;color:var(--white);
-  margin-bottom:1.8rem;
+  font-family:var(--font-display);font-size:clamp(48px,8vw,110px);font-weight:900;
+  letter-spacing:-0.04em;line-height:1.12;color:var(--tc-paper);
+  margin-bottom:32px;
   opacity:0;animation:fadeUp .7s .6s ease forwards;
 }
-.hero-h1 em{font-style:normal;color:var(--amber)}
-.hero-cycle-wrap{display:inline-block;vertical-align:bottom}
-.hero-cycle{
-  display:inline-flex;gap:0;
-  font-size:clamp(2.2rem,4.4vw,4.6rem);
-  font-weight:900;letter-spacing:.02em;
-  color:var(--green);
-  transition:opacity .4s ease, transform .4s ease;
+.hero-h1 em{
+  font-family:var(--font-editorial);font-style:italic;font-weight:400;
+  background:var(--tc-gradient-h);-webkit-background-clip:text;background-clip:text;color:transparent;
+  letter-spacing:-0.02em;
 }
+.hero-cycle-wrap{display:inline-block;vertical-align:bottom}
+.hero-cycle{display:inline-flex;gap:0;font-size:inherit;font-weight:900;letter-spacing:.02em;color:var(--tc-green);transition:opacity .4s ease,transform .4s ease}
 .hero-cycle.exit{opacity:0;transform:translateY(-20px)}
-/* shutter char */
 .sc{position:relative;display:inline-block;overflow:hidden}
 .sc-main{display:inline-block;opacity:0;animation:scBlurIn .75s ease forwards}
-.sc-t,.sc-m,.sc-b{
-  position:absolute;inset:0;display:inline-block;
-  font-size:inherit;font-weight:inherit;letter-spacing:inherit;
-  white-space:nowrap;opacity:0;pointer-events:none;
-}
-.sc-t{color:var(--amber);clip-path:polygon(0 0,100% 0,100% 35%,0 35%);
-  animation:scSlideL .65s ease forwards}
-.sc-m{color:rgba(255,255,255,.55);clip-path:polygon(0 35%,100% 35%,100% 65%,0 65%);
-  animation:scSlideR .65s ease forwards}
-.sc-b{color:var(--amber);clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%);
-  animation:scSlideL .65s ease forwards}
+.sc-t,.sc-m,.sc-b{position:absolute;inset:0;display:inline-block;font-size:inherit;font-weight:inherit;letter-spacing:inherit;white-space:nowrap;opacity:0;pointer-events:none}
+.sc-t{color:var(--tc-green);clip-path:polygon(0 0,100% 0,100% 35%,0 35%);animation:scSlideL .65s ease forwards}
+.sc-m{color:rgba(255,255,255,.55);clip-path:polygon(0 35%,100% 35%,100% 65%,0 65%);animation:scSlideR .65s ease forwards}
+.sc-b{color:var(--tc-blue);clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%);animation:scSlideL .65s ease forwards}
 @keyframes scBlurIn{from{opacity:0;filter:blur(9px)}to{opacity:1;filter:blur(0)}}
-@keyframes scSlideL{
-  0%{transform:translateX(-110%);opacity:0}
-  25%{opacity:1}75%{opacity:1}
-  100%{transform:translateX(110%);opacity:0}
-}
-@keyframes scSlideR{
-  0%{transform:translateX(110%);opacity:0}
-  25%{opacity:1}75%{opacity:1}
-  100%{transform:translateX(-110%);opacity:0}
-}
-.hero-p{
-  font-size:1.05rem;font-weight:300;line-height:1.8;
-  color:var(--white);max-width:500px;margin-bottom:2.2rem;
+@keyframes scSlideL{0%{transform:translateX(-110%);opacity:0}25%{opacity:1}75%{opacity:1}100%{transform:translateX(110%);opacity:0}}
+@keyframes scSlideR{0%{transform:translateX(110%);opacity:0}25%{opacity:1}75%{opacity:1}100%{transform:translateX(-110%);opacity:0}}
+.hero-sub{
+  font-size:17px;color:rgba(250,250,247,.72);line-height:1.6;max-width:580px;margin-bottom:40px;
   opacity:0;animation:fadeUp .6s .8s ease forwards;
 }
-.hero-btns{
-  display:flex;gap:1rem;align-items:center;
-  opacity:0;animation:fadeUp .6s 1s ease forwards;
+.hero-cta{display:flex;gap:16px;margin-bottom:64px;opacity:0;animation:fadeUp .6s 1s ease forwards}
+.btn{
+  font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  padding:14px 22px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  text-decoration:none;transition:all .25s ease;
+  background:var(--tc-paper);color:var(--tc-line);position:relative;overflow:hidden;
 }
-.btn-a{
-  font-family:'Roboto',sans-serif;font-weight:700;
-  font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;
-  text-decoration:none;padding:.85rem 2rem;
-  background:var(--amber);color:var(--white);border-radius:2px;
-  box-shadow:0 0 10px rgba(0,137,207,.45),0 0 22px rgba(0,137,207,.22);
-  animation:glowPulse 2.8s ease-in-out infinite;
-  transition:background .2s,transform .15s,box-shadow .2s;
+.btn::before{content:'';position:absolute;inset:0;background:var(--tc-gradient-h);opacity:0;transition:opacity .25s}
+.btn span,.btn .arr{position:relative;z-index:1}
+.btn:hover::before{opacity:1}
+.arr{width:8px;height:8px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;transform:rotate(45deg)}
+.btn-ghost{background:transparent!important;color:var(--tc-paper)!important;border:1px solid rgba(250,250,247,.5)}
+.btn-ghost::before{background:var(--tc-paper)!important}
+.btn-ghost:hover{color:var(--tc-line)!important}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border-top:1px solid rgba(250,250,247,.18);padding-top:32px;
+  opacity:0;animation:fadeUp .6s 1.2s ease forwards;
 }
-@keyframes glowPulse{
-  0%,100%{box-shadow:0 0 10px rgba(0,137,207,.45),0 0 22px rgba(0,137,207,.22)}
-  50%{box-shadow:0 0 20px rgba(0,137,207,.75),0 0 44px rgba(0,137,207,.38)}
-}
-.btn-a:hover{background:var(--amber2);transform:translateY(-1px);box-shadow:0 0 26px rgba(0,137,207,.9),0 0 52px rgba(0,137,207,.45);animation:none}
-.btn-a:active{transform:translateY(0)}
-.btn-b{
-  font-family:'Roboto',sans-serif;font-weight:500;
-  font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;
-  text-decoration:none;padding:.85rem 2rem;
-  background:transparent;color:var(--white);
-  border:1px solid rgba(255,255,255,.4);border-radius:2px;
-  transition:border-color .2s,color .2s;
-}
-.btn-b:hover{border-color:var(--white);color:var(--white)}
-
+.hero-stat{padding-right:24px;border-right:0.5px solid rgba(250,250,247,.12)}
+.hero-stat:last-child{border-right:none}
+.hero-stat .n{font-family:var(--font-display);font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;line-height:1;color:var(--tc-paper)}
+.hero-stat .l{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(250,250,247,.55);margin-top:10px}
 .hero-scroll-hint{
-  position:absolute;right:2.5rem;bottom:2.5rem;z-index:1;
+  position:absolute;right:60px;bottom:2.5rem;z-index:1;
   display:flex;flex-direction:column;align-items:center;gap:.5rem;
   opacity:0;animation:fadeIn 1s 1.6s ease forwards;
 }
-.hero-scroll-hint span{
-  font-family:'Roboto',sans-serif;font-size:.7rem;
-  letter-spacing:.12em;text-transform:uppercase;color:var(--grey1);
-  writing-mode:vertical-lr;transform:rotate(180deg);
-}
-.scroll-bar{width:1px;height:44px;background:linear-gradient(var(--amber),transparent);animation:scrollPulse 2s 2s infinite}
+.hero-scroll-hint span{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,250,247,.5);writing-mode:vertical-lr;transform:rotate(180deg)}
+.scroll-bar{width:1px;height:44px;background:linear-gradient(var(--tc-green),transparent);animation:scrollPulse 2s 2s infinite}
 @keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
-
-/* ─── STATS ─────────────────────────────── */
-.stats{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  background:rgba(0,137,207,.06);
-  border-top:1px solid rgba(0,137,207,.2);
-  border-bottom:1px solid rgba(0,137,207,.1);
-}
-.stat{
-  padding:1.8rem 1rem;text-align:center;
-  border-right:1px solid rgba(0,0,0,0.09);
-}
-.stat:last-child{border-right:none}
-.stat-n{
-  font-family:'Roboto',sans-serif;
-  font-size:2.4rem;font-weight:700;color:var(--amber);line-height:1;
-  margin-bottom:.3rem;
-}
-.stat-l{font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--grey1);font-weight:400}
-
-/* ─── SECTION COMMONS ─────────────────────────────── */
-.section{padding:5.5rem 2.5rem}
-.sec-tag{
-  font-family:'Roboto',sans-serif;
-  font-size:.85rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--amber);margin-bottom:.9rem;
-  display:flex;align-items:center;gap:.7rem;
-}
-.sec-tag::before{content:'';width:24px;height:1px;background:var(--amber);flex-shrink:0}
-.sec-h2{
-  font-family:'Roboto',sans-serif;
-  font-size:clamp(2rem,3.5vw,3rem);font-weight:700;
-  text-transform:uppercase;letter-spacing:-.01em;line-height:1.05;
-  color:var(--black);margin-bottom:1.2rem;
-}
-.sec-p{font-size:1rem;font-weight:400;line-height:1.8;color:var(--grey2);max-width:580px}
-
-/* ─── SERVICES ─────────────────────────────── */
-#services{background:var(--surface)}
-.services-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-bottom:3.5rem}
-@media(max-width:860px){.services-intro{grid-template-columns:1fr;gap:2rem}}
-
-.service-blocks{
-  display:grid;grid-template-columns:1fr 1fr;gap:1px;
-  background:rgba(0,0,0,.06);
-  border:1px solid rgba(0,0,0,.06);
-}
-.svc{
-  background:var(--white);padding:2.2rem 2rem;
-  position:relative;overflow:hidden;
-  transition:background .3s;
-}
-.svc::before{
-  content:'';position:absolute;
-  top:0;left:0;width:0;height:2px;
-  background:var(--amber);
-  transition:width .35s ease;
-}
-.svc:hover{background:#F0F8FD}
-.svc:hover::before{width:100%}
-.svc-num{
-  font-family:'Roboto',sans-serif;
-  font-size:3.5rem;font-weight:800;
-  color:rgba(0,0,0,.05);
-  position:absolute;top:.5rem;right:1rem;
-  line-height:1;pointer-events:none;
-}
-.svc-title{
-  font-family:'Roboto',sans-serif;
-  font-size:1.1rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.04em;
-  color:var(--black);margin-bottom:.9rem;
-  padding-top:.5rem;
-}
-.svc-list{list-style:none}
-.svc-list li{
-  font-size:.9rem;font-weight:400;color:var(--grey2);
-  padding:.25rem 0 .25rem .9rem;position:relative;line-height:1.6;
-}
-.svc-list li::before{content:'›';position:absolute;left:0;color:var(--amber)}
-.svc-anchor{display:block;height:0;visibility:hidden}
-@media(max-width:680px){.service-blocks{grid-template-columns:1fr}}
-
-/* ─── CERTIFICATIONS ─────────────────────────────── */
-#certificates{background:#FFFFFF}
-.cert-layout{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:3rem}
-@media(max-width:960px){.cert-layout{grid-template-columns:1fr;gap:1rem}}
-
-.cert-iso{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:2px;padding:2rem 1.8rem;
-  display:flex;align-items:flex-start;gap:1.2rem;
-  transition:border-color .3s;
-}
-.cert-iso:hover{border-color:rgba(0,137,207,.35)}
-.cert-ring{
-  width:52px;height:52px;flex-shrink:0;
-  border-radius:50%;background:var(--amber-dim);
-  border:1px solid rgba(0,137,207,.25);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--amber);
-}
-.cert-ring svg{width:22px;height:22px}
-.cert-code{
-  font-family:'Roboto',sans-serif;
-  font-size:1.05rem;font-weight:700;color:var(--black);
-  margin-bottom:.25rem;letter-spacing:.04em;
-}
-.cert-desc{font-size:.88rem;color:var(--grey2);font-weight:400;line-height:1.55}
-
-.tracking-card{
-  grid-column:1/-1;
-  background:var(--surface);border:1px solid rgba(0,137,207,.2);
-  border-radius:2px;padding:2.5rem;
-  display:grid;grid-template-columns:1fr 1fr;gap:3rem;
-}
-@media(max-width:860px){.tracking-card{grid-template-columns:1fr;gap:2rem}}
-.tracking-h{
-  font-family:'Roboto',sans-serif;
-  font-size:1.4rem;font-weight:700;text-transform:uppercase;
-  letter-spacing:.04em;color:var(--black);margin-bottom:.3rem;
-}
-.tracking-sub{
-  font-family:'Roboto',sans-serif;
-  font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--amber);margin-bottom:1rem;
-}
-.tracking-p{font-size:.94rem;font-weight:400;line-height:1.75;color:var(--grey2);margin-bottom:1.5rem}
-.flow{display:flex;flex-direction:column;gap:0;position:relative}
-.flow::before{content:'';position:absolute;left:19px;top:20px;bottom:20px;width:1px;background:rgba(0,137,207,.2)}
-.flow-s{display:flex;align-items:center;gap:.9rem;padding:.5rem 0}
-.flow-dot{
-  width:38px;height:38px;flex-shrink:0;
-  border-radius:50%;background:var(--white);border:1px solid rgba(0,137,207,.3);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Roboto',sans-serif;font-size:.7rem;font-weight:700;
-  color:var(--amber);letter-spacing:.04em;position:relative;z-index:1;
-}
-.flow-label{font-size:.9rem;font-weight:400;color:var(--grey2)}
-.tracking-big{
-  display:flex;align-items:baseline;gap:.5rem;
-  padding-top:1.5rem;border-top:1px solid var(--border);
-}
-.tracking-big .n{
-  font-family:'Roboto',sans-serif;
-  font-size:3rem;font-weight:700;color:var(--amber);
-}
-.tracking-big .l{font-size:.88rem;color:var(--grey2);font-weight:400;line-height:1.5}
-
-.cert-strengths{
-  grid-column:1/-1;
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
-}
-@media(max-width:680px){.cert-strengths{grid-template-columns:1fr}}
-.strength{
-  background:var(--white);border:1px solid var(--border);
-  border-top:2px solid rgba(0,137,207,.25);
-  border-radius:2px;padding:1.4rem;
-  transition:border-top-color .3s;
-}
-.strength:hover{border-top-color:var(--amber)}
-.strength-h{
-  font-family:'Roboto',sans-serif;
-  font-size:.88rem;font-weight:700;text-transform:uppercase;
-  letter-spacing:.06em;color:var(--black);margin-bottom:.4rem;
-}
-.strength-p{font-size:.88rem;color:var(--grey2);font-weight:400;line-height:1.6}
-
-/* ─── PARTNERS MARQUEE ─────────────────────────────── */
-.partners-wrap{
-  margin-top:3rem;padding-top:2.5rem;
-  border-top:1px solid var(--border);
-}
-.partners-lbl{
-  font-family:'Roboto',sans-serif;
-  font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--grey1);white-space:nowrap;
-  display:block;text-align:center;margin-bottom:2rem;
-}
-.partners-marquee-outer{
-  position:relative;overflow:hidden;
-}
-.partners-marquee-outer::before,
-.partners-marquee-outer::after{
-  content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;
-}
-.partners-marquee-outer::before{left:0;background:linear-gradient(to right,#ffffff,transparent)}
-.partners-marquee-outer::after{right:0;background:linear-gradient(to left,#ffffff,transparent)}
-.partners-marquee-track{
-  display:flex;align-items:center;
-  width:max-content;
-  animation:marquee 22s linear infinite;
-}
-.partners-marquee-track:hover{animation-play-state:paused}
-@keyframes marquee{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-50%)}
-}
-.partner-item{
-  display:flex;align-items:center;gap:.75rem;
-  padding:0 3rem;
-  white-space:nowrap;
-}
-.partner-dot{
-  width:5px;height:5px;border-radius:50%;
-  background:var(--amber);flex-shrink:0;opacity:.6;
-}
-.partner-name{
-  font-family:'Roboto',sans-serif;
-  font-size:1.1rem;font-weight:700;letter-spacing:.05em;
-  text-transform:uppercase;color:var(--grey1);
-  transition:color .2s;
-}
-.partner-item:hover .partner-name{color:var(--amber)}
-.partner-logo{height:28px;width:auto;max-width:96px;object-fit:contain;opacity:.55;filter:grayscale(1);transition:opacity .25s,filter .25s}
-.partner-item:hover .partner-logo{opacity:1;filter:grayscale(0)}
-.partner:hover{color:var(--black)}
-
-/* ─── PROJECTS ─────────────────────────────── */
-#projects{background:var(--surface)}
-.projects-filters{
-  display:flex;gap:0;margin-top:2rem;margin-bottom:2.5rem;
-  border:1px solid var(--border);border-radius:2px;
-  width:fit-content;overflow:hidden;
-}
-.filter-btn{
-  font-family:'Roboto',sans-serif;
-  font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
-  padding:.55rem 1.2rem;
-  background:none;border:none;border-right:1px solid var(--border);
-  color:var(--grey1);cursor:pointer;
-  transition:background .2s,color .2s;
-}
-.filter-btn:last-child{border-right:none}
-.filter-btn.active,.filter-btn:hover{background:var(--amber);color:var(--white)}
-
-/* ── GALLERY4-STYLE PROJECT CARD CAROUSEL ─────────────────── */
-.proj-badge{
-  font-family:'Roboto',sans-serif;
-  font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
-  padding:.25rem .6rem;border-radius:2px;
-  display:inline-block;
-}
-.badge-ongoing{background:rgba(0,137,207,.18);color:#fff;border:1px solid rgba(0,137,207,.4)}
-.badge-completed{background:rgba(48,182,131,.2);color:#fff;border:1px solid rgba(48,182,131,.35)}
-
-.proj-gallery-header{
-  display:flex;align-items:flex-end;justify-content:space-between;
-  margin-bottom:2rem;gap:2rem;flex-wrap:wrap;
-}
-.proj-gallery-meta{display:flex;flex-direction:column;gap:.75rem}
-.proj-gallery-desc{
-  max-width:520px;font-size:.95rem;line-height:1.7;color:var(--grey1);
-}
-.proj-gallery-nav{display:flex;gap:.5rem;flex-shrink:0}
-.pgn-btn{
-  width:40px;height:40px;border-radius:50%;
-  border:1px solid var(--border);background:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--black);
-  transition:background .2s,border-color .2s,color .2s,opacity .2s;
-}
-.pgn-btn:hover{background:var(--black);border-color:var(--black);color:var(--white)}
-.pgn-btn:disabled{opacity:.3;cursor:default;pointer-events:none}
-.pgn-btn svg{width:18px;height:18px}
-
-/* viewport + track */
-.proj-gallery-outer{
-  overflow:hidden;
-  margin-left:calc(-2.5rem);
-  margin-right:calc(-2.5rem);
-  padding-left:2.5rem;
-}
-@media(max-width:680px){
-  .proj-gallery-outer{margin-left:-1.5rem;margin-right:-1.5rem;padding-left:1.5rem}
-}
-.proj-gallery-track{
-  display:flex;
-  gap:20px;
-  transition:transform .5s cubic-bezier(.25,.8,.25,1);
-  will-change:transform;
-  cursor:grab;
-  user-select:none;
-  -webkit-user-select:none;
-}
-.proj-gallery-track.dragging{
-  transition:none;
-  cursor:grabbing;
-}
-
-/* card */
-.proj-card-g{
-  flex-shrink:0;
-  width:420px;
-  border-radius:12px;
-  overflow:hidden;
-  position:relative;
-  min-height:520px;
-  cursor:pointer;
-}
-@media(max-width:680px){.proj-card-g{width:300px;min-height:420px}}
-
-.proj-card-g img{
-  position:absolute;inset:0;
-  width:100%;height:100%;object-fit:cover;object-position:center;
-  transition:transform .5s cubic-bezier(.25,.8,.25,1);
-}
-.proj-card-g:hover img{transform:scale(1.06)}
-
-.proj-card-g-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(
-    to bottom,
-    rgba(0,0,0,0) 0%,
-    rgba(0,0,0,.15) 35%,
-    rgba(0,0,0,.82) 100%
-  );
-}
-
-.proj-card-g-body{
-  position:absolute;inset-x:0;bottom:0;
-  padding:1.8rem 2rem 2rem;
-  color:#fff;
-  display:flex;flex-direction:column;align-items:flex-start;
-}
-.proj-card-g-body .proj-badge{margin-bottom:1rem}
-.proj-card-g-title{
-  font-family:'Roboto',sans-serif;
-  font-size:1.6rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.02em;line-height:1.1;
-  color:#fff;
-  margin-bottom:.4rem;
-}
-.proj-card-g-client{
-  font-family:'Roboto',sans-serif;
-  font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--amber);
-  margin-bottom:.9rem;
-}
-.proj-card-g-desc{
-  font-size:.87rem;line-height:1.65;
-  color:rgba(255,255,255,.82);
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
-  margin-bottom:1.4rem;
-}
-.proj-card-g-cta{
-  display:flex;align-items:center;gap:.5rem;
-  font-family:'Roboto',sans-serif;
-  font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
-  color:rgba(255,255,255,.9);
-  margin-top:auto;
-}
-.proj-card-g-cta svg{
-  width:18px;height:18px;
-  transition:transform .3s cubic-bezier(.16,1,.3,1);
-}
-.proj-card-g:hover .proj-card-g-cta svg{transform:translateX(5px)}
-
-/* dot nav */
-.proj-gallery-dots{
-  display:flex;justify-content:center;gap:8px;
-  margin-top:2rem;
-}
-.pgdot{
-  width:8px;height:8px;border-radius:50%;border:none;cursor:pointer;padding:0;
-  background:rgba(0,0,0,.15);
-  transition:background .25s,transform .25s;
-}
-.pgdot.active{background:var(--amber);transform:scale(1.25)}
-
-/* Project detail panel */
-.proj-spot-detail{
-  background:var(--white);border:1px solid rgba(0,137,207,.25);
-  border-radius:2px;overflow:hidden;
-  max-height:0;opacity:0;
-  transition:max-height .6s ease,opacity .45s ease;
-}
-.proj-spot-detail.open{max-height:1400px;opacity:1}
-.proj-detail-inner{padding:2.5rem;display:grid;grid-template-columns:3fr 2fr;gap:3rem;align-items:start}
-@media(max-width:760px){.proj-detail-inner{grid-template-columns:1fr}}
-
-/* photo carousel inside detail */
-.proj-carousel{position:relative;border-radius:2px;overflow:hidden}
-.proj-carousel-track{
-  display:flex;transition:transform .45s cubic-bezier(.25,.8,.25,1);
-}
-.proj-carousel-track img{
-  flex-shrink:0;width:100%;height:auto;
-  display:block;
-  filter:saturate(.85);
-}
-.carousel-btn{
-  position:absolute;top:50%;transform:translateY(-50%);
-  width:36px;height:36px;background:rgba(0,0,0,.6);
-  border:1px solid rgba(255,255,255,.2);border-radius:50%;
-  color:var(--white);font-size:1rem;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:background .2s,border-color .2s;
-  z-index:5;
-}
-.carousel-btn:hover{background:var(--amber);border-color:var(--amber);color:var(--white)}
-.carousel-prev{left:.75rem}
-.carousel-next{right:.75rem}
-.carousel-dots{
-  position:absolute;bottom:.6rem;left:50%;transform:translateX(-50%);
-  display:flex;gap:6px;
-}
-.carousel-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:rgba(255,255,255,.3);cursor:pointer;
-  transition:background .2s,transform .2s;
-}
-.carousel-dot.active{background:var(--amber);transform:scale(1.3)}
-
-.proj-detail-text .proj-badge{margin-bottom:.8rem}
-.proj-detail-title{
-  font-family:'Roboto',sans-serif;
-  font-size:1.7rem;font-weight:800;text-transform:uppercase;
-  color:var(--black);letter-spacing:.02em;line-height:1.1;
-  margin-bottom:1.2rem;
-}
-.proj-meta-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:.75rem;
-  margin-bottom:1.5rem;
-  padding:1.2rem;background:rgba(0,0,0,.03);border:1px solid var(--border);border-radius:2px;
-}
-.proj-meta-item label{
-  font-family:'Roboto',sans-serif;
-  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--grey1);
-  display:block;margin-bottom:.2rem;
-}
-.proj-meta-item span{font-size:.9rem;color:var(--black)}
-.proj-desc{font-size:.94rem;font-weight:400;line-height:1.8;color:var(--grey2);margin-bottom:1.2rem}
-.proj-scope-h{
-  font-family:'Roboto',sans-serif;
-  font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--amber);margin-bottom:.6rem;
-}
-.proj-scope{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:.3rem}
-.proj-scope li{
-  font-size:.88rem;color:var(--grey2);font-weight:400;
-  padding-left:.85rem;position:relative;line-height:1.5;
-}
-.proj-scope li::before{content:'›';position:absolute;left:0;color:var(--amber)}
-
-/* ─── ABOUT ─────────────────────────────── */
-#about{background:#FFFFFF}
-.about-layout{display:grid;grid-template-columns:5fr 4fr;gap:5rem;align-items:start}
-@media(max-width:900px){.about-layout{grid-template-columns:1fr;gap:2.5rem}}
-
-.about-text .sec-p{margin-bottom:2rem}
-.about-img-stack{position:relative;height:460px}
-.about-img1{
-  position:absolute;top:0;left:0;width:78%;height:78%;
-  object-fit:cover;border-radius:2px;filter:saturate(.8);
-}
-.about-img2{
-  position:absolute;bottom:0;right:0;width:54%;height:52%;
-  object-fit:cover;border-radius:2px;filter:saturate(.8);
-  border:4px solid var(--white);
-  box-shadow:0 4px 20px rgba(0,0,0,.15);
-}
-.about-accent{
-  position:absolute;top:48%;left:58%;transform:translate(-50%,-50%);
-  width:80px;height:80px;border:1px solid rgba(0,137,207,.2);
-  pointer-events:none;
-}
-
-.about-capabilities{
-  display:grid;grid-template-columns:1fr 1fr;gap:.9rem;
-  margin-top:2.5rem;
-}
-@media(max-width:560px){.about-capabilities{grid-template-columns:1fr}}
-.cap{
-  padding:1.1rem 1.2rem;
-  background:var(--surface);border:1px solid var(--border);
-  border-left:2px solid rgba(0,137,207,.3);
-  border-radius:2px;transition:border-left-color .25s;
-}
-.cap:hover{border-left-color:var(--amber)}
-.cap-h{
-  font-family:'Roboto',sans-serif;
-  font-size:.85rem;font-weight:700;text-transform:uppercase;
-  color:var(--black);margin-bottom:.3rem;letter-spacing:.05em;
-}
-.cap-p{font-size:.88rem;color:var(--grey2);font-weight:400;line-height:1.6}
-
-/* ─── ABOUT — ISO CERTS ────────────────────── */
-.about-certs{
-  margin-top:2.5rem;
-  padding-top:2rem;
-  border-top:1px solid var(--border);
-}
-.about-certs-label{
-  font-family:'Roboto',sans-serif;
-  font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--amber);margin-bottom:.5rem;
-  display:flex;align-items:center;gap:.6rem;
-}
-.about-certs-label::before{content:'';width:20px;height:1px;background:var(--amber)}
-.about-certs-title{
-  font-family:'Roboto',sans-serif;
-  font-size:1.2rem;font-weight:700;letter-spacing:.02em;
-  color:var(--black);margin-bottom:.5rem;text-transform:uppercase;
-}
-.about-certs-desc{
-  font-size:.88rem;color:var(--grey2);line-height:1.65;margin-bottom:1.4rem;
-}
-.iso-boxes{display:flex;gap:.85rem;flex-wrap:wrap}
-.iso-box{
-  flex:1;min-width:130px;
-  padding:1rem 1.1rem;
-  background:var(--white);
-  border:1px solid rgba(0,137,207,.22);
-  border-radius:3px;
-  cursor:pointer;
-  display:flex;flex-direction:column;gap:.3rem;
-  transition:border-color .2s, box-shadow .2s, transform .2s;
-  position:relative;
-  overflow:hidden;
-}
-.iso-box::after{
-  content:'';
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(0,137,207,.07) 0%,rgba(0,137,207,0) 60%);
-  opacity:0;transition:opacity .2s;
-}
-.iso-box:hover{
-  border-color:rgba(0,137,207,.55);
-  box-shadow:0 4px 18px rgba(0,137,207,.12);
-  transform:translateY(-2px);
-}
-.iso-box:hover::after{opacity:1}
-.iso-code{
-  font-family:'Roboto',sans-serif;
-  font-size:1rem;font-weight:700;letter-spacing:.06em;
-  color:var(--blue);text-transform:uppercase;
-}
-.iso-name{font-size:.78rem;color:var(--grey2);line-height:1.45;font-weight:400}
-.iso-view{
-  margin-top:.5rem;
-  font-family:'Roboto',sans-serif;
-  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(0,137,207,.6);display:flex;align-items:center;gap:.3rem;
-}
-.iso-view svg{width:12px;height:12px;transition:transform .2s}
-.iso-box:hover .iso-view svg{transform:translateX(3px)}
-
-/* ─── LIGHTBOX ─────────────────────────────── */
-.lb-overlay{
-  position:fixed;inset:0;z-index:9000;
-  background:rgba(10,14,20,.88);
-  backdrop-filter:blur(6px);
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;
-  transition:opacity .25s ease;
-}
-.lb-overlay.lb-open{opacity:1;pointer-events:all}
-.lb-box{
-  position:relative;
-  max-width:min(860px,92vw);
-  max-height:90vh;
-  background:var(--white);
-  border-radius:4px;
-  overflow:hidden;
-  box-shadow:0 32px 80px rgba(0,0,0,.45);
-  transform:scale(.94);
-  transition:transform .25s cubic-bezier(.16,1,.3,1);
-}
-.lb-overlay.lb-open .lb-box{transform:scale(1)}
-.lb-box img{
-  display:block;
-  max-width:100%;
-  max-height:85vh;
-  object-fit:contain;
-}
-.lb-close{
-  position:absolute;top:.75rem;right:.75rem;
-  width:32px;height:32px;
-  background:rgba(0,0,0,.55);
-  border:none;border-radius:50%;
-  color:#fff;font-size:1.1rem;line-height:1;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:background .15s, transform .15s;
-  z-index:1;
-}
-.lb-close:hover{background:rgba(0,0,0,.8);transform:scale(1.1)}
-
-/* ─── CONTACT ─────────────────────────────── */
-#contact{background:var(--surface);position:relative;overflow:hidden}
-#contact::before{
-  content:'';position:absolute;inset:0;
-  background-image:url('brand_assets/DJI_0012.JPG');
-  background-size:cover;background-position:center;
-  opacity:.08;
-}
-.contact-layout{
-  position:relative;z-index:1;
-  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;
-}
-@media(max-width:860px){.contact-layout{grid-template-columns:1fr;gap:2.5rem}}
-
-.offices{display:flex;flex-direction:column;gap:1.5rem;margin-top:0}
-.office{
-  padding:1.8rem;
-  background:var(--white);border:1px solid var(--border);
-  border-radius:2px;
-  box-shadow:0 2px 12px rgba(0,0,0,.06);
-}
-.office-city{
-  font-family:'Roboto',sans-serif;
-  font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--amber);margin-bottom:1rem;
-  display:flex;align-items:center;gap:.5rem;
-}
-.office-city::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0}
-.contact-row{
-  display:flex;gap:.7rem;align-items:flex-start;
-  margin-bottom:.65rem;font-size:.95rem;font-weight:400;color:var(--grey2);
-}
-.contact-row svg{width:13px;height:13px;color:var(--amber);flex-shrink:0;margin-top:3px}
-.contact-row a{color:inherit;text-decoration:none;transition:color .2s}
-.contact-row a:hover{color:var(--black)}
-
-.contact-form{margin-top:0}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
-@media(max-width:460px){.form-row{grid-template-columns:1fr}}
-.field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
-.field label{
-  font-family:'Roboto',sans-serif;
-  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--grey1);
-}
-.field input,.field textarea,.field select{
-  background:rgba(0,0,0,.03);
-  border:1px solid rgba(0,0,0,.12);
-  border-radius:2px;padding:.7rem 1rem;
-  color:var(--black);font-family:'Roboto',sans-serif;
-  font-size:.94rem;font-weight:400;outline:none;
-  transition:border-color .2s,background .2s;
-  -webkit-appearance:none;appearance:none;
-}
-.field input:focus,.field textarea:focus,.field select:focus{
-  border-color:var(--amber);background:rgba(0,137,207,.04);
-}
-.field textarea{min-height:110px;resize:vertical}
-.field select option{background:var(--white);color:var(--black)}
-
-/* ─── FOOTER ─────────────────────────────── */
-footer{
-  background:var(--black);
-  padding:1.8rem 2.5rem;
-  display:flex;align-items:center;justify-content:space-between;
-  border-top:1px solid rgba(255,255,255,.06);
-  flex-wrap:wrap;gap:1rem;
-}
-.footer-brand{
-  font-family:'Roboto',sans-serif;
-  font-weight:700;font-size:1.1rem;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:rgba(255,255,255,.55);
-}
-.footer-brand span{color:var(--amber)}
-.footer-copy{font-size:.8rem;color:rgba(255,255,255,.35);font-weight:300}
-.footer-links{display:flex;gap:1.2rem;flex-wrap:wrap}
-.footer-links a{
-  font-family:'Roboto',sans-serif;
-  font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;
-  color:rgba(255,255,255,.4);text-decoration:none;
-  transition:color .2s;
-}
-.footer-links a:hover{color:var(--amber)}
-
-/* ─── REVEAL ANIMATION ─────────────────────────────── */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
-.reveal.vis{opacity:1;transform:translateY(0)}
-
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{to{opacity:1}}
 
-/* ─── RESPONSIVE ─────────────────────────────── */
+/* ── SECTION COMMONS ── */
+.section{padding:96px 0;border-bottom:0.5px solid var(--tc-rule);position:relative}
+.container{max-width:1280px;margin:0 auto;padding:0 60px}
+.section-header{display:grid;grid-template-columns:200px 1fr;gap:48px;margin-bottom:64px;align-items:start}
+.section-num{font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);letter-spacing:.18em;text-transform:uppercase;border-top:1px solid var(--ink);padding-top:12px}
+.section-title h2{font-family:var(--font-display);font-size:clamp(40px,5vw,64px);font-weight:800;letter-spacing:-0.03em;line-height:.95;margin-bottom:24px;color:var(--ink)}
+.section-title h2 em{font-family:var(--font-editorial);font-style:italic;font-weight:400;background:var(--tc-gradient-h);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.02em}
+.section-title p{font-size:17px;color:var(--ink-soft);max-width:640px;line-height:1.6}
+.sec-tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+
+/* ── SERVICES ── */
+#services{background:var(--bg)}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:0.5px solid var(--tc-rule-strong)}
+.service-card{padding:36px;background:var(--surface);border-right:0.5px solid var(--tc-rule-strong);border-bottom:0.5px solid var(--tc-rule-strong);position:relative}
+.service-card:nth-child(2n){border-right:none}
+.service-card:nth-last-child(-n+2){border-bottom:none}
+.service-card::before{content:'';position:absolute;top:0;left:0;width:32px;height:2px;background:var(--tc-gradient-h);transition:width .35s ease}
+.service-card:hover::before{width:100%}
+.service-card:hover{background:#FAFAF7}
+.service-card .svc-num-badge{font-family:var(--font-mono);font-size:11px;background:var(--tc-gradient-h);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600;letter-spacing:.18em;margin-bottom:20px}
+.service-card h3{font-family:var(--font-display);font-size:22px;font-weight:700;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px;color:var(--ink)}
+.service-card ul{list-style:none;padding:0}
+.service-card ul li{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);padding:8px 0 8px 18px;border-bottom:0.5px solid var(--tc-rule);position:relative}
+.service-card ul li::before{content:'—';position:absolute;left:0;color:var(--tc-green-deep)}
+.service-card ul li:last-child{border-bottom:none}
+
+/* ── TRACKING ── */
+#tracking{background:var(--surface)}
+.tracking-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:16px}
+.tracking-big-n{font-family:var(--font-display);font-size:clamp(72px,10vw,140px);font-weight:900;letter-spacing:-0.04em;line-height:.9;font-variant-numeric:tabular-nums;color:var(--ink);margin-bottom:16px}
+.tracking-big-l{font-family:var(--font-mono);font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-soft);max-width:360px;line-height:1.6}
+.workflow-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:24px;display:flex;align-items:center;gap:12px}
+.workflow-label::before{content:'';width:32px;height:1px;background:var(--tc-gradient-h)}
+.workflow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.workflow-step{padding:14px 16px;border:0.5px solid var(--tc-rule-strong);background:var(--surface);display:flex;flex-direction:column;gap:4px}
+.workflow-step .code{font-family:var(--font-mono);font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--ink);display:flex;align-items:center;gap:8px}
+.workflow-step .code::before{content:'';width:6px;height:6px;background:var(--tc-green);border-radius:50%;flex-shrink:0}
+.workflow-step .desc{font-family:var(--font-mono);font-size:10px;color:var(--ink-soft);letter-spacing:.05em;text-transform:uppercase}
+
+/* ── PARTNERS (DARK STRIP) ── */
+#partners{background:var(--tc-line);color:var(--tc-paper);padding:40px 0;border-bottom:none}
+.partners-inner{max-width:1280px;margin:0 auto;padding:0 60px;display:grid;grid-template-columns:200px 1fr;gap:48px;align-items:center}
+.partners-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;background:var(--tc-gradient-h);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600}
+.partners-marquee-outer{position:relative;overflow:hidden}
+.partners-marquee-outer::before,.partners-marquee-outer::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.partners-marquee-outer::before{left:0;background:linear-gradient(to right,var(--tc-line),transparent)}
+.partners-marquee-outer::after{right:0;background:linear-gradient(to left,var(--tc-line),transparent)}
+.partners-marquee-track{display:flex;align-items:center;width:max-content;animation:marquee 22s linear infinite}
+.partners-marquee-track:hover{animation-play-state:paused}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.partner-item{display:flex;align-items:center;gap:.75rem;padding:0 2.5rem;white-space:nowrap}
+.partner-dot{width:4px;height:4px;border-radius:50%;background:var(--tc-green);flex-shrink:0;opacity:.7}
+.partner-name{font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(250,250,247,.7);transition:color .2s}
+.partner-item:hover .partner-name{color:var(--tc-paper)}
+.partner-logo{height:24px;width:auto;max-width:96px;object-fit:contain;opacity:.45;filter:grayscale(1) brightness(2);transition:opacity .25s,filter .25s}
+.partner-item:hover .partner-logo{opacity:.9;filter:grayscale(0) brightness(1.2)}
+
+/* ── PROJECTS ── */
+#projects{background:var(--bg)}
+.proj-badge{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .6rem;display:inline-block}
+.badge-ongoing{background:rgba(45,181,134,.25);color:var(--tc-paper);border:1px solid rgba(45,181,134,.5)}
+.badge-completed{background:rgba(26,26,26,.7);color:var(--tc-paper);border:1px solid rgba(250,250,247,.2)}
+.projects-filters{display:inline-flex;gap:0;border:0.5px solid var(--tc-rule-strong);margin-bottom:32px;overflow:hidden}
+.filter-btn{font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;padding:10px 20px;background:transparent;border:none;border-right:0.5px solid var(--tc-rule-strong);cursor:pointer;color:var(--ink-soft);transition:background .2s,color .2s}
+.filter-btn:last-child{border-right:none}
+.filter-btn.active,.filter-btn:hover{background:var(--tc-line);color:var(--tc-paper)}
+.proj-gallery-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2rem;gap:2rem;flex-wrap:wrap}
+.proj-gallery-meta{display:flex;flex-direction:column;gap:.75rem}
+.proj-gallery-desc{max-width:520px;font-family:var(--font-mono);font-size:12px;line-height:1.7;color:var(--ink-soft);letter-spacing:.03em}
+.proj-gallery-nav{display:flex;gap:.5rem;flex-shrink:0}
+.pgn-btn{width:40px;height:40px;border:0.5px solid var(--tc-rule-strong);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink);transition:background .2s,border-color .2s,color .2s,opacity .2s}
+.pgn-btn:hover{background:var(--tc-line);border-color:var(--tc-line);color:var(--tc-paper)}
+.pgn-btn:disabled{opacity:.3;cursor:default;pointer-events:none}
+.pgn-btn svg{width:18px;height:18px}
+.proj-gallery-outer{overflow:hidden;margin-left:-60px;margin-right:-60px;padding-left:60px}
+.proj-gallery-track{display:flex;gap:20px;transition:transform .5s cubic-bezier(.25,.8,.25,1);will-change:transform;cursor:grab;user-select:none;-webkit-user-select:none}
+.proj-gallery-track.dragging{transition:none;cursor:grabbing}
+.proj-card-g{flex-shrink:0;width:420px;overflow:hidden;position:relative;min-height:520px;cursor:pointer}
+.proj-card-g img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .5s cubic-bezier(.25,.8,.25,1)}
+.proj-card-g:hover img{transform:scale(1.06)}
+.proj-card-g-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,.15) 35%,rgba(0,0,0,.82) 100%)}
+.proj-card-g-body{position:absolute;inset-x:0;bottom:0;padding:1.8rem 2rem 2rem;color:#fff;display:flex;flex-direction:column;align-items:flex-start}
+.proj-card-g-body .proj-badge{margin-bottom:1rem}
+.proj-card-g-title{font-family:var(--font-display);font-size:1.5rem;font-weight:700;letter-spacing:-.02em;line-height:1.1;color:#fff;margin-bottom:.4rem}
+.proj-card-g-client{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(45,181,134,.9);margin-bottom:.9rem}
+.proj-card-g-desc{font-size:.87rem;line-height:1.65;color:rgba(255,255,255,.82);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:1.4rem}
+.proj-card-g-cta{display:flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.9);margin-top:auto}
+.proj-card-g-cta svg{width:18px;height:18px;transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.proj-card-g:hover .proj-card-g-cta svg{transform:translateX(5px)}
+.proj-gallery-dots{display:flex;justify-content:center;gap:8px;margin-top:2rem}
+.pgdot{width:8px;height:8px;border:none;cursor:pointer;padding:0;background:rgba(0,0,0,.15);transition:background .25s,transform .25s}
+.pgdot.active{background:var(--tc-green);transform:scale(1.25)}
+.proj-spot-detail{background:var(--surface);border:0.5px solid var(--tc-rule-strong);overflow:hidden;max-height:0;opacity:0;transition:max-height .6s ease,opacity .45s ease}
+.proj-spot-detail.open{max-height:1400px;opacity:1}
+.proj-detail-inner{padding:2.5rem;display:grid;grid-template-columns:3fr 2fr;gap:3rem;align-items:start}
+.proj-carousel{position:relative;overflow:hidden}
+.proj-carousel-track{display:flex;transition:transform .45s cubic-bezier(.25,.8,.25,1)}
+.proj-carousel-track img{flex-shrink:0;width:100%;height:auto;display:block;filter:saturate(.85)}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;z-index:5}
+.carousel-btn:hover{background:var(--tc-green)}
+.carousel-prev{left:.75rem}
+.carousel-next{right:.75rem}
+.carousel-dots{position:absolute;bottom:.6rem;left:50%;transform:translateX(-50%);display:flex;gap:6px}
+.carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:background .2s,transform .2s}
+.carousel-dot.active{background:var(--tc-green);transform:scale(1.3)}
+.proj-detail-text .proj-badge{margin-bottom:.8rem}
+.proj-detail-title{font-family:var(--font-display);font-size:1.6rem;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1.1;margin-bottom:1.2rem}
+.proj-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem;padding:1.2rem;background:rgba(0,0,0,.03);border:0.5px solid var(--tc-rule-strong)}
+.proj-meta-item label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:.2rem}
+.proj-meta-item span{font-size:.9rem;color:var(--ink)}
+.proj-desc{font-size:.94rem;font-weight:400;line-height:1.8;color:var(--ink-soft);margin-bottom:1.2rem}
+.proj-scope-h{font-family:var(--font-mono);font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--tc-green-deep);margin-bottom:.6rem}
+.proj-scope{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:.3rem}
+.proj-scope li{font-size:.88rem;color:var(--ink-soft);padding-left:.85rem;position:relative;line-height:1.5}
+.proj-scope li::before{content:'›';position:absolute;left:0;color:var(--tc-green)}
+
+/* ── ABOUT ── */
+#about{background:var(--bg)}
+.about-layout{display:grid;grid-template-columns:1fr 400px;gap:5rem;align-items:start;margin-top:0}
+.pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:0.5px solid var(--tc-rule-strong);background:var(--surface);margin-top:0}
+.pillar{padding:32px;border-right:0.5px solid var(--tc-rule-strong);border-bottom:0.5px solid var(--tc-rule-strong);position:relative}
+.pillar:nth-child(2n){border-right:none}
+.pillar:nth-last-child(-n+2){border-bottom:none}
+.pillar::before{content:'';position:absolute;top:0;left:0;width:24px;height:2px;background:var(--tc-gradient-h)}
+.pillar h3{font-family:var(--font-display);font-size:17px;font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:12px;color:var(--ink)}
+.pillar p{font-size:13px;color:var(--ink-soft);line-height:1.6}
+.about-img-stack{position:relative;height:460px;flex-shrink:0}
+.about-img1{position:absolute;top:0;left:0;width:78%;height:78%;object-fit:cover;filter:saturate(.8)}
+.about-img2{position:absolute;bottom:0;right:0;width:54%;height:52%;object-fit:cover;filter:saturate(.8);border:4px solid var(--surface);box-shadow:0 4px 20px rgba(0,0,0,.15)}
+.about-accent{position:absolute;top:48%;left:58%;transform:translate(-50%,-50%);width:80px;height:80px;border:0.5px solid rgba(45,181,134,.3);pointer-events:none}
+
+/* ── ISO / QUALITY ── */
+#quality{background:var(--surface)}
+.iso-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:0.5px solid var(--tc-rule-strong);background:var(--surface)}
+.iso-card{padding:36px;border-right:0.5px solid var(--tc-rule-strong)}
+.iso-card:last-child{border-right:none}
+.iso-card .badge{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;background:var(--tc-gradient-h);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600;margin-bottom:16px}
+.iso-card h3{font-family:var(--font-display);font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.iso-card p{font-size:14px;color:var(--ink-soft);margin-bottom:24px;line-height:1.5}
+.iso-card a{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:4px;cursor:pointer}
+.iso-card a:hover{color:var(--tc-green);border-bottom-color:var(--tc-green)}
+
+/* ── TEAM ── */
+#team{background:var(--bg)}
+.pillars-3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:0.5px solid var(--tc-rule-strong);background:var(--surface)}
+.pillars-3 .pillar{border-right:0.5px solid var(--tc-rule-strong);border-bottom:0.5px solid var(--tc-rule-strong)}
+.pillars-3 .pillar:nth-child(3n){border-right:none}
+.pillars-3 .pillar:nth-last-child(-n+3){border-bottom:none}
+
+/* ── CONTACT ── */
+#contact{background:var(--surface);position:relative;overflow:hidden}
+#contact::before{content:'';position:absolute;inset:0;background-image:url('brand_assets/DJI_0012.JPG');background-size:cover;background-position:center;opacity:.05}
+.contact-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.offices{display:flex;flex-direction:column;gap:0}
+.office{padding:1.8rem;background:var(--surface);border:0.5px solid var(--tc-rule-strong);box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.office-city{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tc-green-deep);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.office-city::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--tc-green);flex-shrink:0}
+.contact-row{display:flex;gap:.7rem;align-items:flex-start;margin-bottom:.65rem;font-size:.95rem;font-weight:400;color:var(--ink-soft)}
+.contact-row svg{width:13px;height:13px;color:var(--tc-green);flex-shrink:0;margin-top:3px}
+.contact-row a{color:inherit;text-decoration:none;transition:color .2s;font-family:var(--font-mono);font-size:13px}
+.contact-row a:hover{color:var(--ink)}
+.gmap-frame{width:100%;height:260px;border:none;display:block}
+.field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:20px}
+.field-pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:0}
+.field label{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:6px}
+.field input,.field textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--tc-rule-strong);padding:10px 0;font-family:var(--font-display);font-size:15px;color:var(--ink);transition:border-color .2s;outline:none}
+.field input:focus,.field textarea:focus{border-bottom-color:var(--tc-line)}
+.field textarea{resize:vertical;min-height:80px}
+.submit-btn{font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 22px;background:var(--tc-line);color:var(--tc-paper);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;margin-top:8px;position:relative;overflow:hidden;transition:all .25s ease;width:100%;justify-content:center}
+.submit-btn::before{content:'';position:absolute;inset:0;background:var(--tc-gradient-h);opacity:0;transition:opacity .25s}
+.submit-btn span{position:relative;z-index:1}
+.submit-btn:hover::before{opacity:1}
+
+/* ── LIGHTBOX ── */
+.lb-overlay{position:fixed;inset:0;z-index:9000;background:rgba(10,14,20,.88);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s ease}
+.lb-overlay.lb-open{opacity:1;pointer-events:all}
+.lb-box{position:relative;max-width:min(860px,92vw);max-height:90vh;background:var(--surface);overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.45);transform:scale(.94);transition:transform .25s cubic-bezier(.16,1,.3,1)}
+.lb-overlay.lb-open .lb-box{transform:scale(1)}
+.lb-box img{display:block;max-width:100%;max-height:85vh;object-fit:contain}
+.lb-close{position:absolute;top:.75rem;right:.75rem;width:32px;height:32px;background:rgba(0,0,0,.55);border:none;color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,transform .15s;z-index:1}
+.lb-close:hover{background:rgba(0,0,0,.8);transform:scale(1.1)}
+
+/* ── FOOTER ── */
+footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
+.footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:0.5px solid rgba(250,250,247,.18)}
+.footer-tagline{font-family:var(--font-editorial);font-size:28px;font-weight:400;letter-spacing:-.02em;line-height:1.15;color:var(--tc-paper);margin-bottom:16px}
+.footer-tagline em{font-style:italic;background:var(--tc-gradient-h);-webkit-background-clip:text;background-clip:text;color:transparent}
+.footer-copy{font-family:var(--font-mono);font-size:12px;color:rgba(250,250,247,.5);line-height:1.6}
+.footer-col-hdr{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,250,247,.6);font-weight:500;margin-bottom:20px}
+.footer-nav-list{list-style:none}
+.footer-nav-list li{font-family:var(--font-mono);font-size:13px;color:rgba(250,250,247,.75);padding:6px 0}
+.footer-nav-list a{color:inherit;text-decoration:none;transition:color .2s}
+.footer-nav-list a:hover{color:var(--tc-paper)}
+.footer-bottom{max-width:1280px;margin:0 auto;padding-top:32px;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(250,250,247,.4)}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  #hero{padding:0 2.5rem 60px}
+  .hero-doc{right:2.5rem}
+  .hero-scroll-hint{right:2.5rem}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .hero-stat:nth-child(2){border-right:none}
+  .hero-stat:nth-child(3){border-right:0.5px solid rgba(250,250,247,.12)}
+  .hero-stat:nth-child(n+3){border-top:0.5px solid rgba(250,250,247,.12);padding-top:24px;margin-top:12px}
+  .container{padding:0 2.5rem}
+  .section-header{grid-template-columns:1fr;gap:16px}
+  .section{padding:64px 0}
+  .tracking-grid{grid-template-columns:1fr;gap:40px}
+  .partners-inner{grid-template-columns:1fr;gap:24px}
+  .about-layout{grid-template-columns:1fr;gap:3rem}
+  .about-img-stack{height:300px}
+  .iso-grid{grid-template-columns:1fr}
+  .iso-card{border-right:none;border-bottom:0.5px solid var(--tc-rule-strong)}
+  .iso-card:last-child{border-bottom:none}
+  .pillars-3{grid-template-columns:1fr}
+  .pillars-3 .pillar{border-right:none}
+  .pillars-3 .pillar:nth-last-child(-n+3){border-bottom:0.5px solid var(--tc-rule-strong)}
+  .pillars-3 .pillar:last-child{border-bottom:none}
+  .contact-grid{grid-template-columns:1fr;gap:2.5rem}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:8px}
+}
 @media(max-width:680px){
-  .stats{grid-template-columns:1fr 1fr}
-  .stat{border-bottom:1px solid rgba(0,0,0,0.09)}
-  .stat:nth-child(2n){border-right:none}
-  .section{padding:4rem 1.5rem}
-  #header{padding:0 1.2rem}
-  #hero{padding:0 1.5rem calc(3.5rem)}
-  .hero-scroll-hint{display:none}
-  footer{padding:1.5rem;flex-direction:column;align-items:flex-start}
+  .services-grid{grid-template-columns:1fr}
+  .service-card{border-right:none}
+  .service-card:nth-last-child(-n+2){border-bottom:0.5px solid var(--tc-rule-strong)}
+  .service-card:last-child{border-bottom:none}
+  .proj-card-g{width:300px;min-height:420px}
+  .proj-gallery-outer{margin-left:-2.5rem;margin-right:-2.5rem;padding-left:2.5rem}
+  .proj-detail-inner{grid-template-columns:1fr}
+  .pillars{grid-template-columns:1fr}
+  .pillar{border-right:none}
+  .pillar:nth-last-child(-n+2){border-bottom:0.5px solid var(--tc-rule-strong)}
+  .pillar:last-child{border-bottom:none}
+  .field-pair{grid-template-columns:1fr}
+  footer{padding:48px 2.5rem 24px}
 }
-</style>
-<style id="tc-brand">
-/* ── TECHNOCON Brand System v1.0 ── */
-:root {
-  --tc-green:#2DB586;--tc-green-deep:#1F8E66;--tc-blue:#228CC2;--tc-blue-deep:#156A95;
-  --tc-black:#000000;--tc-paper:#FAFAF7;--tc-fog:#E8E8E3;--tc-line:#1A1A1A;
-  --tc-mute:#6B6B68;--tc-rule:rgba(0,0,0,0.08);--tc-rule-strong:rgba(0,0,0,0.18);
-  --bg:var(--tc-paper);--surface:#FFFFFF;--ink:var(--tc-line);--ink-soft:var(--tc-mute);
-  --font-display:'Archivo','Helvetica Neue',sans-serif;
-  --font-body:'Archivo','Helvetica Neue',sans-serif;
-  --font-mono:'JetBrains Mono','SF Mono',monospace;
-  --font-editorial:'Fraunces',Georgia,serif;
-  --tc-gradient:linear-gradient(135deg,var(--tc-green) 0%,var(--tc-blue) 100%);
-  --tc-gradient-h:linear-gradient(90deg,var(--tc-green) 0%,var(--tc-blue) 100%);
-}
-body{background:var(--bg)!important;color:var(--ink)!important;font-family:var(--font-body)!important;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4,h5,h6{font-family:var(--font-display);letter-spacing:-0.02em;line-height:1.05}
-h1{font-weight:900;letter-spacing:-0.04em}
-h2{font-weight:800;letter-spacing:-0.03em}
-h1 em,h2 em,h3 em,.tc-em{font-family:var(--font-editorial)!important;font-style:italic!important;font-weight:400!important;letter-spacing:-0.01em!important}
-.tc-num,.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
-.tc-label{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--ink-soft);font-weight:500}
-/* Section number marker */
-.tc-section-num{display:inline-block;font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-soft);border-top:1px solid var(--tc-line);padding-top:12px;margin-bottom:32px;min-width:140px}
-/* Hero */
-#hero,section.hero{background:var(--tc-line)!important;color:var(--tc-paper)!important}
-#hero .hero-h1,.hero .hero-h1{color:var(--tc-paper)!important;font-family:var(--font-display)!important;font-weight:900!important;letter-spacing:-0.04em!important}
-#hero .hero-h1 em,.hero .hero-h1 em{font-family:var(--font-editorial)!important;font-style:italic!important;font-weight:400!important;background:var(--tc-gradient-h)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;letter-spacing:-0.02em!important}
-#hero p,.hero p{color:rgba(250,250,247,0.72)!important}
-.hero-tag{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.18em!important;text-transform:uppercase!important;color:rgba(250,250,247,0.85)!important;display:inline-flex!important;align-items:center!important;gap:12px!important;margin-bottom:24px!important}
-#hero .hero-tag::before,.hero .hero-tag::before{content:""!important;width:32px!important;height:1px!important;background:var(--tc-gradient-h)!important}
-/* Stats bar */
-.stats{background:var(--tc-line)!important;border-top:1px solid rgba(250,250,247,0.12)!important;border-bottom:none!important}
-.stat{border-right-color:rgba(250,250,247,0.1)!important}
-.stat-n{font-family:var(--font-display)!important;font-weight:800!important;font-size:clamp(28px,3.5vw,44px)!important;letter-spacing:-0.02em!important;font-variant-numeric:tabular-nums!important;color:var(--tc-paper)!important}
-.stat-l{font-family:var(--font-mono)!important;font-size:10px!important;letter-spacing:0.15em!important;text-transform:uppercase!important;color:rgba(250,250,247,0.55)!important}
-/* Sections */
-section:not(#hero):not(#partners){background:var(--bg)}
-section:not(#hero):not(#partners) .sec-h2{font-family:var(--font-display)!important;font-size:clamp(40px,5vw,72px)!important;font-weight:800!important;letter-spacing:-0.03em!important;line-height:0.95!important;color:var(--ink)!important;margin-bottom:24px!important;text-transform:none!important}
-section:not(#hero):not(#partners) .sec-h2 em{font-family:var(--font-editorial)!important;font-style:italic!important;font-weight:400!important;letter-spacing:-0.02em!important;background:var(--tc-gradient-h)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
-.sec-tag{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.18em!important;text-transform:uppercase!important;color:var(--ink-soft)!important;margin-bottom:12px!important}
-.sec-tag::before{display:none!important}
-.sec-p{font-size:18px!important;color:var(--ink-soft)!important;line-height:1.6!important}
-/* Services */
-#services{background:var(--bg)!important}
-.service-blocks{background:transparent!important;border:0.5px solid var(--tc-rule-strong)!important;gap:0!important}
-.svc{background:var(--surface)!important;border:0.5px solid var(--tc-rule-strong)!important;border-radius:0!important;padding:32px!important;position:relative}
-.svc::before{content:""!important;position:absolute!important;top:0!important;left:0!important;width:32px!important;height:2px!important;background:var(--tc-gradient-h)!important;transition:width 0.35s ease!important}
-.svc:hover::before{width:100%!important}
-.svc:hover{background:#FAFAF7!important}
-.svc-title{font-family:var(--font-display)!important;font-size:20px!important;font-weight:700!important;letter-spacing:-0.01em!important;color:var(--ink)!important;text-transform:none!important}
-.svc-num{font-family:var(--font-mono)!important;background:var(--tc-gradient-h)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;font-weight:600!important;font-size:2rem!important;opacity:1!important;position:absolute!important;top:0.5rem!important;right:1rem!important}
-.svc-list li{font-family:var(--font-mono)!important;font-size:12px!important;color:var(--ink-soft)!important;letter-spacing:0.02em!important;padding:8px 0 8px 16px!important;border-bottom:0.5px solid var(--tc-rule)!important}
-.svc-list li::before{content:"›"!important;color:var(--tc-green-deep)!important}
-.svc-list li:last-child{border-bottom:none!important}
-/* Tracking */
-.tracking-card{background:var(--surface)!important;border:0.5px solid var(--tc-rule-strong)!important;border-radius:0!important}
-.tracking-h{font-family:var(--font-display)!important;font-size:24px!important;font-weight:700!important;letter-spacing:-0.02em!important;text-transform:none!important}
-.tracking-sub{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.15em!important;color:var(--ink-soft)!important}
-.tracking-big .n{font-family:var(--font-display)!important;font-size:clamp(48px,6vw,80px)!important;font-weight:900!important;letter-spacing:-0.04em!important;color:var(--ink)!important;font-variant-numeric:tabular-nums!important}
-.tracking-big .l{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.08em!important;color:var(--ink-soft)!important}
-.tracking-p{color:var(--ink-soft)!important}
-.flow-dot{font-family:var(--font-mono)!important;font-size:10px!important;letter-spacing:0.12em!important;background:var(--surface)!important;border:0.5px solid var(--tc-rule-strong)!important;border-radius:0!important;color:var(--ink)!important;width:auto!important;height:auto!important;padding:6px 10px!important}
-.flow::before{background:rgba(0,0,0,0.1)!important}
-/* Partners */
-#partners{background:var(--tc-line)!important;color:var(--tc-paper)!important}
-.partners-lbl{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.18em!important;text-transform:uppercase!important;background:var(--tc-gradient-h)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
-.partners-marquee-outer::before{background:linear-gradient(to right,var(--tc-line),transparent)!important}
-.partners-marquee-outer::after{background:linear-gradient(to left,var(--tc-line),transparent)!important}
-.partner-name{font-family:var(--font-mono)!important;font-size:12px!important;letter-spacing:0.1em!important;text-transform:uppercase!important;color:rgba(250,250,247,0.85)!important}
-.partner-item:hover .partner-name{color:var(--tc-paper)!important}
-.partner-dot{background:var(--tc-green)!important}
-/* Projects */
-#projects{background:var(--bg)!important}
-.proj-card-g{border-radius:0!important}
-.proj-card-g-title{font-family:var(--font-display)!important;font-weight:700!important;letter-spacing:-0.01em!important;text-transform:none!important}
-.proj-card-g-client{font-family:var(--font-mono)!important;font-size:10px!important;letter-spacing:0.12em!important;color:rgba(255,255,255,0.7)!important}
-.proj-badge{font-family:var(--font-mono)!important;font-size:10px!important;letter-spacing:0.12em!important;border-radius:0!important}
-.filter-btn{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.15em!important}
-.filter-btn.active,.filter-btn:hover{background:var(--tc-line)!important;color:var(--tc-paper)!important}
-.pgn-btn{border-radius:0!important}
-.pgn-btn:hover{background:var(--tc-line)!important;border-color:var(--tc-line)!important}
-/* About */
-#about{background:var(--bg)!important}
-.cap{background:var(--surface)!important;border:0.5px solid var(--tc-rule-strong)!important;border-left:2px solid var(--tc-green)!important;border-radius:0!important}
-.cap:hover{border-left-color:var(--tc-blue)!important}
-.cap-h{font-family:var(--font-display)!important;font-size:14px!important;font-weight:700!important;letter-spacing:-0.01em!important;text-transform:none!important}
-.cap-p{color:var(--ink-soft)!important}
-.about-certs-label{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.18em!important;color:var(--ink-soft)!important}
-.about-certs-label::before{display:none!important}
-.about-certs-title{font-family:var(--font-display)!important;font-size:28px!important;font-weight:800!important;letter-spacing:-0.02em!important;text-transform:none!important;color:var(--ink)!important}
-.about-certs-title em{font-family:var(--font-editorial)!important;font-style:italic!important;font-weight:400!important;background:var(--tc-gradient-h)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
-.iso-box{border-radius:0!important;border-color:rgba(0,0,0,0.12)!important}
-.iso-box:hover{border-color:var(--tc-green)!important;box-shadow:0 4px 18px rgba(45,181,134,0.12)!important}
-.iso-code{font-family:var(--font-mono)!important;font-size:13px!important;letter-spacing:0.08em!important;font-weight:700!important;color:var(--ink)!important}
-.iso-name{color:var(--ink-soft)!important}
-.strength{border-radius:0!important;border-top:2px solid var(--tc-green)!important}
-.strength:hover{border-top-color:var(--tc-blue)!important}
-.strength-h{font-family:var(--font-display)!important;font-size:13px!important;font-weight:700!important;text-transform:none!important;letter-spacing:-0.01em!important}
-.strength-p{color:var(--ink-soft)!important}
-/* Contact */
-#contact{background:var(--surface)!important}
-.field label{font-family:var(--font-mono)!important;font-size:10px!important;letter-spacing:0.15em!important;color:var(--ink-soft)!important}
-.field input,.field textarea,.field select{border-radius:0!important;font-family:var(--font-display)!important}
-.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--tc-green)!important}
-.office{border-radius:0!important}
-.office-city{font-family:var(--font-mono)!important;font-size:10px!important;letter-spacing:0.15em!important;color:var(--tc-green-deep)!important}
-.office-city::before{background:var(--tc-green)!important}
-/* Buttons */
-.btn-a{font-family:var(--font-display)!important;border-radius:0!important;background:var(--tc-line)!important;position:relative;overflow:hidden}
-.btn-a::after{content:""!important;position:absolute!important;inset:0!important;background:var(--tc-gradient-h)!important;opacity:0!important;transition:opacity 0.25s!important;z-index:0!important}
-.btn-a:hover::after{opacity:1!important}
-.btn-a:hover{background:var(--tc-line)!important;color:var(--tc-black)!important;box-shadow:none!important;animation:none!important;transform:none!important}
-/* Nav */
-#header.scrolled{background:rgba(250,250,247,0.96)!important}
-nav a,.nav-dropdown>button{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.08em!important;text-transform:uppercase!important}
-.dropdown-menu a{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.05em!important}
-.lang-text-btn{font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.08em!important}
-/* Footer */
-footer{background:var(--tc-line)!important;color:var(--tc-paper)!important}
-.footer-brand{font-family:var(--font-mono)!important;color:rgba(250,250,247,0.6)!important}
-.footer-brand span{color:var(--tc-green)!important}
-.footer-copy{font-family:var(--font-mono)!important;color:rgba(250,250,247,0.35)!important}
-.footer-links a{font-family:var(--font-mono)!important;color:rgba(250,250,247,0.45)!important}
-.footer-links a:hover{color:var(--tc-paper)!important}
-/* 2-column section header */
-.tc-section-hdr{display:grid;grid-template-columns:180px 1fr;gap:48px;margin-bottom:56px;align-items:start}
-.tc-section-hdr>.tc-section-num{margin-bottom:0}
-.services-intro.tc-section-hdr{grid-template-columns:180px 1fr!important;gap:48px!important}
-@media(max-width:860px){.tc-section-hdr{grid-template-columns:1fr!important;gap:16px!important}}
-@media(max-width:768px){section{padding:64px 24px!important}.iso-boxes{flex-direction:column!important}}
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════ HEADER -->
-<header id="header">
-  <a href="#hero" class="logo">
-    <img src="brand_assets/technocon_logo_white_back.png" alt="Technocon">
-  </a>
+<!-- ══ SVG SYMBOL DEFS ══ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <defs>
+    <symbol id="tc-mark-gradient" viewBox="0 0 315.101 366.006">
+      <line x1="64.867" y1="3" x2="64.867" y2="112.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="188.435" y1="250" x2="188.435" y2="312.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="250.406" y1="123" x2="250.406" y2="312.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="3.041" y1="64.826" x2="62.26" y2="64.826" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="243.041" y1="126.617" x2="312.26" y2="126.617" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="252.041" y1="188.426" x2="312.26" y2="188.426" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="126.599" y1="250.234" x2="312.26" y2="250.234" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="3.041" y1="250.234" x2="64.121" y2="250.234" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <rect x="3.041" y="3" width="309.061" height="309.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <polygon points="125.599 3 312.101 3 312.101 64.826 250.474 127.36 250.474 189.609 128.599 312.061 64.867 312.061 64.867 188.426 3.041 188.426 3.041 125.617 125.599 3" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <polyline points="64.867 66.066 64.867 126.617 126.599 126.617 126.599 250.234 188.435 250.234 188.435 126.617 250.474 126.617 250.474 64.809 64.162 64.809" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="3.041" y1="188.426" x2="64.867" y2="126.617" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="64.867" y1="188.426" x2="126.599" y2="126.617" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="64.867" y1="312.061" x2="126.599" y2="250.234" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="250.474" y1="64.809" x2="312.101" y2="3" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <polygon points="30.198 325.161 0 325.161 0 331.725 11.928 331.725 11.928 365.196 18.319 365.196 18.319 331.725 30.198 331.725 30.198 325.161" style="fill:currentColor"/>
+      <polygon points="57.995 348.055 57.995 341.491 40.176 341.491 40.176 331.725 58.684 331.725 58.684 325.161 33.784 325.161 33.784 365.196 59.078 365.196 59.078 358.631 40.176 358.631 40.176 348.055 57.995 348.055" style="fill:currentColor"/>
+      <path d="M219.658,597.311c-6.757,0-10.292-7.146-10.292-14.206S212.9,568.9,219.658,568.9c5.322,0,7.746,3.895,8.846,7.238h6.506c-1.657-8.558-7.536-13.861-15.4-13.861-10.92,0-16.634,10.478-16.634,20.828s5.714,20.828,16.634,20.828c7.865,0,13.744-5.3,15.4-13.86H228.5C227.4,593.417,224.98,597.311,219.658,597.311Z" transform="translate(-139.705 -237.927)" style="fill:currentColor"/>
+      <polygon points="129.307 365.196 129.307 325.161 122.916 325.161 122.916 341.78 105.122 341.78 105.122 325.161 98.73 325.161 98.73 365.196 105.122 365.196 105.122 348.345 122.916 348.345 122.916 365.196 129.307 365.196" style="fill:currentColor"/>
+      <polygon points="167.029 365.196 167.029 325.161 160.982 325.161 160.982 353.682 142.874 325.161 136.96 325.161 136.96 365.196 142.958 365.196 142.958 336.674 161.066 365.196 167.029 365.196" style="fill:currentColor"/>
+      <path d="M328.89,562.277c-9.651,0-16.929,8.954-16.929,20.828s7.278,20.828,16.929,20.828,16.93-8.954,16.93-20.828S338.542,562.277,328.89,562.277Zm0,35.034a9.207,9.207,0,0,1-7.826-4.549,18.548,18.548,0,0,1,0-19.313,9.207,9.207,0,0,1,7.826-4.549c6.845,0,10.538,7.319,10.538,14.205S335.735,597.311,328.89,597.311Z" transform="translate(-139.705 -237.927)" style="fill:currentColor"/>
+      <path d="M366.3,597.311c-6.756,0-10.292-7.146-10.292-14.206S359.545,568.9,366.3,568.9c5.321,0,7.745,3.895,8.846,7.238h6.507c-1.658-8.558-7.536-13.861-15.4-13.861-10.921,0-16.635,10.478-16.635,20.828s5.714,20.828,16.635,20.828c7.865,0,13.743-5.3,15.4-13.86h-6.507C374.046,593.417,371.622,597.311,366.3,597.311Z" transform="translate(-139.705 -237.927)" style="fill:currentColor"/>
+      <path d="M401.581,562.277c-9.652,0-16.93,8.954-16.93,20.828s7.278,20.828,16.93,20.828,16.929-8.954,16.929-20.828S411.232,562.277,401.581,562.277Zm0,35.034a9.207,9.207,0,0,1-7.827-4.549,18.554,18.554,0,0,1,0-19.313,9.207,9.207,0,0,1,7.827-4.549c6.844,0,10.538,7.319,10.538,14.205S408.425,597.311,401.581,597.311Z" transform="translate(-139.705 -237.927)" style="fill:currentColor"/>
+      <polygon points="315.1 365.196 315.1 325.161 309.053 325.161 309.053 353.682 290.945 325.161 285.032 325.161 285.032 365.196 291.03 365.196 291.03 336.674 309.138 365.196 315.1 365.196" style="fill:currentColor"/>
+    </symbol>
+  </defs>
+</svg>
 
-  <div class="nav-wrap" id="navWrap">
-    <nav>
-      <div class="nav-dropdown">
-        <button>
-          Services
-          <svg class="chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5L5 6.5L8 3.5"/></svg>
-        </button>
-        <div class="dropdown-menu">
-          <a href="#svc-construction">Construction &amp; Installation</a>
-          <a href="#svc-engineering">Engineering &amp; Turnkey</a>
-          <a href="#svc-procurement">Procurement</a>
-          <a href="#svc-pm">Project Management</a>
+<!-- ══ HEADER ══ -->
+<header id="header">
+  <div class="header-inner">
+    <a href="#hero" class="logo">
+      <svg class="tc-logo" viewBox="0 0 315.101 366.006" aria-label="Technocon"><use href="#tc-mark-gradient"/></svg>
+    </a>
+    <div class="nav-wrap" id="navWrap">
+      <nav>
+        <div class="nav-dropdown">
+          <button>Services<svg class="chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5L5 6.5L8 3.5"/></svg></button>
+          <div class="dropdown-menu">
+            <a href="#svc-construction">Construction &amp; Installation</a>
+            <a href="#svc-engineering">Engineering &amp; Turnkey</a>
+            <a href="#svc-procurement">Procurement</a>
+            <a href="#svc-pm">Project Management</a>
+          </div>
         </div>
-      </div>
-      <a href="#projects">Projects</a>
-      <div class="nav-dropdown">
-        <button>
-          About
-          <svg class="chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5L5 6.5L8 3.5"/></svg>
-        </button>
-        <div class="dropdown-menu">
-          <a href="#about">Who We Are</a>
-          <a href="#about-quality">Quality Assurance</a>
-          <a href="#about-team">Our Team</a>
+        <a href="#projects">Projects</a>
+        <div class="nav-dropdown">
+          <button>About<svg class="chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5L5 6.5L8 3.5"/></svg></button>
+          <div class="dropdown-menu">
+            <a href="#about">Who We Are</a>
+            <a href="#quality">Quality Assurance</a>
+            <a href="#team">Our Team</a>
+          </div>
         </div>
-      </div>
-      <a href="#contact">Contact</a>
-    </nav>
-    <div class="header-right">
-      <!-- Language selector -->
-      <div class="lang-drop" id="langDrop">
-        <button class="lang-text-btn" id="langBtn" aria-label="Language">
-          <span id="langLabel">EN</span>
-          <svg class="chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5L5 6.5L8 3.5"/></svg>
-        </button>
-        <div class="lang-menu" id="langMenu">
-          <button class="active" id="langEN" onclick="setLang('en',this,'EN')">EN</button>
-          <button id="langBG" onclick="setLang('bg',this,'BG')">BG</button>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="header-right">
+        <div class="lang-inline">
+          <button class="lang-btn active" id="langEN" onclick="setLang('en',this)">EN</button>
+          <span class="lang-sep">|</span>
+          <button class="lang-btn" id="langBG" onclick="setLang('bg',this)">BG</button>
         </div>
       </div>
     </div>
+    <button class="hamburger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-
-  <button class="hamburger" id="burger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
 </header>
 
-<!-- ══════════════════════════════════════════ HERO -->
+<!-- ══ HERO ══ -->
 <section id="hero">
   <div class="hero-bg">
     <video autoplay muted loop playsinline preload="auto" fetchpriority="high" poster="brand_assets/DJI_0005.JPG">
@@ -1256,11 +553,20 @@ footer{background:var(--tc-line)!important;color:var(--tc-paper)!important}
   <div class="hero-grad"></div>
   <div class="hero-grad2"></div>
   <div class="hero-grid-overlay"></div>
-  <div class="hero-content">
+  <span class="hero-doc">0001 / 0024 — TECHNOCON / 2026</span>
+  <div class="hero-inner">
+    <span class="hero-tag" data-ck="hero.tag">Energy &amp; Industrial Infrastructure</span>
     <h1 class="hero-h1">Building Large Scale<br><span class="hero-cycle-wrap"><span class="hero-cycle" id="heroCycle"></span></span><br><em>Infrastructure.</em></h1>
-    <p class="hero-p" data-ck="hero.subtitle">Engineering, procurement, construction and project management for the energy and industrial sector across Europe and beyond.</p>
-    <div class="hero-btns">
-      <a href="#projects" class="btn-a">View Projects</a>
+    <p class="hero-sub" data-ck="hero.subtitle">Engineering, procurement, construction and project management for the energy and industrial sector across Europe and beyond.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn"><span>View Projects</span><span class="arr"></span></a>
+      <a href="#contact" class="btn btn-ghost"><span>Contact Us</span></a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="n" data-ck="stat.1.n">€11M+</div><div class="l" data-ck="stat.1.l">Contract Value</div></div>
+      <div class="hero-stat"><div class="n" data-ck="stat.2.n">4,000+</div><div class="l" data-ck="stat.2.l">Tracked Items</div></div>
+      <div class="hero-stat"><div class="n" data-ck="stat.3.n">7+</div><div class="l" data-ck="stat.3.l">Major Projects</div></div>
+      <div class="hero-stat"><div class="n" data-ck="stat.4.n">3</div><div class="l" data-ck="stat.4.l">ISO Certifications</div></div>
     </div>
   </div>
   <div class="hero-scroll-hint">
@@ -1269,399 +575,406 @@ footer{background:var(--tc-line)!important;color:var(--tc-paper)!important}
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════ STATS -->
-<div class="stats">
-  <div class="stat reveal"><div class="stat-n" data-ck="stat.1.n">€11M+</div><div class="stat-l" data-ck="stat.1.l">Contract Value</div></div>
-  <div class="stat reveal"><div class="stat-n" data-ck="stat.2.n">4,000+</div><div class="stat-l" data-ck="stat.2.l">Tracked Items</div></div>
-  <div class="stat reveal"><div class="stat-n" data-ck="stat.3.n">7+</div><div class="stat-l" data-ck="stat.3.l">Major Projects</div></div>
-  <div class="stat reveal"><div class="stat-n" data-ck="stat.4.n">3</div><div class="stat-l" data-ck="stat.4.l">ISO Certifications</div></div>
-</div>
-
-<!-- ══════════════════════════════════════════ SERVICES -->
+<!-- ══ SERVICES ══ -->
 <section id="services" class="section">
-  <div class="services-intro tc-section-hdr">
-    <span class="tc-section-num">01 / Services</span>
-    <div>
-      <p class="sec-tag reveal" data-ck="services.tag">Fields of Activity</p>
-      <h2 class="sec-h2 reveal" data-ck="services.h2">Our <em>Services.</em></h2>
-      <p class="sec-p reveal" data-ck="services.intro">From mechanical installation to full turnkey project execution — Technocon delivers integrated solutions across the complete project lifecycle in energy and industrial infrastructure.</p>
-    </div>
-  </div>
-
-  <div class="service-blocks">
-    <div class="svc reveal" id="svc-construction">
-      <a class="svc-anchor" id="svc-construction-anchor"></a>
-      <span class="svc-num">01</span>
-      <h3 class="svc-title" data-ck="services.1.title">Construction &amp; Installation</h3>
-      <ul class="svc-list" data-ck-list="services.1.items">
-        <li>Mechanical equipment installation</li>
-        <li>Welding and piping works</li>
-        <li>Testing and commissioning assistance</li>
-        <li>Steel structure erection</li>
-        <li>Civil works</li>
-        <li>Supervision &amp; QA/QC</li>
-      </ul>
-    </div>
-    <div class="svc reveal" id="svc-engineering">
-      <span class="svc-num">02</span>
-      <h3 class="svc-title" data-ck="services.2.title">Engineering &amp; Turnkey Execution</h3>
-      <ul class="svc-list" data-ck-list="services.2.items">
-        <li>Design and design coordination</li>
-        <li>Technical supervision</li>
-        <li>Engineering support</li>
-        <li>Scope integration</li>
-        <li>End-to-end project delivery</li>
-        <li>As-built documentation</li>
-      </ul>
-    </div>
-    <div class="svc reveal" id="svc-procurement">
-      <span class="svc-num">03</span>
-      <h3 class="svc-title" data-ck="services.3.title">Procurement</h3>
-      <ul class="svc-list" data-ck-list="services.3.items">
-        <li>Procurement coordination &amp; expediting</li>
-        <li>Process equipment &amp; raw materials</li>
-        <li>Surplus materials</li>
-        <li>Vendor list &amp; vendor follow-up</li>
-        <li>TBE preparation</li>
-        <li>Transport &amp; warehouse logistics</li>
-      </ul>
-    </div>
-    <div class="svc reveal" id="svc-pm">
-      <span class="svc-num">04</span>
-      <h3 class="svc-title" data-ck="services.4.title">Project Management &amp; Controls</h3>
-      <ul class="svc-list" data-ck-list="services.4.items">
-        <li>Progress reporting &amp; planning</li>
-        <li>Final installation management</li>
-        <li>Weekly/daily reports</li>
-        <li>Interface management</li>
-        <li>Multi-discipline coordination</li>
-        <li>Subcontractor management</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Tracking system -->
-  <div class="tracking-card reveal">
-    <div>
-      <span class="tc-section-num">02 / Tracking</span>
-      <div class="tracking-h" data-ck="tracking.h">QR / Barcode <em>Tracking System.</em></div>
-      <div class="tracking-sub" data-ck="tracking.sub">In-house materials control — competitive advantage</div>
-      <p class="tracking-p" data-ck="tracking.p">Technocon operates a proprietary tracking system for steel structures, piping materials, and concrete precast units. Each item receives a unique QR/barcode ID and is tracked through defined statuses and locations across production, warehouse, and site — in real time.</p>
-      <div class="tracking-big">
-        <span class="n" data-ck="tracking.stat.n">4,000+</span>
-        <span class="l" data-ck="tracking.stat.l">produced items tracked across multi-project operations</span>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num reveal">01 / Services</div>
+      <div class="section-title">
+        <p class="sec-tag reveal" data-ck="services.tag">Fields of Activity</p>
+        <h2 class="reveal" data-ck="services.h2">Our <em>Services.</em></h2>
+        <p class="reveal" data-ck="services.intro">From mechanical installation to full turnkey project execution — Technocon delivers integrated solutions across the complete project lifecycle in energy and industrial infrastructure.</p>
       </div>
     </div>
-    <div>
-      <p style="font-family:'Roboto',sans-serif;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem;" data-ck="tracking.workflow.label">Status Workflow</p>
-      <div class="flow">
-        <div class="flow-s"><div class="flow-dot">PRD</div><div class="flow-label" data-ck="tracking.flow.prd">Produced — manufactured &amp; labelled</div></div>
-        <div class="flow-s"><div class="flow-dot">QC</div><div class="flow-label" data-ck="tracking.flow.qc">Quality Control — inspected &amp; approved</div></div>
-        <div class="flow-s"><div class="flow-dot">RDY</div><div class="flow-label" data-ck="tracking.flow.rdy">Ready — cleared for dispatch</div></div>
-        <div class="flow-s"><div class="flow-dot">DSP</div><div class="flow-label" data-ck="tracking.flow.dsp">Dispatched — in transport</div></div>
-        <div class="flow-s"><div class="flow-dot">DLV</div><div class="flow-label" data-ck="tracking.flow.dlv">Delivered — confirmed on-site</div></div>
-        <div class="flow-s"><div class="flow-dot">INS</div><div class="flow-label" data-ck="tracking.flow.ins">Installed — final status logged</div></div>
+    <div class="services-grid">
+      <div class="service-card reveal" id="svc-construction">
+        <div class="svc-num-badge">— 01</div>
+        <h3 data-ck="services.1.title">Construction &amp; Installation</h3>
+        <ul data-ck-list="services.1.items">
+          <li>Mechanical equipment installation</li>
+          <li>Welding and piping works</li>
+          <li>Testing and commissioning assistance</li>
+          <li>Steel structure erection</li>
+          <li>Civil works</li>
+          <li>Supervision &amp; QA/QC</li>
+        </ul>
+      </div>
+      <div class="service-card reveal" id="svc-engineering">
+        <div class="svc-num-badge">— 02</div>
+        <h3 data-ck="services.2.title">Engineering &amp; Turnkey Execution</h3>
+        <ul data-ck-list="services.2.items">
+          <li>Design and design coordination</li>
+          <li>Technical supervision</li>
+          <li>Engineering support</li>
+          <li>Scope integration</li>
+          <li>End-to-end project delivery</li>
+          <li>As-built documentation</li>
+        </ul>
+      </div>
+      <div class="service-card reveal" id="svc-procurement">
+        <div class="svc-num-badge">— 03</div>
+        <h3 data-ck="services.3.title">Procurement</h3>
+        <ul data-ck-list="services.3.items">
+          <li>Procurement coordination &amp; expediting</li>
+          <li>Process equipment &amp; raw materials</li>
+          <li>Surplus materials</li>
+          <li>Vendor list &amp; vendor follow-up</li>
+          <li>TBE preparation</li>
+          <li>Transport &amp; warehouse logistics</li>
+        </ul>
+      </div>
+      <div class="service-card reveal" id="svc-pm">
+        <div class="svc-num-badge">— 04</div>
+        <h3 data-ck="services.4.title">Project Management &amp; Controls</h3>
+        <ul data-ck-list="services.4.items">
+          <li>Progress reporting &amp; planning</li>
+          <li>Final installation management</li>
+          <li>Weekly/daily reports</li>
+          <li>Interface management</li>
+          <li>Multi-discipline coordination</li>
+          <li>Subcontractor management</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════ PARTNERS -->
-<section id="partners" class="section">
-
-    <!-- Partners -->
-    <div style="grid-column:1/-1">
-      <div class="partners-wrap reveal">
-        <span class="partners-lbl">Strategic Partners</span>
-        <div class="partners-marquee-outer">
-          <div class="partners-marquee-track" id="partnersTrack">
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Vemak</span></div>
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Arkad S.p.A.</span></div>
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Sicilsaldo Group</span></div>
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Camel Oil Tanzania</span></div>
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Bulgartransgaz</span></div>
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Eesti Energia</span></div>
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Glavbolgarstroy</span></div>
-            <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">ADNOC</span></div>
-          </div>
+<!-- ══ TRACKING ══ -->
+<section id="tracking" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num reveal">02 / Tracking</div>
+      <div class="section-title">
+        <h2 class="reveal" data-ck="tracking.h">QR / Barcode <em>Tracking System.</em></h2>
+        <p class="reveal" data-ck="tracking.p">In-house materials control — competitive advantage. Technocon operates a proprietary tracking system for steel structures, piping materials, and concrete precast units. Each item receives a unique QR/barcode ID and is tracked through defined statuses and locations across production, warehouse, and site — in real time.</p>
+      </div>
+    </div>
+    <div class="tracking-grid">
+      <div>
+        <div class="tracking-big-n reveal" data-ck="tracking.stat.n">4,000+</div>
+        <div class="tracking-big-l reveal" data-ck="tracking.stat.l">produced items tracked across multi-project operations</div>
+      </div>
+      <div>
+        <div class="workflow-label reveal" data-ck="tracking.workflow.label">Status Workflow</div>
+        <div class="workflow-grid reveal">
+          <div class="workflow-step"><div class="code">PRD</div><div class="desc" data-ck="tracking.flow.prd">Produced</div></div>
+          <div class="workflow-step"><div class="code">QC</div><div class="desc" data-ck="tracking.flow.qc">Quality Control</div></div>
+          <div class="workflow-step"><div class="code">RDY</div><div class="desc" data-ck="tracking.flow.rdy">Ready</div></div>
+          <div class="workflow-step"><div class="code">DSP</div><div class="desc" data-ck="tracking.flow.dsp">Dispatched</div></div>
+          <div class="workflow-step"><div class="code">DLV</div><div class="desc" data-ck="tracking.flow.dlv">Delivered</div></div>
+          <div class="workflow-step"><div class="code">INS</div><div class="desc" data-ck="tracking.flow.ins">Installed</div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════ PROJECTS -->
+<!-- ══ PARTNERS ══ -->
+<section id="partners">
+  <div class="partners-inner">
+    <div class="partners-label">— Strategic Partners</div>
+    <div class="partners-marquee-outer">
+      <div class="partners-marquee-track" id="partnersTrack">
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Vemak</span></div>
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Arkad S.p.A.</span></div>
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Sicilsaldo Group</span></div>
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Camel Oil Tanzania</span></div>
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Bulgartransgaz</span></div>
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Eesti Energia</span></div>
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">Glavbolgarstroy</span></div>
+        <div class="partner-item"><span class="partner-dot"></span><span class="partner-name">ADNOC</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
 <section id="projects" class="section">
-  <div class="tc-section-hdr">
-    <span class="tc-section-num">03 / Projects</span>
-    <div>
-      <p class="sec-tag reveal">Our Work</p>
-      <h2 class="sec-h2 reveal"><em>Projects.</em></h2>
-      <p class="sec-p reveal">Click any project to view details and photos.</p>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num reveal">03 / Projects</div>
+      <div class="section-title">
+        <p class="sec-tag reveal">Our Work</p>
+        <h2 class="reveal">Selected <em>Projects.</em></h2>
+        <p class="reveal">Click any project to view full details, photos, and scope of works.</p>
+      </div>
     </div>
+    <div class="proj-gallery-header reveal">
+      <div class="proj-gallery-meta">
+        <p class="proj-gallery-desc">Drag or use arrows to browse. Click a card to expand details.</p>
+        <div class="projects-filters">
+          <button class="filter-btn active" onclick="filterProjects('all',this)">All</button>
+          <button class="filter-btn" onclick="filterProjects('ongoing',this)">Ongoing</button>
+          <button class="filter-btn" onclick="filterProjects('completed',this)">Completed</button>
+        </div>
+      </div>
+      <div class="proj-gallery-nav">
+        <button class="pgn-btn" id="pgPrev" onclick="galleryScroll(-1)" disabled aria-label="Previous">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="4" x2="6" y2="10"/><line x1="6" y1="10" x2="13" y2="16"/></svg>
+        </button>
+        <button class="pgn-btn" id="pgNext" onclick="galleryScroll(1)" aria-label="Next">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="4" x2="14" y2="10"/><line x1="14" y1="10" x2="7" y2="16"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="proj-gallery-outer">
+      <div class="proj-gallery-track" id="galleryTrack">
+        <div class="proj-card-g" data-status="ongoing" data-proj="checkpoint" onclick="toggleProject('checkpoint',this)">
+          <img src="brand_assets/CHIREN PRES-1.jpeg" alt="Border Checkpoint">
+          <div class="proj-card-g-overlay"></div>
+          <div class="proj-card-g-body">
+            <span class="proj-badge badge-ongoing">Ongoing</span>
+            <div class="proj-card-g-title">Border Checkpoint Reconstruction</div>
+            <div class="proj-card-g-client">Glavbolgarstroy AD · Bulgaria</div>
+            <div class="proj-card-g-desc">Strategic modernisation of a border checkpoint — full multi-discipline scope from engineering through construction.</div>
+            <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
+          </div>
+        </div>
+        <div class="proj-card-g" data-status="completed" data-proj="balkan" onclick="toggleProject('balkan',this)">
+          <img src="brand_assets/DJI_0012.JPG" alt="Balkan Stream">
+          <div class="proj-card-g-overlay"></div>
+          <div class="proj-card-g-body">
+            <span class="proj-badge badge-completed">Completed</span>
+            <div class="proj-card-g-title">Balkan Stream Pipeline</div>
+            <div class="proj-card-g-client">Bulgartransgaz EAD · Bulgaria</div>
+            <div class="proj-card-g-desc">Gas transmission pipeline across Bulgaria — Turkish to Serbian border — including commissioning and O&amp;M support.</div>
+            <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
+          </div>
+        </div>
+        <div class="proj-card-g" data-status="completed" data-proj="enefit" onclick="toggleProject('enefit',this)">
+          <img src="brand_assets/CHIREN PRES-2.jpeg" alt="Enefit-280">
+          <div class="proj-card-g-overlay"></div>
+          <div class="proj-card-g-body">
+            <span class="proj-badge badge-completed">Completed</span>
+            <div class="proj-card-g-title">Enefit-280 Narva Oil Plant</div>
+            <div class="proj-card-g-client">Eesti Energia · Estonia</div>
+            <div class="proj-card-g-desc">400 t steel structures, 360 t piping, 50 t stainless steel — oil shale processing plant construction and commissioning.</div>
+            <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
+          </div>
+        </div>
+        <div class="proj-card-g" data-status="completed" data-proj="lozen" onclick="toggleProject('lozen',this)">
+          <img src="brand_assets/CHIREN PRES-3.jpeg" alt="Lozen Station">
+          <div class="proj-card-g-overlay"></div>
+          <div class="proj-card-g-body">
+            <span class="proj-badge badge-completed">Completed</span>
+            <div class="proj-card-g-title">Lozen Pig Launcher Station</div>
+            <div class="proj-card-g-client">Bulgartransgaz EAD · Bulgaria</div>
+            <div class="proj-card-g-desc">Full reconstruction on the active 48" gas pipeline — access road, perimeter drainage, and fire protection strip.</div>
+            <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
+          </div>
+        </div>
+        <div class="proj-card-g" data-status="completed" data-proj="chiren" onclick="toggleProject('chiren',this)">
+          <img src="brand_assets/DJI_0005.JPG" alt="Chiren UGS">
+          <div class="proj-card-g-overlay"></div>
+          <div class="proj-card-g-body">
+            <span class="proj-badge badge-completed">Completed</span>
+            <div class="proj-card-g-title">Chiren UGS Expansion</div>
+            <div class="proj-card-g-client">Glavbolgarstroy AD · Bulgaria</div>
+            <div class="proj-card-g-desc">New aboveground area for Chiren Underground Gas Storage — compressor station, gas treatment, TEG regeneration.</div>
+            <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
+          </div>
+        </div>
+        <div class="proj-card-g" data-status="ongoing" data-proj="adnoc" onclick="toggleProject('adnoc',this)">
+          <img src="brand_assets/CHIREN PRES-2.jpeg" alt="ADNOC">
+          <div class="proj-card-g-overlay"></div>
+          <div class="proj-card-g-body">
+            <span class="proj-badge badge-ongoing">Ongoing</span>
+            <div class="proj-card-g-title">ADNOC Procurement — UAE</div>
+            <div class="proj-card-g-client">ADNOC · United Arab Emirates</div>
+            <div class="proj-card-g-desc">Fire-rated LGS buildings and refurbished ISO container units — fully fitted and ready for deployment in the UAE.</div>
+            <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-gallery-dots" id="galleryDots"></div>
+    <div id="detail-checkpoint" class="proj-spot-detail" style="margin-top:1.5rem"></div>
+    <div id="detail-balkan"     class="proj-spot-detail" style="margin-top:1.5rem"></div>
+    <div id="detail-enefit"     class="proj-spot-detail" style="margin-top:1.5rem"></div>
+    <div id="detail-lozen"      class="proj-spot-detail" style="margin-top:1.5rem"></div>
+    <div id="detail-chiren"     class="proj-spot-detail" style="margin-top:1.5rem"></div>
+    <div id="detail-adnoc"      class="proj-spot-detail" style="margin-top:1.5rem"></div>
   </div>
-
-  <!-- Gallery4 header: description + nav arrows -->
-  <div class="proj-gallery-header reveal">
-    <div class="proj-gallery-meta">
-      <p class="proj-gallery-desc">Click any project card to view full details, photos, and scope of works.</p>
-      <div class="projects-filters">
-        <button class="filter-btn active" onclick="filterProjects('all',this)">All</button>
-        <button class="filter-btn" onclick="filterProjects('ongoing',this)">Ongoing</button>
-        <button class="filter-btn" onclick="filterProjects('completed',this)">Completed</button>
-      </div>
-    </div>
-    <div class="proj-gallery-nav">
-      <button class="pgn-btn" id="pgPrev" onclick="galleryScroll(-1)" disabled aria-label="Previous">
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="4" x2="6" y2="10"/><line x1="6" y1="10" x2="13" y2="16"/></svg>
-      </button>
-      <button class="pgn-btn" id="pgNext" onclick="galleryScroll(1)" aria-label="Next">
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="4" x2="14" y2="10"/><line x1="14" y1="10" x2="7" y2="16"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- Carousel viewport -->
-  <div class="proj-gallery-outer">
-    <div class="proj-gallery-track" id="galleryTrack">
-
-      <div class="proj-card-g" data-status="ongoing" data-proj="checkpoint" onclick="toggleProject('checkpoint',this)">
-        <img src="brand_assets/CHIREN PRES-1.jpeg" alt="Border Checkpoint">
-        <div class="proj-card-g-overlay"></div>
-        <div class="proj-card-g-body">
-          <span class="proj-badge badge-ongoing">Ongoing</span>
-          <div class="proj-card-g-title">Border Checkpoint Reconstruction</div>
-          <div class="proj-card-g-client">Glavbolgarstroy AD · Bulgaria</div>
-          <div class="proj-card-g-desc">Strategic modernisation of a border checkpoint — full multi-discipline scope from engineering through construction.</div>
-          <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
-        </div>
-      </div>
-
-      <div class="proj-card-g" data-status="completed" data-proj="balkan" onclick="toggleProject('balkan',this)">
-        <img src="brand_assets/DJI_0012.JPG" alt="Balkan Stream">
-        <div class="proj-card-g-overlay"></div>
-        <div class="proj-card-g-body">
-          <span class="proj-badge badge-completed">Completed</span>
-          <div class="proj-card-g-title">Balkan Stream Pipeline</div>
-          <div class="proj-card-g-client">Bulgartransgaz EAD · Bulgaria</div>
-          <div class="proj-card-g-desc">Gas transmission pipeline across Bulgaria — Turkish to Serbian border — including commissioning and O&M support.</div>
-          <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
-        </div>
-      </div>
-
-      <div class="proj-card-g" data-status="completed" data-proj="enefit" onclick="toggleProject('enefit',this)">
-        <img src="brand_assets/CHIREN PRES-2.jpeg" alt="Enefit-280">
-        <div class="proj-card-g-overlay"></div>
-        <div class="proj-card-g-body">
-          <span class="proj-badge badge-completed">Completed</span>
-          <div class="proj-card-g-title">Enefit-280 Narva Oil Plant</div>
-          <div class="proj-card-g-client">Eesti Energia · Estonia</div>
-          <div class="proj-card-g-desc">400 t steel structures, 360 t piping, 50 t stainless steel — oil shale processing plant construction and commissioning.</div>
-          <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
-        </div>
-      </div>
-
-      <div class="proj-card-g" data-status="completed" data-proj="lozen" onclick="toggleProject('lozen',this)">
-        <img src="brand_assets/CHIREN PRES-3.jpeg" alt="Lozen Station">
-        <div class="proj-card-g-overlay"></div>
-        <div class="proj-card-g-body">
-          <span class="proj-badge badge-completed">Completed</span>
-          <div class="proj-card-g-title">Lozen Pig Launcher Station</div>
-          <div class="proj-card-g-client">Bulgartransgaz EAD · Bulgaria</div>
-          <div class="proj-card-g-desc">Full reconstruction on the active 48" gas pipeline — access road, perimeter drainage, and fire protection strip.</div>
-          <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
-        </div>
-      </div>
-
-      <div class="proj-card-g" data-status="completed" data-proj="chiren" onclick="toggleProject('chiren',this)">
-        <img src="brand_assets/DJI_0005.JPG" alt="Chiren UGS">
-        <div class="proj-card-g-overlay"></div>
-        <div class="proj-card-g-body">
-          <span class="proj-badge badge-completed">Completed</span>
-          <div class="proj-card-g-title">Chiren UGS Expansion</div>
-          <div class="proj-card-g-client">Glavbolgarstroy AD · Bulgaria</div>
-          <div class="proj-card-g-desc">New aboveground area for Chiren Underground Gas Storage — compressor station, gas treatment, TEG regeneration.</div>
-          <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
-        </div>
-      </div>
-
-      <div class="proj-card-g" data-status="ongoing" data-proj="adnoc" onclick="toggleProject('adnoc',this)">
-        <img src="brand_assets/CHIREN PRES-2.jpeg" alt="ADNOC">
-        <div class="proj-card-g-overlay"></div>
-        <div class="proj-card-g-body">
-          <span class="proj-badge badge-ongoing">Ongoing</span>
-          <div class="proj-card-g-title">ADNOC Procurement — UAE</div>
-          <div class="proj-card-g-client">ADNOC · United Arab Emirates</div>
-          <div class="proj-card-g-desc">Fire-rated LGS buildings and refurbished ISO container units — fully fitted and ready for deployment in the UAE.</div>
-          <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
-        </div>
-      </div>
-
-    </div><!-- /track -->
-  </div><!-- /outer -->
-
-  <!-- Dot nav -->
-  <div class="proj-gallery-dots" id="galleryDots"></div>
-
-  <!-- Detail panels — one per project, below carousel -->
-  <div id="detail-checkpoint" class="proj-spot-detail" style="margin-top:1.5rem"></div>
-  <div id="detail-balkan"     class="proj-spot-detail" style="margin-top:1.5rem"></div>
-  <div id="detail-enefit"     class="proj-spot-detail" style="margin-top:1.5rem"></div>
-  <div id="detail-lozen"      class="proj-spot-detail" style="margin-top:1.5rem"></div>
-  <div id="detail-chiren"     class="proj-spot-detail" style="margin-top:1.5rem"></div>
-  <div id="detail-adnoc"      class="proj-spot-detail" style="margin-top:1.5rem"></div>
 </section>
 
-<!-- ══════════════════════════════════════════ ABOUT -->
+<!-- ══ ABOUT ══ -->
 <section id="about" class="section">
-  <div class="about-layout">
-    <div class="about-text">
-      <div class="tc-section-hdr">
-        <span class="tc-section-num">04 / About</span>
-        <div>
-          <p class="sec-tag reveal" data-ck="about.tag">Who We Are</p>
-          <h2 class="sec-h2 reveal" data-ck="about.h2">About <em>Technocon.</em></h2>
-          <p class="sec-p reveal" data-ck="about.text">A Bulgarian-based company specialising in energy and industrial infrastructure projects across Europe. We combine proven engineering expertise, flexible delivery capacity, and lean team structure to deliver results at every project stage — from mobilisation through commissioning and beyond.</p>
-        </div>
-      </div>
-
-      <div class="about-capabilities" data-ck-pairs="about.caps" data-pairs-h="cap-h" data-pairs-p="cap-p" data-pairs-item="cap reveal">
-        <div class="cap reveal"><div class="cap-h">Fast Internal Coordination</div><div class="cap-p">Rapid decision-making and high adaptability in changing project environments.</div></div>
-        <div class="cap reveal"><div class="cap-h">Strong Ownership</div><div class="cap-p">Experience in technical documentation, site interfaces, and execution follow-up.</div></div>
-        <div class="cap reveal"><div class="cap-h">Lean Structure</div><div class="cap-p">Hands-on project involvement with efficient communication across all disciplines.</div></div>
-        <div class="cap reveal"><div class="cap-h">Quick Mobilisation</div><div class="cap-p">Ability to mobilise core resources and expand through partner network when required.</div></div>
-      </div>
-
-      <!-- ISO Certificates -->
-      <div id="about-quality" class="about-certs reveal">
-        <span class="tc-section-num">05 / Quality</span>
-        <div class="about-certs-label" data-ck="quality.label">Quality Assurance</div>
-        <div class="about-certs-title" data-ck="quality.title">ISO <em>Certified.</em></div>
-        <p class="about-certs-desc" data-ck="quality.desc">Technocon holds three internationally recognised ISO certifications — reflecting our commitment to quality management, environmental responsibility, and occupational health &amp; safety across all operations.</p>
-        <div class="iso-boxes" data-ck-isos="quality.isos">
-          <div class="iso-box" onclick="openLightbox('brand_assets/ISO_9001_2015.png','ISO 9001:2015')"><div class="iso-code">ISO 9001:2015</div><div class="iso-name">Quality Management System</div><div class="iso-view">View certificate <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></div></div>
-          <div class="iso-box" onclick="openLightbox('brand_assets/ISO_14001_2015.png','ISO 14001:2015')"><div class="iso-code">ISO 14001:2015</div><div class="iso-name">Environmental Management System</div><div class="iso-view">View certificate <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></div></div>
-          <div class="iso-box" onclick="openLightbox('brand_assets/ISO_45001_2018.png','ISO 45001:2018')"><div class="iso-code">ISO 45001:2018</div><div class="iso-name">Occupational Health &amp; Safety Management</div><div class="iso-view">View certificate <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></div></div>
-        </div>
-      </div>
-
-      <!-- Our Team -->
-      <div id="about-team" class="about-certs reveal">
-        <span class="tc-section-num">06 / Team</span>
-        <div class="about-certs-label" data-ck="team.label">Our Team</div>
-        <div class="about-certs-title" data-ck="team.title">How We <em>Work.</em></div>
-        <p class="about-certs-desc" data-ck="team.desc">A lean, senior-led team built for complex industrial environments — combining hands-on execution with tight coordination across all project phases.</p>
-        <div class="cert-strengths" style="grid-column:unset;margin-top:1.4rem;" data-ck-pairs="team.strengths" data-pairs-h="strength-h" data-pairs-p="strength-p" data-pairs-item="strength reveal">
-          <div class="strength reveal"><div class="strength-h">Proven Execution</div><div class="strength-p">Track record in industrial and infrastructure projects across multiple countries and disciplines.</div></div>
-          <div class="strength reveal"><div class="strength-h">Flexible Delivery</div><div class="strength-p">Engineering coordination + site execution + subcontractor management under one roof.</div></div>
-          <div class="strength reveal"><div class="strength-h">Fast Response</div><div class="strength-p">Rapid mobilisation and adaptability to client requirements and project-specific procedures.</div></div>
-          <div class="strength reveal"><div class="strength-h">Multi-Stage Entry</div><div class="strength-p">Can enter projects at mobilisation, installation, support, or recovery scope phases.</div></div>
-          <div class="strength reveal"><div class="strength-h">Strong Coordination</div><div class="strength-p">Tight integration between technical, commercial, and execution functions.</div></div>
-          <div class="strength reveal"><div class="strength-h">Scalable Capacity</div><div class="strength-p">Lean core team that expands through a vetted partner network as project scope requires.</div></div>
-        </div>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num reveal">04 / About</div>
+      <div class="section-title">
+        <p class="sec-tag reveal" data-ck="about.tag">Who We Are</p>
+        <h2 class="reveal" data-ck="about.h2">About <em>Technocon.</em></h2>
+        <p class="reveal" data-ck="about.text">A Bulgarian-based company specialising in energy and industrial infrastructure projects across Europe. We combine proven engineering expertise, flexible delivery capacity, and lean team structure to deliver results at every project stage.</p>
       </div>
     </div>
-
-    <div class="about-img-stack reveal">
-      <img class="about-img1" src="brand_assets/DJI_0012.JPG" alt="Technocon project site">
-      <img class="about-img2" src="brand_assets/CHIREN PRES-2.jpeg" alt="Technocon installation works">
-      <div class="about-accent"></div>
+    <div class="about-layout">
+      <div class="pillars reveal" data-ck-pairs="about.caps" data-pairs-h="pillar-h-inner" data-pairs-p="pillar-p-inner" data-pairs-item="pillar">
+        <div class="pillar"><h3>Fast Internal Coordination</h3><p>Rapid decision-making and high adaptability in changing project environments.</p></div>
+        <div class="pillar"><h3>Strong Ownership</h3><p>Experience in technical documentation, site interfaces, and execution follow-up.</p></div>
+        <div class="pillar"><h3>Lean Structure</h3><p>Hands-on project involvement with efficient communication across all disciplines.</p></div>
+        <div class="pillar"><h3>Quick Mobilisation</h3><p>Ability to mobilise core resources and expand through partner network when required.</p></div>
+      </div>
+      <div class="about-img-stack reveal">
+        <img class="about-img1" src="brand_assets/DJI_0012.JPG" alt="Technocon project site">
+        <img class="about-img2" src="brand_assets/CHIREN PRES-2.jpeg" alt="Technocon installation works">
+        <div class="about-accent"></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════ CONTACT -->
+<!-- ══ QUALITY ══ -->
+<section id="quality" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num reveal">05 / Quality</div>
+      <div class="section-title">
+        <p class="sec-tag reveal" data-ck="quality.label">Quality Assurance</p>
+        <h2 class="reveal" data-ck="quality.title">ISO <em>Certified.</em></h2>
+        <p class="reveal" data-ck="quality.desc">Technocon holds three internationally recognised ISO certifications — reflecting our commitment to quality management, environmental responsibility, and occupational health &amp; safety across all operations.</p>
+      </div>
+    </div>
+    <div class="iso-grid reveal" data-ck-isos="quality.isos">
+      <div class="iso-card">
+        <div class="badge">— Standard</div>
+        <h3>ISO 9001:2015</h3>
+        <p>Quality Management System</p>
+        <a onclick="openLightbox('brand_assets/ISO_9001_2015.png','ISO 9001:2015')">View certificate →</a>
+      </div>
+      <div class="iso-card">
+        <div class="badge">— Standard</div>
+        <h3>ISO 14001:2015</h3>
+        <p>Environmental Management System</p>
+        <a onclick="openLightbox('brand_assets/ISO_14001_2015.png','ISO 14001:2015')">View certificate →</a>
+      </div>
+      <div class="iso-card">
+        <div class="badge">— Standard</div>
+        <h3>ISO 45001:2018</h3>
+        <p>Occupational Health &amp; Safety</p>
+        <a onclick="openLightbox('brand_assets/ISO_45001_2018.png','ISO 45001:2018')">View certificate →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TEAM ══ -->
+<section id="team" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num reveal">06 / Team</div>
+      <div class="section-title">
+        <p class="sec-tag reveal" data-ck="team.label">Our Team</p>
+        <h2 class="reveal" data-ck="team.title">How We <em>Work.</em></h2>
+        <p class="reveal" data-ck="team.desc">A lean, senior-led team built for complex industrial environments — combining hands-on execution with tight coordination across all project phases.</p>
+      </div>
+    </div>
+    <div class="pillars-3 reveal" data-ck-pairs="team.strengths" data-pairs-h="pillar-h-inner" data-pairs-p="pillar-p-inner" data-pairs-item="pillar">
+      <div class="pillar"><h3>Proven Execution</h3><p>Track record in industrial and infrastructure projects across multiple countries and disciplines.</p></div>
+      <div class="pillar"><h3>Flexible Delivery</h3><p>Engineering coordination + site execution + subcontractor management under one roof.</p></div>
+      <div class="pillar"><h3>Fast Response</h3><p>Rapid mobilisation and adaptability to client requirements and project-specific procedures.</p></div>
+      <div class="pillar"><h3>Multi-Stage Entry</h3><p>Can enter projects at mobilisation, installation, support, or recovery scope phases.</p></div>
+      <div class="pillar"><h3>Strong Coordination</h3><p>Tight integration between technical, commercial, and execution functions.</p></div>
+      <div class="pillar"><h3>Scalable Capacity</h3><p>Lean core team that expands through a vetted partner network as project scope requires.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
 <section id="contact" class="section">
-  <div class="tc-section-hdr">
-    <span class="tc-section-num">07 / Contact</span>
-    <div>
-      <p class="sec-tag reveal">Get In Touch</p>
-      <h2 class="sec-h2 reveal">Get In <em>Touch.</em></h2>
-      <p class="sec-p reveal">Ready to review your quotation, submit technical and commercial proposals, and mobilise our task force team to satisfy your project needs.</p>
-    </div>
-  </div>
-  <div class="contact-layout">
-    <div>
-      <div class="offices">
-        <div class="office reveal">
-          <div class="office-city">Sofia, Bulgaria — Head Office</div>
-          <div class="contact-row">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 1.5C5.515 1.5 3.5 3.515 3.5 6c0 3.5 4.5 8.5 4.5 8.5S12.5 9.5 12.5 6c0-2.485-2.015-4.5-4.5-4.5zm0 6a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/></svg>
-            <span data-ck="contact.address">Osogovo st. 51, 1303 Sofia, Bulgaria</span>
-          </div>
-          <div class="contact-row">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 5l6 4 6-4" stroke-linecap="round"/></svg>
-            <div>
-              <a href="mailto:dcc@techno-con.eu" data-ck="contact.email1">dcc@techno-con.eu</a><br>
-              <a href="mailto:office@techno-con.eu" data-ck="contact.email2">office@techno-con.eu</a>
-            </div>
-          </div>
-          <div class="contact-row">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2.5 3.5a1 1 0 011-1h1.172a1 1 0 01.894.553l.707 1.414a1 1 0 01-.196 1.124l-.49.49a7.09 7.09 0 003.333 3.333l.49-.49a1 1 0 011.124-.196l1.414.707A1 1 0 0112.5 10.328V11.5a1 1 0 01-1 1H11C6.029 12.5 2.5 8.971 2.5 4V3.5z"/></svg>
-            <div>
-              <a href="tel:+359889627304" data-ck="contact.phone1">+359 88 9627304</a><br>
-              <a href="tel:+359888304414" data-ck="contact.phone2">+359 88 8304414</a>
-            </div>
-          </div>
-          <div class="contact-row">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2" stroke-linecap="round"/></svg>
-            <a href="http://www.techno-con.eu" target="_blank" rel="noopener" data-ck="contact.web">www.techno-con.eu</a>
-          </div>
-        </div>
-        <div class="office office-map reveal">
-          <iframe
-            class="gmap-frame"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q=Osogovo+st.+51,+1303+Sofia,+Bulgaria&output=embed"
-            title="Technocon Head Office location">
-          </iframe>
-        </div>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num reveal">07 / Contact</div>
+      <div class="section-title">
+        <p class="sec-tag reveal">Get In Touch</p>
+        <h2 class="reveal">Get In <em>Touch.</em></h2>
+        <p class="reveal">Ready to review your quotation, submit technical and commercial proposals, and mobilise our task force team to satisfy your project needs.</p>
       </div>
     </div>
-
-    <div class="contact-form reveal">
-      <form onsubmit="submitForm(event)">
-        <div class="form-row">
-          <div class="field">
-            <label>First Name</label>
-            <input type="text" name="firstName" placeholder="John" required>
+    <div class="contact-grid">
+      <div>
+        <div class="offices">
+          <div class="office reveal">
+            <div class="office-city">Sofia, Bulgaria — Head Office</div>
+            <div class="contact-row">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 1.5C5.515 1.5 3.5 3.515 3.5 6c0 3.5 4.5 8.5 4.5 8.5S12.5 9.5 12.5 6c0-2.485-2.015-4.5-4.5-4.5zm0 6a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/></svg>
+              <span data-ck="contact.address">Osogovo st. 51, 1303 Sofia, Bulgaria</span>
+            </div>
+            <div class="contact-row">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 5l6 4 6-4" stroke-linecap="round"/></svg>
+              <div><a href="mailto:dcc@techno-con.eu" data-ck="contact.email1">dcc@techno-con.eu</a><br><a href="mailto:office@techno-con.eu" data-ck="contact.email2">office@techno-con.eu</a></div>
+            </div>
+            <div class="contact-row">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2.5 3.5a1 1 0 011-1h1.172a1 1 0 01.894.553l.707 1.414a1 1 0 01-.196 1.124l-.49.49a7.09 7.09 0 003.333 3.333l.49-.49a1 1 0 011.124-.196l1.414.707A1 1 0 0112.5 10.328V11.5a1 1 0 01-1 1H11C6.029 12.5 2.5 8.971 2.5 4V3.5z"/></svg>
+              <div><a href="tel:+359889627304" data-ck="contact.phone1">+359 88 9627304</a><br><a href="tel:+359888304414" data-ck="contact.phone2">+359 88 8304414</a></div>
+            </div>
+            <div class="contact-row">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2" stroke-linecap="round"/></svg>
+              <a href="http://www.techno-con.eu" target="_blank" rel="noopener" data-ck="contact.web">www.techno-con.eu</a>
+            </div>
           </div>
-          <div class="field">
-            <label>Last Name</label>
-            <input type="text" name="lastName" placeholder="Smith" required>
+          <div class="office reveal" style="padding:12px;overflow:hidden;border:0.5px solid var(--tc-rule-strong);border-top:none">
+            <iframe class="gmap-frame" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Osogovo+st.+51,+1303+Sofia,+Bulgaria&output=embed"
+              title="Technocon Head Office location"></iframe>
           </div>
         </div>
-        <div class="field">
-          <label>Company</label>
-          <input type="text" name="company" placeholder="Company Name">
-        </div>
-        <div class="field">
-          <label>Email</label>
-          <input type="email" name="email" placeholder="john@company.com" required>
-        </div>
-        <div class="field">
-          <label>Message</label>
-          <textarea name="message" placeholder="Describe your project requirements…" required></textarea>
-        </div>
-        <button type="submit" class="btn-a" style="width:100%;text-align:center;display:block;padding:.9rem 2rem;font-size:.88rem">Send Message</button>
-      </form>
+      </div>
+      <div class="reveal" style="padding-top:1.8rem">
+        <form onsubmit="submitForm(event)">
+          <div class="field-pair">
+            <div class="field"><label>First Name</label><input type="text" name="firstName" placeholder="John" required></div>
+            <div class="field"><label>Last Name</label><input type="text" name="lastName" placeholder="Smith" required></div>
+          </div>
+          <div class="field"><label>Company</label><input type="text" name="company" placeholder="Company Name"></div>
+          <div class="field"><label>Email</label><input type="email" name="email" placeholder="john@company.com" required></div>
+          <div class="field"><label>Message</label><textarea name="message" placeholder="Describe your project requirements…" required></textarea></div>
+          <button type="submit" class="submit-btn"><span>Send Message</span></button>
+        </form>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════ FOOTER -->
+<!-- ══ FOOTER ══ -->
 <footer>
-  <div class="footer-brand">TECHNO<span>CON</span></div>
-  <div class="footer-copy">© 2026 Technocon EOOD — Energy &amp; Industrial Infrastructure, Sofia, Bulgaria</div>
-  <div class="footer-links">
-    <a href="#services">Services</a>
-    <a href="#projects">Projects</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+  <div class="footer-inner">
+    <div>
+      <h3 class="footer-tagline">Constructed in<br><em>three dimensions.</em></h3>
+      <p class="footer-copy">© 2026 Technocon EOOD — Energy &amp; Industrial Infrastructure, Sofia, Bulgaria.</p>
+    </div>
+    <div>
+      <h4 class="footer-col-hdr">— Navigate</h4>
+      <ul class="footer-nav-list">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-col-hdr">— Office</h4>
+      <ul class="footer-nav-list">
+        <li>Osogovo st. 51</li>
+        <li>1303 Sofia, Bulgaria</li>
+        <li><a href="tel:+359889627304">+359 88 9627304</a></li>
+        <li><a href="mailto:office@techno-con.eu">office@techno-con.eu</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>TECHNOCON / 2026 / v2.0</span>
+    <span>Document 0001 / 0024</span>
   </div>
 </footer>
+
+<!-- ══ LIGHTBOX ══ -->
+<div id="lb-overlay" class="lb-overlay" onclick="closeLightbox()">
+  <div class="lb-box" onclick="event.stopPropagation()">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&#x2715;</button>
+    <img id="lb-img" src="" alt="">
+  </div>
+</div>
 
 <script>
 // ── Header scroll
@@ -1678,17 +991,9 @@ document.querySelectorAll('#navWrap a').forEach(a =>
   a.addEventListener('click', () => document.getElementById('navWrap').classList.remove('open'))
 );
 
-// ── Language dropdown
-const langDrop = document.getElementById('langDrop');
-const langBtn  = document.getElementById('langBtn');
-langBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  langDrop.classList.toggle('open');
-});
-document.addEventListener('click', () => langDrop.classList.remove('open'));
-langDrop.addEventListener('click', (e) => e.stopPropagation());
+// ── Language switcher (inline EN | BG)
 
-// ── Static project data — used as fallback when API is unavailable
+// ── Static project data
 const PROJECTS_STATIC = {
   checkpoint: {
     badge:'ongoing', status:'Ongoing',
@@ -1740,9 +1045,8 @@ const PROJECTS_STATIC = {
   }
 };
 
-// ── CMS state
 let currentLang = 'en';
-let CMS_PROJECTS = Object.assign({}, PROJECTS_STATIC); // start with static, override from API
+let CMS_PROJECTS = Object.assign({}, PROJECTS_STATIC);
 let CMS_PARTNERS = null;
 
 function buildPartnerMarquee(partners, lang) {
@@ -1756,20 +1060,15 @@ function buildPartnerMarquee(partners, lang) {
     return `<div class="partner-item">${icon}<span class="partner-name">${name}</span></div>`;
   };
   const set = partners.map(makeItem).join('');
-  track.innerHTML = set + set; // duplicate for seamless CSS loop
+  track.innerHTML = set + set;
 }
 
-// Derive base path so API calls work at / or /temp/ or any subpath
 const API_BASE = (function() {
   var segs = window.location.pathname.split('/').filter(Boolean);
-  // Find the segment that contains our known filenames or is the app root
-  // Strategy: strip the last segment if it ends in .html, then use what remains
   if (segs.length && segs[segs.length-1].indexOf('.') !== -1) segs.pop();
-  // If the remaining path has segments, those are the base (e.g. ["temp"])
   return segs.length ? '/' + segs.join('/') : '';
 })();
 
-// ── Fetch & apply CMS content for a given language
 async function fetchCMS(lang) {
   try {
     const partnerFetch = CMS_PARTNERS ? null : fetch(API_BASE + '/api/partners');
@@ -1785,118 +1084,70 @@ async function fetchCMS(lang) {
       if (prRes.ok) CMS_PARTNERS = await prRes.json();
     }
     if (CMS_PARTNERS) buildPartnerMarquee(CMS_PARTNERS, lang);
-
-    // Apply text content to all [data-ck] elements
     document.querySelectorAll('[data-ck]').forEach(el => {
       const val = content[el.dataset.ck];
-      if (val !== undefined && !Array.isArray(val)) el.textContent = val;
+      if (val !== undefined && !Array.isArray(val)) el.innerHTML = val;
     });
-    // Apply list content to all [data-ck-list] elements
     document.querySelectorAll('[data-ck-list]').forEach(el => {
       const val = content[el.dataset.ckList];
-      if (Array.isArray(val) && val.length) {
-        el.innerHTML = val.map(item => `<li>${item}</li>`).join('');
-      }
+      if (Array.isArray(val) && val.length) el.innerHTML = val.map(item => `<li>${item}</li>`).join('');
     });
-    // Apply pair-card content to all [data-ck-pairs] elements (each item is "Heading||Description")
     document.querySelectorAll('[data-ck-pairs]').forEach(el => {
       const val = content[el.dataset.ckPairs];
       if (!Array.isArray(val) || !val.length) return;
-      const hClass   = el.dataset.pairsH    || '';
-      const pClass   = el.dataset.pairsP    || '';
-      const itemCls  = el.dataset.pairsItem || '';
       el.innerHTML = val.map(item => {
         const sep = item.indexOf('||');
         const h = sep >= 0 ? item.slice(0, sep) : item;
         const p = sep >= 0 ? item.slice(sep + 2) : '';
-        return `<div class="${itemCls}"><div class="${hClass}">${h}</div><div class="${pClass}">${p}</div></div>`;
+        return `<div class="pillar"><h3>${h}</h3><p>${p}</p></div>`;
       }).join('');
     });
-    // Apply ISO cert boxes to all [data-ck-isos] elements (each item is "CODE||Name||imgpath")
     document.querySelectorAll('[data-ck-isos]').forEach(el => {
       const val = content[el.dataset.ckIsos];
       if (!Array.isArray(val) || !val.length) return;
-      const svgArrow = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg>`;
       el.innerHTML = val.map(item => {
         const parts = item.split('||');
-        const code = parts[0] || '';
-        const name = parts[1] || '';
-        const img  = parts[2] || '';
+        const code = parts[0] || '', name = parts[1] || '', img = parts[2] || '';
         const safeCode = code.replace(/'/g, "\\'");
-        return `<div class="iso-box" onclick="openLightbox('${img}','${safeCode}')"><div class="iso-code">${code}</div><div class="iso-name">${name}</div><div class="iso-view">View certificate ${svgArrow}</div></div>`;
+        return `<div class="iso-card"><div class="badge">— Standard</div><h3>${code}</h3><p>${name}</p><a onclick="openLightbox('${img}','${safeCode}')">View certificate →</a></div>`;
       }).join('');
     });
-
-    // Build CMS_PROJECTS lookup keyed by project.key
     CMS_PROJECTS = {};
     const statusLabel = { ongoing: { en:'Ongoing', bg:'Текущо' }, completed: { en:'Completed', bg:'Завършено' } };
     projList.forEach(p => {
       const scope = Array.isArray(p.scope) ? p.scope : (JSON.parse(p.scope || '[]'));
       const meta = [];
-      if (p.client)          meta.push(['Client',         p.client]);
-      if (p.period)          meta.push(['Period',          p.period]);
-      if (p.contract_value)  meta.push(['Contract Value',  p.contract_value]);
-      if (p.location)        meta.push(['Location',        p.location]);
-      CMS_PROJECTS[p.key] = {
-        badge:  p.badge,
-        status: (statusLabel[p.badge] || {})[lang] || p.badge,
-        title:  p.title,
-        imgs:   (p.images || []).map(img => img.filename),
-        meta,
-        desc:   p.description,
-        scope
-      };
+      if (p.client)         meta.push(['Client', p.client]);
+      if (p.period)         meta.push(['Period', p.period]);
+      if (p.contract_value) meta.push(['Contract Value', p.contract_value]);
+      if (p.location)       meta.push(['Location', p.location]);
+      CMS_PROJECTS[p.key] = { badge: p.badge, status: (statusLabel[p.badge] || {})[lang] || p.badge, title: p.title, imgs: (p.images || []).map(img => img.filename), meta, desc: p.description, scope };
     });
-
-    // Update project card title, client line, and thumbnail from CMS data
     projList.forEach(p => {
       const card = document.querySelector(`.proj-card-g[data-proj="${p.key}"]`);
       if (!card) return;
       const titleEl  = card.querySelector('.proj-card-g-title');
       const clientEl = card.querySelector('.proj-card-g-client');
       const imgEl    = card.querySelector('img');
-      if (titleEl && p.title)   titleEl.textContent  = p.title;
+      if (titleEl && p.title)   titleEl.textContent = p.title;
       if (clientEl && p.client) clientEl.textContent = p.client;
-      if (imgEl && p.images?.length) {
-        const thumb = p.images.find(i => i.is_main) || p.images[0];
-        if (thumb) imgEl.src = thumb.filename;
-      }
+      if (imgEl && p.images?.length) { const thumb = p.images.find(i => i.is_main) || p.images[0]; if (thumb) imgEl.src = thumb.filename; }
     });
-
-    // Reorder carousel cards to match sort_order from API
     const track = document.getElementById('galleryTrack');
     if (track) {
-      projList.forEach(p => {
-        const card = track.querySelector(`.proj-card-g[data-proj="${p.key}"]`);
-        if (card) track.appendChild(card); // appending in API order moves each to end in sequence
-      });
-      // Reset carousel to position 0 so offset stays valid after reorder
-      galCurIdx = 0;
-      track.style.transform = 'translateX(0)';
-      const pgPrev = document.getElementById('pgPrev');
-      const pgNext = document.getElementById('pgNext');
-      if (pgPrev) pgPrev.disabled = true;
-      if (pgNext) pgNext.disabled = false;
+      projList.forEach(p => { const card = track.querySelector(`.proj-card-g[data-proj="${p.key}"]`); if (card) track.appendChild(card); });
+      galCurIdx = 0; track.style.transform = 'translateX(0)';
+      const pgPrev = document.getElementById('pgPrev'); const pgNext = document.getElementById('pgNext');
+      if (pgPrev) pgPrev.disabled = true; if (pgNext) pgNext.disabled = false;
     }
-
-    // If a detail panel is open, refresh its content in the new language
-    if (activeProj) {
-      const detail = document.getElementById('detail-' + activeProj);
-      if (detail) detail.innerHTML = buildDetailHTML(activeProj);
-    }
-
-    // Re-observe any .reveal elements created by CMS rendering that weren't in the DOM at page load
+    if (activeProj) { const detail = document.getElementById('detail-' + activeProj); if (detail) detail.innerHTML = buildDetailHTML(activeProj); }
     document.querySelectorAll('.reveal:not(.vis)').forEach(el => observer.observe(el));
-  } catch (err) {
-    // API unavailable (static hosting) — CMS_PROJECTS already has static fallback data
-  }
+  } catch (err) {}
 }
 
-function setLang(code, btn, label) {
-  document.querySelectorAll('#langMenu button').forEach(b => b.classList.remove('active'));
+function setLang(code, btn) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('langLabel').textContent = label;
-  langDrop.classList.remove('open');
   currentLang = code;
   fetchCMS(code);
   if (CMS_PARTNERS) buildPartnerMarquee(CMS_PARTNERS, code);
@@ -1915,189 +1166,75 @@ const observer = new IntersectionObserver(entries => {
 }, {threshold: 0.1, rootMargin: '0px 0px -30px 0px'});
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ── Gallery carousel state
-var galCurIdx = 0;
-var galDragStartX = 0;
-var galDragDelta = 0;
-var galIsDragging = false;
-
-function galGetVisible() {
-  const track = document.getElementById('galleryTrack');
-  if (!track) return [];
-  return Array.from(track.querySelectorAll('.proj-card-g')).filter(c => c.style.display !== 'none');
-}
-
-function galCardWidth() {
-  const track = document.getElementById('galleryTrack');
-  if (!track) return 360;
-  const card = track.querySelector('.proj-card-g:not([style*="display: none"])');
-  if (!card) return 360;
-  return card.offsetWidth + 20; // card width + gap
-}
-
+// ── Gallery carousel
+var galCurIdx = 0, galDragStartX = 0, galDragDelta = 0, galIsDragging = false;
+function galGetVisible() { const track = document.getElementById('galleryTrack'); if (!track) return []; return Array.from(track.querySelectorAll('.proj-card-g')).filter(c => c.style.display !== 'none'); }
+function galCardWidth() { const track = document.getElementById('galleryTrack'); if (!track) return 360; const card = track.querySelector('.proj-card-g:not([style*="display: none"])'); if (!card) return 360; return card.offsetWidth + 20; }
 function galUpdateDots(visible) {
-  const dots = document.getElementById('galleryDots');
-  if (!dots) return;
+  const dots = document.getElementById('galleryDots'); if (!dots) return;
   dots.innerHTML = '';
-  visible.forEach((_, i) => {
-    const d = document.createElement('button');
-    d.className = 'pgdot' + (i === galCurIdx ? ' active' : '');
-    d.setAttribute('aria-label', 'Go to project ' + (i + 1));
-    d.onclick = (function(idx){ return function(){ galGoTo(idx); }; })(i);
-    dots.appendChild(d);
-  });
+  visible.forEach((_, i) => { const d = document.createElement('button'); d.className = 'pgdot' + (i === galCurIdx ? ' active' : ''); d.setAttribute('aria-label', 'Go to project ' + (i+1)); d.onclick = (function(idx){ return function(){ galGoTo(idx); }; })(i); dots.appendChild(d); });
 }
-
 function galGoTo(idx) {
-  const track = document.getElementById('galleryTrack');
-  if (!track) return;
-  const visible = galGetVisible();
-  const total = visible.length;
-  if (total === 0) return;
+  const track = document.getElementById('galleryTrack'); if (!track) return;
+  const visible = galGetVisible(); const total = visible.length; if (total === 0) return;
   galCurIdx = Math.max(0, Math.min(idx, total - 1));
-  const cw = galCardWidth();
-  track.style.transform = 'translateX(-' + (galCurIdx * cw) + 'px)';
+  track.style.transform = 'translateX(-' + (galCurIdx * galCardWidth()) + 'px)';
   document.getElementById('pgPrev').disabled = galCurIdx === 0;
   document.getElementById('pgNext').disabled = galCurIdx >= total - 1;
   galUpdateDots(visible);
 }
-
-function galleryScroll(dir) {
-  galGoTo(galCurIdx + dir);
-}
-
+function galleryScroll(dir) { galGoTo(galCurIdx + dir); }
 function galInitDrag() {
-  const track = document.getElementById('galleryTrack');
-  if (!track || track._dragInit) return;
-  track._dragInit = true;
-
-  function onDragStart(e) {
-    galIsDragging = true;
-    galDragStartX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-    galDragDelta = 0;
-    track.style.transition = 'none';
-    track.style.cursor = 'grabbing';
-  }
-  function onDragMove(e) {
-    if (!galIsDragging) return;
-    var x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-    galDragDelta = x - galDragStartX;
-    var visible = galGetVisible();
-    var cw = galCardWidth();
-    var base = galCurIdx * cw;
-    track.style.transform = 'translateX(-' + (base - galDragDelta) + 'px)';
-  }
-  function onDragEnd() {
-    if (!galIsDragging) return;
-    galIsDragging = false;
-    track.style.transition = 'transform .5s cubic-bezier(.25,.8,.25,1)';
-    track.style.cursor = 'grab';
-    if (galDragDelta < -60) galleryScroll(1);
-    else if (galDragDelta > 60) galleryScroll(-1);
-    else galGoTo(galCurIdx);
-  }
-
-  track.addEventListener('mousedown', onDragStart);
-  track.addEventListener('touchstart', onDragStart, {passive:true});
-  window.addEventListener('mousemove', onDragMove);
-  window.addEventListener('touchmove', onDragMove, {passive:true});
-  window.addEventListener('mouseup', onDragEnd);
-  window.addEventListener('touchend', onDragEnd);
-  track.addEventListener('click', function(e) {
-    if (Math.abs(galDragDelta) > 5) e.stopPropagation();
-  }, true);
+  const track = document.getElementById('galleryTrack'); if (!track || track._dragInit) return; track._dragInit = true;
+  function onDragStart(e) { galIsDragging = true; galDragStartX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX; galDragDelta = 0; track.style.transition = 'none'; track.style.cursor = 'grabbing'; }
+  function onDragMove(e) { if (!galIsDragging) return; var x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX; galDragDelta = x - galDragStartX; track.style.transform = 'translateX(-' + (galCurIdx * galCardWidth() - galDragDelta) + 'px)'; }
+  function onDragEnd() { if (!galIsDragging) return; galIsDragging = false; track.style.transition = 'transform .5s cubic-bezier(.25,.8,.25,1)'; track.style.cursor = 'grab'; if (galDragDelta < -60) galleryScroll(1); else if (galDragDelta > 60) galleryScroll(-1); else galGoTo(galCurIdx); }
+  track.addEventListener('mousedown', onDragStart); track.addEventListener('touchstart', onDragStart, {passive:true});
+  window.addEventListener('mousemove', onDragMove); window.addEventListener('touchmove', onDragMove, {passive:true});
+  window.addEventListener('mouseup', onDragEnd); window.addEventListener('touchend', onDragEnd);
+  track.addEventListener('click', function(e) { if (Math.abs(galDragDelta) > 5) e.stopPropagation(); }, true);
 }
-
-// Initialise gallery once DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-  galUpdateDots(galGetVisible());
-  galInitDrag();
-});
+document.addEventListener('DOMContentLoaded', function() { galUpdateDots(galGetVisible()); galInitDrag(); });
 
 // ── Project filter
 function filterProjects(filter, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
   closeDetail();
   document.querySelectorAll('.proj-card-g').forEach(card => {
     const show = filter === 'all' || card.dataset.status === filter;
     card.style.display = show ? '' : 'none';
-    const detail = document.getElementById('detail-' + card.dataset.proj);
-    if (detail) detail.style.display = show ? '' : 'none';
+    const detail = document.getElementById('detail-' + card.dataset.proj); if (detail) detail.style.display = show ? '' : 'none';
   });
-  galCurIdx = 0;
-  const track = document.getElementById('galleryTrack');
+  galCurIdx = 0; const track = document.getElementById('galleryTrack');
   if (track) { track.style.transition = 'none'; track.style.transform = 'translateX(0)'; }
   document.getElementById('pgPrev').disabled = true;
-  const vis = galGetVisible();
-  document.getElementById('pgNext').disabled = vis.length <= 1;
-  galUpdateDots(vis);
+  const vis = galGetVisible(); document.getElementById('pgNext').disabled = vis.length <= 1; galUpdateDots(vis);
 }
 
-// ── Project detail — per-item panels
-let activeProj = null;
-let carouselIdx = 0;
-
-function closeDetail() {
-  document.querySelectorAll('.proj-spot-detail.open').forEach(a => a.classList.remove('open'));
-  document.querySelectorAll('.proj-card-g.active').forEach(c => c.classList.remove('active'));
-  activeProj = null;
-}
-
+// ── Project detail panels
+let activeProj = null, carouselIdx = 0;
+function closeDetail() { document.querySelectorAll('.proj-spot-detail.open').forEach(a => a.classList.remove('open')); document.querySelectorAll('.proj-card-g.active').forEach(c => c.classList.remove('active')); activeProj = null; }
 function buildDetailHTML(id) {
-  const p = CMS_PROJECTS[id];
-  if (!p) return '';
-  const dotsHtml = p.imgs.map((_,i) =>
-    `<div class="carousel-dot${i===0?' active':''}" onclick="carouselGo(${i})"></div>`
-  ).join('');
+  const p = CMS_PROJECTS[id]; if (!p) return '';
+  const dotsHtml = p.imgs.map((_,i) => `<div class="carousel-dot${i===0?' active':''}" onclick="carouselGo(${i})"></div>`).join('');
   const imgsHtml = p.imgs.map(src => `<img src="${src}" alt="">`).join('');
-  const metaHtml = p.meta.map(([l,v]) =>
-    `<div class="proj-meta-item"><label>${l}</label><span>${v}</span></div>`
-  ).join('');
+  const metaHtml = p.meta.map(([l,v]) => `<div class="proj-meta-item"><label>${l}</label><span>${v}</span></div>`).join('');
   const scopeHtml = p.scope.map(s => `<li>${s}</li>`).join('');
-  return `
-    <div class="proj-detail-inner">
-      <div class="proj-carousel" id="active-carousel">
-        <div class="proj-carousel-track" id="active-track">${imgsHtml}</div>
-        <button class="carousel-btn carousel-prev" onclick="carouselPrev()">&#8592;</button>
-        <button class="carousel-btn carousel-next" onclick="carouselNext()">&#8594;</button>
-        <div class="carousel-dots" id="active-dots">${dotsHtml}</div>
-      </div>
-      <div class="proj-detail-text">
-        <span class="proj-badge badge-${p.badge}">${p.status}</span>
-        <h3 class="proj-detail-title">${p.title}</h3>
-        <div class="proj-meta-grid">${metaHtml}</div>
-        <p class="proj-desc">${p.desc}</p>
-        <p class="proj-scope-h">Scope of Works</p>
-        <ul class="proj-scope">${scopeHtml}</ul>
-      </div>
-    </div>`;
+  return `<div class="proj-detail-inner"><div class="proj-carousel" id="active-carousel"><div class="proj-carousel-track" id="active-track">${imgsHtml}</div><button class="carousel-btn carousel-prev" onclick="carouselPrev()">&#8592;</button><button class="carousel-btn carousel-next" onclick="carouselNext()">&#8594;</button><div class="carousel-dots" id="active-dots">${dotsHtml}</div></div><div class="proj-detail-text"><span class="proj-badge badge-${p.badge}">${p.status}</span><h3 class="proj-detail-title">${p.title}</h3><div class="proj-meta-grid">${metaHtml}</div><p class="proj-desc">${p.desc}</p><p class="proj-scope-h">Scope of Works</p><ul class="proj-scope">${scopeHtml}</ul></div></div>`;
 }
-
 function toggleProject(id, card) {
   const detail = document.getElementById('detail-' + id);
-
   if (activeProj === id) { closeDetail(); return; }
-
-  closeDetail();
-  card.classList.add('active');
-  activeProj = id;
-  carouselIdx = 0;
-
-  detail.innerHTML = buildDetailHTML(id);
-  detail.classList.add('open');
+  closeDetail(); card.classList.add('active'); activeProj = id; carouselIdx = 0;
+  detail.innerHTML = buildDetailHTML(id); detail.classList.add('open');
   setTimeout(() => detail.scrollIntoView({behavior:'smooth', block:'start'}), 50);
 }
-
-// ── Carousel (operates on active panel)
 function updateCarousel(idx) {
   const total = CMS_PROJECTS[activeProj]?.imgs.length ?? 1;
   carouselIdx = ((idx % total) + total) % total;
-  const track = document.getElementById('active-track');
-  if (track) track.style.transform = `translateX(-${carouselIdx * 100}%)`;
-  document.querySelectorAll('#active-dots .carousel-dot').forEach((d,i) => {
-    d.classList.toggle('active', i === carouselIdx);
-  });
+  const track = document.getElementById('active-track'); if (track) track.style.transform = `translateX(-${carouselIdx * 100}%)`;
+  document.querySelectorAll('#active-dots .carousel-dot').forEach((d,i) => d.classList.toggle('active', i === carouselIdx));
 }
 function carouselPrev() { updateCarousel(carouselIdx - 1); }
 function carouselNext() { updateCarousel(carouselIdx + 1); }
@@ -2105,131 +1242,48 @@ function carouselGo(idx) { updateCarousel(idx); }
 
 // ── Form
 function submitForm(e) {
-  e.preventDefault();
-  const form = e.target;
-  const btn  = form.querySelector('button[type=submit]');
-  const data = {
-    firstName: form.firstName.value.trim(),
-    lastName:  form.lastName.value.trim(),
-    company:   form.company.value.trim(),
-    email:     form.email.value.trim(),
-    message:   form.message.value.trim(),
-  };
-  btn.disabled    = true;
-  btn.textContent = 'Sending…';
-  fetch('/api/contact', {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify(data),
-  })
-  .then(r => r.json())
-  .then(res => {
-    if (res.ok) {
-      btn.textContent    = 'Message Sent ✓';
-      btn.style.background = '#4a7c59';
-      form.reset();
-      setTimeout(() => {
-        btn.textContent    = 'Send Message';
-        btn.style.background = '';
-        btn.disabled         = false;
-      }, 4000);
-    } else {
-      btn.textContent  = 'Error — try again';
-      btn.style.background = '#b44';
-      btn.disabled     = false;
-    }
-  })
-  .catch(() => {
-    btn.textContent  = 'Error — try again';
-    btn.style.background = '#b44';
-    btn.disabled     = false;
-  });
+  e.preventDefault(); const form = e.target; const btn = form.querySelector('button[type=submit]');
+  const data = { firstName: form.firstName.value.trim(), lastName: form.lastName.value.trim(), company: form.company.value.trim(), email: form.email.value.trim(), message: form.message.value.trim() };
+  btn.disabled = true; btn.querySelector('span').textContent = 'Sending…';
+  fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+    .then(r => r.json())
+    .then(res => {
+      if (res.ok) { btn.querySelector('span').textContent = 'Message Sent ✓'; form.reset(); setTimeout(() => { btn.querySelector('span').textContent = 'Send Message'; btn.disabled = false; }, 4000); }
+      else { btn.querySelector('span').textContent = 'Error — try again'; btn.disabled = false; }
+    })
+    .catch(() => { btn.querySelector('span').textContent = 'Error — try again'; btn.disabled = false; });
 }
 
-// ── Active nav highlight on scroll
-const sections = ['services','projects','about','contact'];
+// ── Active nav
+const navSections = ['services','projects','about','contact'];
 const navLinks = document.querySelectorAll('nav > a');
 window.addEventListener('scroll', () => {
   let cur = '';
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    if (el && window.scrollY >= el.offsetTop - 120) cur = id;
-  });
-  navLinks.forEach(a => {
-    a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
-  });
+  navSections.forEach(id => { const el = document.getElementById(id); if (el && window.scrollY >= el.offsetTop - 120) cur = id; });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
 }, {passive:true});
 
-// ── Hero cycling word animation
+// ── Hero cycling word
 (function() {
-  var words  = ['Energy', 'Industrial'];
-  var el     = document.getElementById('heroCycle');
-  var idx    = 0;
-
+  var words = ['Energy', 'Industrial'];
+  var el = document.getElementById('heroCycle'); var idx = 0;
   function buildChar(char, i) {
-    var d = (i * 0.05).toFixed(2);
-    var d1 = (i * 0.05 + 0.08).toFixed(2);
-    var d2 = (i * 0.05 + 0.16).toFixed(2);
-    var d3 = (i * 0.05 + 0.12).toFixed(2);
-    var c  = char === ' ' ? '\u00A0' : char;
-    return '<span class="sc">' +
-      '<span class="sc-main" style="animation-delay:' + d3 + 's">' + c + '</span>' +
-      '<span class="sc-t" style="animation-delay:' + d + 's">' + c + '</span>' +
-      '<span class="sc-m" style="animation-delay:' + d1 + 's">' + c + '</span>' +
-      '<span class="sc-b" style="animation-delay:' + d2 + 's">' + c + '</span>' +
-    '</span>';
+    var d = (i * 0.05).toFixed(2), d1 = (i * 0.05 + 0.08).toFixed(2), d2 = (i * 0.05 + 0.16).toFixed(2), d3 = (i * 0.05 + 0.12).toFixed(2);
+    var c = char === ' ' ? ' ' : char;
+    return '<span class="sc"><span class="sc-main" style="animation-delay:' + d3 + 's">' + c + '</span><span class="sc-t" style="animation-delay:' + d + 's">' + c + '</span><span class="sc-m" style="animation-delay:' + d1 + 's">' + c + '</span><span class="sc-b" style="animation-delay:' + d2 + 's">' + c + '</span></span>';
   }
-
-  function show(word) {
-    el.innerHTML = word.split('').map(buildChar).join('');
-    el.style.cssText = 'opacity:1;transform:none';
-  }
-
-  function next() {
-    // Exit current word
-    el.className = 'hero-cycle exit';
-    setTimeout(function() {
-      idx = (idx + 1) % words.length;
-      el.className = 'hero-cycle';
-      show(words[idx]);
-    }, 420);
-  }
-
-  // Start: show first word after h1 fades in (0.6s delay + 0.7s duration)
-  setTimeout(function() {
-    show(words[0]);
-    setInterval(next, 4500);
-  }, 1400);
+  function show(word) { el.innerHTML = word.split('').map(buildChar).join(''); el.style.cssText = 'opacity:1;transform:none'; }
+  function next() { el.className = 'hero-cycle exit'; setTimeout(function() { idx = (idx + 1) % words.length; el.className = 'hero-cycle'; show(words[idx]); }, 420); }
+  setTimeout(function() { show(words[0]); setInterval(next, 4500); }, 1400);
 })();
 
-// ── Bootstrap CMS on page load
+// ── Lightbox
+function openLightbox(src, alt) { const overlay = document.getElementById('lb-overlay'); const img = document.getElementById('lb-img'); img.src = src; img.alt = alt || ''; overlay.classList.add('lb-open'); document.body.style.overflow = 'hidden'; }
+function closeLightbox() { document.getElementById('lb-overlay').classList.remove('lb-open'); document.body.style.overflow = ''; }
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+
+// ── Bootstrap CMS
 fetchCMS('en');
-
-// ── Lightbox ──────────────────────────────────────────────────────────
-function openLightbox(src, alt) {
-  const overlay = document.getElementById('lb-overlay');
-  const img = document.getElementById('lb-img');
-  img.src = src;
-  img.alt = alt || '';
-  overlay.classList.add('lb-open');
-  document.body.style.overflow = 'hidden';
-}
-function closeLightbox() {
-  const overlay = document.getElementById('lb-overlay');
-  overlay.classList.remove('lb-open');
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeLightbox();
-});
 </script>
-
-<!-- Lightbox overlay -->
-<div id="lb-overlay" class="lb-overlay" onclick="closeLightbox()">
-  <div class="lb-box" onclick="event.stopPropagation()">
-    <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&#x2715;</button>
-    <img id="lb-img" src="" alt="">
-  </div>
-</div>
 </body>
 </html>
