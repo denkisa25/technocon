@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name_en": "Vemak",
+    "name_bg": "Вемак",
+    "logo": "uploads/partners/1777408313632-481051.png"
+  },
+  {
+    "id": 2,
+    "name_en": "Arkad S.p.A.",
+    "name_bg": "Аркад С.п.А.",
+    "logo": "uploads/partners/1777409976906-491979.png"
+  },
+  {
+    "id": 3,
+    "name_en": "Sicilsaldo Group",
+    "name_bg": "Сицилсалдо Груп",
+    "logo": "uploads/partners/1777409984394-288505.png"
+  },
+  {
+    "id": 4,
+    "name_en": "Camel Oil Tanzania",
+    "name_bg": "Камел Оил Танзания",
+    "logo": "uploads/partners/1777409991993-484262.png"
+  },
+  {
+    "id": 5,
+    "name_en": "Bulgartransgaz",
+    "name_bg": "Булгартрансгаз",
+    "logo": "uploads/partners/1777720939066-296760.png"
+  },
+  {
+    "id": 6,
+    "name_en": "Eesti Energia",
+    "name_bg": "Ееsти Енергия",
+    "logo": "uploads/partners/1777720956769-820261.png"
+  },
+  {
+    "id": 7,
+    "name_en": "Glavbolgarstroy",
+    "name_bg": "Главболгарстрой",
+    "logo": "uploads/partners/1777720989815-596072.jpg"
+  },
+  {
+    "id": 8,
+    "name_en": "ADNOC",
+    "name_bg": "АДНОK",
+    "logo": "uploads/partners/1777720996306-104128.png"
+  }
+]

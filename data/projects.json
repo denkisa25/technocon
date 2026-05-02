@@ -1,0 +1,379 @@
+[
+  {
+    "id": 1,
+    "key": "checkpoint",
+    "status": "ongoing",
+    "badge": "ongoing",
+    "sort_order": 4,
+    "translations": {
+      "en": {
+        "title": "Border Checkpoint Reconstruction",
+        "client": "Glavbolgarstroy AD",
+        "period": "Oct 2025 – Present",
+        "location": "Bulgaria",
+        "contract_value": "760 t steel structures",
+        "description": "Strategic infrastructure modernisation of a border checkpoint, with high coordination and execution requirements. Full multi-discipline scope from engineering through construction.",
+        "scope": [
+          "Detail design",
+          "Raw material procurement",
+          "Engineering",
+          "Steel structures manufacturing",
+          "Galvanization",
+          "Quality control",
+          "Tracking & expediting",
+          "Construction works"
+        ]
+      },
+      "bg": {
+        "title": "Реконструкция на граничен контролно-пропускателен пункт",
+        "client": "Главболгарстрой АД",
+        "period": "Окт 2025 – Настоящем",
+        "location": "България",
+        "contract_value": "760 т стоманени конструкции",
+        "description": "Стратегическа модернизация на инфраструктурата на граничен пункт с висока координация и изисквания за изпълнение.",
+        "scope": [
+          "Работен проект",
+          "Доставка на материали",
+          "Инженеринг",
+          "Производство на стоманени конструкции",
+          "Поцинковане",
+          "Контрол на качеството",
+          "Проследяване",
+          "Строително-монтажни работи"
+        ]
+      }
+    },
+    "images": [
+      {
+        "id": 1,
+        "filename": "brand_assets/CHIREN PRES-1.jpeg",
+        "sort_order": 0
+      },
+      {
+        "id": 2,
+        "filename": "brand_assets/CHIREN PRES-3.jpeg",
+        "sort_order": 1
+      },
+      {
+        "id": 3,
+        "filename": "brand_assets/DJI_0005.JPG",
+        "sort_order": 2
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "key": "balkan",
+    "status": "completed",
+    "badge": "completed",
+    "sort_order": 2,
+    "translations": {
+      "en": {
+        "title": "Bulgarian Gas Pipeline Extension — Balkan Stream",
+        "client": "Bulgartransgaz EAD",
+        "period": "2019–2021 + O&M ongoing",
+        "location": "Bulgaria",
+        "contract_value": "Pipeline route Turkish–Serbian border",
+        "description": "Gas transmission pipeline across Bulgaria (Balkan Stream) including related facilities and commissioning. Currently under ongoing O&M support.",
+        "scope": [
+          "Materials & equipment supply",
+          "Line pipes incl. GRP insulation",
+          "Engineering support",
+          "Technical coordination",
+          "As-built documentation",
+          "Testing & commissioning",
+          "Start-up assistance",
+          "Ongoing O&M support"
+        ]
+      },
+      "bg": {
+        "title": "Разширение на газопровод — Балкански поток",
+        "client": "Булгартрансгаз ЕАД",
+        "period": "2019–2021 + текуща поддръжка",
+        "location": "България",
+        "contract_value": "Трасе турска–сръбска граница",
+        "description": "Газопреносен тръбопровод Балкански поток, включително съоръжения и въвеждане в експлоатация.",
+        "scope": [
+          "Доставка материали и оборудване",
+          "Тръбопроводи с GRP изолация",
+          "Инженерна поддръжка",
+          "Техническа координация",
+          "Документация \"as-built\"",
+          "Изпитвания и пускане",
+          "Стартова помощ",
+          "Текуща поддръжка"
+        ]
+      }
+    },
+    "images": [
+      {
+        "id": 4,
+        "filename": "brand_assets/DJI_0012.JPG",
+        "sort_order": 0
+      },
+      {
+        "id": 5,
+        "filename": "brand_assets/DJI_0005.JPG",
+        "sort_order": 1
+      },
+      {
+        "id": 6,
+        "filename": "brand_assets/CHIREN PRES-2.jpeg",
+        "sort_order": 2
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "key": "enefit",
+    "status": "completed",
+    "badge": "completed",
+    "sort_order": 3,
+    "translations": {
+      "en": {
+        "title": "Enefit-280 Construction — Narva Oil Plant",
+        "client": "Eesti Energia",
+        "period": "2023–2025",
+        "location": "Narva, Estonia",
+        "contract_value": "~EUR 11M",
+        "description": "Construction of an oil shale processing plant including the condensation block. 400 t equipment & steel structures, 360 t piping, 50 t stainless steel, 4,300 pipe supports.",
+        "scope": [
+          "Mechanical installation",
+          "Prefabrication",
+          "Painting & coating",
+          "Welding works",
+          "Equipment installation",
+          "Electrical works",
+          "Automation works",
+          "Commissioning assistance"
+        ]
+      },
+      "bg": {
+        "title": "Строителство Enefit-280 — Нарва",
+        "client": "Eesti Energia",
+        "period": "2023–2025",
+        "location": "Нарва, Естония",
+        "contract_value": "~EUR 11M",
+        "description": "Изграждане на завод за преработка на нефтени шисти, включително кондензационен блок.",
+        "scope": [
+          "Механичен монтаж",
+          "Предварителна обработка",
+          "Боядисване и покрития",
+          "Заваряване",
+          "Монтаж оборудване",
+          "Електро монтаж",
+          "Автоматизация",
+          "Помощ при пускане"
+        ]
+      }
+    },
+    "images": [
+      {
+        "id": 7,
+        "filename": "brand_assets/CHIREN PRES-2.jpeg",
+        "sort_order": 0
+      },
+      {
+        "id": 8,
+        "filename": "brand_assets/CHIREN PRES-1.jpeg",
+        "sort_order": 1
+      },
+      {
+        "id": 9,
+        "filename": "brand_assets/CHIREN PRES-3.jpeg",
+        "sort_order": 2
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "key": "lozen",
+    "status": "completed",
+    "badge": "completed",
+    "sort_order": 5,
+    "translations": {
+      "en": {
+        "title": "Lozen Pig Launcher/Receiver Station Reconstruction",
+        "client": "Bulgartransgaz EAD",
+        "period": "Oct 2024 – Nov 2025",
+        "location": "Lozen, Bulgaria",
+        "contract_value": "~EUR 1M",
+        "description": "Full reconstruction of the Lozen Pig Launcher/Receiver Station including access road, fire protection strip, perimeter drainage, and internal site works on the active 48\" gas pipeline.",
+        "scope": [
+          "Access road reconstruction",
+          "Embankment & drainage",
+          "Slope stabilisation (geogrid)",
+          "Fire protection strip",
+          "Reno mattress installation",
+          "Trench breakers"
+        ]
+      },
+      "bg": {
+        "title": "Реконструкция на станция Лозен",
+        "client": "Булгартрансгаз ЕАД",
+        "period": "Окт 2024 – Ноем 2025",
+        "location": "Лозен, България",
+        "contract_value": "~EUR 1M",
+        "description": "Цялостна реконструкция на станцията за пуск и приемане на диагностичен уред в Лозен.",
+        "scope": [
+          "Реконструкция на пътни настилки",
+          "Насипи и дренаж",
+          "Стабилизация на откоси",
+          "Противопожарна лента",
+          "Габионни дюшеци",
+          "Уплътнения на траншеи"
+        ]
+      }
+    },
+    "images": [
+      {
+        "id": 10,
+        "filename": "brand_assets/CHIREN PRES-3.jpeg",
+        "sort_order": 0
+      },
+      {
+        "id": 11,
+        "filename": "brand_assets/CHIREN PRES-1.jpeg",
+        "sort_order": 1
+      },
+      {
+        "id": 12,
+        "filename": "brand_assets/CHIREN PRES-2.jpeg",
+        "sort_order": 2
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "key": "chiren",
+    "status": "completed",
+    "badge": "completed",
+    "sort_order": 1,
+    "translations": {
+      "en": {
+        "title": "Chiren UGS Expansion — Aboveground Part",
+        "client": "Glavbolgarstroy AD",
+        "period": "Jun – Dec 2024",
+        "location": "Chiren, Bulgaria",
+        "contract_value": "~EUR 1.5M",
+        "description": "Construction of a new aboveground area for Chiren Underground Gas Storage (UGS), including gas injection and withdrawal systems.",
+        "scope": [
+          "Welding & installation works",
+          "Process equipment",
+          "Auxiliary network piping",
+          "TEG regeneration",
+          "Gas drying installation",
+          "Compression systems"
+        ]
+      },
+      "bg": {
+        "title": "Разширение на ПГХ Чирен — Надземна част",
+        "client": "Главболгарстрой АД",
+        "period": "Юни – Дек 2024",
+        "location": "Чирен, България",
+        "contract_value": "~EUR 1.5M",
+        "description": "Изграждане на нова надземна площадка за подземното газохранилище Чирен.",
+        "scope": [
+          "Заваряване и монтаж",
+          "Технологично оборудване",
+          "Спомагателни тръбопроводи",
+          "ТЕГ регенерация",
+          "Газово сушене",
+          "Компресорни системи"
+        ]
+      }
+    },
+    "images": [
+      {
+        "id": 19,
+        "filename": "uploads/projects/chiren/1777409353874-697486.jpeg",
+        "sort_order": 1,
+        "is_main": true
+      },
+      {
+        "id": 20,
+        "filename": "uploads/projects/chiren/1777409353875-273597.jpeg",
+        "sort_order": 2,
+        "is_main": false
+      },
+      {
+        "id": 21,
+        "filename": "uploads/projects/chiren/1777409353877-763636.jpeg",
+        "sort_order": 3,
+        "is_main": false
+      },
+      {
+        "id": 22,
+        "filename": "uploads/projects/chiren/1777409353879-481889.jpeg",
+        "sort_order": 4,
+        "is_main": false
+      },
+      {
+        "id": 23,
+        "filename": "uploads/projects/chiren/1777409353879-715060.jpeg",
+        "sort_order": 5,
+        "is_main": false
+      },
+      {
+        "id": 24,
+        "filename": "uploads/projects/chiren/1777409353880-814167.jpeg",
+        "sort_order": 6,
+        "is_main": false
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "key": "adnoc",
+    "status": "ongoing",
+    "badge": "ongoing",
+    "sort_order": 6,
+    "translations": {
+      "en": {
+        "title": "ADNOC Procurement Services",
+        "client": "ADNOC",
+        "period": "Ongoing",
+        "location": "UAE",
+        "contract_value": "Procurement",
+        "description": "International procurement services for ADNOC including supply of fire-rated pre-fabricated Store Accommodation Buildings (LGS system) and refurbished ISO-modified container units.",
+        "scope": [
+          "Fire-rated LGS buildings (12×6m)",
+          "20ft storage containers",
+          "40ft kitchen/bakery containers",
+          "Full fit-out & delivery"
+        ]
+      },
+      "bg": {
+        "title": "Procurement услуги за ADNOC",
+        "client": "ADNOC",
+        "period": "Текущо",
+        "location": "ОАЕ",
+        "contract_value": "Доставки",
+        "description": "Международни procurement услуги за ADNOC, включително доставка на противопожарни сглобяеми сгради и контейнерни модули.",
+        "scope": [
+          "Противопожарни сгради LGS (12×6м)",
+          "20ft контейнери за склад",
+          "40ft контейнери кухня/пекарна",
+          "Монтаж и доставка"
+        ]
+      }
+    },
+    "images": [
+      {
+        "id": 16,
+        "filename": "brand_assets/CHIREN PRES-2.jpeg",
+        "sort_order": 0
+      },
+      {
+        "id": 17,
+        "filename": "brand_assets/CHIREN PRES-1.jpeg",
+        "sort_order": 1
+      },
+      {
+        "id": 18,
+        "filename": "brand_assets/DJI_0012.JPG",
+        "sort_order": 2
+      }
+    ]
+  }
+]

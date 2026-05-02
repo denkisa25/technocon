@@ -1,7 +1,7 @@
 node_modules/
 temporary screenshots/
 package-lock.json
-data/
+data/users.json
 .htaccess
 video/node_modules/
 video/out/
