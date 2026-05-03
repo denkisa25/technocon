@@ -73,10 +73,10 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--ink);overflow
 #header.scrolled .header-inner{padding:.5rem 60px}
 .logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;margin-right:2rem}
 .logo .tc-logo{
-  display:block;height:130px;width:auto;color:var(--tc-paper);
+  display:block;height:90px;width:auto;color:var(--tc-paper);
   transition:height .4s cubic-bezier(.4,0,.2,1);
 }
-#header.scrolled .logo .tc-logo{height:80px}
+#header.scrolled .logo .tc-logo{height:58px}
 .nav-wrap{display:flex;align-items:center;flex:1;justify-content:space-between}
 nav{display:flex;align-items:center;gap:0}
 nav a,.nav-dropdown>button{
@@ -119,8 +119,8 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;margin-left:auto}
 .hamburger span{display:block;width:22px;height:2px;background:#fff;transition:transform .3s,opacity .3s}
 @media(max-width:960px){
-  .header-inner{padding:1rem 2.5rem}
-  #header.scrolled .header-inner{padding:.5rem 2.5rem}
+  .header-inner{padding:.5rem 1.5rem}
+  #header.scrolled .header-inner{padding:.5rem 1.5rem}
   .hamburger{display:flex}
   .nav-wrap{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(20,20,20,0.98);border-bottom:0.5px solid rgba(250,250,247,0.12);flex-direction:column;align-items:flex-start;padding:1rem 1.5rem 1.5rem;gap:.5rem;box-shadow:0 8px 24px rgba(0,0,0,.4)}
   .nav-wrap.open{display:flex}
@@ -130,6 +130,8 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   .dropdown-menu{position:static;opacity:1;pointer-events:all;transform:none;border:none;border-left:1px solid var(--tc-green);padding:0 0 0 1rem;margin:.25rem 0 .5rem;backdrop-filter:none;background:none;min-width:0;box-shadow:none}
   .dropdown-menu a{padding:.5rem 0;border:none;color:rgba(250,250,247,.5)}
   .header-right{padding:.5rem 0;width:100%}
+  .logo .tc-logo{height:30px}
+  #header.scrolled .logo .tc-logo{height:30px}
 }
 
 /* ── HERO ── */
