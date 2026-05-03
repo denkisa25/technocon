@@ -119,7 +119,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;margin-left:auto}
 .hamburger span{display:block;width:22px;height:2px;background:#fff;transition:transform .3s,opacity .3s}
 @media(max-width:960px){
-  .header-inner{padding:.5rem 1.5rem}
+  .header-inner{padding:.75rem 1.5rem}
   #header.scrolled .header-inner{padding:.5rem 1.5rem}
   .hamburger{display:flex}
   .nav-wrap{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(20,20,20,0.98);border-bottom:0.5px solid rgba(250,250,247,0.12);flex-direction:column;align-items:flex-start;padding:1rem 1.5rem 1.5rem;gap:.5rem;box-shadow:0 8px 24px rgba(0,0,0,.4)}
@@ -130,8 +130,8 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   .dropdown-menu{position:static;opacity:1;pointer-events:all;transform:none;border:none;border-left:1px solid var(--tc-green);padding:0 0 0 1rem;margin:.25rem 0 .5rem;backdrop-filter:none;background:none;min-width:0;box-shadow:none}
   .dropdown-menu a{padding:.5rem 0;border:none;color:rgba(250,250,247,.5)}
   .header-right{padding:.5rem 0;width:100%}
-  .logo .tc-logo{height:30px}
-  #header.scrolled .logo .tc-logo{height:30px}
+  .logo .tc-logo{height:56px}
+  #header.scrolled .logo .tc-logo{height:36px}
 }
 
 /* ── HERO ── */
@@ -332,6 +332,12 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .carousel-dots{position:absolute;bottom:.6rem;left:50%;transform:translateX(-50%);display:flex;gap:6px}
 .carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:background .2s,transform .2s}
 .carousel-dot.active{background:var(--tc-green);transform:scale(1.3)}
+.carousel-thumbs{display:flex;gap:5px;margin-top:6px;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;padding-bottom:3px}
+.carousel-thumbs::-webkit-scrollbar{height:3px}
+.carousel-thumbs::-webkit-scrollbar-thumb{background:var(--tc-green);border-radius:2px}
+.carousel-thumb{flex-shrink:0;width:76px;height:52px;object-fit:cover;cursor:pointer;opacity:.4;transition:opacity .2s,outline .15s;filter:saturate(.6)}
+.carousel-thumb.active{opacity:1;outline:2px solid var(--tc-green);outline-offset:-2px;filter:saturate(1)}
+.carousel-thumb:hover:not(.active){opacity:.7}
 .proj-detail-text .proj-badge{margin-bottom:.8rem}
 .proj-detail-title{font-family:var(--font-display);font-size:1.6rem;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1.1;margin-bottom:1.2rem}
 .proj-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem;padding:1.2rem;background:rgba(0,0,0,.03);border:0.5px solid var(--tc-rule-strong)}
@@ -1254,7 +1260,7 @@ function galInitDrag() {
   track.addEventListener('mousedown', onDragStart); track.addEventListener('touchstart', onDragStart, {passive:true});
   window.addEventListener('mousemove', onDragMove); window.addEventListener('touchmove', onDragMove, {passive:true});
   window.addEventListener('mouseup', onDragEnd); window.addEventListener('touchend', onDragEnd);
-  track.addEventListener('click', function(e) { if (Math.abs(galDragDelta) > 5) e.stopPropagation(); }, true);
+  track.addEventListener('click', function(e) { if (Math.abs(galDragDelta) > 15) e.stopPropagation(); }, true);
 }
 document.addEventListener('DOMContentLoaded', function() { galUpdateDots(galGetVisible()); galInitDrag(); });
 
@@ -1280,9 +1286,10 @@ function buildDetailHTML(id) {
   const p = CMS_PROJECTS[id]; if (!p) return '';
   const dotsHtml = p.imgs.map((_,i) => `<div class="carousel-dot${i===0?' active':''}" onclick="carouselGo(${i})"></div>`).join('');
   const imgsHtml = p.imgs.map(src => `<img src="${src}" alt="">`).join('');
+  const thumbsHtml = p.imgs.map((src,i) => `<img class="carousel-thumb${i===0?' active':''}" src="${src}" alt="" onclick="carouselGo(${i})">`).join('');
   const metaHtml = p.meta.map(([l,v]) => `<div class="proj-meta-item"><label>${l}</label><span>${v}</span></div>`).join('');
   const scopeHtml = p.scope.map(s => `<li>${s}</li>`).join('');
-  return `<div class="proj-detail-inner"><div class="proj-carousel" id="active-carousel"><div class="proj-carousel-track" id="active-track">${imgsHtml}</div><button class="carousel-btn carousel-prev" onclick="carouselPrev()">&#8592;</button><button class="carousel-btn carousel-next" onclick="carouselNext()">&#8594;</button><div class="carousel-dots" id="active-dots">${dotsHtml}</div></div><div class="proj-detail-text"><span class="proj-badge badge-${p.badge}">${p.status}</span><h3 class="proj-detail-title">${p.title}</h3><div class="proj-meta-grid">${metaHtml}</div><p class="proj-desc">${p.desc}</p><p class="proj-scope-h">Scope of Works</p><ul class="proj-scope">${scopeHtml}</ul></div></div>`;
+  return `<div class="proj-detail-inner"><div><div class="proj-carousel" id="active-carousel"><div class="proj-carousel-track" id="active-track">${imgsHtml}</div><button class="carousel-btn carousel-prev" onclick="carouselPrev()">&#8592;</button><button class="carousel-btn carousel-next" onclick="carouselNext()">&#8594;</button><div class="carousel-dots" id="active-dots">${dotsHtml}</div></div><div class="carousel-thumbs" id="active-thumbs">${thumbsHtml}</div></div><div class="proj-detail-text"><span class="proj-badge badge-${p.badge}">${p.status}</span><h3 class="proj-detail-title">${p.title}</h3><div class="proj-meta-grid">${metaHtml}</div><p class="proj-desc">${p.desc}</p><p class="proj-scope-h">Scope of Works</p><ul class="proj-scope">${scopeHtml}</ul></div></div>`;
 }
 function toggleProject(id, card) {
   const detail = document.getElementById('detail-' + id);
@@ -1296,6 +1303,7 @@ function updateCarousel(idx) {
   carouselIdx = ((idx % total) + total) % total;
   const track = document.getElementById('active-track'); if (track) track.style.transform = `translateX(-${carouselIdx * 100}%)`;
   document.querySelectorAll('#active-dots .carousel-dot').forEach((d,i) => d.classList.toggle('active', i === carouselIdx));
+  document.querySelectorAll('#active-thumbs .carousel-thumb').forEach((t,i) => { t.classList.toggle('active', i === carouselIdx); if (i === carouselIdx) t.scrollIntoView({block:'nearest',inline:'nearest'}); });
 }
 function carouselPrev() { updateCarousel(carouselIdx - 1); }
 function carouselNext() { updateCarousel(carouselIdx + 1); }
