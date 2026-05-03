@@ -352,7 +352,10 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .proj-scope li::before{content:'›';position:absolute;left:0;color:var(--tc-green)}
 
 /* ── ABOUT ── */
-#about{background:var(--bg)}
+#about{background:var(--bg);overflow:hidden}
+.about-geo-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
+.about-geo-bg svg{width:100%;height:100%}
+#about .container{position:relative;z-index:1}
 .about-layout{display:grid;grid-template-columns:1fr 400px;gap:5rem;align-items:start;margin-top:0}
 .pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:0.5px solid var(--tc-rule-strong);background:var(--surface);margin-top:0}
 .pillar{padding:32px;border-right:0.5px solid var(--tc-rule-strong);border-bottom:0.5px solid var(--tc-rule-strong);position:relative}
@@ -850,6 +853,41 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
 
 <!-- ══ ABOUT ══ -->
 <section id="about" class="section">
+  <div class="about-geo-bg" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice">
+      <!-- Outer L-corner frame marks -->
+      <g stroke="#1a1a1a" stroke-opacity="0.1" stroke-width="0.8" fill="none">
+        <path d="M0 100 L100 100 L100 0"/>
+        <path d="M1340 0 L1340 100 L1440 100"/>
+        <path d="M0 600 L100 600 L100 700"/>
+        <path d="M1340 700 L1340 600 L1440 600"/>
+      </g>
+      <!-- Inner L-corner frame marks -->
+      <g stroke="#1a1a1a" stroke-opacity="0.07" stroke-width="0.7" fill="none">
+        <path d="M200 52 L260 52 L260 0"/>
+        <path d="M1180 0 L1180 52 L1240 52"/>
+        <path d="M200 648 L260 648 L260 700"/>
+        <path d="M1180 700 L1180 648 L1240 648"/>
+      </g>
+      <!-- Side centre tick marks -->
+      <g stroke="#1a1a1a" stroke-opacity="0.07" stroke-width="0.7" fill="none">
+        <line x1="0" y1="350" x2="56" y2="350"/>
+        <line x1="1384" y1="350" x2="1440" y2="350"/>
+      </g>
+      <!-- Primary crossing diagonals (from outer corner marks) -->
+      <g stroke="#1a1a1a" stroke-opacity="0.08" stroke-width="0.8" fill="none">
+        <line x1="100" y1="0" x2="580" y2="700"/>
+        <line x1="1340" y1="0" x2="860" y2="700"/>
+      </g>
+      <!-- Secondary crossing diagonals (from inner corner marks) -->
+      <g stroke="#1a1a1a" stroke-opacity="0.055" stroke-width="0.7" fill="none">
+        <line x1="260" y1="0" x2="740" y2="700"/>
+        <line x1="1180" y1="0" x2="700" y2="700"/>
+      </g>
+      <!-- Faint horizontal centre rule -->
+      <line x1="0" y1="350" x2="1440" y2="350" stroke="#1a1a1a" stroke-opacity="0.04" stroke-width="0.5"/>
+    </svg>
+  </div>
   <div class="container">
     <div class="section-header">
       <div class="section-num reveal">05 / About</div>
