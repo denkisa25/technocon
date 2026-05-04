@@ -302,7 +302,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .pgn-btn:disabled{opacity:.3;cursor:default;pointer-events:none}
 .pgn-btn svg{width:18px;height:18px}
 .proj-gallery-track{display:block}
-.proj-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--tc-rule-strong);border:0.5px solid var(--tc-rule-strong);border-bottom:none}
+.proj-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--tc-rule-strong);border:0.5px solid var(--tc-rule-strong)}
 .proj-card-g{overflow:hidden;position:relative;cursor:pointer;background:var(--surface);transition:background .2s}
 .proj-card-g::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--tc-gradient-h);transform:scaleX(0);transition:transform .3s ease;z-index:2}
 .proj-card-g.active::before{transform:scaleX(1)}
@@ -321,7 +321,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .proj-gallery-dots{display:flex;justify-content:center;gap:8px;margin-top:2rem}
 .pgdot{width:8px;height:8px;border:none;cursor:pointer;padding:0;background:rgba(0,0,0,.15);transition:background .25s,transform .25s}
 .pgdot.active{background:var(--tc-green);transform:scale(1.25)}
-.proj-spot-detail{background:var(--surface);border:0.5px solid var(--tc-rule-strong);border-top:none;overflow:hidden;max-height:0;opacity:0;transition:max-height .6s ease,opacity .45s ease;scroll-margin-top:calc(var(--header-h) + 1rem)}
+.proj-spot-detail{background:var(--surface);border:none;grid-column:1/-1;overflow:hidden;max-height:0;opacity:0;transition:max-height .6s ease,opacity .45s ease;scroll-margin-top:calc(var(--header-h) + 1rem)}
 .proj-spot-detail.open{max-height:1400px;opacity:1}
 .proj-detail-inner{padding:2.5rem;display:grid;grid-template-columns:3fr 2fr;gap:3rem;align-items:start}
 .proj-carousel{position:relative;overflow:hidden}
@@ -482,7 +482,9 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
   .service-card:nth-last-child(-n+2){border-bottom:0.5px solid var(--tc-rule-strong)}
   .service-card:last-child{border-bottom:none}
   .proj-row{grid-template-columns:1fr}
-  .proj-detail-inner{grid-template-columns:1fr}
+  .proj-detail-inner{grid-template-columns:1fr;padding:1.25rem 1rem;gap:1.5rem;overflow-x:hidden}
+  .proj-scope{grid-template-columns:1fr}
+  .proj-meta-grid{grid-template-columns:1fr}
   .pillars{grid-template-columns:1fr}
   .pillar{border-right:none}
   .pillar:nth-last-child(-n+2){border-bottom:0.5px solid var(--tc-rule-strong)}
@@ -762,7 +764,7 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
     <div class="proj-gallery-outer">
       <div class="proj-gallery-track" id="galleryTrack">
         <div class="proj-row" data-row-idx="0">
-          <div class="proj-card-g" data-status="ongoing" data-proj="checkpoint" onclick="toggleProject('checkpoint',this)">
+          <div class="proj-card-g" data-card-order="1" data-status="ongoing" data-proj="checkpoint" onclick="toggleProject('checkpoint',this)">
             <div class="proj-card-g-img">
               <img src="brand_assets/CHIREN PRES-1.jpeg" alt="Border Checkpoint">
               <div class="proj-card-g-overlay"></div>
@@ -775,7 +777,7 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
               <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
             </div>
           </div>
-          <div class="proj-card-g" data-status="completed" data-proj="balkan" onclick="toggleProject('balkan',this)">
+          <div class="proj-card-g" data-card-order="2" data-status="completed" data-proj="balkan" onclick="toggleProject('balkan',this)">
             <div class="proj-card-g-img">
               <img src="brand_assets/DJI_0012.JPG" alt="Balkan Stream">
               <div class="proj-card-g-overlay"></div>
@@ -788,7 +790,7 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
               <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
             </div>
           </div>
-          <div class="proj-card-g" data-status="completed" data-proj="enefit" onclick="toggleProject('enefit',this)">
+          <div class="proj-card-g" data-card-order="3" data-status="completed" data-proj="enefit" onclick="toggleProject('enefit',this)">
             <div class="proj-card-g-img">
               <img src="brand_assets/CHIREN PRES-2.jpeg" alt="Enefit-280">
               <div class="proj-card-g-overlay"></div>
@@ -801,10 +803,10 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
               <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
             </div>
           </div>
+          <div class="proj-spot-detail" id="row-detail-0"></div>
         </div>
-        <div class="proj-spot-detail" id="row-detail-0"></div>
         <div class="proj-row" data-row-idx="1">
-          <div class="proj-card-g" data-status="completed" data-proj="lozen" onclick="toggleProject('lozen',this)">
+          <div class="proj-card-g" data-card-order="1" data-status="completed" data-proj="lozen" onclick="toggleProject('lozen',this)">
             <div class="proj-card-g-img">
               <img src="brand_assets/CHIREN PRES-3.jpeg" alt="Lozen Station">
               <div class="proj-card-g-overlay"></div>
@@ -817,7 +819,7 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
               <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
             </div>
           </div>
-          <div class="proj-card-g" data-status="completed" data-proj="chiren" onclick="toggleProject('chiren',this)">
+          <div class="proj-card-g" data-card-order="2" data-status="completed" data-proj="chiren" onclick="toggleProject('chiren',this)">
             <div class="proj-card-g-img">
               <img src="brand_assets/DJI_0005.JPG" alt="Chiren UGS">
               <div class="proj-card-g-overlay"></div>
@@ -830,7 +832,7 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
               <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
             </div>
           </div>
-          <div class="proj-card-g" data-status="ongoing" data-proj="adnoc" onclick="toggleProject('adnoc',this)">
+          <div class="proj-card-g" data-card-order="3" data-status="ongoing" data-proj="adnoc" onclick="toggleProject('adnoc',this)">
             <div class="proj-card-g-img">
               <img src="brand_assets/CHIREN PRES-2.jpeg" alt="ADNOC">
               <div class="proj-card-g-overlay"></div>
@@ -843,8 +845,8 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
               <div class="proj-card-g-cta">View Project <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="16" y2="10"/><polyline points="11,5 16,10 11,15"/></svg></div>
             </div>
           </div>
+          <div class="proj-spot-detail" id="row-detail-1"></div>
         </div>
-        <div class="proj-spot-detail" id="row-detail-1"></div>
       </div>
     </div>
     <div class="proj-gallery-dots" id="galleryDots"></div>
@@ -1258,7 +1260,7 @@ async function fetchCMS(lang) {
         const card = document.querySelector(`.proj-card-g[data-proj="${p.key}"]`);
         if (!card) return;
         const rowEl = rows[Math.floor(i / CARDS_PER_ROW)] || rows[rows.length - 1];
-        if (rowEl) rowEl.appendChild(card);
+        if (rowEl) { const det = rowEl.querySelector('.proj-spot-detail'); det ? rowEl.insertBefore(card, det) : rowEl.appendChild(card); }
       });
       galGoTo(galPage);
     }
@@ -1312,8 +1314,6 @@ function galGoTo(page) {
   document.querySelectorAll('.proj-row').forEach(function(row) {
     var anyVisible = Array.from(row.querySelectorAll('.proj-card-g')).some(function(c) { return pageSet.has(c); });
     row.style.display = anyVisible ? '' : 'none';
-    var rowDetail = document.getElementById('row-detail-' + row.dataset.rowIdx);
-    if (rowDetail && !rowDetail.classList.contains('open')) rowDetail.style.display = anyVisible ? '' : 'none';
   });
   document.getElementById('pgPrev').disabled = galPage === 0;
   document.getElementById('pgNext').disabled = galPage >= totalPages - 1;
@@ -1332,7 +1332,15 @@ function filterProjects(filter, btn) {
 
 // ── Project detail panels
 let activeProj = null, carouselIdx = 0;
-function closeDetail() { document.querySelectorAll('.proj-spot-detail.open').forEach(a => a.classList.remove('open')); document.querySelectorAll('.proj-card-g.active').forEach(c => c.classList.remove('active')); activeProj = null; }
+function closeDetail() {
+  document.querySelectorAll('.proj-spot-detail.open').forEach(a => {
+    const row = a.closest('.proj-row');
+    if (row) row.appendChild(a);
+    a.classList.remove('open');
+  });
+  document.querySelectorAll('.proj-card-g.active').forEach(c => c.classList.remove('active'));
+  activeProj = null;
+}
 function buildDetailHTML(id) {
   const p = CMS_PROJECTS[id]; if (!p) return '';
   const dotsHtml = p.imgs.map((_,i) => `<div class="carousel-dot${i===0?' active':''}" onclick="carouselGo(${i})"></div>`).join('');
@@ -1344,11 +1352,13 @@ function buildDetailHTML(id) {
 }
 function toggleProject(id, card) {
   const row = card.closest('.proj-row');
-  const detail = document.getElementById('row-detail-' + (row ? row.dataset.rowIdx : '0'));
+  const detail = row ? row.querySelector('.proj-spot-detail') : document.querySelector('.proj-spot-detail');
   if (activeProj === id) { closeDetail(); return; }
   const prevDetail = document.querySelector('.proj-spot-detail.open');
   const switching = prevDetail && prevDetail !== detail;
-  closeDetail(); card.classList.add('active'); activeProj = id; carouselIdx = 0;
+  closeDetail();
+  if (window.innerWidth < 768 && row) card.after(detail);
+  card.classList.add('active'); activeProj = id; carouselIdx = 0;
   detail.innerHTML = buildDetailHTML(id); detail.classList.add('open');
   setTimeout(() => detail.scrollIntoView({behavior:'smooth', block:'start'}), switching ? 680 : 50);
 }
