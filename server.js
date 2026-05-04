@@ -556,7 +556,7 @@ app.post('/api/contact', function(req, res) {
   var name    = (b.firstName + ' ' + (b.lastName || '')).trim();
   var company = b.company ? ' (' + b.company + ')' : '';
   var mailOpts = {
-    from:    '"Technocon Website" <office@techno-con.eu>',
+    from:    process.env.SMTP_USER ? '"Technocon Website" <' + process.env.SMTP_USER + '>' : '"Technocon Website" <office@techno-con.eu>',
     to:      process.env.CONTACT_TO || 'denkisa@gmail.com',
     replyTo: b.email,
     subject: 'Website enquiry from ' + name + company,
