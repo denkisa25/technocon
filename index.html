@@ -1407,7 +1407,7 @@ function submitForm(e) {
   if (!valid) return;
 
   btn.disabled = true; btn.querySelector('span').textContent = 'Sending…';
-  fetch('/api/contact', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(v) })
+  fetch(API_BASE + '/api/contact', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(v) })
     .then(r => r.json())
     .then(res => {
       if (res.ok) { btn.querySelector('span').textContent = 'Message Sent ✓'; form.reset(); setTimeout(() => { btn.querySelector('span').textContent = 'Send Message'; btn.disabled = false; }, 4000); }
