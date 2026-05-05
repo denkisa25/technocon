@@ -269,8 +269,10 @@ let allContent    = [];
 let modalData     = { en:{}, bg:{} };
 
 const CONTENT_GROUPS = [
-  { title:'Hero', keys:['hero.tag','hero.subtitle'] },
+  { title:'Navigation', keys:['nav.services','nav.services.construction','nav.services.engineering','nav.services.procurement','nav.services.pm','nav.projects','nav.about','nav.about.whoweare','nav.about.quality','nav.about.team','nav.contact'] },
+  { title:'Hero', keys:['hero.tag','hero.h1.line1','hero.cycle','hero.h1.line3','hero.subtitle','hero.btn1','hero.btn2'] },
   { title:'Statistics', keys:['stat.1.n','stat.1.l','stat.2.n','stat.2.l','stat.3.n','stat.3.l','stat.4.n','stat.4.l'] },
+  { title:'Projects — Header & Filters', keys:['projects.tag','projects.h2','projects.desc','projects.gallery.desc','projects.filter.all','projects.filter.ongoing','projects.filter.completed'] },
   { title:'Services — Header', keys:['services.tag','services.h2','services.intro'] },
   { title:'Services — Construction & Installation', keys:['services.1.title','services.1.items'] },
   { title:'Services — Engineering & Turnkey', keys:['services.2.title','services.2.items'] },
@@ -283,8 +285,10 @@ const CONTENT_GROUPS = [
   { title:'About — Quality Assurance', keys:['quality.label','quality.title','quality.desc','quality.isos'] },
   { title:'About — Our Team', keys:['team.label','team.title','team.desc','team.strengths'] },
   { title:'Partners — Header', keys:['partners.tag','partners.h2','partners.desc'] },
+  { title:'Contact — Header', keys:['contact.tag','contact.h2','contact.intro'] },
+  { title:'Contact — Form', keys:['contact.form.firstname','contact.form.lastname','contact.form.company','contact.form.email','contact.form.message','contact.form.submit'] },
   { title:'Contact — Sofia', keys:['contact.address','contact.email1','contact.email2','contact.phone1','contact.phone2','contact.web'] },
-  { title:'Footer', keys:['footer.tagline','footer.legal'] },
+  { title:'Footer', keys:['footer.nav.label','footer.office.label','footer.tagline','footer.legal'] },
 ];
 
 // ── Init ─────────────────────────────────────────────────────────────

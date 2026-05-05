@@ -77,6 +77,9 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--ink);overflow
   transition:height .4s cubic-bezier(.4,0,.2,1);
 }
 #header.scrolled .logo .tc-logo{height:58px}
+.logo .tc-logo-mark{display:none}
+#header.scrolled .logo .tc-logo-full{display:none}
+#header.scrolled .logo .tc-logo-mark{display:block;overflow:hidden}
 .nav-wrap{display:flex;align-items:center;flex:1;justify-content:space-between}
 nav{display:flex;align-items:center;gap:0}
 nav a,.nav-dropdown>button{
@@ -211,9 +214,10 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   border-top:1px solid rgba(250,250,247,.18);padding-top:32px;
   opacity:0;animation:fadeUp .6s 1.2s ease forwards;
 }
-.hero-stat{padding-right:24px;border-right:0.5px solid rgba(250,250,247,.12)}
+.hero-stat{padding-right:24px;border-right:0.5px solid rgba(250,250,247,.12);text-align:center}
 .hero-stat:last-child{border-right:none}
 .hero-stat .n{font-family:var(--font-display);font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;line-height:1;color:var(--tc-paper)}
+.hero-stat .n em{background:var(--tc-gradient-h);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:normal;font-size:.7em;margin-left:2px}
 .hero-stat .l{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(250,250,247,.55);margin-top:10px}
 .hero-scroll-hint{
   position:absolute;right:60px;bottom:2.5rem;z-index:1;
@@ -264,6 +268,12 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .workflow-step .code{font-family:var(--font-mono);font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--ink);display:flex;align-items:center;gap:8px}
 .workflow-step .code::before{content:'';width:6px;height:6px;background:var(--tc-green);border-radius:50%;flex-shrink:0}
 .workflow-step .desc{font-family:var(--font-mono);font-size:10px;color:var(--ink-soft);letter-spacing:.05em;text-transform:uppercase}
+.tracking-images{display:grid;grid-template-columns:3fr 2fr;gap:0;margin-top:48px;height:320px;overflow:hidden}
+.tracking-img-photo{position:relative;overflow:hidden}
+.tracking-img-photo img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.tracking-img-fade{position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,var(--surface) 100%)}
+.tracking-img-screen{background:#111;display:flex;align-items:center;justify-content:center;padding:20px;border-left:0.5px solid var(--tc-rule-strong)}
+.tracking-img-screen img{width:100%;height:100%;object-fit:contain;object-position:center;border:0.5px solid rgba(255,255,255,.08);box-shadow:0 0 32px rgba(0,0,0,.6)}
 
 /* ── PARTNERS ── */
 #partners{background:var(--bg);padding-top:96px;padding-bottom:0;border-bottom:0.5px solid var(--tc-rule)}
@@ -462,6 +472,10 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
   .section-header{grid-template-columns:1fr;gap:16px}
   .section{padding:64px 0}
   .tracking-grid{grid-template-columns:1fr;gap:40px}
+  .tracking-images{grid-template-columns:1fr;height:auto}
+  .tracking-img-photo{height:220px}
+  .tracking-img-screen{height:200px;border-left:none;border-top:0.5px solid var(--tc-rule-strong)}
+  .tracking-img-fade{background:linear-gradient(to bottom,transparent 60%,var(--surface) 100%)}
   .partners-inner{grid-template-columns:1fr;gap:24px}
   .about-layout{grid-template-columns:1fr;gap:3rem}
   .about-img-stack{height:300px}
@@ -499,6 +513,23 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
 <!-- ══ SVG SYMBOL DEFS ══ -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
   <defs>
+    <symbol id="tc-mark-only" viewBox="0 0 315.101 315.061">
+      <line x1="64.867" y1="3" x2="64.867" y2="112.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="188.435" y1="250" x2="188.435" y2="312.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="250.406" y1="123" x2="250.406" y2="312.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="3.041" y1="64.826" x2="62.26" y2="64.826" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="243.041" y1="126.617" x2="312.26" y2="126.617" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="252.041" y1="188.426" x2="312.26" y2="188.426" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="126.599" y1="250.234" x2="312.26" y2="250.234" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="3.041" y1="250.234" x2="64.121" y2="250.234" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <rect x="3.041" y="3" width="309.061" height="309.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <polygon points="125.599 3 312.101 3 312.101 64.826 250.474 127.36 250.474 189.609 128.599 312.061 64.867 312.061 64.867 188.426 3.041 188.426 3.041 125.617 125.599 3" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <polyline points="64.867 66.066 64.867 126.617 126.599 126.617 126.599 250.234 188.435 250.234 188.435 126.617 250.474 126.617 250.474 64.809 64.162 64.809" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="3.041" y1="188.426" x2="64.867" y2="126.617" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="64.867" y1="188.426" x2="126.599" y2="126.617" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="64.867" y1="312.061" x2="126.599" y2="250.234" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="250.474" y1="64.809" x2="312.101" y2="3" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+    </symbol>
     <symbol id="tc-mark-gradient" viewBox="0 0 315.101 366.006">
       <line x1="64.867" y1="3" x2="64.867" y2="112.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
       <line x1="188.435" y1="250" x2="188.435" y2="312.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
@@ -532,29 +563,30 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
 <header id="header">
   <div class="header-inner">
     <a href="#hero" class="logo">
-      <svg class="tc-logo" viewBox="0 0 315.101 366.006" aria-label="Technocon"><use href="#tc-mark-gradient"/></svg>
+      <svg class="tc-logo tc-logo-full" viewBox="0 0 315.101 366.006" aria-label="Technocon"><use href="#tc-mark-gradient"/></svg>
+      <svg class="tc-logo tc-logo-mark" viewBox="0 0 315.101 315.061" aria-label="Technocon"><use href="#tc-mark-only"/></svg>
     </a>
     <div class="nav-wrap" id="navWrap">
       <nav>
         <div class="nav-dropdown">
-          <button>Services<svg class="chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5L5 6.5L8 3.5"/></svg></button>
+          <button><span data-ck="nav.services">Services</span><svg class="chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5L5 6.5L8 3.5"/></svg></button>
           <div class="dropdown-menu">
-            <a href="#svc-construction">Construction &amp; Installation</a>
-            <a href="#svc-engineering">Engineering &amp; Turnkey</a>
-            <a href="#svc-procurement">Procurement</a>
-            <a href="#svc-pm">Project Management</a>
+            <a href="#svc-construction" data-ck="nav.services.construction">Construction &amp; Installation</a>
+            <a href="#svc-engineering" data-ck="nav.services.engineering">Engineering &amp; Turnkey</a>
+            <a href="#svc-procurement" data-ck="nav.services.procurement">Procurement</a>
+            <a href="#svc-pm" data-ck="nav.services.pm">Project Management</a>
           </div>
         </div>
-        <a href="#projects">Projects</a>
+        <a href="#projects" data-ck="nav.projects">Projects</a>
         <div class="nav-dropdown">
-          <button>About<svg class="chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5L5 6.5L8 3.5"/></svg></button>
+          <button><span data-ck="nav.about">About</span><svg class="chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5L5 6.5L8 3.5"/></svg></button>
           <div class="dropdown-menu">
-            <a href="#about">Who We Are</a>
-            <a href="#quality">Quality Assurance</a>
-            <a href="#team">Our Team</a>
+            <a href="#about" data-ck="nav.about.whoweare">Who We Are</a>
+            <a href="#quality" data-ck="nav.about.quality">Quality Assurance</a>
+            <a href="#team" data-ck="nav.about.team">Our Team</a>
           </div>
         </div>
-        <a href="#contact">Contact</a>
+        <a href="#contact" data-ck="nav.contact">Contact</a>
       </nav>
       <div class="header-right">
         <div class="lang-inline">
@@ -583,11 +615,12 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
   <span class="hero-doc">0001 / 0024 — TECHNOCON / 2026</span>
   <div class="hero-inner">
     <span class="hero-tag" data-ck="hero.tag">Energy &amp; Industrial Infrastructure</span>
-    <h1 class="hero-h1">Building Large Scale<br><span class="hero-cycle-wrap"><span class="hero-cycle" id="heroCycle"></span></span><br><em>Infrastructure.</em></h1>
+    <h1 class="hero-h1"><span data-ck="hero.h1.line1">Building Large Scale</span><br><span class="hero-cycle-wrap"><span class="hero-cycle" id="heroCycle"></span></span><br><em data-ck="hero.h1.line3">Infrastructure.</em></h1>
+    <span id="heroCycleSource" data-ck="hero.cycle" style="display:none">Energy,Industrial</span>
     <p class="hero-sub" data-ck="hero.subtitle">Engineering, procurement, construction and project management for the energy and industrial sector across Europe and beyond.</p>
     <div class="hero-cta">
-      <a href="#projects" class="btn"><span>View Projects</span><span class="arr"></span></a>
-      <a href="#contact" class="btn btn-ghost"><span>Contact Us</span></a>
+      <a href="#projects" class="btn"><span data-ck="hero.btn1">View Projects</span><span class="arr"></span></a>
+      <a href="#contact" class="btn btn-ghost"><span data-ck="hero.btn2">Contact Us</span></a>
     </div>
     <div class="hero-stats">
       <div class="hero-stat"><div class="n" data-ck="stat.1.n">€11M+</div><div class="l" data-ck="stat.1.l">Contract Value</div></div>
@@ -693,6 +726,15 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
         </div>
       </div>
     </div>
+    <div class="tracking-images reveal">
+      <div class="tracking-img-photo">
+        <img src="brand_assets/PICS/technocon_tracking_system_2.png" alt="Barcode scanning on site">
+        <div class="tracking-img-fade"></div>
+      </div>
+      <div class="tracking-img-screen">
+        <img src="brand_assets/PICS/technocon_tracking_system_1.png" alt="Tracking system interface">
+      </div>
+    </div>
   </div>
 </section>
 
@@ -738,18 +780,18 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
     <div class="section-header">
       <div class="section-num reveal">04 / Projects</div>
       <div class="section-title">
-        <p class="sec-tag reveal">Our Work</p>
-        <h2 class="reveal">Selected <em>Projects.</em></h2>
-        <p class="reveal">Click any project to view full details, photos, and scope of works.</p>
+        <p class="sec-tag reveal" data-ck="projects.tag">Our Work</p>
+        <h2 class="reveal" data-ck="projects.h2">Selected <em>Projects.</em></h2>
+        <p class="reveal" data-ck="projects.desc">Click any project to view full details, photos, and scope of works.</p>
       </div>
     </div>
     <div class="proj-gallery-header reveal">
       <div class="proj-gallery-meta">
-        <p class="proj-gallery-desc">Use arrows to browse pages. Click a card to expand details.</p>
+        <p class="proj-gallery-desc" data-ck="projects.gallery.desc">Use arrows to browse pages. Click a card to expand details.</p>
         <div class="projects-filters">
-          <button class="filter-btn active" onclick="filterProjects('all',this)">All</button>
-          <button class="filter-btn" onclick="filterProjects('ongoing',this)">Ongoing</button>
-          <button class="filter-btn" onclick="filterProjects('completed',this)">Completed</button>
+          <button class="filter-btn active" onclick="filterProjects('all',this)" data-ck="projects.filter.all">All</button>
+          <button class="filter-btn" onclick="filterProjects('ongoing',this)" data-ck="projects.filter.ongoing">Ongoing</button>
+          <button class="filter-btn" onclick="filterProjects('completed',this)" data-ck="projects.filter.completed">Completed</button>
         </div>
       </div>
       <div class="proj-gallery-nav">
@@ -986,9 +1028,9 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
     <div class="section-header">
       <div class="section-num reveal">08 / Contact</div>
       <div class="section-title">
-        <p class="sec-tag reveal">Get In Touch</p>
-        <h2 class="reveal">Get In <em>Touch.</em></h2>
-        <p class="reveal">Ready to review your quotation, submit technical and commercial proposals, and mobilise our task force team to satisfy your project needs.</p>
+        <p class="sec-tag reveal" data-ck="contact.tag">Get In Touch</p>
+        <h2 class="reveal" data-ck="contact.h2">Get In <em>Touch.</em></h2>
+        <p class="reveal" data-ck="contact.intro">Ready to review your quotation, submit technical and commercial proposals, and mobilise our task force team to satisfy your project needs.</p>
       </div>
     </div>
     <div class="contact-grid">
@@ -1024,32 +1066,32 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
         <form id="contactForm" novalidate onsubmit="submitForm(event)">
           <div class="field-pair">
             <div class="field">
-              <label>First Name</label>
+              <label data-ck="contact.form.firstname">First Name</label>
               <input type="text" name="firstName" placeholder="John">
               <span class="field-error" id="err-firstName">First name is required.</span>
             </div>
             <div class="field">
-              <label>Last Name</label>
+              <label data-ck="contact.form.lastname">Last Name</label>
               <input type="text" name="lastName" placeholder="Smith">
               <span class="field-error" id="err-lastName">Last name is required.</span>
             </div>
           </div>
           <div class="field">
-            <label>Company</label>
+            <label data-ck="contact.form.company">Company</label>
             <input type="text" name="company" placeholder="Company Name">
             <span class="field-error" id="err-company">Company is required.</span>
           </div>
           <div class="field">
-            <label>Email</label>
+            <label data-ck="contact.form.email">Email</label>
             <input type="email" name="email" placeholder="john@company.com">
             <span class="field-error" id="err-email">A valid email address is required.</span>
           </div>
           <div class="field grow-field">
-            <label>Message</label>
+            <label data-ck="contact.form.message">Message</label>
             <textarea name="message" placeholder="Describe your project requirements…"></textarea>
             <span class="field-error" id="err-message">Message is required.</span>
           </div>
-          <button type="submit" class="submit-btn"><span>Send Message</span></button>
+          <button type="submit" class="submit-btn"><span data-ck="contact.form.submit">Send Message</span></button>
         </form>
       </div>
     </div>
@@ -1064,21 +1106,20 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
       <h3 class="footer-tagline" data-ck="footer.tagline">Constructed in<br><em>three dimensions.</em></h3>
     </div>
     <div>
-      <h4 class="footer-col-hdr">— Navigate</h4>
+      <h4 class="footer-col-hdr" data-ck="footer.nav.label">— Navigate</h4>
       <ul class="footer-nav-list">
-        <li><a href="#services">Services</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#services" data-ck="nav.services">Services</a></li>
+        <li><a href="#projects" data-ck="nav.projects">Projects</a></li>
+        <li><a href="#about" data-ck="nav.about">About</a></li>
+        <li><a href="#contact" data-ck="nav.contact">Contact</a></li>
       </ul>
     </div>
     <div>
-      <h4 class="footer-col-hdr">— Office</h4>
+      <h4 class="footer-col-hdr" data-ck="footer.office.label">— Office</h4>
       <ul class="footer-nav-list">
-        <li>Osogovo st. 51</li>
-        <li>1303 Sofia, Bulgaria</li>
-        <li><a href="tel:+359889627304">+359 88 9627304</a></li>
-        <li><a href="mailto:office@techno-con.eu">office@techno-con.eu</a></li>
+        <li data-ck="contact.address">Osogovo st. 51, 1303 Sofia, Bulgaria</li>
+        <li><a href="tel:+359889627304" data-ck="contact.phone1">+359 88 9627304</a></li>
+        <li><a href="mailto:office@techno-con.eu" data-ck="contact.email2">office@techno-con.eu</a></li>
       </ul>
     </div>
   </div>
@@ -1208,6 +1249,7 @@ async function fetchCMS(lang) {
       const val = content[el.dataset.ck];
       if (val !== undefined && !Array.isArray(val)) el.innerHTML = val;
     });
+    if (typeof window.restartHeroCycle === 'function') window.restartHeroCycle();
     document.querySelectorAll('[data-ck-list]').forEach(el => {
       const val = content[el.dataset.ckList];
       if (Array.isArray(val) && val.length) el.innerHTML = val.map(item => `<li>${item}</li>`).join('');
@@ -1427,16 +1469,17 @@ window.addEventListener('scroll', () => {
 
 // ── Hero cycling word
 (function() {
-  var words = ['Energy', 'Industrial'];
   var el = document.getElementById('heroCycle'); var idx = 0;
+  function getWords() { var s = document.getElementById('heroCycleSource'); return s && s.textContent.trim() ? s.textContent.split(',').map(function(w){return w.trim();}).filter(Boolean) : ['Energy','Industrial']; }
   function buildChar(char, i) {
     var d = (i * 0.05).toFixed(2), d1 = (i * 0.05 + 0.08).toFixed(2), d2 = (i * 0.05 + 0.16).toFixed(2), d3 = (i * 0.05 + 0.12).toFixed(2);
     var c = char === ' ' ? ' ' : char;
     return '<span class="sc"><span class="sc-main" style="animation-delay:' + d3 + 's">' + c + '</span><span class="sc-t" style="animation-delay:' + d + 's">' + c + '</span><span class="sc-m" style="animation-delay:' + d1 + 's">' + c + '</span><span class="sc-b" style="animation-delay:' + d2 + 's">' + c + '</span></span>';
   }
   function show(word) { el.innerHTML = word.split('').map(buildChar).join(''); el.style.cssText = 'opacity:1;transform:none'; }
-  function next() { el.className = 'hero-cycle exit'; setTimeout(function() { idx = (idx + 1) % words.length; el.className = 'hero-cycle'; show(words[idx]); }, 420); }
-  setTimeout(function() { show(words[0]); setInterval(next, 4500); }, 1400);
+  function next() { var w = getWords(); el.className = 'hero-cycle exit'; setTimeout(function() { idx = (idx + 1) % w.length; el.className = 'hero-cycle'; show(getWords()[idx]); }, 420); }
+  window.restartHeroCycle = function() { idx = 0; show(getWords()[0]); };
+  setTimeout(function() { show(getWords()[0]); setInterval(next, 4500); }, 1400);
 })();
 
 // ── Lightbox
