@@ -256,6 +256,30 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .service-card ul li::before{content:'—';position:absolute;left:0;color:var(--tc-green-deep)}
 .service-card ul li:last-child{border-bottom:none}
 
+/* ── SUBVER CARD ── */
+.service-card--subver{
+  grid-column:1/-1;border-right:none;
+  display:grid;grid-template-columns:260px 1fr;gap:48px;align-items:start;
+  background:linear-gradient(135deg,rgba(45,181,134,.05) 0%,rgba(34,140,194,.04) 100%);
+}
+.service-card:nth-child(4){border-bottom:0.5px solid var(--tc-rule-strong)!important}
+.subver-logo-col{display:flex;flex-direction:column;gap:20px;align-items:center}
+.subver-logo-img{width:300px;height:auto;display:block}
+.subver-region-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.subver-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border:0.5px solid var(--tc-rule-strong);color:var(--ink-soft)}
+.subver-tag-grad{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;background:var(--tc-gradient-h);-webkit-background-clip:text;background-clip:text;color:transparent;border:0.5px solid rgba(45,181,134,.3)}
+.subver-content-p{font-size:14px;color:var(--ink-soft);line-height:1.75;margin-bottom:24px}
+.subver-team{list-style:none;padding:0}
+.subver-team li{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);padding:8px 0 8px 18px;border-bottom:0.5px solid var(--tc-rule);position:relative}
+.subver-team li::before{content:'—';position:absolute;left:0;color:var(--tc-green-deep)}
+.subver-team li strong{color:var(--ink);font-weight:600}
+.subver-team li:last-child{border-bottom:none}
+.subver-team-h{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--tc-green-deep);margin-bottom:10px}
+/* Gradient nav link */
+a.nav-subver{background:var(--tc-gradient-h);-webkit-background-clip:text;background-clip:text;color:transparent!important;font-weight:700}
+a.nav-subver:hover{color:transparent!important;filter:brightness(1.15)}
+a.nav-subver::after{background:var(--tc-gradient-h)!important}
+
 /* ── TRACKING ── */
 #tracking{background:var(--bg)}
 .tracking-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:16px}
@@ -404,16 +428,20 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 /* ── CONTACT ── */
 #contact{background:var(--surface);position:relative;overflow:hidden}
 #contact::before{content:'';position:absolute;inset:0;background-image:url('brand_assets/DJI_0012.JPG');background-size:cover;background-position:center;opacity:.05}
-.contact-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:stretch}
-.offices{display:flex;flex-direction:column;gap:0}
-.office{padding:1.8rem;background:var(--surface);border:0.5px solid var(--tc-rule-strong);box-shadow:0 2px 12px rgba(0,0,0,.04)}
-.office-city{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tc-green-deep);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.contact-grid{position:relative;z-index:1;display:grid;grid-template-columns:3fr 2fr;gap:3rem;align-items:stretch}
+.offices{display:flex;flex-direction:column;height:100%}
+.office-card{display:flex;flex:1;overflow:hidden;border:0.5px solid var(--tc-rule-strong);border-bottom:none}
+.office-card:last-child{border-bottom:0.5px solid var(--tc-rule-strong)}
+.office-map{width:185px;flex-shrink:0;border-right:0.5px solid var(--tc-rule-strong)}
+.gmap-frame{width:100%;height:100%;min-height:180px;border:none;display:block}
+.office-details{flex:1;padding:1.3rem 1.5rem;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.office-city{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tc-green-deep);margin-bottom:.85rem;display:flex;align-items:center;gap:.5rem}
 .office-city::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--tc-green);flex-shrink:0}
-.contact-row{display:flex;gap:.7rem;align-items:flex-start;margin-bottom:.65rem;font-size:.95rem;font-weight:400;color:var(--ink-soft)}
+.contact-row{display:flex;gap:.7rem;align-items:flex-start;margin-bottom:.55rem;font-size:.9rem;font-weight:400;color:var(--ink-soft)}
+.contact-row:last-child{margin-bottom:0}
 .contact-row svg{width:13px;height:13px;color:var(--tc-green);flex-shrink:0;margin-top:3px}
-.contact-row a{color:inherit;text-decoration:none;transition:color .2s;font-family:var(--font-mono);font-size:13px}
+.contact-row a{color:inherit;text-decoration:none;transition:color .2s;font-family:var(--font-mono);font-size:12px}
 .contact-row a:hover{color:var(--ink)}
-.gmap-frame{width:100%;height:260px;border:none;display:block}
 .field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:20px}
 .field-pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:0}
 .field label{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);display:block;margin-bottom:6px}
@@ -427,6 +455,18 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .field-error{font-family:var(--font-mono);font-size:11px;color:#c0392b;letter-spacing:.04em;margin-top:3px;display:none}
 .field-error.show{display:block}
 .field input.invalid,.field textarea.invalid{border-bottom-color:#c0392b}
+/* ── INQUIRY SELECTOR ── */
+.inquiry-group{margin-bottom:20px}
+.inquiry-group-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:8px}
+.inquiry-options{display:flex;border:0.5px solid var(--tc-rule-strong)}
+.inquiry-opt{flex:1;position:relative}
+.inquiry-opt input[type=radio]{position:absolute;opacity:0;width:0;height:0}
+.inquiry-opt label{display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:11px 16px;border-right:0.5px solid var(--tc-rule-strong);color:var(--ink-soft);background:var(--surface);transition:color .2s,background .2s;user-select:none}
+.inquiry-opt:last-child label{border-right:none}
+.inquiry-opt label::before{content:'';width:8px;height:8px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;transition:background .2s,border-color .2s}
+.inquiry-opt input[type=radio]:checked+label{color:var(--tc-paper);background:var(--tc-gradient-h)}
+.inquiry-opt input[type=radio]:checked+label::before{background:var(--tc-paper);border-color:var(--tc-paper)}
+.inquiry-opt input[type=radio]:focus-visible+label{outline:2px solid var(--tc-green);outline-offset:-2px}
 .submit-btn{font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 22px;background:var(--tc-gradient-h);color:var(--tc-paper);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;margin-top:16px;position:relative;overflow:hidden;transition:all .25s ease;width:100%;justify-content:center}
 .submit-btn::before{content:'';position:absolute;inset:0;background:var(--tc-line);opacity:0;transition:opacity .25s}
 .submit-btn span{position:relative;z-index:1}
@@ -443,7 +483,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 
 /* ── FOOTER ── */
 footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
-.footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:0.5px solid rgba(250,250,247,.18)}
+.footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:0.5px solid rgba(250,250,247,.18)}
 .footer-brand{display:flex;align-items:center;gap:28px}
 .footer-logo{display:block;height:130px;width:auto;color:var(--tc-paper);opacity:.9;flex-shrink:0}
 .footer-tagline{font-family:var(--font-editorial);font-size:28px;font-weight:400;letter-spacing:-.02em;line-height:1.15;color:var(--tc-paper);margin:0}
@@ -454,6 +494,16 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
 .footer-nav-list li{font-family:var(--font-mono);font-size:13px;color:rgba(250,250,247,.75);padding:6px 0}
 .footer-nav-list a{color:inherit;text-decoration:none;transition:color .2s}
 .footer-nav-list a:hover{color:var(--tc-paper)}
+a.footer-subver-link{background:var(--tc-gradient-h);-webkit-background-clip:text;background-clip:text;color:transparent!important;font-weight:700;transition:opacity .2s}
+a.footer-subver-link:hover{opacity:.8;color:transparent!important}
+
+/* ── BACK TO TOP ── */
+#back-to-top{position:fixed;bottom:32px;right:32px;z-index:999;width:44px;height:44px;border-radius:50%;border:0.5px solid var(--tc-rule-strong);background:rgba(250,250,247,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease,background .2s,border-color .2s;box-shadow:0 4px 20px rgba(0,0,0,0.10),0 1px 4px rgba(0,0,0,0.07)}
+#back-to-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
+#back-to-top:hover{background:var(--tc-gradient-h);border-color:transparent}
+#back-to-top:hover svg polyline{stroke:var(--tc-paper)}
+#back-to-top:active{transform:scale(.92)}
+#back-to-top svg{width:18px;height:18px;stroke:var(--ink);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
 
 /* ── REVEAL ── */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
@@ -487,6 +537,9 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
   .pillars-3 .pillar:nth-last-child(-n+3){border-bottom:0.5px solid var(--tc-rule-strong)}
   .pillars-3 .pillar:last-child{border-bottom:none}
   .contact-grid{grid-template-columns:1fr;gap:2.5rem}
+  .office-card{flex-direction:column}
+  .office-map{width:100%;height:160px;border-right:none;border-bottom:0.5px solid var(--tc-rule-strong)}
+  .gmap-frame{min-height:160px}
   .footer-inner{grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;gap:8px}
 }
@@ -495,6 +548,10 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
   .service-card{border-right:none}
   .service-card:nth-last-child(-n+2){border-bottom:0.5px solid var(--tc-rule-strong)}
   .service-card:last-child{border-bottom:none}
+  .service-card--subver{grid-template-columns:1fr;gap:24px}
+  .subver-logo-col{align-items:center}
+  .subver-logo-img{width:220px}
+  .subver-region-tags{justify-content:center}
   .proj-row{grid-template-columns:1fr}
   .proj-detail-inner{grid-template-columns:1fr;padding:1.25rem 1rem;gap:1.5rem;overflow-x:hidden}
   .proj-scope{grid-template-columns:1fr}
@@ -587,6 +644,7 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
           </div>
         </div>
         <a href="#contact" data-ck="nav.contact">Contact</a>
+        <a href="#svc-subver" class="nav-subver" data-ck="nav.subver">SUBVER</a>
       </nav>
       <div class="header-right">
         <div class="lang-inline">
@@ -694,6 +752,29 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
           <li>Multi-discipline coordination</li>
           <li>Subcontractor management</li>
         </ul>
+      </div>
+      <!-- ── SUBVER ── -->
+      <div class="service-card service-card--subver reveal" id="svc-subver">
+        <div class="subver-logo-col">
+          <img src="brand_assets/subver_logo1.png" alt="Subver International FZC" class="subver-logo-img">
+          <div class="subver-region-tags">
+            <span class="subver-tag-grad" data-ck="services.5.tag.founded">Est. 2023</span>
+            <span class="subver-tag" data-ck="services.5.tag.regions">UAE · KSA · Iraq · Oman</span>
+            <span class="subver-tag" data-ck="services.5.tag.sector">Oil &amp; Gas</span>
+            <span class="subver-tag" data-ck="services.5.tag.area">MENA Region</span>
+          </div>
+        </div>
+        <div class="subver-content">
+          <div class="svc-num-badge">— 05</div>
+          <h3 data-ck="services.5.title">Subver — MENA Procurement Services</h3>
+          <p class="subver-content-p" data-ck="services.5.intro">SUBVER INTERNATIONAL FZC is a Technocon subsidiary company located in the Emirates, established in 2023 and specialising in procurement for oil and gas facilities across the MENA region. Operating primarily in the UAE, Saudi Arabia, Iraq, and Oman, Subver's core focus is the supply of industrial equipment to major operators and contractors — including ADNOC and Borouge — as well as EPC companies and government entities. Maintaining a lean and efficient team enables fast response times and flexible execution. Subver supports clients throughout the full procurement cycle: from sourcing and vendor coordination to delivery and documentation, ensuring compliance with project requirements and local regulations.</p>
+          <div class="subver-team-h" data-ck="services.5.team.h">Team Composition</div>
+          <ul class="subver-team" data-ck-list="services.5.team.items">
+            <li><strong>Procurement Department</strong> — Engineers and procurement managers</li>
+            <li><strong>Engineering Department</strong> — Engineers across various disciplines for procurement support</li>
+            <li><strong>Construction</strong> — A local office for construction and manufacturing is being established</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -1034,10 +1115,16 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
       </div>
     </div>
     <div class="contact-grid">
-      <div>
-        <div class="offices">
-          <div class="office reveal">
-            <div class="office-city">Sofia, Bulgaria — Head Office</div>
+      <div class="offices">
+        <!-- Technocon -->
+        <div class="office-card reveal">
+          <div class="office-map">
+            <iframe class="gmap-frame" data-map-ck="contact.address" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Osogovo+st.+51%2C+1303+Sofia%2C+Bulgaria&output=embed"
+              title="Technocon Head Office"></iframe>
+          </div>
+          <div class="office-details">
+            <div class="office-city" data-ck="contact.tc.label">Sofia, Bulgaria — Head Office</div>
             <div class="contact-row">
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 1.5C5.515 1.5 3.5 3.515 3.5 6c0 3.5 4.5 8.5 4.5 8.5S12.5 9.5 12.5 6c0-2.485-2.015-4.5-4.5-4.5zm0 6a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/></svg>
               <span data-ck="contact.address">Osogovo st. 51, 1303 Sofia, Bulgaria</span>
@@ -1055,15 +1142,50 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
               <a href="http://www.techno-con.eu" target="_blank" rel="noopener" data-ck="contact.web">www.techno-con.eu</a>
             </div>
           </div>
-          <div class="office reveal" style="padding:12px;overflow:hidden;border:0.5px solid var(--tc-rule-strong);border-top:none">
-            <iframe class="gmap-frame" loading="eager" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=Osogovo+st.+51,+1303+Sofia,+Bulgaria&output=embed"
-              title="Technocon Head Office location"></iframe>
+        </div>
+        <!-- Subver -->
+        <div class="office-card reveal">
+          <div class="office-map">
+            <iframe class="gmap-frame" data-map-ck="contact.subver.mapq" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Ajman+Free+Zone%2C+Ajman%2C+UAE&output=embed"
+              title="Subver International FZC"></iframe>
+          </div>
+          <div class="office-details">
+            <div class="office-city" data-ck="contact.subver.label">Emirates — Subver International FZC</div>
+            <div class="contact-row">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 1.5C5.515 1.5 3.5 3.515 3.5 6c0 3.5 4.5 8.5 4.5 8.5S12.5 9.5 12.5 6c0-2.485-2.015-4.5-4.5-4.5zm0 6a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/></svg>
+              <span data-ck="contact.subver.address">Ajman Free Zone, Ajman, United Arab Emirates</span>
+            </div>
+            <div class="contact-row">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 5l6 4 6-4" stroke-linecap="round"/></svg>
+              <a href="mailto:info@subver.ae" data-ck="contact.subver.email">info@subver.ae</a>
+            </div>
+            <div class="contact-row">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2.5 3.5a1 1 0 011-1h1.172a1 1 0 01.894.553l.707 1.414a1 1 0 01-.196 1.124l-.49.49a7.09 7.09 0 003.333 3.333l.49-.49a1 1 0 011.124-.196l1.414.707A1 1 0 0112.5 10.328V11.5a1 1 0 01-1 1H11C6.029 12.5 2.5 8.971 2.5 4V3.5z"/></svg>
+              <a href="tel:+97165000000" data-ck="contact.subver.phone">+971 6 500 0000</a>
+            </div>
+            <div class="contact-row">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2" stroke-linecap="round"/></svg>
+              <a href="http://www.subver.ae" target="_blank" rel="noopener" data-ck="contact.subver.web">www.subver.ae</a>
+            </div>
           </div>
         </div>
       </div>
       <div class="contact-form-col reveal">
         <form id="contactForm" novalidate onsubmit="submitForm(event)">
+          <div class="inquiry-group">
+            <span class="inquiry-group-label" data-ck="contact.form.inquiryto">Inquiry to</span>
+            <div class="inquiry-options">
+              <div class="inquiry-opt">
+                <input type="radio" id="inq-technocon" name="inquiryTo" value="Technocon" checked>
+                <label for="inq-technocon" data-ck="contact.form.inquiry.technocon">Technocon</label>
+              </div>
+              <div class="inquiry-opt">
+                <input type="radio" id="inq-subver" name="inquiryTo" value="Subver">
+                <label for="inq-subver" data-ck="contact.form.inquiry.subver">Subver</label>
+              </div>
+            </div>
+          </div>
           <div class="field-pair">
             <div class="field">
               <label data-ck="contact.form.firstname">First Name</label>
@@ -1112,6 +1234,7 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
         <li><a href="#projects" data-ck="nav.projects">Projects</a></li>
         <li><a href="#about" data-ck="nav.about">About</a></li>
         <li><a href="#contact" data-ck="nav.contact">Contact</a></li>
+        <li><a href="#svc-subver" class="footer-subver-link" data-ck="nav.subver">SUBVER</a></li>
       </ul>
     </div>
     <div>
@@ -1120,6 +1243,15 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
         <li data-ck="contact.address">Osogovo st. 51, 1303 Sofia, Bulgaria</li>
         <li><a href="tel:+359889627304" data-ck="contact.phone1">+359 88 9627304</a></li>
         <li><a href="mailto:office@techno-con.eu" data-ck="contact.email2">office@techno-con.eu</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-col-hdr" data-ck="footer.subver.label">— Subver Office</h4>
+      <ul class="footer-nav-list">
+        <li data-ck="contact.subver.address">Ajman Free Zone, Ajman, United Arab Emirates</li>
+        <li><a href="tel:+97165000000" data-ck="contact.subver.phone">+971 6 500 0000</a></li>
+        <li><a href="mailto:info@subver.ae" data-ck="contact.subver.email">info@subver.ae</a></li>
+        <li><a href="https://www.subver.ae" target="_blank" rel="noopener" data-ck="contact.subver.web">www.subver.ae</a></li>
       </ul>
     </div>
   </div>
@@ -1253,6 +1385,10 @@ async function fetchCMS(lang) {
     document.querySelectorAll('[data-ck-list]').forEach(el => {
       const val = content[el.dataset.ckList];
       if (Array.isArray(val) && val.length) el.innerHTML = val.map(item => `<li>${item}</li>`).join('');
+    });
+    document.querySelectorAll('[data-map-ck]').forEach(el => {
+      const val = content[el.dataset.mapCk];
+      if (val && typeof val === 'string') el.src = 'https://www.google.com/maps?q=' + encodeURIComponent(val) + '&output=embed';
     });
     document.querySelectorAll('[data-ck-pairs]').forEach(el => {
       const val = content[el.dataset.ckPairs];
@@ -1426,11 +1562,12 @@ function submitForm(e) {
   form.querySelectorAll('.invalid').forEach(el => { el.classList.remove('invalid'); });
 
   const v = {
-    firstName: form.firstName.value.trim(),
-    lastName:  form.lastName.value.trim(),
-    company:   form.company.value.trim(),
-    email:     form.email.value.trim(),
-    message:   form.message.value.trim(),
+    firstName:  form.firstName.value.trim(),
+    lastName:   form.lastName.value.trim(),
+    company:    form.company.value.trim(),
+    email:      form.email.value.trim(),
+    message:    form.message.value.trim(),
+    inquiryTo:  (form.querySelector('[name=inquiryTo]:checked') || {}).value || 'Technocon',
   };
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email);
 
@@ -1487,6 +1624,19 @@ function openLightbox(src, alt) { const overlay = document.getElementById('lb-ov
 function closeLightbox() { document.getElementById('lb-overlay').classList.remove('lb-open'); document.body.style.overflow = ''; }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
 
+// ── BACK TO TOP ──
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 300) btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  }, { passive: true });
+  btn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
 // ── Partners drag-to-scroll
 (function() {
   const DURATION = 28; // must match CSS animation duration (seconds)
@@ -1540,5 +1690,12 @@ document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close
 // ── Bootstrap CMS
 fetchCMS('en');
 </script>
+
+<button id="back-to-top" aria-label="Back to top">
+  <svg viewBox="0 0 24 24">
+    <defs><linearGradient id="btt-grad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#2DB586"/><stop offset="100%" stop-color="#228CC2"/></linearGradient></defs>
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
 </body>
 </html>

@@ -553,23 +553,26 @@ app.post('/api/contact', function(req, res) {
   if (!b.firstName || !b.email || !b.message) {
     return res.status(400).json({ ok: false, error: 'Missing required fields' });
   }
-  var name    = (b.firstName + ' ' + (b.lastName || '')).trim();
-  var company = b.company ? ' (' + b.company + ')' : '';
+  var name      = (b.firstName + ' ' + (b.lastName || '')).trim();
+  var company   = b.company ? ' (' + b.company + ')' : '';
+  var inquiryTo = b.inquiryTo === 'Subver' ? 'Subver' : 'Technocon';
   var mailOpts = {
     from:    process.env.SMTP_USER ? '"Technocon Website" <' + process.env.SMTP_USER + '>' : '"Technocon Website" <office@techno-con.eu>',
     to:      process.env.CONTACT_TO || 'denkisa@gmail.com',
     replyTo: b.email,
-    subject: 'Website enquiry from ' + name + company,
+    subject: '[' + inquiryTo + '] Website enquiry from ' + name + company,
     text: [
-      'Name:    ' + name,
-      'Company: ' + (b.company || '—'),
-      'Email:   ' + b.email,
+      'Inquiry to: ' + inquiryTo,
+      'Name:       ' + name,
+      'Company:    ' + (b.company || '—'),
+      'Email:      ' + b.email,
       '',
       b.message,
     ].join('\n'),
     html: [
-      '<p><strong>Name:</strong> '    + name + '</p>',
-      '<p><strong>Company:</strong> ' + (b.company || '—') + '</p>',
+      '<p><strong>Inquiry to:</strong> ' + inquiryTo + '</p>',
+      '<p><strong>Name:</strong> '       + name + '</p>',
+      '<p><strong>Company:</strong> '    + (b.company || '—') + '</p>',
       '<p><strong>Email:</strong> <a href="mailto:' + b.email + '">' + b.email + '</a></p>',
       '<hr>',
       '<p>' + b.message.replace(/\n/g, '<br>') + '</p>',
