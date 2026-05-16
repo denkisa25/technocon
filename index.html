@@ -448,7 +448,7 @@ a.nav-subver::after{background:var(--tc-gradient-h)!important}
 .field input.invalid,.field textarea.invalid{border-bottom-color:#c0392b}
 /* ── INQUIRY SELECTOR ── */
 .inquiry-group{margin-bottom:20px}
-.inquiry-group-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:8px}
+.inquiry-group-label{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);display:block;margin-bottom:8px}
 .inquiry-options{display:flex;border:0.5px solid var(--tc-rule-strong)}
 .inquiry-opt{flex:1;position:relative}
 .inquiry-opt input[type=radio]{position:absolute;opacity:0;width:0;height:0}
@@ -1109,7 +1109,7 @@ a.footer-subver-link:hover{opacity:.8;color:transparent!important}
         <!-- Technocon -->
         <div class="office-card reveal">
           <div class="office-map">
-            <iframe class="gmap-frame" data-map-ck="contact.address" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+            <iframe class="gmap-frame" data-map-ck="contact.tc.mapq" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
               src="https://www.google.com/maps?q=Osogovo+st.+51%2C+1303+Sofia%2C+Bulgaria&output=embed"
               title="Technocon Head Office"></iframe>
           </div>
@@ -1148,11 +1148,11 @@ a.footer-subver-link:hover{opacity:.8;color:transparent!important}
             </div>
             <div class="contact-row">
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 5l6 4 6-4" stroke-linecap="round"/></svg>
-              <a href="mailto:info@subver.ae" data-ck="contact.subver.email">info@subver.ae</a>
+              <div><a href="mailto:info@subver.ae" data-ck="contact.subver.email">info@subver.ae</a><br><a href="mailto:" data-ck="contact.subver.email2"></a></div>
             </div>
             <div class="contact-row">
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2.5 3.5a1 1 0 011-1h1.172a1 1 0 01.894.553l.707 1.414a1 1 0 01-.196 1.124l-.49.49a7.09 7.09 0 003.333 3.333l.49-.49a1 1 0 011.124-.196l1.414.707A1 1 0 0112.5 10.328V11.5a1 1 0 01-1 1H11C6.029 12.5 2.5 8.971 2.5 4V3.5z"/></svg>
-              <a href="tel:+97165000000" data-ck="contact.subver.phone">+971 6 500 0000</a>
+              <div><a href="tel:+97165000000" data-ck="contact.subver.phone">+971 6 500 0000</a><br><a href="tel:" data-ck="contact.subver.phone2"></a></div>
             </div>
             <div class="contact-row">
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2" stroke-linecap="round"/></svg>
@@ -1232,7 +1232,10 @@ a.footer-subver-link:hover{opacity:.8;color:transparent!important}
       <ul class="footer-nav-list">
         <li data-ck="contact.address">Osogovo st. 51, 1303 Sofia, Bulgaria</li>
         <li><a href="tel:+359889627304" data-ck="contact.phone1">+359 88 9627304</a></li>
+        <li><a href="tel:+359888304414" data-ck="contact.phone2">+359 88 8304414</a></li>
+        <li><a href="mailto:dcc@techno-con.eu" data-ck="contact.email1">dcc@techno-con.eu</a></li>
         <li><a href="mailto:office@techno-con.eu" data-ck="contact.email2">office@techno-con.eu</a></li>
+        <li><a href="http://www.techno-con.eu" target="_blank" rel="noopener" data-ck="contact.web">www.techno-con.eu</a></li>
       </ul>
     </div>
     <div>
@@ -1240,7 +1243,9 @@ a.footer-subver-link:hover{opacity:.8;color:transparent!important}
       <ul class="footer-nav-list">
         <li data-ck="contact.subver.address">Ajman Free Zone, Ajman, United Arab Emirates</li>
         <li><a href="tel:+97165000000" data-ck="contact.subver.phone">+971 6 500 0000</a></li>
+        <li><a href="tel:" data-ck="contact.subver.phone2"></a></li>
         <li><a href="mailto:info@subver.ae" data-ck="contact.subver.email">info@subver.ae</a></li>
+        <li><a href="mailto:" data-ck="contact.subver.email2"></a></li>
         <li><a href="https://www.subver.ae" target="_blank" rel="noopener" data-ck="contact.subver.web">www.subver.ae</a></li>
       </ul>
     </div>
@@ -1374,7 +1379,22 @@ async function fetchCMS(lang) {
     if (CMS_PARTNERS) buildPartnerMarquee(CMS_PARTNERS, lang);
     document.querySelectorAll('[data-ck]').forEach(el => {
       const val = content[el.dataset.ck];
-      if (val !== undefined && !Array.isArray(val)) el.innerHTML = val;
+      if (val !== undefined && !Array.isArray(val)) {
+        el.innerHTML = val;
+        if (val === '') {
+          el.style.display = 'none';
+          const li = el.closest('li');
+          if (li) li.style.display = 'none';
+          const prev = el.previousSibling;
+          if (prev && prev.nodeName === 'BR') prev.style.display = 'none';
+        } else {
+          el.style.display = '';
+          const li = el.closest('li');
+          if (li) li.style.display = '';
+          const prev = el.previousSibling;
+          if (prev && prev.nodeName === 'BR') prev.style.display = '';
+        }
+      }
     });
     if (typeof window.restartHeroCycle === 'function') window.restartHeroCycle();
     document.querySelectorAll('[data-ck-list]').forEach(el => {

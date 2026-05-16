@@ -10,8 +10,8 @@
 
 ## Local Server
 - **Always serve on localhost** — never screenshot a `file:///` URL.
-- Start the dev server: `node serve.mjs` (serves the project root at `http://localhost:3000`)
-- `serve.mjs` lives in the project root. Start it in the background before taking any screenshots.
+- Start the dev server: `node server.js` (serves static files + API at `http://localhost:3000`)
+- `server.js` lives in the project root. Start it in the background before taking any screenshots.
 - If the server is already running, do not start a second instance.
 
 ## Screenshot Workflow
