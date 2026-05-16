@@ -6,3 +6,23 @@ data/users.json
 video/node_modules/
 video/out/
 video/.cache/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Claude Code internal
+.claude/
+
+# SQLite database
+data/*.db
+data/*.db-shm
+data/*.db-wal
+
+# Temporary scripts
+shot-*.mjs
+test-rows*.mjs
+data/content_BACK.json
+
+# Editor
+*.code-workspace

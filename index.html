@@ -29,19 +29,7 @@
   --font-body:      'Archivo','Helvetica Neue',sans-serif;
   --font-mono:      'JetBrains Mono','SF Mono',monospace;
   --font-editorial: 'Fraunces',Georgia,serif;
-  --tc-gradient:   linear-gradient(135deg, var(--tc-green) 0%, var(--tc-blue) 100%);
   --tc-gradient-h: linear-gradient(90deg,  var(--tc-green) 0%, var(--tc-blue) 100%);
-  /* Compat aliases used by ported components */
-  --amber:      var(--tc-green);
-  --amber2:     var(--tc-green-deep);
-  --amber-dim:  rgba(45,181,134,0.12);
-  --black:      var(--tc-line);
-  --white:      #FFFFFF;
-  --border:     var(--tc-rule);
-  --grey1:      var(--tc-mute);
-  --grey2:      var(--tc-mute);
-  --green:      var(--tc-green);
-  --blue:       var(--tc-blue);
   --header-h:   72px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -104,7 +92,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   padding:.5rem 0;opacity:0;pointer-events:none;transform:translateY(-6px);
   transition:opacity .2s ease,transform .2s ease;backdrop-filter:blur(16px);box-shadow:0 12px 32px rgba(0,0,0,.35);
 }
-.nav-dropdown:hover .dropdown-menu{opacity:1;pointer-events:all;transform:translateY(0)}
+.nav-dropdown:hover .dropdown-menu{opacity:1;pointer-events:auto;transform:translateY(0)}
 .dropdown-menu a{
   display:block;padding:.6rem 1.2rem;font-family:var(--font-mono);font-size:14px;letter-spacing:.05em;text-transform:uppercase;
   color:rgba(250,250,247,.55);text-decoration:none;border-bottom:0.5px solid rgba(250,250,247,.08);
@@ -130,7 +118,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
   nav{flex-direction:column;align-items:flex-start;width:100%}
   nav a,.nav-dropdown>button{padding:.65rem 0;width:100%;border-bottom:0.5px solid rgba(250,250,247,.08)}
   nav a::after,.nav-dropdown>button::after{display:none}
-  .dropdown-menu{position:static;opacity:1;pointer-events:all;transform:none;border:none;border-left:1px solid var(--tc-green);padding:0 0 0 1rem;margin:.25rem 0 .5rem;backdrop-filter:none;background:none;min-width:0;box-shadow:none}
+  .dropdown-menu{position:static;opacity:1;pointer-events:auto;transform:none;border:none;border-left:1px solid var(--tc-green);padding:0 0 0 1rem;margin:.25rem 0 .5rem;backdrop-filter:none;background:none;min-width:0;box-shadow:none}
   .dropdown-menu a{padding:.5rem 0;border:none;color:rgba(250,250,247,.5)}
   .header-right{padding:.5rem 0;width:100%}
   .logo .tc-logo{height:56px}
@@ -199,7 +187,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 .btn{
   font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
   padding:14px 22px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
-  text-decoration:none;transition:all .25s ease;
+  text-decoration:none;transition:opacity .25s ease;
   background:var(--tc-paper);color:var(--tc-line);position:relative;overflow:hidden;
 }
 .btn::before{content:'';position:absolute;inset:0;background:var(--tc-gradient-h);opacity:0;transition:opacity .25s}
@@ -309,7 +297,7 @@ a.nav-subver::after{background:var(--tc-gradient-h)!important}
 .partners-marquee-outer{cursor:grab}
 .partners-marquee-outer.dragging{cursor:grabbing}
 .partners-marquee-track{display:flex;align-items:center;width:max-content;animation:marquee 28s linear infinite}
-@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(var(--mq-end,-50%))}}
 .partner-item{display:flex;flex-direction:column;align-items:center;gap:.65rem;padding:0 3.5rem;white-space:nowrap}
 .partner-dot{width:5px;height:5px;border-radius:50%;background:var(--tc-green);flex-shrink:0;opacity:.7}
 .partner-name{font-family:var(--font-mono);font-size:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--tc-mute);transition:color .2s}
@@ -355,7 +343,7 @@ a.nav-subver::after{background:var(--tc-gradient-h)!important}
 .proj-gallery-dots{display:flex;justify-content:center;gap:8px;margin-top:2rem}
 .pgdot{width:8px;height:8px;border:none;cursor:pointer;padding:0;background:rgba(0,0,0,.15);transition:background .25s,transform .25s}
 .pgdot.active{background:var(--tc-green);transform:scale(1.25)}
-.proj-spot-detail{background:var(--surface);border:none;grid-column:1/-1;overflow:hidden;max-height:0;opacity:0;transition:max-height .6s ease,opacity .45s ease;scroll-margin-top:calc(var(--header-h) + 1rem)}
+.proj-spot-detail{background:var(--surface);grid-column:1/-1;overflow:hidden;max-height:0;opacity:0;transition:max-height .6s ease,opacity .45s ease;scroll-margin-top:calc(var(--header-h) + 1rem)}
 .proj-spot-detail.open{max-height:1400px;opacity:1}
 .proj-detail-inner{padding:2.5rem;display:grid;grid-template-columns:3fr 2fr;gap:3rem;align-items:start}
 .proj-carousel{position:relative;overflow:hidden}
@@ -390,15 +378,15 @@ a.nav-subver::after{background:var(--tc-gradient-h)!important}
 .about-geo-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
 .about-geo-bg svg{width:100%;height:100%}
 #about .container{position:relative;z-index:1}
-.about-layout{display:grid;grid-template-columns:1fr 400px;gap:5rem;align-items:start;margin-top:0}
-.pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:0.5px solid var(--tc-rule-strong);background:var(--surface);margin-top:0}
+.about-layout{display:grid;grid-template-columns:1fr 400px;gap:5rem;align-items:start}
+.pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:0.5px solid var(--tc-rule-strong);background:var(--surface)}
 .pillar{padding:32px;border-right:0.5px solid var(--tc-rule-strong);border-bottom:0.5px solid var(--tc-rule-strong);position:relative}
 .pillar:nth-child(2n){border-right:none}
 .pillar:nth-last-child(-n+2){border-bottom:none}
 .pillar::before{content:'';position:absolute;top:0;left:0;width:24px;height:2px;background:var(--tc-gradient-h)}
 .pillar h3{font-family:var(--font-display);font-size:17px;font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:12px;color:var(--ink)}
 .pillar p{font-size:13px;color:var(--ink-soft);line-height:1.6}
-.about-img-stack{position:relative;height:460px;flex-shrink:0}
+.about-img-stack{position:relative;height:460px}
 .about-img1{position:absolute;top:0;left:0;width:78%;height:78%;object-fit:cover;filter:saturate(.8)}
 .about-img2{position:absolute;bottom:0;right:0;width:54%;height:52%;object-fit:cover;filter:saturate(.8);border:4px solid var(--surface);box-shadow:0 4px 20px rgba(0,0,0,.15)}
 .about-accent{position:absolute;top:48%;left:58%;transform:translate(-50%,-50%);width:80px;height:80px;border:0.5px solid rgba(45,181,134,.3);pointer-events:none}
@@ -467,14 +455,14 @@ a.nav-subver::after{background:var(--tc-gradient-h)!important}
 .inquiry-opt input[type=radio]:checked+label{color:var(--tc-paper);background:var(--tc-gradient-h)}
 .inquiry-opt input[type=radio]:checked+label::before{background:var(--tc-paper);border-color:var(--tc-paper)}
 .inquiry-opt input[type=radio]:focus-visible+label{outline:2px solid var(--tc-green);outline-offset:-2px}
-.submit-btn{font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 22px;background:var(--tc-gradient-h);color:var(--tc-paper);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;margin-top:16px;position:relative;overflow:hidden;transition:all .25s ease;width:100%;justify-content:center}
+.submit-btn{font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 22px;background:var(--tc-gradient-h);color:var(--tc-paper);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;margin-top:16px;position:relative;overflow:hidden;transition:opacity .25s ease;width:100%;justify-content:center}
 .submit-btn::before{content:'';position:absolute;inset:0;background:var(--tc-line);opacity:0;transition:opacity .25s}
 .submit-btn span{position:relative;z-index:1}
 .submit-btn:hover::before{opacity:1}
 
 /* ── LIGHTBOX ── */
 .lb-overlay{position:fixed;inset:0;z-index:9000;background:rgba(10,14,20,.88);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s ease}
-.lb-overlay.lb-open{opacity:1;pointer-events:all}
+.lb-overlay.lb-open{opacity:1;pointer-events:auto}
 .lb-box{position:relative;max-width:min(860px,92vw);max-height:90vh;background:var(--surface);overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.45);transform:scale(.94);transition:transform .25s cubic-bezier(.16,1,.3,1)}
 .lb-overlay.lb-open .lb-box{transform:scale(1)}
 .lb-box img{display:block;max-width:100%;max-height:85vh;object-fit:contain}
@@ -486,7 +474,7 @@ footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
 .footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:0.5px solid rgba(250,250,247,.18)}
 .footer-brand{display:flex;align-items:center;gap:28px}
 .footer-logo{display:block;height:130px;width:auto;color:var(--tc-paper);opacity:.9;flex-shrink:0}
-.footer-tagline{font-family:var(--font-editorial);font-size:28px;font-weight:400;letter-spacing:-.02em;line-height:1.15;color:var(--tc-paper);margin:0}
+.footer-tagline{font-family:var(--font-editorial);font-size:28px;font-weight:400;letter-spacing:-.02em;line-height:1.15;color:var(--tc-paper)}
 .footer-tagline em{font-style:italic;background:var(--tc-gradient-h);-webkit-background-clip:text;background-clip:text;color:transparent}
 .footer-bottom{max-width:1280px;margin:0 auto;padding-top:32px;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(250,250,247,.4)}
 .footer-col-hdr{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,250,247,.6);font-weight:500;margin-bottom:20px}
@@ -526,7 +514,6 @@ a.footer-subver-link:hover{opacity:.8;color:transparent!important}
   .tracking-img-photo{height:220px}
   .tracking-img-screen{height:200px;border-left:none;border-top:0.5px solid var(--tc-rule-strong)}
   .tracking-img-fade{background:linear-gradient(to bottom,transparent 60%,var(--surface) 100%)}
-  .partners-inner{grid-template-columns:1fr;gap:24px}
   .about-layout{grid-template-columns:1fr;gap:3rem}
   .about-img-stack{height:300px}
   .iso-grid{grid-template-columns:1fr}
@@ -764,7 +751,7 @@ a.footer-subver-link:hover{opacity:.8;color:transparent!important}
             <span class="subver-tag" data-ck="services.5.tag.area">MENA Region</span>
           </div>
         </div>
-        <div class="subver-content">
+        <div>
           <div class="svc-num-badge">— 05</div>
           <h3 data-ck="services.5.title">Subver — MENA Procurement Services</h3>
           <p class="subver-content-p" data-ck="services.5.intro">SUBVER INTERNATIONAL FZC is a Technocon subsidiary company located in the Emirates, established in 2023 and specialising in procurement for oil and gas facilities across the MENA region. Operating primarily in the UAE, Saudi Arabia, Iraq, and Oman, Subver's core focus is the supply of industrial equipment to major operators and contractors — including ADNOC and Borouge — as well as EPC companies and government entities. Maintaining a lean and efficient team enables fast response times and flexible execution. Subver supports clients throughout the full procurement cycle: from sourcing and vendor coordination to delivery and documentation, ensuring compliance with project requirements and local regulations.</p>
@@ -1353,7 +1340,15 @@ function buildPartnerMarquee(partners, lang) {
     return `<div class="partner-item">${icon}<span class="partner-name">${name}</span></div>`;
   };
   const set = partners.map(makeItem).join('');
-  track.innerHTML = set + set;
+  track.innerHTML = set;
+  requestAnimationFrame(() => {
+    const setW = track.scrollWidth;
+    const copies = Math.max(2, Math.ceil(window.innerWidth * 3 / setW));
+    let html = '';
+    for (let i = 0; i < copies; i++) html += set;
+    track.innerHTML = html;
+    track.style.setProperty('--mq-end', '-' + setW + 'px');
+  });
 }
 
 const API_BASE = (function() {
@@ -1364,18 +1359,15 @@ const API_BASE = (function() {
 
 async function fetchCMS(lang) {
   try {
-    const partnerFetch = CMS_PARTNERS ? null : fetch(API_BASE + '/api/partners');
-    const [cRes, pRes] = await Promise.all([
+    const [cRes, pRes, prRes] = await Promise.all([
       fetch(API_BASE + `/api/content?lang=${lang}`),
-      fetch(API_BASE + `/api/projects?lang=${lang}`)
+      fetch(API_BASE + `/api/projects?lang=${lang}`),
+      CMS_PARTNERS ? null : fetch(API_BASE + '/api/partners')
     ]);
     if (!cRes.ok || !pRes.ok) throw new Error('API unavailable');
     const content  = await cRes.json();
     const projList = await pRes.json();
-    if (partnerFetch) {
-      const prRes = await partnerFetch;
-      if (prRes.ok) CMS_PARTNERS = await prRes.json();
-    }
+    if (prRes && prRes.ok) CMS_PARTNERS = await prRes.json();
     if (CMS_PARTNERS) buildPartnerMarquee(CMS_PARTNERS, lang);
     document.querySelectorAll('[data-ck]').forEach(el => {
       const val = content[el.dataset.ck];
@@ -1471,7 +1463,6 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 var galPage = 0;
 var CARDS_PER_ROW = 3;
 var GAL_PER_PAGE = CARDS_PER_ROW * 2;
-function galGetFiltered() { return Array.from(document.querySelectorAll('.proj-card-g')).filter(c => !c._filtered); }
 function galUpdateDots(totalPages) {
   const dots = document.getElementById('galleryDots'); if (!dots) return;
   dots.innerHTML = '';
@@ -1637,16 +1628,23 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// ── Partners drag-to-scroll
+// ── Partners drag-to-scroll (momentum/iOS-style)
 (function() {
-  const DURATION = 28; // must match CSS animation duration (seconds)
+  const DURATION = 28;
+  const FRICTION  = 0.94;
   const outer = document.querySelector('.partners-marquee-outer');
   const track = document.getElementById('partnersTrack');
   if (!outer || !track) return;
 
-  let dragging = false, startX = 0, dragOffset = 0, baseOffset = 0;
+  let dragging = false, baseX = 0, startClientX = 0, currentX = 0;
+  let velX = 0, rafId = null, posHistory = [];
 
-  function getCurrentX() {
+  function getSetW() {
+    const v = track.style.getPropertyValue('--mq-end');
+    return v ? Math.abs(parseFloat(v)) : track.scrollWidth / 2;
+  }
+
+  function readCurrentX() {
     const m = getComputedStyle(track).transform;
     if (!m || m === 'none') return 0;
     const v = m.match(/matrix.*\((.+)\)/);
@@ -1654,37 +1652,89 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function resumeFrom(px) {
-    const half = track.scrollWidth / 2;
-    let pos = px % half;
-    if (pos > 0) pos -= half;
-    const delay = (pos / half) * DURATION; // negative seconds
+    const setW = getSetW();
+    let pos = px % setW;
+    if (pos > 0) pos -= setW;
+    const delay = (pos / setW) * DURATION;
     track.style.transform = '';
     track.style.animationDelay = delay + 's';
     track.style.animationPlayState = 'running';
   }
 
-  outer.addEventListener('mousedown', function(e) {
-    dragging = true;
-    startX = e.clientX;
-    baseOffset = getCurrentX();
+  function applyMomentum() {
+    if (Math.abs(velX) < 0.15) { resumeFrom(currentX); return; }
+    currentX += velX;
+    velX *= FRICTION;
+    track.style.transform = 'translateX(' + currentX + 'px)';
+    rafId = requestAnimationFrame(applyMomentum);
+  }
+
+  function dragStart(clientX) {
+    cancelAnimationFrame(rafId);
     track.style.animationPlayState = 'paused';
-    track.style.transform = 'translateX(' + baseOffset + 'px)';
+    baseX = readCurrentX();
+    startClientX = clientX;
+    currentX = baseX;
+    posHistory = [{ x: clientX, t: performance.now() }];
+    dragging = true;
     outer.classList.add('dragging');
-    e.preventDefault();
-  });
+  }
 
-  window.addEventListener('mousemove', function(e) {
+  function dragMove(clientX) {
     if (!dragging) return;
-    dragOffset = baseOffset + (e.clientX - startX);
-    track.style.transform = 'translateX(' + dragOffset + 'px)';
-  });
+    currentX = baseX + (clientX - startClientX);
+    track.style.transform = 'translateX(' + currentX + 'px)';
+    const now = performance.now();
+    posHistory.push({ x: clientX, t: now });
+    posHistory = posHistory.filter(p => now - p.t < 80);
+  }
 
-  window.addEventListener('mouseup', function() {
+  function dragEnd() {
     if (!dragging) return;
     dragging = false;
     outer.classList.remove('dragging');
-    resumeFrom(dragOffset);
+    velX = 0;
+    if (posHistory.length >= 2) {
+      const a = posHistory[0], b = posHistory[posHistory.length - 1];
+      const dt = b.t - a.t;
+      if (dt > 0) velX = Math.max(-50, Math.min(50, (b.x - a.x) / dt * 16));
+    }
+    if (Math.abs(velX) > 0.5) rafId = requestAnimationFrame(applyMomentum);
+    else resumeFrom(currentX);
+  }
+
+  // Pointer Events — handles mouse, trackpad click-drag and touchscreen uniformly
+  outer.addEventListener('pointerdown', e => {
+    outer.setPointerCapture(e.pointerId);
+    dragStart(e.clientX);
+    e.preventDefault();
   });
+  outer.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    dragMove(e.clientX);
+  });
+  outer.addEventListener('pointerup',     () => dragEnd());
+  outer.addEventListener('pointercancel', () => dragEnd());
+
+  // Trackpad two-finger swipe (wheel events — macOS sends inertia automatically)
+  let wheelTimer = null;
+  outer.addEventListener('wheel', e => {
+    // Accept horizontal delta; also accept vertical-only if no horizontal (some trackpad configs)
+    const raw = Math.abs(e.deltaX) > 0 ? e.deltaX : e.deltaY;
+    if (Math.abs(raw) < 1) return;
+    e.preventDefault();
+    cancelAnimationFrame(rafId);
+    if (track.style.animationPlayState !== 'paused') {
+      currentX = readCurrentX();
+      track.style.animationPlayState = 'paused';
+      track.style.transform = 'translateX(' + currentX + 'px)';
+    }
+    const d = e.deltaMode === 1 ? raw * 30 : e.deltaMode === 2 ? raw * 300 : raw;
+    currentX -= d;
+    track.style.transform = 'translateX(' + currentX + 'px)';
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => resumeFrom(currentX), 220);
+  }, { passive: false });
 })();
 
 // ── Bootstrap CMS
@@ -1693,7 +1743,6 @@ fetchCMS('en');
 
 <button id="back-to-top" aria-label="Back to top">
   <svg viewBox="0 0 24 24">
-    <defs><linearGradient id="btt-grad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#2DB586"/><stop offset="100%" stop-color="#228CC2"/></linearGradient></defs>
     <polyline points="18 15 12 9 6 15"/>
   </svg>
 </button>
