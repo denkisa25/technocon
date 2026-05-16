@@ -91,11 +91,11 @@
     <h1 class="text-xl font-bold text-center text-gray-800 mb-6">Admin Panel</h1>
     <form id="loginForm">
       <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-600 mb-1">Username</label>
+        <label for="loginUser" class="block text-sm font-medium text-gray-600 mb-1">Username</label>
         <input id="loginUser" type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:border-blue-500" autocomplete="username">
       </div>
       <div class="mb-6">
-        <label class="block text-sm font-medium text-gray-600 mb-1">Password</label>
+        <label for="loginPass" class="block text-sm font-medium text-gray-600 mb-1">Password</label>
         <input id="loginPass" type="password" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:border-blue-500" autocomplete="current-password">
       </div>
       <button type="submit" class="w-full bg-[#0089cf] text-white font-semibold py-2.5 rounded-lg hover:bg-[#0077b5] transition-colors">Sign In</button>
@@ -262,11 +262,11 @@
         <div class="grid grid-cols-2 gap-4 mb-4">
           <div>
             <p class="field-label">English Name</p>
-            <input id="np_en" type="text" placeholder="Partner name in English" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm">
+            <input id="np_en" type="text" placeholder="Partner name in English" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm" autocomplete="off">
           </div>
           <div>
             <p class="field-label">Bulgarian Name</p>
-            <input id="np_bg" type="text" placeholder="Партньор на български" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm">
+            <input id="np_bg" type="text" placeholder="Партньор на български" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm" autocomplete="off">
           </div>
         </div>
         <div class="mb-4">
@@ -299,15 +299,15 @@
         <p class="group-title">Change Password</p>
         <div class="field-wrap">
           <p class="field-label">Current Password</p>
-          <input id="pwCurrent" type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm">
+          <input id="pwCurrent" type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm" autocomplete="current-password">
         </div>
         <div class="field-wrap">
           <p class="field-label">New Password</p>
-          <input id="pwNew" type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm">
+          <input id="pwNew" type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm" autocomplete="new-password">
         </div>
         <div class="field-wrap">
           <p class="field-label">Confirm New Password</p>
-          <input id="pwConfirm" type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm">
+          <input id="pwConfirm" type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500 text-sm" autocomplete="new-password">
         </div>
         <button onclick="changePassword()" class="bg-[#0089cf] text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-[#0077b5] transition-colors">Update Password</button>
       </div>
