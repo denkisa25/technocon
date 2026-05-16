@@ -365,6 +365,22 @@
 <div id="toast" class="toast"></div>
 
 <script>
+// ── Utilities ─────────────────────────────────────────────────────────
+const BASE = (function() {
+  var p = window.location.pathname;
+  var i = p.indexOf('/admin');
+  return i > 0 ? p.slice(0, i) : '';
+})();
+
+async function api(method, url, body) {
+  try {
+    const opts = { method, headers:{ 'Content-Type':'application/json' } };
+    if (body) opts.body = JSON.stringify(body);
+    const r = await fetch(BASE + url, opts);
+    return r.json();
+  } catch(e) { return { error: 'Network error' }; }
+}
+
 // ── State ────────────────────────────────────────────────────────────
 let contentLang   = 'en';
 let modalLang     = 'en';
@@ -1057,23 +1073,6 @@ async function changePassword() {
   const r = await api('PUT', '/api/auth/password', { current: cur, newPass: nw });
   if (r.ok) { toast('Password updated'); document.getElementById('pwCurrent').value = document.getElementById('pwNew').value = document.getElementById('pwConfirm').value = ''; }
   else { toast(r.error || 'Failed to update password', 'error'); }
-}
-
-// ── Utilities ─────────────────────────────────────────────────────────
-// Derive base path so API calls work whether the app is at / or /temp/ or any subpath
-const BASE = (function() {
-  var p = window.location.pathname; // e.g. "/temp/admin" or "/admin"
-  var i = p.indexOf('/admin');
-  return i > 0 ? p.slice(0, i) : ''; // "/temp" or ""
-})();
-
-async function api(method, url, body) {
-  try {
-    const opts = { method, headers:{ 'Content-Type':'application/json' } };
-    if (body) opts.body = JSON.stringify(body);
-    const r = await fetch(BASE + url, opts);
-    return r.json();
-  } catch(e) { return { error: 'Network error' }; }
 }
 
 function toast(msg, type = 'success') {
