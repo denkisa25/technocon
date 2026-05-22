@@ -299,8 +299,7 @@ a.nav-subver::after{background:var(--tc-gradient-h)!important}
 .partners-marquee-outer::after{right:0;background:linear-gradient(to left,#ffffff,transparent)}
 .partners-marquee-outer{cursor:grab}
 .partners-marquee-outer.dragging{cursor:grabbing}
-.partners-marquee-track{display:flex;align-items:center;width:max-content;animation:marquee 28s linear infinite}
-@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(var(--mq-end,-50%))}}
+.partners-marquee-track{display:flex;align-items:center;width:max-content;will-change:transform}
 .partner-item{display:flex;flex-direction:column;align-items:center;gap:.65rem;padding:0 3.5rem;white-space:nowrap}
 .partner-dot{width:5px;height:5px;border-radius:50%;background:var(--tc-green);flex-shrink:0;opacity:.7}
 .partner-name{font-family:var(--font-mono);font-size:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--tc-mute);transition:color .2s}
@@ -1355,7 +1354,7 @@ function buildPartnerMarquee(partners, lang) {
     let html = '';
     for (let i = 0; i < copies; i++) html += set;
     track.innerHTML = html;
-    track.style.setProperty('--mq-end', '-' + setW + 'px');
+    if (window._mqReset) window._mqReset(setW);
   });
 }
 
@@ -1653,113 +1652,96 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// ── Partners drag-to-scroll (momentum/iOS-style)
+// ── Partners marquee — RAF-driven with drag + wheel support
 (function() {
-  const DURATION = 28;
-  const FRICTION  = 0.94;
+  const SPEED    = 0.8;   // px per frame, auto-scroll leftward
+  const FRICTION = 0.92;  // momentum decay per frame
+
   const outer = document.querySelector('.partners-marquee-outer');
   const track = document.getElementById('partnersTrack');
   if (!outer || !track) return;
 
-  let dragging = false, baseX = 0, startClientX = 0, currentX = 0;
-  let velX = 0, rafId = null, posHistory = [];
+  let currentX   = 0;
+  let setWidth   = 0;   // pixel width of one set; 0 until known
+  let dragVelX   = 0;   // decaying momentum after release
+  let isDragging = false;
+  let lastClientX = 0;
+  let posHistory  = [];
 
-  function getSetW() {
-    const v = track.style.getPropertyValue('--mq-end');
-    return v ? Math.abs(parseFloat(v)) : track.scrollWidth / 2;
+  // Called by buildPartnerMarquee after it rebuilds the track
+  window._mqReset = function(sw) { setWidth = sw; currentX = 0; };
+
+  function wrap() {
+    if (!setWidth) return;
+    while (currentX <= -setWidth) currentX += setWidth;
+    while (currentX > 0)          currentX -= setWidth;
   }
 
-  function readCurrentX() {
-    const m = getComputedStyle(track).transform;
-    if (!m || m === 'none') return 0;
-    const v = m.match(/matrix.*\((.+)\)/);
-    return v ? parseFloat(v[1].split(', ')[4]) : 0;
-  }
-
-  function resumeFrom(px) {
-    const setW = getSetW();
-    let pos = px % setW;
-    if (pos > 0) pos -= setW;
-    const delay = (pos / setW) * DURATION;
-    track.style.transform = '';
-    track.style.animationDelay = delay + 's';
-    track.style.animationPlayState = 'running';
-  }
-
-  function applyMomentum() {
-    if (Math.abs(velX) < 0.15) { resumeFrom(currentX); return; }
-    currentX += velX;
-    velX *= FRICTION;
+  function tick() {
+    if (!isDragging) {
+      dragVelX *= FRICTION;
+      if (Math.abs(dragVelX) < 0.05) dragVelX = 0;
+      currentX += -SPEED + dragVelX;
+    }
+    // Seed setWidth from static HTML on first frame if CMS hasn't loaded yet
+    if (!setWidth && track.scrollWidth > 0) setWidth = track.scrollWidth / 2;
+    wrap();
     track.style.transform = 'translateX(' + currentX + 'px)';
-    rafId = requestAnimationFrame(applyMomentum);
+    requestAnimationFrame(tick);
   }
 
   function dragStart(clientX) {
-    cancelAnimationFrame(rafId);
-    track.style.animationPlayState = 'paused';
-    baseX = readCurrentX();
-    startClientX = clientX;
-    currentX = baseX;
-    posHistory = [{ x: clientX, t: performance.now() }];
-    dragging = true;
+    isDragging  = true;
+    lastClientX = clientX;
+    dragVelX    = 0;
+    posHistory  = [{ x: clientX, t: performance.now() }];
     outer.classList.add('dragging');
   }
 
   function dragMove(clientX) {
-    if (!dragging) return;
-    currentX = baseX + (clientX - startClientX);
-    track.style.transform = 'translateX(' + currentX + 'px)';
-    const now = performance.now();
+    if (!isDragging) return;
+    currentX   += clientX - lastClientX;
+    lastClientX = clientX;
+    const now   = performance.now();
     posHistory.push({ x: clientX, t: now });
     posHistory = posHistory.filter(p => now - p.t < 80);
   }
 
   function dragEnd() {
-    if (!dragging) return;
-    dragging = false;
+    if (!isDragging) return;
+    isDragging = false;
     outer.classList.remove('dragging');
-    velX = 0;
+    dragVelX = 0;
     if (posHistory.length >= 2) {
       const a = posHistory[0], b = posHistory[posHistory.length - 1];
       const dt = b.t - a.t;
-      if (dt > 0) velX = Math.max(-50, Math.min(50, (b.x - a.x) / dt * 16));
+      if (dt > 0) dragVelX = Math.max(-30, Math.min(30, (b.x - a.x) / dt * 16));
     }
-    if (Math.abs(velX) > 0.5) rafId = requestAnimationFrame(applyMomentum);
-    else resumeFrom(currentX);
   }
 
-  // Pointer Events — handles mouse, trackpad click-drag and touchscreen uniformly
   outer.addEventListener('pointerdown', e => {
     outer.setPointerCapture(e.pointerId);
     dragStart(e.clientX);
     e.preventDefault();
   });
-  outer.addEventListener('pointermove', e => {
-    if (!dragging) return;
-    dragMove(e.clientX);
-  });
+  outer.addEventListener('pointermove', e => dragMove(e.clientX));
   outer.addEventListener('pointerup',     () => dragEnd());
   outer.addEventListener('pointercancel', () => dragEnd());
 
-  // Trackpad two-finger swipe (wheel events — macOS sends inertia automatically)
-  let wheelTimer = null;
+  // Trackpad two-finger horizontal swipe
+  let wheelTimer;
   outer.addEventListener('wheel', e => {
-    // Accept horizontal delta; also accept vertical-only if no horizontal (some trackpad configs)
-    const raw = Math.abs(e.deltaX) > 0 ? e.deltaX : e.deltaY;
+    const raw = Math.abs(e.deltaX) >= Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
     if (Math.abs(raw) < 1) return;
     e.preventDefault();
-    cancelAnimationFrame(rafId);
-    if (track.style.animationPlayState !== 'paused') {
-      currentX = readCurrentX();
-      track.style.animationPlayState = 'paused';
-      track.style.transform = 'translateX(' + currentX + 'px)';
-    }
     const d = e.deltaMode === 1 ? raw * 30 : e.deltaMode === 2 ? raw * 300 : raw;
-    currentX -= d;
-    track.style.transform = 'translateX(' + currentX + 'px)';
+    currentX -= d * 0.5;
+    dragVelX  = -d * 0.2;
     clearTimeout(wheelTimer);
-    wheelTimer = setTimeout(() => resumeFrom(currentX), 220);
+    wheelTimer = setTimeout(() => { dragVelX = 0; }, 200);
   }, { passive: false });
+
+  requestAnimationFrame(tick);
 })();
 
 // ── Bootstrap CMS
