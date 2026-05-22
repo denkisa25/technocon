@@ -31,8 +31,26 @@ const server = http.createServer((req, res) => {
 
   const filePath = path.join(__dirname, urlPath);
 
+  const tryServe = (fp, fallback) => {
+    fs.stat(fp, (err, stat) => {
+      if (err || !stat.isFile()) {
+        if (fallback) return tryServe(fallback, null);
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('404 Not Found');
+        return;
+      }
+      const ext = path.extname(fp).toLowerCase();
+      const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+      res.writeHead(200, { 'Content-Type': contentType });
+      fs.createReadStream(fp).pipe(res);
+    });
+  };
+
+  const htmlFallback = path.extname(filePath) === '' ? filePath + '.html' : null;
+
   fs.stat(filePath, (err, stat) => {
     if (err || !stat.isFile()) {
+      if (htmlFallback) return tryServe(htmlFallback, null);
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.end('404 Not Found');
       return;

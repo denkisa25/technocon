@@ -1434,16 +1434,18 @@ async function fetchCMS(lang) {
       if (p.period)         meta.push(['Period', p.period]);
       if (p.contract_value) meta.push(['Contract Value', p.contract_value]);
       if (p.location)       meta.push(['Location', p.location]);
-      CMS_PROJECTS[p.key] = { badge: p.badge, status: (statusLabel[p.badge] || {})[lang] || p.badge, title: p.title, imgs: (p.images || []).map(img => img.filename), meta, desc: p.description, scope };
+      CMS_PROJECTS[p.key] = { badge: p.badge, status: (statusLabel[p.badge] || {})[lang] || p.badge, title: p.title, imgs: (p.images || []).map(img => img.filename), meta, desc: p.description, short_desc: p.short_desc, scope };
     });
     projList.forEach(p => {
       const card = document.querySelector(`.proj-card-g[data-proj="${p.key}"]`);
       if (!card) return;
-      const titleEl  = card.querySelector('.proj-card-g-title');
-      const clientEl = card.querySelector('.proj-card-g-client');
-      const imgEl    = card.querySelector('img');
-      if (titleEl && p.title)   titleEl.textContent = p.title;
-      if (clientEl && p.client) clientEl.textContent = p.client;
+      const titleEl     = card.querySelector('.proj-card-g-title');
+      const clientEl    = card.querySelector('.proj-card-g-client');
+      const descEl      = card.querySelector('.proj-card-g-desc');
+      const imgEl       = card.querySelector('img');
+      if (titleEl && p.title)      titleEl.textContent = p.title;
+      if (clientEl && p.client)    clientEl.textContent = p.client;
+      if (descEl && p.short_desc)  descEl.textContent = p.short_desc;
       if (imgEl && p.images?.length) { const thumb = p.images.find(i => i.is_main) || p.images[0]; if (thumb) imgEl.src = thumb.filename; }
     });
     const track = document.getElementById('galleryTrack');

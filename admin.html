@@ -883,6 +883,10 @@ function buildModalLangFields(lang) {
       <div><p class="field-label">Contract Value</p><input id="m-${lang}-cv" type="text" value="${escAttr(d.contract_value||'')}" placeholder="~EUR 1M" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500"></div>
     </div>
     <div class="mb-4">
+      <p class="field-label">Card Short Description <span class="text-gray-400 font-normal">(shown on project card)</span></p>
+      <textarea id="m-${lang}-short-desc" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 min-h-[56px] resize-y" placeholder="Brief one-liner for the project card…">${escHtml(d.short_desc||'')}</textarea>
+    </div>
+    <div class="mb-4">
       <p class="field-label">Description</p>
       <textarea id="m-${lang}-desc" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 min-h-[80px] resize-y">${escHtml(d.description||'')}</textarea>
     </div>
@@ -926,6 +930,7 @@ function getModalTranslation(lang) {
     period:         (document.getElementById(`m-${lang}-period`)?.value || '').trim(),
     location:       (document.getElementById(`m-${lang}-location`)?.value || '').trim(),
     contract_value: (document.getElementById(`m-${lang}-cv`)?.value || '').trim(),
+    short_desc:     (document.getElementById(`m-${lang}-short-desc`)?.value || '').trim(),
     description:    (document.getElementById(`m-${lang}-desc`)?.value || '').trim(),
     scope:          getScopeItems(lang),
   };
@@ -967,6 +972,7 @@ async function editProject(id) {
       period:         t.period         || '',
       location:       t.location       || '',
       contract_value: t.contract_value || '',
+      short_desc:     t.short_desc     || '',
       description:    t.description    || '',
       scope:          Array.isArray(t.scope) ? t.scope : [],
     };

@@ -12,6 +12,7 @@
         "period": "Oct 2025 – Present",
         "location": "Bulgaria",
         "contract_value": "760 t steel structures",
+        "short_desc": "Strategic modernisation of a border checkpoint — full multi-discipline scope from engineering through construction.",
         "description": "Strategic infrastructure modernisation of a border checkpoint, with high coordination and execution requirements. Full multi-discipline scope from engineering through construction.",
         "scope": [
           "Detail design",
@@ -30,6 +31,7 @@
         "period": "Окт 2025 – Настоящем",
         "location": "България",
         "contract_value": "760 т стоманени конструкции",
+        "short_desc": "Стратегическа модернизация на гранична инфраструктура — пълен обхват от инженеринг до строителство.",
         "description": "Стратегическа модернизация на инфраструктурата на граничен пункт с висока координация и изисквания за изпълнение.",
         "scope": [
           "Работен проект",
@@ -74,6 +76,7 @@
         "period": "2019–2021 + O&M ongoing",
         "location": "Bulgaria",
         "contract_value": "Pipeline route Turkish–Serbian border",
+        "short_desc": "Gas transmission pipeline across Bulgaria — Turkish to Serbian border — including commissioning and O&M support.",
         "description": "Gas transmission pipeline across Bulgaria (Balkan Stream) including related facilities and commissioning. Currently under ongoing O&M support.",
         "scope": [
           "Materials & equipment supply",
@@ -92,6 +95,7 @@
         "period": "2019–2021 + текуща поддръжка",
         "location": "България",
         "contract_value": "Трасе турска–сръбска граница",
+        "short_desc": "Газопреносен тръбопровод Балкански поток — от турската до сръбската граница — включително въвеждане в експлоатация.",
         "description": "Газопреносен тръбопровод Балкански поток, включително съоръжения и въвеждане в експлоатация.",
         "scope": [
           "Доставка материали и оборудване",
@@ -136,6 +140,7 @@
         "period": "2023–2025",
         "location": "Narva, Estonia",
         "contract_value": "~EUR 11M",
+        "short_desc": "400 t steel structures, 360 t piping, 50 t stainless steel — oil shale processing plant construction and commissioning.",
         "description": "Construction of an oil shale processing plant including the condensation block. 400 t equipment & steel structures, 360 t piping, 50 t stainless steel, 4,300 pipe supports.",
         "scope": [
           "Mechanical installation",
@@ -154,6 +159,7 @@
         "period": "2023–2025",
         "location": "Нарва, Естония",
         "contract_value": "~EUR 11M",
+        "short_desc": "400 т стоманени конструкции, 360 т тръбопроводи — изграждане на завод за преработка на нефтени шисти.",
         "description": "Изграждане на завод за преработка на нефтени шисти, включително кондензационен блок.",
         "scope": [
           "Механичен монтаж",
@@ -198,6 +204,7 @@
         "period": "Oct 2024 – Nov 2025",
         "location": "Lozen, Bulgaria",
         "contract_value": "~EUR 1M",
+        "short_desc": "Full reconstruction on the active 48\" gas pipeline — access road, perimeter drainage, and fire protection strip.",
         "description": "Full reconstruction of the Lozen Pig Launcher/Receiver Station including access road, fire protection strip, perimeter drainage, and internal site works on the active 48\" gas pipeline.",
         "scope": [
           "Access road reconstruction",
@@ -214,6 +221,7 @@
         "period": "Окт 2024 – Ноем 2025",
         "location": "Лозен, България",
         "contract_value": "~EUR 1M",
+        "short_desc": "Цялостна реконструкция на активния 48\" газопровод — пътища, дренаж и противопожарна лента.",
         "description": "Цялостна реконструкция на станцията за пуск и приемане на диагностичен уред в Лозен.",
         "scope": [
           "Реконструкция на пътни настилки",
@@ -256,6 +264,7 @@
         "period": "Jun – Dec 2024",
         "location": "Chiren, Bulgaria",
         "contract_value": "~EUR 1.5M",
+        "short_desc": "New aboveground area for Chiren Underground Gas Storage — test test test",
         "description": "Construction of a new aboveground area for Chiren Underground Gas Storage (UGS), including gas injection and withdrawal systems.",
         "scope": [
           "Welding & installation works",
@@ -273,6 +282,7 @@
         "period": "Юни – Дек 2024",
         "location": "Чирен, България",
         "contract_value": "~EUR 1.5M",
+        "short_desc": "Нова надземна площадка за ПГХ Чирен — компресорна станция, газова обработка и ТЕГ регенерация.",
         "description": "Изграждане на нова надземна площадка за подземното газохранилище Чирен.",
         "scope": [
           "Заваряване и монтаж",
@@ -336,6 +346,7 @@
         "period": "Ongoing",
         "location": "UAE",
         "contract_value": "Procurement",
+        "short_desc": "Fire-rated LGS buildings and refurbished ISO container units — fully fitted and ready for deployment in the UAE.",
         "description": "International procurement services for ADNOC including supply of fire-rated pre-fabricated Store Accommodation Buildings (LGS system) and refurbished ISO-modified container units.",
         "scope": [
           "Fire-rated LGS buildings (12×6m)",
@@ -350,6 +361,7 @@
         "period": "Текущо",
         "location": "ОАЕ",
         "contract_value": "Доставки",
+        "short_desc": "Противопожарни LGS сгради и рефурбишнати ISO контейнери — напълно оборудвани за UAE.",
         "description": "Международни procurement услуги за ADNOC, включително доставка на противопожарни сглобяеми сгради и контейнерни модули.",
         "scope": [
           "Противопожарни сгради LGS (12×6м)",

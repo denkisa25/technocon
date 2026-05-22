@@ -420,6 +420,7 @@ app.get('/api/projects', function(req, res) {
         period:         t.period || '',
         location:       t.location || '',
         contract_value: t.contract_value || '',
+        short_desc:     t.short_desc || '',
         description:    t.description || '',
         scope:          t.scope || [],
         images:         (p.images || []).map(function(i) { return { id: i.id, filename: i.filename, is_main: i.is_main || false }; })
