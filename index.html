@@ -1558,9 +1558,10 @@ function toggleProject(id, card) {
 function updateCarousel(idx) {
   const total = CMS_PROJECTS[activeProj]?.imgs.length ?? 1;
   carouselIdx = ((idx % total) + total) % total;
-  const track = document.getElementById('active-track'); if (track) track.style.transform = `translateX(-${carouselIdx * 100}%)`;
-  document.querySelectorAll('#active-dots .carousel-dot').forEach((d,i) => d.classList.toggle('active', i === carouselIdx));
-  document.querySelectorAll('#active-thumbs .carousel-thumb').forEach((t,i) => { t.classList.toggle('active', i === carouselIdx); if (i === carouselIdx) t.scrollIntoView({block:'nearest',inline:'nearest'}); });
+  const panel = document.querySelector('.proj-spot-detail.open');
+  const track = panel?.querySelector('.proj-carousel-track'); if (track) track.style.transform = `translateX(-${carouselIdx * 100}%)`;
+  panel?.querySelectorAll('.carousel-dot').forEach((d,i) => d.classList.toggle('active', i === carouselIdx));
+  panel?.querySelectorAll('.carousel-thumb').forEach((t,i) => { t.classList.toggle('active', i === carouselIdx); if (i === carouselIdx) t.scrollIntoView({block:'nearest',inline:'nearest'}); });
 }
 function carouselPrev() { updateCarousel(carouselIdx - 1); }
 function carouselNext() { updateCarousel(carouselIdx + 1); }
