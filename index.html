@@ -471,6 +471,28 @@ a.nav-subver::after{background:var(--tc-gradient-h)!important}
 .lb-close{position:absolute;top:.75rem;right:.75rem;width:32px;height:32px;background:rgba(0,0,0,.55);border:none;color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,transform .15s;z-index:1}
 .lb-close:hover{background:rgba(0,0,0,.8);transform:scale(1.1)}
 
+/* ── PROJECT LIGHTBOX ── */
+#proj-lb{position:fixed;inset:0;z-index:9100;background:rgba(6,8,12,.96);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .28s ease}
+#proj-lb.open{opacity:1;pointer-events:auto}
+#proj-lb-wrap{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#proj-lb-img{display:block;max-width:92vw;max-height:92vh;object-fit:contain;user-select:none;touch-action:none;transition:transform .08s linear;transform-origin:center center;cursor:zoom-in}
+#proj-lb-img.zoomed{cursor:grab}
+#proj-lb-img.panning{cursor:grabbing}
+.proj-lb-nav{position:fixed;top:50%;transform:translateY(-50%);width:48px;height:48px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:1.25rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .18s;backdrop-filter:blur(4px);z-index:2}
+.proj-lb-nav:hover{background:rgba(255,255,255,.2)}
+.proj-lb-nav:active{transform:translateY(-50%) scale(.9)}
+#proj-lb-prev{left:1rem}
+#proj-lb-next{right:1rem}
+#proj-lb-close{position:fixed;top:1rem;right:1rem;width:40px;height:40px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(4px);transition:background .18s,transform .18s;z-index:2}
+#proj-lb-close:hover{background:rgba(255,255,255,.22);transform:scale(1.08)}
+#proj-lb-counter{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.45);z-index:2;pointer-events:none;white-space:nowrap}
+#proj-lb-zoom{position:fixed;bottom:1.4rem;right:1rem;display:flex;gap:5px;z-index:2}
+.proj-lb-z{width:34px;height:34px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:1.15rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(4px);transition:background .18s}
+.proj-lb-z:hover{background:rgba(255,255,255,.22)}
+.proj-carousel{position:relative}
+.proj-lb-hint{position:absolute;top:.55rem;left:.55rem;width:26px;height:26px;background:rgba(0,0,0,.52);border:1px solid rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;z-index:4;backdrop-filter:blur(3px)}
+.proj-carousel:hover .proj-lb-hint{opacity:1}
+
 /* ── FOOTER ── */
 footer{background:var(--tc-line);color:var(--tc-paper);padding:64px 60px 32px}
 .footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:0.5px solid rgba(250,250,247,.18)}
@@ -1263,6 +1285,20 @@ a.footer-subver-link:hover{opacity:.8;color:transparent!important}
   </div>
 </div>
 
+<div id="proj-lb">
+  <div id="proj-lb-wrap">
+    <img id="proj-lb-img" src="" alt="" ondblclick="projLbToggleZoom(event)">
+  </div>
+  <button id="proj-lb-close" onclick="closeProjLb()" aria-label="Close">&#x2715;</button>
+  <button id="proj-lb-prev" class="proj-lb-nav" onclick="projLbGo(projLbIdx-1)" aria-label="Previous">&#8592;</button>
+  <button id="proj-lb-next" class="proj-lb-nav" onclick="projLbGo(projLbIdx+1)" aria-label="Next">&#8594;</button>
+  <div id="proj-lb-counter"></div>
+  <div id="proj-lb-zoom">
+    <button class="proj-lb-z" onclick="projLbZoomStep(-1)" aria-label="Zoom out">&#x2212;</button>
+    <button class="proj-lb-z" onclick="projLbZoomStep(1)" aria-label="Zoom in">&#x2b;</button>
+  </div>
+</div>
+
 <script>
 // ── Header scroll
 const hdr = document.getElementById('header');
@@ -1537,11 +1573,12 @@ function closeDetail() {
 function buildDetailHTML(id) {
   const p = CMS_PROJECTS[id]; if (!p) return '';
   const dotsHtml = p.imgs.map((_,i) => `<div class="carousel-dot${i===0?' active':''}" onclick="carouselGo(${i})"></div>`).join('');
-  const imgsHtml = p.imgs.map(src => `<img src="${src}" alt="">`).join('');
+  const imgsHtml = p.imgs.map(src => `<img src="${src}" alt="" onclick="openProjLb(carouselIdx)">`).join('');
   const thumbsHtml = p.imgs.map((src,i) => `<img class="carousel-thumb${i===0?' active':''}" src="${src}" alt="" onclick="carouselGo(${i})">`).join('');
   const metaHtml = p.meta.map(([l,v]) => `<div class="proj-meta-item"><label>${l}</label><span>${v}</span></div>`).join('');
   const scopeHtml = p.scope.map(s => `<li>${s}</li>`).join('');
-  return `<div class="proj-detail-inner"><div><div class="proj-carousel" id="active-carousel"><div class="proj-carousel-track" id="active-track">${imgsHtml}</div><button class="carousel-btn carousel-prev" onclick="carouselPrev()">&#8592;</button><button class="carousel-btn carousel-next" onclick="carouselNext()">&#8594;</button><div class="carousel-dots" id="active-dots">${dotsHtml}</div></div><div class="carousel-thumbs" id="active-thumbs">${thumbsHtml}</div></div><div class="proj-detail-text"><span class="proj-badge badge-${p.badge}">${p.status}</span><h3 class="proj-detail-title">${p.title}</h3><div class="proj-meta-grid">${metaHtml}</div><p class="proj-desc">${p.desc}</p><p class="proj-scope-h">Scope of Works</p><ul class="proj-scope">${scopeHtml}</ul></div></div>`;
+  const expandIcon = `<div class="proj-lb-hint"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1 6V1h5M10 1h5v5M15 10v5h-5M6 15H1v-5"/></svg></div>`;
+  return `<div class="proj-detail-inner"><div><div class="proj-carousel" id="active-carousel"><div class="proj-carousel-track" id="active-track">${imgsHtml}</div><button class="carousel-btn carousel-prev" onclick="carouselPrev();event.stopPropagation()">&#8592;</button><button class="carousel-btn carousel-next" onclick="carouselNext();event.stopPropagation()">&#8594;</button><div class="carousel-dots" id="active-dots">${dotsHtml}</div>${expandIcon}</div><div class="carousel-thumbs" id="active-thumbs">${thumbsHtml}</div></div><div class="proj-detail-text"><span class="proj-badge badge-${p.badge}">${p.status}</span><h3 class="proj-detail-title">${p.title}</h3><div class="proj-meta-grid">${metaHtml}</div><p class="proj-desc">${p.desc}</p><p class="proj-scope-h">Scope of Works</p><ul class="proj-scope">${scopeHtml}</ul></div></div>`;
 }
 function toggleProject(id, card) {
   const row = card.closest('.proj-row');
@@ -1635,10 +1672,140 @@ window.addEventListener('scroll', () => {
   setTimeout(function() { show(getWords()[0]); setInterval(next, 4500); }, 1400);
 })();
 
-// ── Lightbox
+// ── ISO Lightbox (certificates)
 function openLightbox(src, alt) { const overlay = document.getElementById('lb-overlay'); const img = document.getElementById('lb-img'); img.src = src; img.alt = alt || ''; overlay.classList.add('lb-open'); document.body.style.overflow = 'hidden'; }
 function closeLightbox() { document.getElementById('lb-overlay').classList.remove('lb-open'); document.body.style.overflow = ''; }
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+
+// ── Project image lightbox
+let projLbImgs = [], projLbIdx = 0;
+let projLbScale = 1, projLbPanX = 0, projLbPanY = 0;
+let projLbDragging = false, projLbDragOrig = {x:0,y:0};
+let projLbTouchX = null;
+
+function openProjLb(idx) {
+  const p = CMS_PROJECTS[activeProj]; if (!p || !p.imgs.length) return;
+  projLbImgs = p.imgs;
+  projLbIdx = Math.max(0, Math.min(idx, projLbImgs.length - 1));
+  projLbResetZoom();
+  projLbLoad();
+  document.getElementById('proj-lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeProjLb() {
+  document.getElementById('proj-lb').classList.remove('open');
+  document.body.style.overflow = '';
+  projLbResetZoom();
+}
+function projLbLoad() {
+  const img = document.getElementById('proj-lb-img'); if (!img) return;
+  img.src = projLbImgs[projLbIdx];
+  const single = projLbImgs.length <= 1;
+  document.getElementById('proj-lb-prev').style.visibility = single ? 'hidden' : '';
+  document.getElementById('proj-lb-next').style.visibility = single ? 'hidden' : '';
+  document.getElementById('proj-lb-counter').textContent = single ? '' : (projLbIdx + 1) + ' / ' + projLbImgs.length;
+  projLbApplyTransform();
+}
+function projLbGo(idx) {
+  projLbIdx = ((idx % projLbImgs.length) + projLbImgs.length) % projLbImgs.length;
+  projLbResetZoom();
+  projLbLoad();
+}
+function projLbResetZoom() {
+  projLbScale = 1; projLbPanX = 0; projLbPanY = 0; projLbDragging = false;
+  projLbApplyTransform();
+}
+function projLbApplyTransform() {
+  const img = document.getElementById('proj-lb-img'); if (!img) return;
+  img.style.transform = 'translate(' + projLbPanX + 'px,' + projLbPanY + 'px) scale(' + projLbScale + ')';
+  img.className = projLbScale > 1 ? (projLbDragging ? 'panning' : 'zoomed') : '';
+}
+function projLbZoomStep(dir) {
+  projLbScale = Math.max(1, Math.min(4, projLbScale + dir * 0.6));
+  if (projLbScale === 1) { projLbPanX = 0; projLbPanY = 0; }
+  projLbApplyTransform();
+}
+function projLbToggleZoom(e) {
+  if (projLbScale > 1) { projLbResetZoom(); return; }
+  const img = document.getElementById('proj-lb-img');
+  const r = img.getBoundingClientRect();
+  const ox = e.clientX - (r.left + r.width / 2);
+  const oy = e.clientY - (r.top + r.height / 2);
+  projLbScale = 2.5;
+  projLbPanX = -ox * 0.7; projLbPanY = -oy * 0.7;
+  projLbApplyTransform();
+}
+
+// Keyboard
+document.addEventListener('keydown', function(e) {
+  if (document.getElementById('proj-lb').classList.contains('open')) {
+    if (e.key === 'Escape')       closeProjLb();
+    else if (e.key === 'ArrowLeft')  projLbGo(projLbIdx - 1);
+    else if (e.key === 'ArrowRight') projLbGo(projLbIdx + 1);
+    return;
+  }
+  if (e.key === 'Escape') closeLightbox();
+});
+
+// Click backdrop to close
+document.getElementById('proj-lb-wrap').addEventListener('click', function(e) {
+  if (e.target === this) closeProjLb();
+});
+
+// Scroll-wheel zoom toward cursor
+document.getElementById('proj-lb-wrap').addEventListener('wheel', function(e) {
+  if (!document.getElementById('proj-lb').classList.contains('open')) return;
+  e.preventDefault();
+  const delta = e.deltaY < 0 ? 0.3 : -0.3;
+  const next = Math.max(1, Math.min(4, projLbScale + delta));
+  if (next === projLbScale) return;
+  const img = document.getElementById('proj-lb-img');
+  const r = img.getBoundingClientRect();
+  const ox = e.clientX - (r.left + r.width / 2);
+  const oy = e.clientY - (r.top + r.height / 2);
+  const ratio = next / projLbScale;
+  projLbPanX = projLbPanX * ratio + ox * (1 - ratio);
+  projLbPanY = projLbPanY * ratio + oy * (1 - ratio);
+  projLbScale = next;
+  if (projLbScale === 1) { projLbPanX = 0; projLbPanY = 0; }
+  projLbApplyTransform();
+}, { passive: false });
+
+// Drag to pan when zoomed
+(function() {
+  const img = document.getElementById('proj-lb-img');
+  img.addEventListener('pointerdown', function(e) {
+    if (projLbScale <= 1) return;
+    projLbDragging = true;
+    projLbDragOrig = { x: e.clientX - projLbPanX, y: e.clientY - projLbPanY };
+    img.setPointerCapture(e.pointerId);
+    projLbApplyTransform();
+    e.preventDefault();
+  });
+  img.addEventListener('pointermove', function(e) {
+    if (!projLbDragging) return;
+    projLbPanX = e.clientX - projLbDragOrig.x;
+    projLbPanY = e.clientY - projLbDragOrig.y;
+    projLbApplyTransform();
+  });
+  img.addEventListener('pointerup', function() {
+    projLbDragging = false; projLbApplyTransform();
+  });
+})();
+
+// Touch swipe to navigate (when not zoomed)
+(function() {
+  const wrap = document.getElementById('proj-lb-wrap');
+  wrap.addEventListener('touchstart', function(e) {
+    if (projLbScale > 1) return;
+    projLbTouchX = e.touches[0].clientX;
+  }, { passive: true });
+  wrap.addEventListener('touchend', function(e) {
+    if (projLbScale > 1 || projLbTouchX === null) return;
+    const dx = e.changedTouches[0].clientX - projLbTouchX;
+    if (Math.abs(dx) > 48) projLbGo(projLbIdx + (dx < 0 ? 1 : -1));
+    projLbTouchX = null;
+  }, { passive: true });
+})();
 
 // ── BACK TO TOP ──
 document.addEventListener('DOMContentLoaded', function() {
