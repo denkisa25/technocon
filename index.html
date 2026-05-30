@@ -348,9 +348,9 @@ a.nav-subver::after{background:var(--tc-gradient-h)!important}
 .proj-spot-detail{background:var(--surface);grid-column:1/-1;overflow:hidden;max-height:0;opacity:0;transition:max-height .6s ease,opacity .45s ease;scroll-margin-top:calc(var(--header-h) + 1rem)}
 .proj-spot-detail.open{max-height:1400px;opacity:1}
 .proj-detail-inner{padding:2.5rem;display:grid;grid-template-columns:3fr 2fr;gap:3rem;align-items:start}
-.proj-carousel{position:relative;overflow:hidden}
-.proj-carousel-track{display:flex;transition:transform .45s cubic-bezier(.25,.8,.25,1)}
-.proj-carousel-track img{flex-shrink:0;width:100%;height:auto;display:block;filter:saturate(.85)}
+.proj-carousel{position:relative;overflow:hidden;height:420px}
+.proj-carousel-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,.8,.25,1)}
+.proj-carousel-track img{flex-shrink:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:saturate(.85)}
 .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;z-index:5}
 .carousel-btn:hover{background:var(--tc-green)}
 .carousel-prev{left:.75rem}
@@ -565,6 +565,7 @@ a.footer-subver-link:hover{opacity:.8;color:transparent!important}
   .subver-region-tags{justify-content:center}
   .proj-row{grid-template-columns:1fr}
   .proj-detail-inner{grid-template-columns:1fr;padding:1.25rem 1rem;gap:1.5rem;overflow-x:hidden}
+  .proj-carousel{height:240px}
   .proj-scope{grid-template-columns:1fr}
   .proj-meta-grid{grid-template-columns:1fr}
   .pillars{grid-template-columns:1fr}
