@@ -185,6 +185,12 @@ var CONTENT_DEFAULTS = {
   }
 };
 
+var ABOUT_IMAGE_DEFAULTS = [
+  { slot: 1, filename: 'brand_assets/DJI_0012.JPG' },
+  { slot: 2, filename: 'brand_assets/CHIREN PRES-2.jpeg' },
+  { slot: 3, filename: 'brand_assets/CHIREN PRES-1.jpeg' }
+];
+
 // ── Seed content (first run) + migrate missing keys ────────────────────
 (function() {
   var content = fs.existsSync(FILES.content)
@@ -200,6 +206,10 @@ var CONTENT_DEFAULTS = {
       }
     });
   });
+  if (!content.about_images) {
+    content.about_images = ABOUT_IMAGE_DEFAULTS.slice();
+    changed = true;
+  }
   if (changed) writeJSON(FILES.content, content);
 })();
 
@@ -317,6 +327,25 @@ const partnerUpload = multer({
     cb(null, /\.(jpe?g|png|webp|gif|svg)$/i.test(file.originalname));
   },
   limits: { fileSize: 5 * 1024 * 1024 }
+});
+
+const aboutStorage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    var dir = path.join(ROOT, 'uploads', 'about');
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
+  filename: function(req, file, cb) {
+    var ext = path.extname(file.originalname).toLowerCase();
+    cb(null, 'slot' + req.params.slot + '-' + Date.now() + ext);
+  }
+});
+const aboutUpload = multer({
+  storage: aboutStorage,
+  fileFilter: function(req, file, cb) {
+    cb(null, /\.(jpe?g|png|webp)$/i.test(file.originalname));
+  },
+  limits: { fileSize: 10 * 1024 * 1024 }
 });
 
 const requireAdmin = function(req, res, next) {
@@ -636,6 +665,48 @@ app.delete('/api/partners/:id', requireAdmin, function(req, res) {
     if (fs.existsSync(oldPath)) try { fs.unlinkSync(oldPath); } catch(e) {}
   }
   writeJSON(FILES.partners, partners.filter(function(x) { return x.id != req.params.id; }));
+  res.json({ ok: true });
+});
+
+// ── About section images ───────────────────────────────────────────────
+app.get('/api/about-images', function(req, res) {
+  var content = readJSON(FILES.content, { en: {}, bg: {} });
+  res.json(content.about_images || ABOUT_IMAGE_DEFAULTS);
+});
+
+app.post('/api/about-images/:slot', requireAdmin, aboutUpload.single('image'), function(req, res) {
+  var slot = parseInt(req.params.slot);
+  if (slot < 1 || slot > 3 || !req.file) return res.status(400).json({ error: 'Invalid' });
+  var content = readJSON(FILES.content, { en: {}, bg: {} });
+  if (!content.about_images) content.about_images = ABOUT_IMAGE_DEFAULTS.slice();
+  var idx = content.about_images.findIndex(function(x) { return x.slot === slot; });
+  if (idx === -1) { content.about_images.push({ slot: slot, filename: '' }); idx = content.about_images.length - 1; }
+  var old = content.about_images[idx].filename;
+  if (old && old.startsWith('uploads/')) {
+    var fp = path.join(ROOT, old);
+    if (fs.existsSync(fp)) try { fs.unlinkSync(fp); } catch(e) {}
+  }
+  content.about_images[idx].filename = 'uploads/about/' + req.file.filename;
+  writeJSON(FILES.content, content);
+  res.json({ ok: true, filename: content.about_images[idx].filename });
+});
+
+app.delete('/api/about-images/:slot', requireAdmin, function(req, res) {
+  var slot = parseInt(req.params.slot);
+  if (slot < 1 || slot > 3) return res.status(400).json({ error: 'Invalid' });
+  var content = readJSON(FILES.content, { en: {}, bg: {} });
+  if (!content.about_images) content.about_images = ABOUT_IMAGE_DEFAULTS.slice();
+  var idx = content.about_images.findIndex(function(x) { return x.slot === slot; });
+  if (idx !== -1) {
+    var old = content.about_images[idx].filename;
+    if (old && old.startsWith('uploads/')) {
+      var fp = path.join(ROOT, old);
+      if (fs.existsSync(fp)) try { fs.unlinkSync(fp); } catch(e) {}
+    }
+    var def = ABOUT_IMAGE_DEFAULTS.find(function(x) { return x.slot === slot; });
+    content.about_images[idx].filename = def ? def.filename : '';
+  }
+  writeJSON(FILES.content, content);
   res.json({ ok: true });
 });
 

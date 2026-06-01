@@ -376,11 +376,14 @@ a.nav-subver::after{background:var(--tc-gradient-h)!important}
 .proj-scope li::before{content:'›';position:absolute;left:0;color:var(--tc-green)}
 
 /* ── ABOUT ── */
-#about{background:var(--surface);overflow:hidden}
+#about{background:var(--surface);overflow:hidden;padding-bottom:144px}
 .about-geo-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
 .about-geo-bg svg{width:100%;height:100%}
-#about .container{position:relative;z-index:1}
-.about-layout{display:grid;grid-template-columns:1fr 400px;gap:5rem;align-items:start}
+#about .container{position:static}
+#about .section-header{position:relative;z-index:1}
+#about .pillars{max-width:calc(100% - 460px);position:relative;z-index:1}
+.about-photo-panel{position:absolute;top:0;bottom:144px;right:20px;width:440px;z-index:0;pointer-events:none}
+.about-img-stack{position:relative;width:100%;height:100%}
 .pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:0.5px solid var(--tc-rule-strong);background:var(--surface)}
 .pillar{padding:32px;border-right:0.5px solid var(--tc-rule-strong);border-bottom:0.5px solid var(--tc-rule-strong);position:relative}
 .pillar:nth-child(2n){border-right:none}
@@ -388,10 +391,10 @@ a.nav-subver::after{background:var(--tc-gradient-h)!important}
 .pillar::before{content:'';position:absolute;top:0;left:0;width:24px;height:2px;background:var(--tc-gradient-h)}
 .pillar h3{font-family:var(--font-display);font-size:17px;font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:12px;color:var(--ink)}
 .pillar p{font-size:13px;color:var(--ink-soft);line-height:1.6}
-.about-img-stack{position:relative;height:460px}
-.about-img1{position:absolute;top:0;left:0;width:78%;height:78%;object-fit:cover;filter:saturate(.8)}
-.about-img2{position:absolute;bottom:0;right:0;width:54%;height:52%;object-fit:cover;filter:saturate(.8);border:4px solid var(--surface);box-shadow:0 4px 20px rgba(0,0,0,.15)}
-.about-accent{position:absolute;top:48%;left:58%;transform:translate(-50%,-50%);width:80px;height:80px;border:0.5px solid rgba(45,181,134,.3);pointer-events:none}
+.about-img-mid{position:absolute;top:0;left:8%;width:68%;height:100%;object-fit:cover;filter:saturate(.85);z-index:1}
+.about-img-bl{position:absolute;bottom:0;left:0;width:52%;height:45%;object-fit:cover;filter:saturate(.85);z-index:2;border:3px solid var(--surface);box-shadow:0 16px 48px rgba(0,0,0,.25)}
+.about-img-br{position:absolute;bottom:12%;right:0;width:40%;height:38%;object-fit:cover;filter:saturate(.85);z-index:3;border:3px solid var(--surface);box-shadow:0 16px 48px rgba(0,0,0,.25)}
+.about-accent{position:absolute;top:0;left:6%;width:0.5px;height:36%;background:linear-gradient(to bottom,rgba(45,181,134,.25),transparent);pointer-events:none;z-index:4}
 
 /* ── ISO / QUALITY ── */
 #quality{background:var(--bg)}
@@ -522,6 +525,9 @@ a.footer-subver-link:hover{opacity:.8;color:transparent!important}
 .reveal.vis{opacity:1;transform:translateY(0)}
 
 /* ── RESPONSIVE ── */
+@media(max-width:1440px){
+  #about .section-header{max-width:100%;background:rgba(255,255,255,.92);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+}
 @media(max-width:960px){
   #hero{padding:0 2.5rem 60px}
   .hero-doc{right:2.5rem}
@@ -538,8 +544,10 @@ a.footer-subver-link:hover{opacity:.8;color:transparent!important}
   .tracking-img-photo{height:220px}
   .tracking-img-screen{height:200px;border-left:none;border-top:0.5px solid var(--tc-rule-strong)}
   .tracking-img-fade{background:linear-gradient(to bottom,transparent 60%,var(--surface) 100%)}
-  .about-layout{grid-template-columns:1fr;gap:3rem}
-  .about-img-stack{height:300px}
+  .about-photo-panel{position:relative;width:100%;height:380px}
+  .about-img-stack{height:380px}
+  #about .pillars{max-width:100%}
+  #about .section-header{background:transparent}
   .iso-grid{grid-template-columns:1fr}
   .iso-card{border-right:none;border-bottom:0.5px solid var(--tc-rule-strong)}
   .iso-card:last-child{border-bottom:none}
@@ -1034,16 +1042,17 @@ a.footer-subver-link:hover{opacity:.8;color:transparent!important}
         <p class="reveal" data-ck="about.text">A Bulgarian-based company specialising in energy and industrial infrastructure projects across Europe. We combine proven engineering expertise, flexible delivery capacity, and lean team structure to deliver results at every project stage.</p>
       </div>
     </div>
-    <div class="about-layout">
-      <div class="pillars reveal" data-ck-pairs="about.caps" data-pairs-h="pillar-h-inner" data-pairs-p="pillar-p-inner" data-pairs-item="pillar">
-        <div class="pillar"><h3>Fast Internal Coordination</h3><p>Rapid decision-making and high adaptability in changing project environments.</p></div>
-        <div class="pillar"><h3>Strong Ownership</h3><p>Experience in technical documentation, site interfaces, and execution follow-up.</p></div>
-        <div class="pillar"><h3>Lean Structure</h3><p>Hands-on project involvement with efficient communication across all disciplines.</p></div>
-        <div class="pillar"><h3>Quick Mobilisation</h3><p>Ability to mobilise core resources and expand through partner network when required.</p></div>
-      </div>
-      <div class="about-img-stack reveal">
-        <img class="about-img1" src="brand_assets/DJI_0012.JPG" alt="Technocon project site">
-        <img class="about-img2" src="brand_assets/CHIREN PRES-2.jpeg" alt="Technocon installation works">
+    <div class="pillars reveal" data-ck-pairs="about.caps" data-pairs-h="pillar-h-inner" data-pairs-p="pillar-p-inner" data-pairs-item="pillar">
+      <div class="pillar"><h3>Fast Internal Coordination</h3><p>Rapid decision-making and high adaptability in changing project environments.</p></div>
+      <div class="pillar"><h3>Strong Ownership</h3><p>Experience in technical documentation, site interfaces, and execution follow-up.</p></div>
+      <div class="pillar"><h3>Lean Structure</h3><p>Hands-on project involvement with efficient communication across all disciplines.</p></div>
+      <div class="pillar"><h3>Quick Mobilisation</h3><p>Ability to mobilise core resources and expand through partner network when required.</p></div>
+    </div>
+    <div class="about-photo-panel">
+      <div class="about-img-stack">
+        <img class="about-img-mid" id="about-photo-1" src="brand_assets/DJI_0012.JPG" alt="Technocon project site">
+        <img class="about-img-bl" id="about-photo-2" src="brand_assets/CHIREN PRES-2.jpeg" alt="Technocon installation works">
+        <img class="about-img-br" id="about-photo-3" src="brand_assets/CHIREN PRES-1.jpeg" alt="Technocon works">
         <div class="about-accent"></div>
       </div>
     </div>
@@ -1912,6 +1921,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
   requestAnimationFrame(tick);
 })();
+
+// ── Load About section photos
+fetch(API_BASE + '/api/about-images')
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(imgs) {
+    if (!imgs) return;
+    imgs.forEach(function(img) {
+      var el = document.getElementById('about-photo-' + img.slot);
+      if (el && img.filename) el.src = API_BASE + '/' + img.filename;
+    });
+  })
+  .catch(function() {});
 
 // ── Bootstrap CMS
 fetchCMS('en');
