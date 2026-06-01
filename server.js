@@ -357,7 +357,7 @@ const requireAdmin = function(req, res, next) {
 // When hosted at e.g. /temp/, Passenger may forward the full path
 // (/temp/admin, /temp/api/...) instead of stripping the prefix.
 // This middleware strips any leading segment that isn't a known app route.
-var KNOWN_PREFIXES = ['api', 'uploads', 'brand_assets', 'admin'];
+var KNOWN_PREFIXES = ['api', 'uploads', 'brand_assets', 'admin', 'robots.txt', 'sitemap.xml', 'llms.txt', 'privacy-policy'];
 app.use(function(req, res, next) {
   var parts = req.path.split('/').filter(Boolean);
   if (parts.length > 0 && KNOWN_PREFIXES.indexOf(parts[0]) === -1) {
@@ -372,8 +372,12 @@ app.use(function(req, res, next) {
 // ── Static ─────────────────────────────────────────────────────────────
 app.use('/uploads',      express.static(path.join(ROOT, 'uploads')));
 app.use('/brand_assets', express.static(path.join(ROOT, 'brand_assets'), { maxAge: '7d' }));
-app.get('/admin', function(req, res) { res.sendFile(path.join(ROOT, 'admin.html')); });
-app.get('/',      function(req, res) { res.sendFile(path.join(ROOT, 'index.html')); });
+app.get('/robots.txt',     function(req, res) { res.sendFile(path.join(ROOT, 'robots.txt')); });
+app.get('/sitemap.xml',   function(req, res) { res.type('application/xml').sendFile(path.join(ROOT, 'sitemap.xml')); });
+app.get('/llms.txt',      function(req, res) { res.sendFile(path.join(ROOT, 'llms.txt')); });
+app.get('/privacy-policy',function(req, res) { res.sendFile(path.join(ROOT, 'privacy.html')); });
+app.get('/admin',         function(req, res) { res.sendFile(path.join(ROOT, 'admin.html')); });
+app.get('/',              function(req, res) { res.sendFile(path.join(ROOT, 'index.html')); });
 
 // ── Auth ───────────────────────────────────────────────────────────────
 app.post('/api/auth/login', function(req, res) {
