@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — Technocon</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;800&family=Fraunces:opsz,wght@9..144,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --tc-green:#2DB586;--tc-blue:#228CC2;
+    --tc-gradient:linear-gradient(90deg,#2DB586 0%,#228CC2 100%);
+    --ink:#1a1a18;--ink-soft:#6b6b66;--surface:#fafaf7;--rule:rgba(26,26,24,.1);
+  }
+  html,body{height:100%}
+  body{
+    font-family:'Archivo',sans-serif;background:var(--surface);color:var(--ink);
+    display:flex;flex-direction:column;min-height:100vh;
+  }
+  /* ── Header ── */
+  header{
+    position:fixed;top:0;left:0;right:0;padding:0 60px;height:64px;
+    display:flex;align-items:center;justify-content:space-between;
+    border-bottom:0.5px solid var(--rule);background:var(--surface);z-index:10;
+  }
+  .logo-link{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+  .logo-svg{width:36px;height:auto}
+  .logo-name{font-size:14px;font-weight:700;letter-spacing:-.01em}
+  header a.back{
+    font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+    font-family:'JetBrains Mono',monospace;color:var(--ink-soft);text-decoration:none;
+    transition:color .2s;
+  }
+  header a.back:hover{color:var(--ink)}
+  /* ── Main ── */
+  main{
+    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:64px 40px;text-align:center;
+  }
+  .err-num{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--ink-soft);margin-bottom:32px;
+    display:flex;align-items:center;gap:16px;
+  }
+  .err-num::before,.err-num::after{content:'';flex:0 0 32px;height:1px;background:var(--rule)}
+  h1{
+    font-family:'Fraunces',serif;font-size:clamp(48px,8vw,96px);
+    font-weight:400;letter-spacing:-.03em;line-height:.95;margin-bottom:24px;
+  }
+  h1 em{
+    font-style:italic;
+    background:var(--tc-gradient);-webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  p{
+    font-size:16px;color:var(--ink-soft);line-height:1.6;max-width:440px;margin-bottom:40px;
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:14px 28px;background:var(--tc-gradient);color:#fff;
+    font-family:'Archivo',sans-serif;font-size:11px;font-weight:600;
+    letter-spacing:.1em;text-transform:uppercase;text-decoration:none;
+    position:relative;overflow:hidden;transition:opacity .2s;
+  }
+  .btn:hover{opacity:.85}
+  .btn svg{width:14px;height:14px;flex-shrink:0}
+  /* ── Decorative lines ── */
+  .geo{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.06}
+  main{position:relative;z-index:1}
+  /* ── Footer ── */
+  footer{
+    text-align:center;padding:24px;font-size:12px;color:var(--ink-soft);
+    border-top:0.5px solid var(--rule);
+  }
+  @media(max-width:600px){
+    header{padding:0 24px}
+    main{padding:80px 24px 40px}
+  }
+</style>
+</head>
+<body>
+
+<svg class="geo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <line x1="100" y1="0" x2="580" y2="900" stroke="#1a1a18" stroke-width="0.8"/>
+  <line x1="1340" y1="0" x2="860" y2="900" stroke="#1a1a18" stroke-width="0.8"/>
+  <line x1="260" y1="0" x2="740" y2="900" stroke="#1a1a18" stroke-width="0.6"/>
+  <line x1="1180" y1="0" x2="700" y2="900" stroke="#1a1a18" stroke-width="0.6"/>
+</svg>
+
+<header>
+  <a href="/" class="logo-link">
+    <svg class="logo-svg" viewBox="0 0 315.101 366.006" aria-label="Technocon">
+      <defs>
+        <linearGradient id="g404" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#2DB586"/>
+          <stop offset="100%" stop-color="#228CC2"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#g404)" d="M157.55 0L0 91.5v183l157.55 91.506L315.101 274.5v-183L157.55 0zm109.09 256.186l-109.09 63.282-109.091-63.282V109.82l109.091-63.282 109.09 63.282v146.366z"/>
+    </svg>
+    <span class="logo-name">Technocon</span>
+  </a>
+  <a href="/" class="back">← Back to site</a>
+</header>
+
+<main>
+  <div class="err-num">Error 404</div>
+  <h1>Page <em>not found.</em></h1>
+  <p>The page you're looking for doesn't exist or has been moved. Head back to the homepage.</p>
+  <a href="/" class="btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M3 12L12 3l9 9"/><path d="M9 21V12h6v9"/>
+    </svg>
+    Go to Homepage
+  </a>
+</main>
+
+<footer>© 2026 Technocon EOOD — Sofia, Bulgaria</footer>
+
+</body>
+</html>

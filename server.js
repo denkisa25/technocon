@@ -364,7 +364,7 @@ const requireAdmin = function(req, res, next) {
 var KNOWN_PREFIXES = ['api', 'uploads', 'brand_assets', 'admin', 'robots.txt', 'sitemap.xml', 'llms.txt', 'privacy-policy'];
 app.use(function(req, res, next) {
   var parts = req.path.split('/').filter(Boolean);
-  if (parts.length > 0 && KNOWN_PREFIXES.indexOf(parts[0]) === -1) {
+  if (parts.length > 1 && KNOWN_PREFIXES.indexOf(parts[0]) === -1) {
     // Unknown first segment — treat it as a subpath prefix and strip it
     var stripped = '/' + parts.slice(1).join('/');
     req.url = (stripped === '/' ? '/' : stripped) +
@@ -732,6 +732,11 @@ app.get('/api/backup', requireAdmin, function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Content-Disposition', 'attachment; filename="technocon-backup-' + date + '.json"');
   res.json(payload);
+});
+
+// ── 404 ────────────────────────────────────────────────────────────────
+app.use(function(req, res) {
+  res.status(404).sendFile(path.join(ROOT, '404.html'));
 });
 
 // ── Start ──────────────────────────────────────────────────────────────
