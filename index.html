@@ -4,6 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Technocon — Energy &amp; Industrial Infrastructure</title>
+<!-- Google Consent Mode v2 — defaults denied before any tracking -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{
+  analytics_storage:'denied',
+  ad_storage:'denied',
+  ad_user_data:'denied',
+  ad_personalization:'denied',
+  wait_for_update:500
+});
+gtag('js', new Date());
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T64M6NZD2Z"></script>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
@@ -2111,11 +2125,8 @@ function closePrivacyModal() {
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePrivacyModal(); });
 </script>
 
-<!-- ══ ANALYTICS (loads only after consent) ══ -->
+<!-- ══ CONSENT + ANALYTICS ══ -->
 <script>
-// Replace G-XXXXXXXXXX with your GA4 Measurement ID
-var GA4_ID = 'G-T64M6NZD2Z';
-
 function tcGetCookie(name) {
   var m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
   return m ? m[2] : null;
@@ -2124,29 +2135,24 @@ function tcSetCookie(name, val) {
   var d = new Date(); d.setFullYear(d.getFullYear() + 1);
   document.cookie = name + '=' + val + ';path=/;expires=' + d.toUTCString() + ';SameSite=Lax';
 }
-function tcLoadGA4() {
-  if (window._ga4Loaded) return;
-  window._ga4Loaded = true;
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
-  document.head.appendChild(s);
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  window.gtag = gtag;
-  gtag('js', new Date());
-  gtag('config', GA4_ID, { anonymize_ip: true });
+function tcUpdateConsent(granted) {
+  var state = granted ? 'granted' : 'denied';
+  gtag('consent', 'update', {
+    analytics_storage: state,
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied'
+  });
+  gtag('config', 'G-T64M6NZD2Z');
 }
 function tcConsent(choice) {
   tcSetCookie('tc_consent', choice);
   document.getElementById('cookie-banner').style.display = 'none';
-  if (choice === 'accept') tcLoadGA4();
+  tcUpdateConsent(choice === 'accept');
 }
 (function() {
   var consent = tcGetCookie('tc_consent');
-  if (consent === 'accept') { tcLoadGA4(); return; }
-  if (consent === 'decline') return;
-  // No cookie yet — show banner
+  if (consent) { tcUpdateConsent(consent === 'accept'); return; }
   document.getElementById('cookie-banner').style.display = 'flex';
 })();
 </script>
