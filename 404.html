@@ -27,9 +27,8 @@
     display:flex;align-items:center;justify-content:space-between;
     border-bottom:0.5px solid var(--rule);background:var(--surface);z-index:10;
   }
-  .logo-link{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
-  .logo-svg{width:36px;height:auto}
-  .logo-name{font-size:14px;font-weight:700;letter-spacing:-.01em}
+  .logo-link{display:flex;align-items:center;text-decoration:none;color:var(--ink)}
+  .logo-svg{width:auto;height:44px}
   header a.back{
     font-size:12px;letter-spacing:.1em;text-transform:uppercase;
     font-family:'JetBrains Mono',monospace;color:var(--ink-soft);text-decoration:none;
@@ -90,18 +89,41 @@
   <line x1="1180" y1="0" x2="700" y2="900" stroke="#1a1a18" stroke-width="0.6"/>
 </svg>
 
+<!-- Logo symbol -->
+<svg style="display:none" aria-hidden="true">
+  <defs>
+    <symbol id="tc-mark-gradient" viewBox="0 0 315.101 366.006">
+      <line x1="64.867" y1="3" x2="64.867" y2="112.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="188.435" y1="250" x2="188.435" y2="312.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="250.406" y1="123" x2="250.406" y2="312.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="3.041" y1="64.826" x2="62.26" y2="64.826" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="243.041" y1="126.617" x2="312.26" y2="126.617" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="252.041" y1="188.426" x2="312.26" y2="188.426" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="126.599" y1="250.234" x2="312.26" y2="250.234" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="3.041" y1="250.234" x2="64.121" y2="250.234" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <rect x="3.041" y="3" width="309.061" height="309.061" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <polygon points="125.599 3 312.101 3 312.101 64.826 250.474 127.36 250.474 189.609 128.599 312.061 64.867 312.061 64.867 188.426 3.041 188.426 3.041 125.617 125.599 3" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <polyline points="64.867 66.066 64.867 126.617 126.599 126.617 126.599 250.234 188.435 250.234 188.435 126.617 250.474 126.617 250.474 64.809 64.162 64.809" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="3.041" y1="188.426" x2="64.867" y2="126.617" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="64.867" y1="188.426" x2="126.599" y2="126.617" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="64.867" y1="312.061" x2="126.599" y2="250.234" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <line x1="250.474" y1="64.809" x2="312.101" y2="3" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:6px"/>
+      <polygon points="30.198 325.161 0 325.161 0 331.725 11.928 331.725 11.928 365.196 18.319 365.196 18.319 331.725 30.198 331.725 30.198 325.161" style="fill:currentColor"/>
+      <polygon points="57.995 348.055 57.995 341.491 40.176 341.491 40.176 331.725 58.684 331.725 58.684 325.161 33.784 325.161 33.784 365.196 59.078 365.196 59.078 358.631 40.176 358.631 40.176 348.055 57.995 348.055" style="fill:currentColor"/>
+      <path d="M219.658,597.311c-6.757,0-10.292-7.146-10.292-14.206S212.9,568.9,219.658,568.9c5.322,0,7.746,3.895,8.846,7.238h6.506c-1.657-8.558-7.536-13.861-15.4-13.861-10.92,0-16.634,10.478-16.634,20.828s5.714,20.828,16.634,20.828c7.865,0,13.744-5.3,15.4-13.86H228.5C227.4,593.417,224.98,597.311,219.658,597.311Z" transform="translate(-139.705 -237.927)" style="fill:currentColor"/>
+      <polygon points="129.307 365.196 129.307 325.161 122.916 325.161 122.916 341.78 105.122 341.78 105.122 325.161 98.73 325.161 98.73 365.196 105.122 365.196 105.122 348.345 122.916 348.345 122.916 365.196 129.307 365.196" style="fill:currentColor"/>
+      <polygon points="167.029 365.196 167.029 325.161 160.982 325.161 160.982 353.682 142.874 325.161 136.96 325.161 136.96 365.196 142.958 365.196 142.958 336.674 161.066 365.196 167.029 365.196" style="fill:currentColor"/>
+      <path d="M328.89,562.277c-9.651,0-16.929,8.954-16.929,20.828s7.278,20.828,16.929,20.828,16.93-8.954,16.93-20.828S338.542,562.277,328.89,562.277Zm0,35.034a9.207,9.207,0,0,1-7.826-4.549,18.548,18.548,0,0,1,0-19.313,9.207,9.207,0,0,1,7.826-4.549c6.845,0,10.538,7.319,10.538,14.205S335.735,597.311,328.89,597.311Z" transform="translate(-139.705 -237.927)" style="fill:currentColor"/>
+      <path d="M366.3,597.311c-6.756,0-10.292-7.146-10.292-14.206S359.545,568.9,366.3,568.9c5.321,0,7.745,3.895,8.846,7.238h6.507c-1.658-8.558-7.536-13.861-15.4-13.861-10.921,0-16.635,10.478-16.635,20.828s5.714,20.828,16.635,20.828c7.865,0,13.743-5.3,15.4-13.86h-6.507C374.046,593.417,371.622,597.311,366.3,597.311Z" transform="translate(-139.705 -237.927)" style="fill:currentColor"/>
+      <path d="M401.581,562.277c-9.652,0-16.93,8.954-16.93,20.828s7.278,20.828,16.93,20.828,16.929-8.954,16.929-20.828S411.232,562.277,401.581,562.277Zm0,35.034a9.207,9.207,0,0,1-7.827-4.549,18.554,18.554,0,0,1,0-19.313,9.207,9.207,0,0,1,7.827-4.549c6.844,0,10.538,7.319,10.538,14.205S408.425,597.311,401.581,597.311Z" transform="translate(-139.705 -237.927)" style="fill:currentColor"/>
+      <polygon points="315.1 365.196 315.1 325.161 309.053 325.161 309.053 353.682 290.945 325.161 285.032 325.161 285.032 365.196 291.03 365.196 291.03 336.674 309.138 365.196 315.1 365.196" style="fill:currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
 <header>
   <a href="/" class="logo-link">
-    <svg class="logo-svg" viewBox="0 0 315.101 366.006" aria-label="Technocon">
-      <defs>
-        <linearGradient id="g404" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#2DB586"/>
-          <stop offset="100%" stop-color="#228CC2"/>
-        </linearGradient>
-      </defs>
-      <path fill="url(#g404)" d="M157.55 0L0 91.5v183l157.55 91.506L315.101 274.5v-183L157.55 0zm109.09 256.186l-109.09 63.282-109.091-63.282V109.82l109.091-63.282 109.09 63.282v146.366z"/>
-    </svg>
-    <span class="logo-name">Technocon</span>
+    <svg class="logo-svg" viewBox="0 0 315.101 366.006" aria-label="Technocon" style="color:#2DB586"><use href="#tc-mark-gradient"/></svg>
   </a>
   <a href="/" class="back">← Back to site</a>
 </header>
