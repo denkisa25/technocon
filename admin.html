@@ -129,6 +129,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 010 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         Contact
       </a>
+      <a class="nav-link" onclick="showSection('legal')" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Legal
+      </a>
       <p style="font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:#4b5563;font-weight:600;padding:12px 10px 6px">Manage</p>
       <a class="nav-link" onclick="showSection('projects')" href="#">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
@@ -205,6 +209,20 @@
         <div id="aboutPhotoGrid" class="grid grid-cols-2 gap-4"></div>
       </div>
       <div id="aboutGroups"></div>
+    </div>
+
+    <div id="sec-legal" class="section-panel hidden p-8 max-w-3xl">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">Legal</h1>
+          <p class="text-gray-500 text-sm mt-1">Privacy Policy shown in the on-site popup. Changes save immediately.</p>
+        </div>
+        <div class="flex gap-2 bg-white border border-gray-200 rounded-lg p-1">
+          <button onclick="setContentLang('en',this)" class="lang-tab active" data-lang="en">🇬🇧 EN</button>
+          <button onclick="setContentLang('bg',this)" class="lang-tab" data-lang="bg">🇧🇬 BG</button>
+        </div>
+      </div>
+      <div id="legalGroups"></div>
     </div>
 
     <div id="sec-contact" class="section-panel hidden p-8 max-w-3xl">
@@ -418,6 +436,9 @@ const ABOUT_GROUPS = [
   { title:'About — Quality Assurance', keys:['quality.label','quality.title','quality.desc','quality.isos'] },
   { title:'About — Our Team', keys:['team.label','team.title','team.desc','team.strengths'] },
 ];
+const LEGAL_GROUPS = [
+  { title:'Privacy Policy', keys:['privacy.title','privacy.body'] },
+];
 const CONTACT_GROUPS = [
   { title:'Contact — Header', keys:['contact.tag','contact.h2','contact.intro'] },
   { title:'Contact — Form', keys:['contact.form.inquiryto','contact.form.inquiry.technocon','contact.form.inquiry.subver','contact.form.firstname','contact.form.lastname','contact.form.company','contact.form.email','contact.form.message','contact.form.submit'] },
@@ -540,6 +561,7 @@ function renderAllGroups() {
   renderGroups('headerGroups',         HEADER_GROUPS);
   renderGroups('servicesGroups',       SERVICES_GROUPS);
   renderGroups('aboutGroups',          ABOUT_GROUPS);
+  renderGroups('legalGroups',          LEGAL_GROUPS);
   renderGroups('contactGroups',        CONTACT_GROUPS);
   renderGroups('partnerContentGroups', PARTNER_CONTENT_GROUPS);
   renderGroups('projectContentGroups', PROJECT_CONTENT_GROUPS);

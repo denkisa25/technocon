@@ -113,6 +113,8 @@ var CONTENT_DEFAULTS = {
     'contact.web':              'www.techno-con.eu',
     'contact.subver.email2':    '',
     'contact.subver.phone2':    '',
+    'privacy.title':  'Privacy Policy',
+    'privacy.body':   '<h2>1. Who we are</h2><p>This website is operated by <strong>Technocon EOOD</strong>, registered in Bulgaria (ul. Osogovo 51, 1303 Sofia). Contact: <a href="mailto:office@techno-con.eu">office@techno-con.eu</a>.</p><h2>2. What data we collect and why</h2><ul><li><strong>Analytics (Google Analytics 4)</strong> — only if you accept cookies. We collect anonymised usage data. IP addresses are anonymised before storage.</li><li><strong>Contact form</strong> — your name, company, email and message are used only to respond to your enquiry.</li><li><strong>Cookie consent preference</strong> — a cookie (<code>tc_consent</code>) recording your accept/decline choice. Contains no personal data.</li></ul><h2>3. Cookies</h2><ul><li><strong>Essential</strong> — <code>tc_consent</code>: stores your cookie preference. Valid for 1 year.</li><li><strong>Analytics (optional)</strong> — Google Analytics 4 cookies (<code>_ga</code>, <code>_ga_*</code>): set only after you accept. Valid for up to 2 years.</li></ul><p>You can withdraw consent at any time by clearing your browser cookies.</p><h2>4. Legal basis (GDPR)</h2><ul><li>Analytics cookies: <strong>Consent</strong> (Art. 6(1)(a) GDPR)</li><li>Contact form: <strong>Legitimate interest</strong> (Art. 6(1)(f) GDPR)</li></ul><h2>5. Data sharing</h2><p>We do not sell or share your personal data. Analytics data is processed by Google LLC under a data processing agreement with IP anonymisation enabled.</p><h2>6. Your rights</h2><p>Under GDPR you have the right to access, correct, delete or restrict processing of your personal data, and to lodge a complaint with the Bulgarian Commission for Personal Data Protection (<a href="https://www.cpdp.bg" target="_blank">cpdp.bg</a>). Contact: <a href="mailto:office@techno-con.eu">office@techno-con.eu</a>.</p>',
   },
   bg: {
     'hero.tag':           'Енергийна и промишлена инфраструктура — България 2026',
@@ -182,6 +184,8 @@ var CONTENT_DEFAULTS = {
     'contact.phone1':     '+359 88 9627304',
     'contact.phone2':     '+359 88 8304414',
     'contact.web':        'www.techno-con.eu',
+    'privacy.title':  'Политика за поверителност',
+    'privacy.body':   '<h2>1. Кои сме ние</h2><p>Този уебсайт се управлява от <strong>Техноcon ЕООД</strong>, регистрирано в България (ул. Осогово 51, 1303 София). Контакт: <a href="mailto:office@techno-con.eu">office@techno-con.eu</a>.</p><h2>2. Какви данни събираме и защо</h2><ul><li><strong>Анализ (Google Analytics 4)</strong> — само при приемане на бисквитки. Събираме анонимизирани данни за ползване. IP адресите се анонимизират преди съхранение.</li><li><strong>Форма за контакт</strong> — вашето име, компания, имейл и съобщение се използват само за отговор на запитването.</li><li><strong>Предпочитание за бисквитки</strong> — бисквитка (<code>tc_consent</code>), записваща вашия избор. Не съдържа лични данни.</li></ul><h2>3. Бисквитки</h2><ul><li><strong>Задължителни</strong> — <code>tc_consent</code>: съхранява предпочитанието. Валидна 1 година.</li><li><strong>Аналитични (по избор)</strong> — Google Analytics 4 бисквитки (<code>_ga</code>, <code>_ga_*</code>): задават се само при приемане. Валидни до 2 години.</li></ul><h2>4. Правно основание (GDPR)</h2><ul><li>Аналитични бисквитки: <strong>Съгласие</strong> (чл. 6(1)(а) GDPR)</li><li>Форма за контакт: <strong>Легитимен интерес</strong> (чл. 6(1)(е) GDPR)</li></ul><h2>5. Споделяне на данни</h2><p>Не продаваме и не споделяме лични данни. Аналитичните данни се обработват от Google LLC при активирана анонимизация на IP.</p><h2>6. Вашите права</h2><p>По силата на GDPR имате право на достъп, коригиране, изтриване или ограничаване на обработката на личните ви данни. Контакт: <a href="mailto:office@techno-con.eu">office@techno-con.eu</a>.</p>',
   }
 };
 
@@ -424,7 +428,8 @@ app.get('/api/content/all', requireAdmin, function(req, res) {
   var rows = [];
   ['en','bg'].forEach(function(lang) {
     Object.keys(content[lang] || {}).forEach(function(key) {
-      rows.push({ key: key, lang: lang, value: content[lang][key], label: key, type: 'text' });
+      var type = key.endsWith('.body') ? 'textarea' : 'text';
+      rows.push({ key: key, lang: lang, value: content[lang][key], label: key, type: type });
     });
   });
   res.json(rows);
