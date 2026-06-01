@@ -2,6 +2,9 @@ node_modules/
 temporary screenshots/
 package-lock.json
 data/users.json
+data/content.json
+data/projects.json
+data/partners.json
 video/node_modules/
 video/out/
 video/.cache/
