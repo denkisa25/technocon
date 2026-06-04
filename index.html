@@ -13,9 +13,10 @@ gtag('consent','default',{
   ad_storage:'denied',
   ad_user_data:'denied',
   ad_personalization:'denied',
-  wait_for_update:500
+  wait_for_update:2000
 });
 gtag('js', new Date());
+gtag('config','G-T64M6NZD2Z');
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T64M6NZD2Z"></script>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -2136,14 +2137,12 @@ function tcSetCookie(name, val) {
   document.cookie = name + '=' + val + ';path=/;expires=' + d.toUTCString() + ';SameSite=Lax';
 }
 function tcUpdateConsent(granted) {
-  var state = granted ? 'granted' : 'denied';
   gtag('consent', 'update', {
-    analytics_storage: state,
+    analytics_storage: granted ? 'granted' : 'denied',
     ad_storage: 'denied',
     ad_user_data: 'denied',
     ad_personalization: 'denied'
   });
-  gtag('config', 'G-T64M6NZD2Z');
 }
 function tcConsent(choice) {
   tcSetCookie('tc_consent', choice);
