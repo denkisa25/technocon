@@ -2158,6 +2158,15 @@ function tcConsent(choice) {
   if (consent) { tcUpdateConsent(consent === 'accept'); return; }
   document.getElementById('cookie-banner').style.display = 'flex';
 })();
+// Consent-free server-side visit counter — unique daily visitor (one count per device per day)
+(function() {
+  var today = new Date().toISOString().slice(0, 10);
+  var last = localStorage.getItem('tc_visit_date');
+  if (last === today) return;
+  var returning = !!last;
+  localStorage.setItem('tc_visit_date', today);
+  try { fetch('/api/visit', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ ref: document.referrer, returning: returning }) }); } catch(e) {}
+})();
 </script>
 </body>
 </html>

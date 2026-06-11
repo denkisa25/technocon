@@ -23,6 +23,7 @@ const FILES = {
   content:  path.join(DATA, 'content.json'),
   projects: path.join(DATA, 'projects.json'),
   partners: path.join(DATA, 'partners.json'),
+  visits:   path.join(DATA, 'visits.json'),
 };
 
 function readJSON(file, fallback) {
@@ -774,6 +775,69 @@ app.delete('/api/about-images/:slot', requireAdmin, function(req, res) {
     content.about_images[idx].filename = def ? def.filename : '';
   }
   writeJSON(FILES.content, content);
+  res.json({ ok: true });
+});
+
+// ── Visitors ───────────────────────────────────────────────────────────
+var BOT_RE = /bot|crawler|spider|slurp|facebookexternalhit|semrush|ahrefsbot|mj12bot|dotbot|baiduspider|yandex|duckduckbot|twitterbot|linkedinbot|whatsapp/i;
+
+app.post('/api/visit', function(req, res) {
+  var ua = req.headers['user-agent'] || '';
+  if (BOT_RE.test(ua)) return res.json({ ok: true });
+  var data = readJSON(FILES.visits, { visits: [] });
+  var now = new Date();
+  data.visits.push({ ts: now.toISOString(), ref: (req.body && req.body.ref) || '', ret: !!(req.body && req.body.returning) });
+  // Prune entries older than 90 days
+  var cutoff = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000).toISOString();
+  data.visits = data.visits.filter(function(v) { return v.ts >= cutoff; });
+  writeJSON(FILES.visits, data);
+  res.json({ ok: true });
+});
+
+app.get('/api/visits/stats', requireAdmin, function(req, res) {
+  var data = readJSON(FILES.visits, { visits: [] });
+  var visits = data.visits || [];
+  var now = new Date();
+  var todayStr = now.toISOString().slice(0, 10);
+  var dow = now.getDay();
+  var weekStart = new Date(now);
+  weekStart.setDate(weekStart.getDate() - ((dow + 6) % 7));
+  weekStart.setHours(0, 0, 0, 0);
+  var monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  var total = visits.length, today = 0, thisWeek = 0, thisMonth = 0, returning = 0;
+  var dailyMap = {};
+  visits.forEach(function(v) {
+    var d = v.ts.slice(0, 10);
+    if (d === todayStr) today++;
+    if (new Date(v.ts) >= weekStart) thisWeek++;
+    if (new Date(v.ts) >= monthStart) thisMonth++;
+    if (v.ret) returning++;
+    dailyMap[d] = (dailyMap[d] || 0) + 1;
+  });
+  var days = [];
+  for (var i = 29; i >= 0; i--) {
+    var dt = new Date(now);
+    dt.setDate(dt.getDate() - i);
+    var ds = dt.toISOString().slice(0, 10);
+    days.push({ date: ds, count: dailyMap[ds] || 0 });
+  }
+  var refMap = {};
+  visits.forEach(function(v) {
+    var domain = 'Direct';
+    if (v.ref) {
+      try { domain = new URL(v.ref).hostname.replace(/^www\./, ''); } catch(e) {}
+    }
+    refMap[domain] = (refMap[domain] || 0) + 1;
+  });
+  var referrers = Object.keys(refMap)
+    .map(function(k) { return { source: k, count: refMap[k] }; })
+    .sort(function(a, b) { return b.count - a.count; })
+    .slice(0, 10);
+  res.json({ total: total, today: today, thisWeek: thisWeek, thisMonth: thisMonth, returning: returning, days: days, referrers: referrers });
+});
+
+app.delete('/api/visits/reset', requireAdmin, function(req, res) {
+  writeJSON(FILES.visits, { visits: [] });
   res.json({ ok: true });
 });
 

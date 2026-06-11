@@ -5,6 +5,7 @@ data/users.json
 data/content.json
 data/projects.json
 data/partners.json
+data/visits.json
 video/node_modules/
 video/out/
 video/.cache/

@@ -142,6 +142,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
         Partners
       </a>
+      <a class="nav-link" onclick="showSection('visitors')" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="18" y="3" width="4" height="18" rx="1"/><rect x="10" y="8" width="4" height="13" rx="1"/><rect x="2" y="13" width="4" height="8" rx="1"/></svg>
+        Visitors
+      </a>
       <a class="nav-link" onclick="showSection('settings')" href="#">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
         Settings
@@ -303,6 +307,63 @@
         </div>
       </div>
       <div id="partnersList" class="space-y-3"></div>
+    </div>
+
+    <!-- Visitors Section -->
+    <div id="sec-visitors" class="section-panel hidden p-8 max-w-3xl">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">Visitors</h1>
+          <p class="text-gray-500 text-sm mt-1">Server-side visit counter — consent-free, no GA4 dependency.</p>
+        </div>
+        <button onclick="resetVisits()" class="text-xs text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1.5">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+          Reset data
+        </button>
+      </div>
+      <div class="grid grid-cols-5 gap-4 mb-8">
+        <div class="bg-white rounded-xl border border-gray-200 p-5">
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Total</p>
+          <p id="vs-total" class="text-3xl font-bold text-gray-900">—</p>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 p-5">
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Today</p>
+          <p id="vs-today" class="text-3xl font-bold text-gray-900">—</p>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 p-5">
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">This Week</p>
+          <p id="vs-week" class="text-3xl font-bold text-gray-900">—</p>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 p-5">
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">This Month</p>
+          <p id="vs-month" class="text-3xl font-bold text-gray-900">—</p>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-200 p-5">
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Returning</p>
+          <p id="vs-returning" class="text-3xl font-bold text-gray-900">—</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">Last 30 Days</p>
+        <div id="vs-chart" class="flex items-end gap-px" style="height:100px"></div>
+        <div id="vs-chart-labels" class="flex gap-px mt-1.5"></div>
+      </div>
+      <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">Top Referral Sources</p>
+        <div id="vs-referrers">
+          <p class="text-sm text-gray-400">No data yet.</p>
+        </div>
+      </div>
+
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
+        <div class="flex items-start gap-3">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0089cf" stroke-width="2" class="flex-shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div>
+            <p class="text-sm font-semibold text-blue-900 mb-1">cPanel Log Analytics (AWStats / Webalizer)</p>
+            <p class="text-xs text-blue-700 leading-relaxed">For deeper traffic analysis — bandwidth, country, browser breakdown — enable AWStats or Webalizer in your cPanel dashboard. Go to: <strong>cPanel → Metrics → Visitors</strong> (AWStats) or <strong>Analog Stats</strong>. These tools read Apache/LiteSpeed access logs directly — no JavaScript or consent required.</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Settings Section -->
@@ -495,6 +556,7 @@ function showSection(name) {
   if (name === 'projects') loadProjects();
   if (name === 'partners') loadPartners();
   if (name === 'about') loadAboutPhotos();
+  if (name === 'visitors') loadVisitorStats();
 }
 
 // ── About Photos ──────────────────────────────────────────────────────
@@ -1180,6 +1242,58 @@ function escAttr(s)  { return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#3
 function downloadBackup(e) {
   e.preventDefault();
   window.location.href = BASE + '/api/backup';
+}
+
+// ── Visitors ──────────────────────────────────────────────────────────
+async function loadVisitorStats() {
+  const d = await api('GET', '/api/visits/stats');
+  if (d.error) return;
+  document.getElementById('vs-total').textContent = d.total.toLocaleString();
+  document.getElementById('vs-today').textContent = d.today.toLocaleString();
+  document.getElementById('vs-week').textContent = d.thisWeek.toLocaleString();
+  document.getElementById('vs-month').textContent = d.thisMonth.toLocaleString();
+  document.getElementById('vs-returning').textContent = d.returning.toLocaleString();
+  renderVisitorChart(d.days);
+  renderReferrers(d.referrers);
+}
+
+function renderVisitorChart(days) {
+  const max = Math.max(...days.map(d => d.count), 1);
+  const chart = document.getElementById('vs-chart');
+  const labels = document.getElementById('vs-chart-labels');
+  chart.innerHTML = '';
+  labels.innerHTML = '';
+  days.forEach(function(d, i) {
+    const pct = Math.max((d.count / max) * 100, d.count ? 3 : 1);
+    const bar = document.createElement('div');
+    bar.style.cssText = 'flex:1;background:#0089cf;border-radius:2px 2px 0 0;height:' + pct + '%;opacity:' + (d.count ? '1' : '0.12') + ';cursor:default;';
+    bar.title = d.date + ': ' + d.count + ' visit' + (d.count !== 1 ? 's' : '');
+    chart.appendChild(bar);
+    const lbl = document.createElement('div');
+    lbl.style.cssText = 'flex:1;text-align:center;font-size:.5rem;color:#9ca3af;overflow:hidden;';
+    lbl.textContent = (i % 5 === 0) ? d.date.slice(5) : '';
+    labels.appendChild(lbl);
+  });
+}
+
+function renderReferrers(referrers) {
+  const el = document.getElementById('vs-referrers');
+  if (!referrers || !referrers.length) { el.innerHTML = '<p class="text-sm text-gray-400">No data yet.</p>'; return; }
+  const max = referrers[0].count;
+  el.innerHTML = referrers.map(function(r) {
+    const pct = Math.round((r.count / max) * 100);
+    return '<div class="flex items-center gap-3 mb-2">' +
+      '<div class="w-32 text-sm text-gray-700 truncate flex-shrink-0" title="' + r.source + '">' + r.source + '</div>' +
+      '<div class="flex-1 bg-gray-100 rounded-full h-2"><div class="bg-[#0089cf] h-2 rounded-full" style="width:' + pct + '%"></div></div>' +
+      '<div class="w-8 text-xs text-gray-500 text-right flex-shrink-0">' + r.count + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+async function resetVisits() {
+  if (!confirm('Reset all visitor data? This cannot be undone.')) return;
+  const d = await api('DELETE', '/api/visits/reset');
+  if (d.ok) { toast('Visitor data reset', 'success'); loadVisitorStats(); }
 }
 </script>
 </body>
