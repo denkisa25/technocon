@@ -440,7 +440,15 @@ app.get('/sitemap.xml',   function(req, res) { res.type('application/xml').sendF
 app.get('/llms.txt',      function(req, res) { res.sendFile(path.join(ROOT, 'llms.txt')); });
 app.get('/privacy-policy',function(req, res) { res.sendFile(path.join(ROOT, 'privacy.html')); });
 app.get('/admin',         function(req, res) { res.sendFile(path.join(ROOT, 'admin.html')); });
-app.get('/',              function(req, res) { res.sendFile(path.join(ROOT, 'index.html')); });
+app.get('/', function(req, res) {
+  if (req.query.lang === 'bg') {
+    var html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+    var modified = html
+      .replace('<link rel="canonical" href="https://www.techno-con.eu/">', '<link rel="canonical" href="https://www.techno-con.eu/?lang=bg">');
+    return res.type('text/html').send(modified);
+  }
+  res.sendFile(path.join(ROOT, 'index.html'));
+});
 
 // ── Auth ───────────────────────────────────────────────────────────────
 app.post('/api/auth/login', function(req, res) {
