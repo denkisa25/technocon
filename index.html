@@ -172,7 +172,7 @@ nav a:hover::after,nav a.active::after,.nav-dropdown:hover>button::after{left:1r
 
 /* ── HERO ── */
 #hero{
-  height:100vh;min-height:620px;
+  height:100vh;height:100dvh;min-height:620px;
   position:relative;display:flex;flex-direction:column;
   padding:130px 60px 80px;
   overflow:hidden;
@@ -335,7 +335,7 @@ a.nav-subver::after{background:var(--tc-gradient-h)!important}
 /* ── PARTNERS ── */
 #partners{background:var(--surface);padding-top:96px;padding-bottom:0;border-bottom:0.5px solid var(--tc-rule)}
 .partners-strip{background:#ffffff;padding:52px 0}
-.partners-marquee-outer{position:relative;overflow:hidden;touch-action:none}
+.partners-marquee-outer{position:relative;overflow:hidden;touch-action:pan-y}
 .partners-marquee-outer::before,.partners-marquee-outer::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none}
 .partners-marquee-outer::before{left:0;background:linear-gradient(to right,#ffffff,transparent)}
 .partners-marquee-outer::after{right:0;background:linear-gradient(to left,#ffffff,transparent)}
