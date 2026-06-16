@@ -1418,7 +1418,7 @@ a.footer-subver-link:hover{opacity:.8;color:transparent!important}
   <div class="footer-bottom">
     <span data-ck="footer.legal">© 2026 Technocon EOOD — Energy &amp; Industrial Infrastructure, Sofia, Bulgaria.</span>
     <span style="display:flex;gap:20px;align-items:center">
-      <a href="#" onclick="openPrivacyModal();return false" style="color:inherit;opacity:.6;font-size:12px;text-decoration:none;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6">Privacy Policy</a>
+      <a href="#" onclick="openPrivacyModal();return false" style="color:inherit;opacity:.6;font-size:12px;text-decoration:none;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6" data-ck="footer.privacy">Privacy Policy</a>
       <span>Document 0001 / 0024</span>
     </span>
   </div>
@@ -1516,6 +1516,7 @@ const PROJECTS_STATIC = {
 };
 
 let currentLang = 'en';
+let FORM_LABELS = { sending: 'Sending…', sent: 'Message Sent ✓', error: 'Error — try again' };
 let CMS_PROJECTS = Object.assign({}, PROJECTS_STATIC);
 let CMS_PARTNERS = null;
 
@@ -1612,15 +1613,25 @@ async function fetchCMS(lang) {
       if (val !== undefined) el.placeholder = val;
     });
     CMS_PROJECTS = {};
-    const statusLabel = { ongoing: { en:'Ongoing', bg:'Текущо' }, completed: { en:'Completed', bg:'Завършено' } };
+    const statusLabel = { ongoing: content['projects.status.ongoing'] || 'Ongoing', completed: content['projects.status.completed'] || 'Completed' };
+    const scopeLabel  = content['projects.label.scope'] || 'Scope of Works';
+    const lClient     = content['projects.label.client'] || 'Client';
+    const lPeriod     = content['projects.label.period'] || 'Period';
+    const lValue      = content['projects.label.contract_value'] || 'Contract Value';
+    const lLocation   = content['projects.label.location'] || 'Location';
+    FORM_LABELS = {
+      sending: content['contact.form.sending'] || 'Sending…',
+      sent:    content['contact.form.sent']    || 'Message Sent ✓',
+      error:   content['contact.form.error']   || 'Error — try again',
+    };
     projList.forEach(p => {
       const scope = Array.isArray(p.scope) ? p.scope : (JSON.parse(p.scope || '[]'));
       const meta = [];
-      if (p.client)         meta.push(['Client', p.client]);
-      if (p.period)         meta.push(['Period', p.period]);
-      if (p.contract_value) meta.push(['Contract Value', p.contract_value]);
-      if (p.location)       meta.push(['Location', p.location]);
-      CMS_PROJECTS[p.key] = { badge: p.badge, status: (statusLabel[p.badge] || {})[lang] || p.badge, title: p.title, imgs: (p.images || []).map(img => img.filename), meta, desc: p.description, short_desc: p.short_desc, scope };
+      if (p.client)         meta.push([lClient, p.client]);
+      if (p.period)         meta.push([lPeriod, p.period]);
+      if (p.contract_value) meta.push([lValue, p.contract_value]);
+      if (p.location)       meta.push([lLocation, p.location]);
+      CMS_PROJECTS[p.key] = { badge: p.badge, status: statusLabel[p.badge] || p.badge, title: p.title, imgs: (p.images || []).map(img => img.filename), meta, desc: p.description, short_desc: p.short_desc, scope, scopeLabel };
     });
     projList.forEach(p => {
       const card = document.querySelector(`.proj-card-g[data-proj="${p.key}"]`);
@@ -1629,8 +1640,10 @@ async function fetchCMS(lang) {
       const clientEl    = card.querySelector('.proj-card-g-client');
       const descEl      = card.querySelector('.proj-card-g-desc');
       const imgEl       = card.querySelector('img');
+      const badgeEl     = card.querySelector('.proj-badge');
       if (titleEl && p.title)      titleEl.textContent = p.title;
       if (clientEl && p.client)    clientEl.textContent = p.client;
+      if (badgeEl)                 badgeEl.textContent = statusLabel[p.badge] || p.badge;
       if (descEl && p.short_desc)  descEl.textContent = p.short_desc;
       if (imgEl && p.images?.length) { const thumb = p.images.find(i => i.is_main) || p.images[0]; if (thumb) imgEl.src = thumb.filename; }
     });
@@ -1729,7 +1742,7 @@ function buildDetailHTML(id) {
   const metaHtml = p.meta.map(([l,v]) => `<div class="proj-meta-item"><label>${l}</label><span>${v}</span></div>`).join('');
   const scopeHtml = p.scope.map(s => `<li>${s}</li>`).join('');
   const expandIcon = `<div class="proj-lb-hint"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1 6V1h5M10 1h5v5M15 10v5h-5M6 15H1v-5"/></svg></div>`;
-  return `<div class="proj-detail-inner"><div><div class="proj-carousel" id="active-carousel"><div class="proj-carousel-track" id="active-track">${imgsHtml}</div><button class="carousel-btn carousel-prev" onclick="carouselPrev();event.stopPropagation()">&#8592;</button><button class="carousel-btn carousel-next" onclick="carouselNext();event.stopPropagation()">&#8594;</button><div class="carousel-dots" id="active-dots">${dotsHtml}</div>${expandIcon}</div><div class="carousel-thumbs" id="active-thumbs">${thumbsHtml}</div></div><div class="proj-detail-text"><span class="proj-badge badge-${p.badge}">${p.status}</span><h3 class="proj-detail-title">${p.title}</h3><div class="proj-meta-grid">${metaHtml}</div><p class="proj-desc">${p.desc}</p><p class="proj-scope-h">Scope of Works</p><ul class="proj-scope">${scopeHtml}</ul></div></div>`;
+  return `<div class="proj-detail-inner"><div><div class="proj-carousel" id="active-carousel"><div class="proj-carousel-track" id="active-track">${imgsHtml}</div><button class="carousel-btn carousel-prev" onclick="carouselPrev();event.stopPropagation()">&#8592;</button><button class="carousel-btn carousel-next" onclick="carouselNext();event.stopPropagation()">&#8594;</button><div class="carousel-dots" id="active-dots">${dotsHtml}</div>${expandIcon}</div><div class="carousel-thumbs" id="active-thumbs">${thumbsHtml}</div></div><div class="proj-detail-text"><span class="proj-badge badge-${p.badge}">${p.status}</span><h3 class="proj-detail-title">${p.title}</h3><div class="proj-meta-grid">${metaHtml}</div><p class="proj-desc">${p.desc}</p><p class="proj-scope-h">${p.scopeLabel || 'Scope of Works'}</p><ul class="proj-scope">${scopeHtml}</ul></div></div>`;
 }
 function toggleProject(id, card) {
   const row = card.closest('.proj-row');
@@ -1789,14 +1802,16 @@ function submitForm(e) {
 
   if (!valid) return;
 
-  btn.disabled = true; btn.querySelector('span').textContent = 'Sending…';
+  const btnSpan = btn.querySelector('span');
+  const originalLabel = btnSpan.textContent;
+  btn.disabled = true; btnSpan.textContent = FORM_LABELS.sending;
   fetch(API_BASE + '/api/contact', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(v) })
     .then(r => r.json())
     .then(res => {
-      if (res.ok) { btn.querySelector('span').textContent = 'Message Sent ✓'; form.reset(); setTimeout(() => { btn.querySelector('span').textContent = 'Send Message'; btn.disabled = false; }, 4000); }
-      else { btn.querySelector('span').textContent = 'Error — try again'; btn.disabled = false; }
+      if (res.ok) { btnSpan.textContent = FORM_LABELS.sent; form.reset(); setTimeout(() => { btnSpan.textContent = originalLabel; btn.disabled = false; }, 4000); }
+      else { btnSpan.textContent = FORM_LABELS.error; btn.disabled = false; }
     })
-    .catch(() => { btn.querySelector('span').textContent = 'Error — try again'; btn.disabled = false; });
+    .catch(() => { btnSpan.textContent = FORM_LABELS.error; btn.disabled = false; });
 }
 
 // ── Active nav
